@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('multilayerclient App', () => {
+describe('maponion App', () => {
   let page: AppPage;
 
   beforeEach(() => {
