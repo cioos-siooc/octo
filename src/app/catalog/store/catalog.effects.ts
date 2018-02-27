@@ -20,11 +20,7 @@ export class CatalogEffects {
         .ofType(CatalogActions.FETCH_TOPIC_GROUP)
         .switchMap((action: CatalogActions.FetchTopicGroup) => {
             return this.httpClient.get<TopicGroup>(
-                'http://localhost:8079/mapapi/api/'.concat('topic-groups/', String(action.payload)),
-            {
-                observe: 'body',
-                responseType: 'json'
-            })
+                'http://localhost:8079/mapapi/api/'.concat('topic-groups/', String(action.payload)), {})
         })
         .mergeMap(
             (topicGroup) => [
@@ -40,11 +36,7 @@ export class CatalogEffects {
         .ofType(CatalogActions.FETCH_TOPIC)
         .mergeMap((action: CatalogActions.FetchTopic) => {
             return this.httpClient.get<Topic>(
-                'http://localhost:8079/mapapi/api/'.concat('topics/', String(action.payload)),
-            {
-                observe: 'body',
-                responseType: 'json'
-            })
+                'http://localhost:8079/mapapi/api/'.concat('topics/', String(action.payload)), {})
         })
         .map(
             (topic) => {

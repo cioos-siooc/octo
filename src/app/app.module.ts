@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { MapComponent } from './map/map.component';
 import { OpenLayersComponent } from './map/open-layers/open-layers.component';
 import { PopupComponent } from './popup/popup.component';
+import { AppRoutingModule } from './/app-routing.module';
 
 
 
@@ -34,7 +35,8 @@ import { PopupComponent } from './popup/popup.component';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
-    })
+    }),
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
