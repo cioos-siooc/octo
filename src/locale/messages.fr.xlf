@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="slgoLogo" datatype="html">
+        <source>https://ogsl.ca/conditions/images/SLGO.png</source>
+        <target>https://ogsl.ca/conditions/images/OGSL.png</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/header/header.component.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
