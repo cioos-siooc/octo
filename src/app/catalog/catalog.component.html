@@ -1,3 +1,9 @@
-<p>
-  catalog works!
-</p>
+<div>
+  <h5>{{ ( catalogState | async ).topicGroup.name }}</h5>
+  <div>
+    <div class="card" *ngFor="let topic of (catalogState | async).topics; let i = index">
+      <div class="card-header" (click)="onClickHeader(i, topic)">{{ topic.code }}</div>
+      <div class="card-body" *ngIf="topic.expanded">{{ topic.expanded }}</div>
+    </div>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromCatalog from './store/catalog.reducer';
 import * as catalogActions from './store/catalog.actions';
+import { Topic } from '../shared/topic.model';
 
 @Component({
   selector: 'app-catalog',
@@ -22,4 +23,10 @@ export class CatalogComponent implements OnInit {
     this.store.dispatch(new catalogActions.FetchTopicGroup(8));
   }
 
+  onClickHeader(id: number, topic: Topic) {
+    this.store.dispatch(new catalogActions.SetTopicExpanded({
+      topicId: id,
+      expanded: !topic.expanded 
+    }));
+  }
 }

@@ -1,7 +1,10 @@
 import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/withLatestFrom';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,10 +13,15 @@ import { Actions, Effect } from '@ngrx/effects';
 import { TopicGroup } from '../../shared/topic-group.model';
 import { Topic } from '../../shared/topic.model';
 import * as CatalogActions from './catalog.actions';
+import { AppState } from '../../store/app.reducers';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Rx';
+import { TopicHierarchy } from '../../shared/topic-hierarchy.model';
+import { Category } from '../../shared/category.model';
 
 @Injectable()
 export class CatalogEffects {
-    constructor(private actions$: Actions, private httpClient: HttpClient) {}
+    constructor(private actions$: Actions, private store$: Store<AppState>, private httpClient: HttpClient) {}
 
     @Effect()
     loadTopicGroup = this.actions$
@@ -34,17 +42,54 @@ export class CatalogEffects {
     @Effect()
     loadTopic = this.actions$
         .ofType(CatalogActions.FETCH_TOPIC)
-        .mergeMap((action: CatalogActions.FetchTopic) => {
+        .concatMap((action: CatalogActions.FetchTopic) => {
             return this.httpClient.get<Topic>(
                 'http://localhost:8079/mapapi/api/'.concat('topics/', String(action.payload)), {})
         })
         .map(
             (topic) => {
-                console.log(topic);
+                topic.expanded = false;
                 return {
                     type: CatalogActions.APPEND_TOPIC,
                     payload: topic
                 }
+            }
+        );
+    
+    @Effect()
+    loadCategory = this.actions$
+        .ofType(CatalogActions.SET_TOPIC_EXPANDED)
+        .map((action: CatalogActions.SetTopicExpanded) => action.payload)
+        .withLatestFrom(this.store$.select('catalog'))
+        .switchMap(([payload, store]) => {
+            const isLoaded = Boolean(store.topics[payload.topicId].categories);
+            let obs;
+            if (isLoaded) {
+                obs = Observable.of({type: "NO_ACTION"});
+            } else {
+                const topicId = store.topics[payload.topicId].id;
+                obs = Observable.of(new CatalogActions.FetchCategoryHierarchy(payload.topicId));
+            }
+            return obs;
+        });
+
+    @Effect()
+    loadCategoryHierarchy = this.actions$
+        .ofType(CatalogActions.FETCH_CATEGORY_HIERARCHY)
+        .map((action: CatalogActions.FetchCategoryHierarchy) => action.payload)
+        .withLatestFrom(this.store$.select('catalog'))
+        .concatMap(([payload, store]) => {
+            const topicId = store.topics[payload].id;
+            return this.httpClient.get<TopicHierarchy>(
+                'http://localhost:8079/mapapi/api/'.concat('topics/', String(topicId), '/getTopicHierarchy'), {})
+        })
+        .map(
+            (topicHierarchy) => {
+                const categories: Category[] = topicHierarchy.root;
+                return {
+                    type: CatalogActions.SET_CATEGORIES,
+                    payload: {topicId: topicHierarchy.id, categories: categories}
+                };
             }
         );
 }
