@@ -9,12 +9,13 @@ import { environment } from '../environments/environment.prod';
 import { AppComponent } from './app.component';
 import { CatalogComponent } from './catalog/catalog.component';
 import { CatalogEffects } from './catalog/store/catalog.effects';
-import { catalogReducer } from './catalog/store/catalog.reducer';
 import { HeaderComponent } from './header/header.component';
 import { MapComponent } from './map/map.component';
 import { OpenLayersComponent } from './map/open-layers/open-layers.component';
 import { PopupComponent } from './popup/popup.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
+import {reducers} from "./store/app.reducers";
+import {LayerEffects} from "./map/store/layer.effects";
 
 
 
@@ -30,8 +31,8 @@ import { AppRoutingModule } from './/app-routing.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    StoreModule.forRoot({catalog: catalogReducer}),
-    EffectsModule.forRoot([CatalogEffects]),
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([LayerEffects,CatalogEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
