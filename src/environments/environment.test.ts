@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  mapapiUrl: 'https://ogsl.ca/mapapi/api'
+  mapapiUrl: 'https://test-www.ogsl.ca/mapapi/api'
 };

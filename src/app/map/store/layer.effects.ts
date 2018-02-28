@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http"
 import {Injectable} from "@angular/core";
 import * as layerActions from "./layer.actions"
 import {Layer} from "../../shared/layer.model";
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class LayerEffects {
@@ -13,7 +14,7 @@ export class LayerEffects {
   recipeFetch = this.actions$
   .ofType(layerActions.FETCH_LAYER)
   .mergeMap((action: layerActions.FetchLayer) => {
-    return this.httpClient.get<Layer>(`http://132.215.33.56:8080/mapapi/api/layers/${action.payload}`)
+    return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload}`)
   })
   .map(
     (layer) => {

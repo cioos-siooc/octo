@@ -4,5 +4,6 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  mapapiUrl: 'http://132.215.33.56:8080/mapapi/api'
 };
