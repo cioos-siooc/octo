@@ -30,6 +30,34 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
                 ...state,
                 topics: topics
             };
+        case CatalogActions.SET_TOPIC_EXPANDED: 
+            const topic: Topic = {...state.topics[action.payload.topicId]};
+            topic.expanded = action.payload.expanded;
+
+            const oldTopics: Topic[] = [...state.topics]
+            oldTopics[action.payload.topicId] = topic;
+            return {
+                ...state,
+                topics: oldTopics
+            };
+        case CatalogActions.SET_CATEGORIES:
+            let idToUpdate = -1
+            for (var i = 0; i < state.topics.length; i++) {
+                if (state.topics[i].id === action.payload.topicId) {
+                    idToUpdate = i;
+                    break;
+                }
+            }
+            const updatedTopic: Topic = {
+                ...state.topics[idToUpdate],
+                categories: action.payload.categories
+            }
+            const updatedTopics: Topic[] = [...state.topics];
+            updatedTopics[idToUpdate] = updatedTopic;
+            return {
+                ...state,
+                topics: updatedTopics
+            };
         default:
             return state;
     }
