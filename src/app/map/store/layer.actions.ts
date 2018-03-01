@@ -25,7 +25,10 @@ export class DeleteLayer  implements Action {
 
 export class UpdateLayer implements Action {
   readonly type = UPDATE_LAYER;
+
+  constructor(public payload: Layer) {}
 }
+
 
 export type LayerActions =
   FetchLayer |

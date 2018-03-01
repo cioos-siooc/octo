@@ -1,1 +1,4 @@
 <app-open-layers class="fill-area flexbox-item-grow"></app-open-layers>
+<select  [(ngModel)]="currentBaseLayer" (change)="onSelectBaseLayer()" [compareWith]="compareBaseLayers" class="mapSelectStyle">
+  <option *ngFor="let baseLayer of (layerState | async).baseLayers" [ngValue]="baseLayer">{{baseLayer.title}}</option>
+</select>
