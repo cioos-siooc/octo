@@ -1,10 +1,34 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import * as fromApp from './store/app.reducers';
+import {Layer} from "./shared/layer.model";
+import {environment} from "../environments/environment";
+import {HttpClient} from '@angular/common/http';
+import {Store} from '@ngrx/store';
+import * as baseLayerActions from './map/store/base-layer.actions'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
+  title = 'Maponion';
+
+  constructor(private httpClient: HttpClient, private store: Store<fromApp.AppState>) {
+  }
+
+  ngOnInit(): void {
+    this.initBaseLayers();
+  }
+
+  private initBaseLayers() {
+    for (let id of environment.backgroundLayerIds) {
+      this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${id}`).subscribe((layer: Layer) => {
+        this.store.dispatch(new baseLayerActions.AddBaseLayer(layer));
+        if (layer.code === 'bing.aerial') {
+          this.store.dispatch(new baseLayerActions.SetCurrentBaseLayer(layer));
+        }
+      });
+    }
+  }
 }

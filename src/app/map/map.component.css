@@ -1,0 +1,9 @@
+.mapSelectStyle {
+  position: absolute;
+  bottom: 25px;
+  left: 10px;
+  font-family: 'Muli', sans-serif;
+  letter-spacing: 1px;
+  color: #000;
+  text-align: center;
+}
