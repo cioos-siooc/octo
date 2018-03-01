@@ -1,0 +1,6 @@
+<li *ngFor="let category of categories; let i = index">
+  <span (click)="onClickCategory(category, treeLocation.concat([i]))">{{category.label}}</span>
+  <ul *ngIf="category.isExpanded">
+      <app-category [categories]="category.categories" [treeLocation]="treeLocation + [i]"></app-category>
+  </ul>
+</li>

@@ -11,6 +11,7 @@ export const APPEND_TOPIC = 'APPEND_TOPIC';
 export const SET_TOPIC_EXPANDED = 'SET_TOPIC_EXPANDED';
 export const FETCH_CATEGORY_HIERARCHY = 'FETCH_CATEGORY_HIERARCHY';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
+export const SET_CATEGORY_EXPANDED = 'SET_CATEGORY_EXPANDED';
 
 export class FetchTopicGroup implements Action {
     readonly type = FETCH_TOPIC_GROUP;
@@ -54,7 +55,13 @@ export class FetchCategoryHierarchy implements Action {
 export class SetCategories implements Action {
     readonly type = SET_CATEGORIES;
 
-    constructor(public payload: {topicId: number, categories: Category[]}) {}
+    constructor(public payload: {topicId: number, category: Category}) {}
+}
+
+export class SetCategoryExpanded implements Action {
+    readonly type = SET_CATEGORY_EXPANDED;
+
+    constructor(public payload: {treeLocation: number[], isExpanded: boolean}) {}
 }
 
 export type CatalogActions = 
@@ -64,4 +71,5 @@ export type CatalogActions =
     AppendTopic |
     SetTopicExpanded |
     FetchCategoryHierarchy |
-    SetCategories; 
+    SetCategories |
+    SetCategoryExpanded; 

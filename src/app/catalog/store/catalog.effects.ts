@@ -62,7 +62,7 @@ export class CatalogEffects {
         .map((action: CatalogActions.SetTopicExpanded) => action.payload)
         .withLatestFrom(this.store$.select('catalog'))
         .switchMap(([payload, store]) => {
-            const isLoaded = Boolean(store.topics[payload.topicId].categories);
+            const isLoaded = Boolean(store.topics[payload.topicId].category);
             let obs;
             if (isLoaded) {
                 obs = Observable.of({type: "NO_ACTION"});
@@ -85,10 +85,10 @@ export class CatalogEffects {
         })
         .map(
             (topicHierarchy) => {
-                const categories: Category[] = topicHierarchy.root;
+                const category: Category = topicHierarchy.root;
                 return {
                     type: CatalogActions.SET_CATEGORIES,
-                    payload: {topicId: topicHierarchy.id, categories: categories}
+                    payload: {topicId: topicHierarchy.id, category: category}
                 };
             }
         );

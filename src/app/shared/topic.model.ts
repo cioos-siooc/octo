@@ -4,7 +4,7 @@ export class Topic {
     constructor(
         public id: number,
         public root: number,
-        public categories: Category[],
+        public category: Category,
         public code: string,
         public languageCode: string,
         public expanded: boolean

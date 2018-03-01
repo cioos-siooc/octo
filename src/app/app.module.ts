@@ -16,6 +16,7 @@ import { PopupComponent } from './popup/popup.component';
 import { AppRoutingModule } from './app-routing.module';
 import {reducers} from "./store/app.reducers";
 import {LayerEffects} from "./map/store/layer.effects";
+import { CategoryComponent } from './catalog/category/category.component';
 
 
 
@@ -26,7 +27,9 @@ import {LayerEffects} from "./map/store/layer.effects";
     OpenLayersComponent,
     HeaderComponent,
     CatalogComponent,
-    PopupComponent
+    PopupComponent,
+    CategoryComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
