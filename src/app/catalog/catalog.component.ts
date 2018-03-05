@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import * as fromCatalog from './store/catalog.reducer';
 import * as catalogActions from './store/catalog.actions';
+import * as layerActions from '../map/store/layer.actions';
 import { Topic } from '../shared/topic.model';
 import { Category } from '../shared/category.model';
 
@@ -33,6 +34,7 @@ export class CatalogComponent implements OnInit {
   onClickCategory(category: Category, treeLocation: number[]) {
     if (category.type === 'layer') {
       // Instantiate a layer
+      this.store.dispatch(new layerActions.FetchLayer(category.layerId));
     } else if(category.categories) {
       this.store.dispatch(new catalogActions.UpdateCategory({
         treeLocation: treeLocation,
