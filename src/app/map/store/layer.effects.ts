@@ -18,7 +18,6 @@ export class LayerEffects {
   })
   .map(
     (layer) => {
-      console.log(layer);
       return {
         type: layerActions.ADD_LAYER,
         payload: layer

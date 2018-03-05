@@ -9,10 +9,9 @@ const initialState: State = {
   layers: [],
 };
 
-export function layerReducer(state = initialState, action: layerActions.LayerActions) : State {
+export function layerReducer(state = initialState, action: layerActions.LayerActions): State {
   switch (action.type) {
     case layerActions.ADD_LAYER:
-      console.log(state);
       return {
         ...state,
         layers: [...state.layers, action.payload]
