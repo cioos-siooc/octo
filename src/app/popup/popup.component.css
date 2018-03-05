@@ -1,0 +1,22 @@
+.popup {
+    /* position: absolute; */
+    width: 25em;
+}
+.popup .topBar {
+    height: 2em;
+    background-color: #343a40;
+    color: white;
+}
+.popup .topBar button {
+    color: white!important;
+}
+.popup .content {
+    height: 25em;
+    /* background-color: cornsilk; */
+    background-color: white;
+    overflow-y: scroll;
+}
+.popup .bottomBar {
+    height: 1.5em;
+    background-color: #343a40;
+}

@@ -2,6 +2,7 @@ import { TopicGroup } from '../../shared/topic-group.model';
 import { Topic } from '../../shared/topic.model';
 import * as CatalogActions from './catalog.actions';
 import Utils from '../utilities/traverse-category.util';
+import { Category } from '../../shared/category.model';
 
 
 export interface AppState {
@@ -59,13 +60,21 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
                 ...state,
                 topics: updatedTopics
             };
-        case CatalogActions.SET_CATEGORY_EXPANDED:
+        case CatalogActions.UPDATE_CATEGORY:
             let treeLoc = [...action.payload.treeLocation];
             let topicId = treeLoc.shift();
             let topicToUpdate: Topic = {...state.topics[topicId]};
-            console.log(Utils.getCategory(topicToUpdate.category, treeLoc));
+            const updatedCategory: Category = Utils.setCategory(
+                topicToUpdate.category, 
+                treeLoc, 
+                action.payload.newCategory
+            );
+            topicToUpdate.category = updatedCategory;
+            let updatedTopicList = [...state.topics];
+            updatedTopicList[topicId] = topicToUpdate;
             return {
-                ...state
+                ...state,
+                topics: updatedTopicList
             };
         default:
             return state;

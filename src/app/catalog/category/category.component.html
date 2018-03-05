@@ -1,6 +1,10 @@
-<li *ngFor="let category of categories; let i = index">
-  <span (click)="onClickCategory(category, treeLocation.concat([i]))">{{category.label}}</span>
-  <ul *ngIf="category.isExpanded">
-      <app-category [categories]="category.categories" [treeLocation]="treeLocation + [i]"></app-category>
-  </ul>
-</li>
+<ul class="list-group">
+  <li (click)="onClickCategory(category, treeLocation)" class="list-group-item"><h6>{{ category.label }}</h6></li>
+  <li class="list-group-item" *ngFor="let cat of category.categories; let i = index">
+    <span *ngIf="!cat.isExpanded">
+      <span (click)="onClickCategory(cat, treeLocation.concat([i]))">{{ cat.label }}</span>
+      <span *ngIf="cat.type != 'layer'" class="badge badge-primary badge-pill float-right">{{ cat.categories.length }}</span>
+    </span>
+    <app-category *ngIf="cat.isExpanded" [category]="cat" [treeLocation]="treeLocation.concat([i])"></app-category>
+  </li>
+</ul>

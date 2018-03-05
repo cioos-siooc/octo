@@ -1,3 +1,13 @@
-<p>
-  popup works!
-</p>
+<div class="popup">
+  <div class="topBar align-middle">
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="bottomBar"></div>
+</div>

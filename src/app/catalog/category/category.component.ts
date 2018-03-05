@@ -11,7 +11,7 @@ import * as catalogActions from '../store/catalog.actions';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  @Input() categories: Category[];
+  @Input() category: Category;
   @Input() treeLocation: number[];
 
   constructor(
@@ -19,12 +19,20 @@ export class CategoryComponent implements OnInit {
 
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   onClickCategory(category: Category, treeLocation: number[]) {
-    this.store.dispatch(new catalogActions.SetCategoryExpanded({
-      treeLocation: treeLocation,
-      isExpanded: !category.isExpanded 
-    }));
+    if (category.type === 'layer') {
+      // Instantiate a layer
+    } else if(category.categories) {
+      this.store.dispatch(new catalogActions.UpdateCategory({
+        treeLocation: treeLocation,
+        newCategory: {
+          ...category,
+          isExpanded: !category.isExpanded
+        }
+      }));
+    }
   }
 }

@@ -18,6 +18,7 @@ import { OpenLayersComponent } from './map/open-layers/open-layers.component';
 import { LayerEffects } from './map/store/layer.effects';
 import { PopupComponent } from './popup/popup.component';
 import { reducers } from './store/app.reducers';
+import { TopicPickerComponent } from './topic-picker/topic-picker.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { reducers } from './store/app.reducers';
     CatalogComponent,
     PopupComponent,
     CategoryComponent,
-    CategoryComponent
+    CategoryComponent,
+    TopicPickerComponent,
   ],
   imports: [
     BrowserModule,

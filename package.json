@@ -29,6 +29,8 @@
     "@ngrx/store": "^5.1.0",
     "@ngrx/store-devtools": "^5.1.0",
     "bootstrap": "^4.0.0",
+    "lodash": "^4.17.5",
+    "npm": "^5.7.1",
     "ol": "^4.6.4",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"

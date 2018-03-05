@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as fromCatalog from './store/catalog.reducer';
 import * as catalogActions from './store/catalog.actions';
 import { Topic } from '../shared/topic.model';
+import { Category } from '../shared/category.model';
 
 @Component({
   selector: 'app-catalog',
@@ -28,5 +29,18 @@ export class CatalogComponent implements OnInit {
       topicId: id,
       expanded: !topic.expanded 
     }));
+  }
+  onClickCategory(category: Category, treeLocation: number[]) {
+    if (category.type === 'layer') {
+      // Instantiate a layer
+    } else if(category.categories) {
+      this.store.dispatch(new catalogActions.UpdateCategory({
+        treeLocation: treeLocation,
+        newCategory: {
+          ...category,
+          isExpanded: !category.isExpanded
+        }
+      }));
+    }
   }
 }

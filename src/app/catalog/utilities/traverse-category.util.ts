@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+
 import { Category } from "../../shared/category.model";
 
 export default class Utils {
@@ -6,11 +8,17 @@ export default class Utils {
         if (treeLocation.length <= 1) {
             return category.categories[treeLoc.shift()];
         } else {
-            return this.getCategory(category.categories[treeLoc.shift()], treeLoc);
+            return this.getCategory(
+                category.categories[treeLoc.shift()],
+                treeLoc
+            );
         }
     }
 
-    static setCategory(startingCategory: Category, treeLocation, newCategory: Category) {
-        
+    static setCategory(startingCategory: Category, treeLocation: number[], newCategory: Category) {
+        let categoryClone = cloneDeep(startingCategory);
+        let categoryToUpdate = this.getCategory(categoryClone, treeLocation);
+        Object.assign(categoryToUpdate, newCategory);
+        return categoryClone;
     }
 } 

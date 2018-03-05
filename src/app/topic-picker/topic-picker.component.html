@@ -1,0 +1,7 @@
+<ul class="list-group">
+  <li class="list-group-item"
+      *ngFor="let topic of (catalogState | async).topics; let i = index">
+    
+    <span (click)="onClickTopic(i, topic)"><h5>{{ topic.code }}</h5></span>
+  </li>
+</ul>
