@@ -1,10 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Category } from '../../shared/category.model';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as fromCatalog from '../store/catalog.reducer';
+import { Category } from '../../shared/category.model';
+import CreateLayer from '../../shared/create-layer.utility';
 import * as catalogActions from '../store/catalog.actions';
-import * as layerActions from '../../map/store/layer.actions';
+import * as fromCatalog from '../store/catalog.reducer';
 
 @Component({
   selector: 'app-category',
@@ -26,7 +26,8 @@ export class CategoryComponent implements OnInit {
   onClickCategory(category: Category, treeLocation: number[]) {
     if (category.type === 'layer') {
       // Instantiate a layer
-      this.store.dispatch(new layerActions.FetchLayer({layerId: category.layerId, uniqueId : 'bullshit'}));
+      // this.store.dispatch(new layerActions.FetchLayer({layerId: category.layerId, uniqueId : 'bullshit'}));
+      CreateLayer.createLayer(category.layerId, this.store);
     } else if(category.categories) {
       this.store.dispatch(new catalogActions.UpdateCategory({
         treeLocation: treeLocation,
