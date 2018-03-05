@@ -26,7 +26,7 @@ export class CategoryComponent implements OnInit {
   onClickCategory(category: Category, treeLocation: number[]) {
     if (category.type === 'layer') {
       // Instantiate a layer
-      this.store.dispatch(new layerActions.FetchLayer(category.layerId));
+      this.store.dispatch(new layerActions.FetchLayer({layerId: category.layerId, uniqueId : 'bullshit'}));
     } else if(category.categories) {
       this.store.dispatch(new catalogActions.UpdateCategory({
         treeLocation: treeLocation,

@@ -10,7 +10,7 @@ export const UPDATE_LAYER = 'UPDATE_LAYER';
 export class FetchLayer implements Action {
   readonly type = FETCH_LAYER;
 
-  constructor(public payload: number) {}
+  constructor(public payload: {layerId: number, uniqueId: string}) {}
 }
 
 export class AddLayer implements Action {

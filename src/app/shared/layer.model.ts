@@ -10,4 +10,5 @@ export abstract class Layer {
   public urlParameters: string;
   public code: string;
   public languageCode: string;
+  public uniqueId: string;
 }

@@ -14,7 +14,12 @@ export class LayerEffects {
   recipeFetch = this.actions$
   .ofType(layerActions.FETCH_LAYER)
   .mergeMap((action: layerActions.FetchLayer) => {
-    return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload}`)
+    return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).map(
+      (layer) => {
+        layer.uniqueId=action.payload.uniqueId;
+        return layer;
+      }
+    )
   })
   .map(
     (layer) => {

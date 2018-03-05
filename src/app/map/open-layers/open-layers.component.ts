@@ -8,7 +8,7 @@ import LayerBase from 'ol/layer/base'
 import * as fromApp from '../../store/app.reducers';
 import * as fromBaseLayer from '../store/base-layer.reducers';
 import {OlLayerFactory} from "./ol-layer-factory.util";
-
+import * as fromLayer from '../store/layer.reducers'
 @Component({
   selector: 'app-open-layers',
   templateUrl: './open-layers.component.html',
@@ -16,7 +16,7 @@ import {OlLayerFactory} from "./ol-layer-factory.util";
 })
 export class OpenLayersComponent implements AfterViewInit {
   map: Map;
-  baseLayer: OLLayer = null;
+  baseOLLayer: OLLayer = null;
 
   constructor(private store: Store<fromApp.AppState>) {
   }
@@ -24,6 +24,7 @@ export class OpenLayersComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
     this.initBaseLayerSubscription();
+    this.initLayerSubscription();
   }
 
   private initMap() {
@@ -42,12 +43,12 @@ export class OpenLayersComponent implements AfterViewInit {
     .filter(baseLayerState => baseLayerState.currentBaseLayer != null)
     .subscribe((baseLayerState: fromBaseLayer.State) => {
       if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
-        if (this.baseLayer != null) {
-          this.map.removeLayer(this.baseLayer);
+        if (this.baseOLLayer != null) {
+          this.map.removeLayer(this.baseOLLayer);
         }
         const newLayer = OlLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
         this.map.addLayer(newLayer);
-        this.baseLayer = newLayer;
+        this.baseOLLayer = newLayer;
       }
     })
   }
@@ -56,5 +57,12 @@ export class OpenLayersComponent implements AfterViewInit {
     return this.map.getLayers().getArray().filter((layer: LayerBase) => {
       return layer.get('id') === id
     })[0];
+  }
+
+  private initLayerSubscription() {
+     this.store.select('layer')
+    .subscribe((layerState : fromLayer.State) => {
+      //TODO:
+    })
   }
 }
