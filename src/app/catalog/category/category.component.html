@@ -1,5 +1,5 @@
+<span class="categoryHeader" *ngIf="category.type != 'root'"><h5 (click)="onClickCategory(category, treeLocation)">{{ category.label }}</h5></span>
 <ul class="list-group">
-  <li (click)="onClickCategory(category, treeLocation)" class="list-group-item"><h6>{{ category.label }}</h6></li>
   <li class="list-group-item" *ngFor="let cat of category.categories; let i = index">
     <span *ngIf="!cat.isExpanded">
       <span (click)="onClickCategory(cat, treeLocation.concat([i]))">{{ cat.label }}</span>
