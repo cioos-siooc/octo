@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  mapapiUrl: 'http://localhost:8079/mapapi/api',
+  mapapiUrl: 'http://132.215.33.56:8080/mapapi/api',
   backgroundLayerIds: ['2537', '2538']
 };

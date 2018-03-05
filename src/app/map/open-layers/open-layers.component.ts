@@ -1,9 +1,13 @@
 import {AfterViewInit, Component} from '@angular/core';
-import Map from 'ol/map';
-import BingSource from 'ol/source/bingMaps'
-import TileLayer from 'ol/layer/tile'
-import Proj from 'ol/proj'
+import {Store} from '@ngrx/store';
 import View from 'ol/view'
+import Map from 'ol/Map'
+import Proj from 'ol/proj'
+import OLLayer from 'ol/layer/layer'
+import LayerBase from 'ol/layer/base'
+import * as fromApp from '../../store/app.reducers';
+import * as fromBaseLayer from '../store/base-layer.reducers';
+import {OlLayerFactory} from "./ol-layer-factory.util";
 
 @Component({
   selector: 'app-open-layers',
@@ -11,31 +15,46 @@ import View from 'ol/view'
   styleUrls: ['./open-layers.component.css']
 })
 export class OpenLayersComponent implements AfterViewInit {
-  map:any;
-  constructor() {
+  map: Map;
+  baseLayer: OLLayer = null;
+
+  constructor(private store: Store<fromApp.AppState>) {
   }
 
   ngAfterViewInit(): void {
+    this.initMap();
+    this.initBaseLayerSubscription();
+  }
+
+  private initMap() {
     const mapview = new View({
       center: Proj.transform([-66.0, 51.0], 'EPSG:4326', 'EPSG:3857'),
       zoom: 5,
     });
-    const backlayer = new TileLayer({
-      visible: true,
-      preload: Infinity,
-      source: new BingSource({
-        key: 'Al-vCFd3kpTVli45kJ62doCSRNQY1DoYdw0s-vP1vwgiWiO3TiOQsu2EGlYAy9xt',
-        imagerySet: 'Aerial',
-        // use maxZoom 19 to see stretched tiles instead of the BingMaps
-        // "no photos at this zoom level" tiles
-        maxZoom: 19,
-      }),
-    });
     this.map = new Map({
       target: 'map',
       view: mapview,
-      layers: [backlayer],
     });
   }
 
+  private initBaseLayerSubscription() {
+    this.store.select('baseLayer')
+    .filter(baseLayerState => baseLayerState.currentBaseLayer != null)
+    .subscribe((baseLayerState: fromBaseLayer.State) => {
+      if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
+        if (this.baseLayer != null) {
+          this.map.removeLayer(this.baseLayer);
+        }
+        const newLayer = OlLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
+        this.map.addLayer(newLayer);
+        this.baseLayer = newLayer;
+      }
+    })
+  }
+
+  private getOLLayerFromId(id): LayerBase {
+    return this.map.getLayers().getArray().filter((layer: LayerBase) => {
+      return layer.get('id') === id
+    })[0];
+  }
 }
