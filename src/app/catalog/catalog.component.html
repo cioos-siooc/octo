@@ -1,9 +1,19 @@
 <div>
   <h5>{{ ( catalogState | async ).topicGroup.name }}</h5>
   <div>
-    <div class="card" *ngFor="let topic of (catalogState | async).topics; let i = index">
+    <!-- <div class="card" *ngFor="let topic of (catalogState | async).topics; let i = index">
       <div class="card-header" (click)="onClickHeader(i, topic)">{{ topic.code }}</div>
-      <div class="card-body" *ngIf="topic.expanded">{{ topic.expanded }}</div>
-    </div>
+      <div class="card-body" *ngIf="topic.expanded"><app-category [categories]="topic.categories"></app-category></div>
+    </div> -->
+    <ul>
+      <li
+        *ngFor="let topic of (catalogState | async).topics; let i = index">
+        <span (click)="onClickTopic(i, topic)">{{ topic.code }}</span>
+        <ul *ngIf="topic.expanded && topic.category">
+          <li>{{ topic.category.label }}</li>
+          <ul><app-category [categories]="topic.category.categories" [treeLocation]="[i]"></app-category></ul>
+        </ul>
+      </li>
+    </ul>
   </div>
 </div>

@@ -23,7 +23,7 @@ export class CatalogComponent implements OnInit {
     this.store.dispatch(new catalogActions.FetchTopicGroup(8));
   }
 
-  onClickHeader(id: number, topic: Topic) {
+  onClickTopic(id: number, topic: Topic) {
     this.store.dispatch(new catalogActions.SetTopicExpanded({
       topicId: id,
       expanded: !topic.expanded 

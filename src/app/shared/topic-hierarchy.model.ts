@@ -5,6 +5,6 @@ export class TopicHierarchy {
         public id: number,
         public code: string,
         public languageCode: string,
-        public root: Category[]
+        public root: Category
     ) {}
 }
