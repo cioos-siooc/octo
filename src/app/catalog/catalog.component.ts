@@ -30,18 +30,4 @@ export class CatalogComponent implements OnInit {
       expanded: !topic.expanded
     }));
   }
-  onClickCategory(category: Category, treeLocation: number[]) {
-    if (category.type === 'layer') {
-      // Instantiate a layer
-      this.store.dispatch(new layerActions.FetchLayer({layerId:category.layerId, uniqueId: 'bullshit'}));
-    } else if(category.categories) {
-      this.store.dispatch(new catalogActions.UpdateCategory({
-        treeLocation: treeLocation,
-        newCategory: {
-          ...category,
-          isExpanded: !category.isExpanded
-        }
-      }));
-    }
-  }
 }
