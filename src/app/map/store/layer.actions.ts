@@ -21,6 +21,8 @@ export class AddLayer implements Action {
 
 export class DeleteLayer  implements Action {
   readonly type = DELETE_LAYER;
+
+  constructor(public payload: string) {}
 }
 
 export class UpdateLayer implements Action {

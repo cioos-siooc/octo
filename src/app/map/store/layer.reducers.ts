@@ -16,6 +16,15 @@ export function layerReducer(state = initialState, action: layerActions.LayerAct
         ...state,
         layers: [...state.layers, action.payload]
       };
+    case layerActions.DELETE_LAYER:
+      const oldLayers = [...state.layers];
+      oldLayers.filter((l: Layer) => {
+        return l.uniqueId != action.payload
+      });
+      return {
+        ...state,
+        layers: oldLayers
+      };
     // case layerActions.UPDATE_LAYER:
     //   const oldLayer = state.layers[(<UpdateLayer>action).payload.index];
     //   const updatedRecipe = {
