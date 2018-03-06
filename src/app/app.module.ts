@@ -19,6 +19,7 @@ import { LayerEffects } from './map/store/layer.effects';
 import { PopupComponent } from './popup/popup.component';
 import { reducers } from './store/app.reducers';
 import { TopicPickerComponent } from './topic-picker/topic-picker.component';
+import { LayerManagerComponent } from './layer-manager/layer-manager.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { TopicPickerComponent } from './topic-picker/topic-picker.component';
     CategoryComponent,
     CategoryComponent,
     TopicPickerComponent,
+    LayerManagerComponent,
   ],
   imports: [
     BrowserModule,

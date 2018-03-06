@@ -17,13 +17,12 @@ export function layerReducer(state = initialState, action: layerActions.LayerAct
         layers: [...state.layers, action.payload]
       };
     case layerActions.DELETE_LAYER:
-      const oldLayers = [...state.layers];
-      oldLayers.filter((l: Layer) => {
+      const newLayers = [...state.layers].filter((l: Layer) => {
         return l.uniqueId != action.payload
       });
       return {
         ...state,
-        layers: oldLayers
+        layers: newLayers
       };
     // case layerActions.UPDATE_LAYER:
     //   const oldLayer = state.layers[(<UpdateLayer>action).payload.index];
