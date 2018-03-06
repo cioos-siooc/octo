@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as fromCatalog from '../catalog/store/catalog.reducer';
+import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as catalogActions from '../catalog/store/catalog.actions'
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';

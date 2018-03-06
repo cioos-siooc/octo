@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import * as fromCatalog from './store/catalog.reducer';
+import * as fromCatalog from './store/catalog.reducers';
 import * as catalogActions from './store/catalog.actions';
 import * as layerActions from '../map/store/layer.actions';
 import { Topic } from '../shared/topic.model';

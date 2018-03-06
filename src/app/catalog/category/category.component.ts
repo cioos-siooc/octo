@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Category } from '../../shared/category.model';
 import CreateLayer from '../../shared/create-layer.utility';
 import * as catalogActions from '../store/catalog.actions';
-import * as fromCatalog from '../store/catalog.reducer';
+import * as fromCatalog from '../store/catalog.reducers';
 
 @Component({
   selector: 'app-category',

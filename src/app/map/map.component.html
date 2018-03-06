@@ -2,3 +2,9 @@
 <select  [(ngModel)]="currentBaseLayer" (change)="onSelectBaseLayer()" [compareWith]="compareBaseLayers" class="mapSelectStyle">
   <option *ngFor="let baseLayer of (layerState | async).baseLayers" [ngValue]="baseLayer">{{baseLayer.title}}</option>
 </select>
+<app-popup style="position: absolute; top: 8em; left: 1em;">
+  <app-catalog></app-catalog>
+</app-popup>
+<app-popup style="position: absolute; top: 8em; right: 1em;">
+  <app-topic-picker></app-topic-picker>
+</app-popup>
