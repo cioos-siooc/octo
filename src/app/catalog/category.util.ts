@@ -1,6 +1,8 @@
 import { cloneDeep } from 'lodash';
 
-import { Category } from "../../shared/category.model";
+import { Category } from '../shared/category.model';
+import * as CatalogActions from './store/catalog.actions';
+import { Topic } from '../shared/topic.model';
 
 export default class Utils {
     static getCategory(category: Category, treeLocation) {
@@ -20,5 +22,20 @@ export default class Utils {
         let categoryToUpdate = this.getCategory(categoryClone, treeLocation);
         Object.assign(categoryToUpdate, newCategory);
         return categoryClone;
+    }
+
+    static updateCategory(state, treeLocation, newCategory) {
+        let treeLoc = [...treeLocation];
+        let topicId = treeLoc.shift();
+        let topicToUpdate: Topic = {...state.topics[topicId]};
+        const updatedCategory: Category = Utils.setCategory(
+            topicToUpdate.category, 
+            treeLoc, 
+            newCategory
+        );
+        topicToUpdate.category = updatedCategory;
+        let updatedTopicList = [...state.topics];
+        updatedTopicList[topicId] = topicToUpdate;
+        return updatedTopicList;
     }
 } 
