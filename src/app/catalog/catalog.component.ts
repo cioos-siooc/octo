@@ -22,7 +22,6 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit() {
     this.catalogState = this.store.select('catalog');
-    this.store.dispatch(new catalogActions.FetchTopicGroup(8));
   }
 
   onClickTopic(id: number, topic: Topic) {
