@@ -4,7 +4,9 @@ export class Category {
         public label: string,
         public type: string,
         public layerId: number,
+        public layerUniqueId: string,
         public categories: Category[],
-        public isExpanded: boolean
+        public isExpanded: boolean,
+        public isChecked: boolean
     ) {}
 }
