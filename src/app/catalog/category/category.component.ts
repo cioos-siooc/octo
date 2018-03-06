@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Category } from '../../shared/category.model';
 import CreateLayer from '../../shared/create-layer.utility';
 import * as catalogActions from '../store/catalog.actions';
+import * as layerActions from '../../map/store/layer.actions';
 import * as fromCatalog from '../store/catalog.reducers';
 
 @Component({
@@ -25,8 +26,28 @@ export class CategoryComponent implements OnInit {
 
   onClickCategory(category: Category, treeLocation: number[]) {
     if (category.type === 'layer') {
-      // Instantiate a layer
-      CreateLayer.createLayer(category.layerId, this.store);
+      category.isChecked = !category.isChecked;
+
+      if (category.isChecked) {
+        // Instantiate a layer
+        category.layerUniqueId = CreateLayer.createLayer(category.layerId, this.store);
+        this.store.dispatch(new catalogActions.UpdateCategory({
+          treeLocation: treeLocation,
+          newCategory: {
+            ...category
+          }
+        }));
+      } else {
+        // Remove a layer
+        this.store.dispatch(new layerActions.DeleteLayer(category.layerUniqueId));
+        category.layerUniqueId = null;
+        this.store.dispatch(new catalogActions.UpdateCategory({
+          treeLocation: treeLocation,
+          newCategory: {
+            ...category
+          }
+        }));
+      }
     } else if(category.categories) {
       this.store.dispatch(new catalogActions.UpdateCategory({
         treeLocation: treeLocation,
