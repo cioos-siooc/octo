@@ -5,6 +5,10 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
+a {
+  cursor: pointer;
+}
+
 .flexbox-parent {
   width: 100%;
   height: 100%;
