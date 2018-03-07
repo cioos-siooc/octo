@@ -7,6 +7,8 @@ export class Topic {
         public category: Category,
         public code: string,
         public languageCode: string,
+        public label: string,
+        public imageUrl: string,
         public expanded: boolean
     ) {}
 }

@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Rx';
 import { TopicHierarchy } from '../../shared/topic-hierarchy.model';
 import { Category } from '../../shared/category.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CatalogEffects {
@@ -28,7 +29,7 @@ export class CatalogEffects {
         .ofType(CatalogActions.FETCH_TOPIC_GROUP)
         .switchMap((action: CatalogActions.FetchTopicGroup) => {
             return this.httpClient.get<TopicGroup>(
-                'http://localhost:8079/mapapi/api/'.concat('topic-groups/', String(action.payload)), {})
+                environment.mapapiUrl.concat('/topic-groups/', String(action.payload)), {})
         })
         .mergeMap(
             (topicGroup) => [
@@ -44,7 +45,7 @@ export class CatalogEffects {
         .ofType(CatalogActions.FETCH_TOPIC)
         .concatMap((action: CatalogActions.FetchTopic) => {
             return this.httpClient.get<Topic>(
-                'http://localhost:8079/mapapi/api/'.concat('topics/', String(action.payload)), {})
+                environment.mapapiUrl.concat('/topics/', String(action.payload)), {})
         })
         .map(
             (topic) => {
@@ -81,7 +82,7 @@ export class CatalogEffects {
         .concatMap(([payload, store]) => {
             const topicId = store.topics[payload].id;
             return this.httpClient.get<TopicHierarchy>(
-                'http://localhost:8079/mapapi/api/'.concat('topics/', String(topicId), '/getTopicHierarchy'), {})
+                environment.mapapiUrl.concat('/topics/', String(topicId), '/getTopicHierarchy'), {})
         })
         .map(
             (topicHierarchy) => {
