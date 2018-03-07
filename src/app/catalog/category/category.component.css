@@ -1,5 +1,8 @@
 .category-selector {
     width: 100%;
-
     background-color: greenyellow;
+}
+
+.selectable {
+    cursor: pointer;
 }

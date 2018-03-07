@@ -1,7 +1,7 @@
 <ul class="list-group">
-  <li class="list-group-item"
-      *ngFor="let topic of (catalogState | async).topics; let i = index">
+  <li class="list-group-item topic"
+      *ngFor="let topic of (catalogState | async).topics; let i = index" (click)="onClickTopic(i, topic)" [ngStyle]="{'background-image': 'url(' + topic.imageUrl + ')'}">
     
-    <span (click)="onClickTopic(i, topic)"><h5>{{ topic.code }}</h5></span>
+    <span><h5>{{ topic.label }}</h5></span>
   </li>
 </ul>
