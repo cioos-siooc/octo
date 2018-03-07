@@ -5,6 +5,7 @@ import {environment} from "../environments/environment";
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
 import * as baseLayerActions from './map/store/base-layer.actions'
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +15,19 @@ import * as baseLayerActions from './map/store/base-layer.actions'
 export class AppComponent implements OnInit {
   title = 'Maponion';
 
-  constructor(private httpClient: HttpClient, private store: Store<fromApp.AppState>) {
+  constructor(private httpClient: HttpClient, private store: Store<fromApp.AppState>, private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
+    this.initTranslation();
     this.initBaseLayers();
+  }
+
+  private initTranslation() {
+    this.translateService.addLangs(["en", "fr"]);
+    this.translateService.setDefaultLang('fr');
+    let browserLang = this.translateService.getBrowserLang();
+    this.translateService.use(browserLang.match(/en|fr/) ? browserLang : 'en');
   }
 
   private initBaseLayers() {
