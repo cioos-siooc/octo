@@ -3,6 +3,7 @@ import { Action } from '@ngrx/store';
 import { TopicGroup } from '../../shared/topic-group.model';
 import { Topic } from '../../shared/topic.model';
 import { Category } from '../../shared/category.model';
+import { CatalogSelectedLayer } from '../../shared/catalog-selected-layer.model';
 
 export const FETCH_TOPIC_GROUP = 'FETCH_TOPIC_GROUP';
 export const SET_TOPIC_GROUP = 'SET_TOPIC_GROUP';
@@ -12,6 +13,8 @@ export const SET_TOPIC_EXPANDED = 'SET_TOPIC_EXPANDED';
 export const FETCH_CATEGORY_HIERARCHY = 'FETCH_CATEGORY_HIERARCHY';
 export const SET_CATEGORIES = 'SET_CATEGORIES';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
+export const ADD_SELECTED_LAYER = 'ADD_SELECTED_LAYER';
+export const REMOVE_SELECTED_LAYER = 'REMOVE_SELECTED_LAYER';
 
 export class FetchTopicGroup implements Action {
     readonly type = FETCH_TOPIC_GROUP;
@@ -64,6 +67,18 @@ export class UpdateCategory implements Action {
     constructor(public payload: {treeLocation: number[], newCategory: Category}) {}
 }
 
+export class AddSelectedLayer implements Action {
+    readonly type = ADD_SELECTED_LAYER;
+
+    constructor(public payload: CatalogSelectedLayer) {}
+}
+
+export class RemoveSelectedLayer implements Action {
+    readonly type = REMOVE_SELECTED_LAYER;
+
+    constructor(public payload: string) {}
+}
+
 export type CatalogActions = 
     FetchTopicGroup |
     SetTopicGroup |
@@ -72,4 +87,6 @@ export type CatalogActions =
     SetTopicExpanded |
     FetchCategoryHierarchy |
     SetCategories |
-    UpdateCategory; 
+    UpdateCategory |
+    AddSelectedLayer |
+    RemoveSelectedLayer; 

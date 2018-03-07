@@ -4,6 +4,8 @@ import * as fromApp from '../store/app.reducers';
 import * as fromLayer from '../map/store/layer.reducers';
 import {Observable} from 'rxjs/Observable';
 import * as layerActions from '../map/store/layer.actions';
+import * as catalogActions from '../catalog/store/catalog.actions';
+
 @Component({
   selector: 'app-layer-manager',
   templateUrl: './layer-manager.component.html',
@@ -19,7 +21,8 @@ export class LayerManagerComponent implements OnInit {
   }
 
   onRemoveClick(layer) {
-    this.store.dispatch(new layerActions.DeleteLayer(layer.uniqueId))
+    this.store.dispatch(new layerActions.DeleteLayer(layer.uniqueId));
+    this.store.dispatch(new catalogActions.RemoveSelectedLayer(layer.uniqueId));
   }
 
 }
