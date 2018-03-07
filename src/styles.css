@@ -24,6 +24,8 @@ html, body {
   justify-content: flex-start; /* align items in Main Axis */
   align-items: stretch; /* align items in Cross Axis */
   align-content: stretch; /* Extra space in Cross Axis */
+  height:100%;
+  width:100%;
 }
 
 .flexbox-item-grow {
