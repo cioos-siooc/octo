@@ -2,6 +2,7 @@
 html, body {
   width: 100%;
   height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 .flexbox-parent {
@@ -27,4 +28,66 @@ html, body {
 
 .flexbox-item-grow {
   flex: 1; /* same as flex: 1 1 auto; */
+}
+
+.absolute {
+  position: absolute;
+}
+
+.no-list-style {
+  list-style-type: none;
+}
+
+.background-teal {
+  background-color: #1BC98E;
+}
+
+.foreground-teal {
+  color: #1BC98E
+}
+
+.background-red {
+  background-color: #E64759;
+}
+
+.foreground-red {
+  color: #E64759
+}
+
+.background-purple {
+  background-color: #9F86FF;
+}
+
+.foreground-purple {
+  color: #9F86FF
+}
+
+.background-yellow {
+  background-color: #E4D836;
+}
+
+.foreground-yellow {
+  color: #E4D836;
+}
+
+.ol-control button {
+  background-color: rgba(53, 55, 58, .7) !important;
+}
+
+.ol-control button:hover {
+  background-color: rgba(1, 13, 1, 0.75) !important;
+  border: solid 1px rgba(255, 248, 253, 0.63);
+}
+
+.ol-control {
+  background-color: transparent !important;
+}
+
+.ol-attribution ul {
+  background-color: rgba(255, 248, 253, 0.73);
+  font-size: 10px !important;
+}
+
+.ol-attribution {
+  z-index: 98;
 }

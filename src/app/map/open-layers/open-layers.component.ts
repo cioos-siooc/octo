@@ -29,6 +29,9 @@ export class OpenLayersComponent implements AfterViewInit {
     this.initMap();
     this.initBaseLayerSubscription();
     this.initLayerSubscription();
+    setInterval(()=>{
+      this.map.updateSize()
+    },5000)
   }
 
   private initMap() {

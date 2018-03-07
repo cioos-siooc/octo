@@ -1,22 +1,37 @@
 .popup {
-    /* position: absolute; */
-    width: 25em;
+  width: 25em;
 }
+
 .popup .topBar {
-    height: 2em;
-    background-color: #343a40;
-    color: white;
+  height: 2em;
+  background-color: #343a40;
+  color: white;
 }
+
 .popup .topBar button {
-    color: white!important;
+  color: white !important;
 }
+
 .popup .content {
-    height: 25em;
-    /* background-color: cornsilk; */
-    background-color: white;
-    overflow-y: scroll;
+  height: 25em;
+  /* background-color: cornsilk; */
+  background-color: white;
+  overflow-y: auto;
 }
+
 .popup .bottomBar {
-    height: 1.5em;
-    background-color: #343a40;
+  height: 1.5em;
+  background-color: #343a40;
+}
+
+.close {
+  padding-right: 5px;
+}
+
+.title {
+  padding-left: 12px;
+  font-variant: small-caps;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
