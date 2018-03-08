@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TopicPickerComponent } from './topic-picker.component';
+import {TopicPickerComponent} from './topic-picker.component';
+import {StoreModule} from '@ngrx/store';
+import {reducers} from "../store/app.reducers";
 
 describe('TopicPickerComponent', () => {
   let component: TopicPickerComponent;
@@ -8,7 +10,9 @@ describe('TopicPickerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopicPickerComponent ]
+      declarations: [TopicPickerComponent],
+      imports:
+        [StoreModule.forRoot(reducers)]
     })
     .compileComponents();
   }));

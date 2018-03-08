@@ -12,6 +12,9 @@ import * as fromLayer from '../store/layer.reducers'
 import {clone} from 'lodash';
 import {isEqual} from 'lodash';
 import {Layer} from "../../shared/layer.model";
+import 'rxjs/add/operator/filter'
+import {Observable} from 'rxjs/Observable';
+
 @Component({
   selector: 'app-open-layers',
   templateUrl: './open-layers.component.html',
@@ -46,7 +49,7 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private initBaseLayerSubscription() {
-    this.store.select('baseLayer')
+    (<Observable<fromBaseLayer.State>>this.store.select('baseLayer'))
     .filter(baseLayerState => baseLayerState.currentBaseLayer != null)
     .subscribe((baseLayerState: fromBaseLayer.State) => {
       if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
