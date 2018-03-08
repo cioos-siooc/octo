@@ -16,66 +16,210 @@ export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const ADD_SELECTED_LAYER = 'ADD_SELECTED_LAYER';
 export const REMOVE_SELECTED_LAYER = 'REMOVE_SELECTED_LAYER';
 
+/**
+ * Trigger an effect to fetch a topic group
+ * 
+ * @export
+ * @class FetchTopicGroup
+ * @implements {Action}
+ */
 export class FetchTopicGroup implements Action {
     readonly type = FETCH_TOPIC_GROUP;
 
+    /**
+     * Creates an instance of FetchTopicGroup.
+     * @param {number} payload - The id of the topic group in mapapi 
+     * @memberof FetchTopicGroup
+     */
     constructor(public payload: number) {}
 }
 
+/**
+ * Use the reducer to store the FetchTopicGroup result
+ * 
+ * @export
+ * @class SetTopicGroup
+ * @implements {Action}
+ */
 export class SetTopicGroup implements Action {
     readonly type = SET_TOPIC_GROUP;
 
+    /**
+     * Creates an instance of SetTopicGroup.
+     * @param {TopicGroup} payload - The TopicGroup result from mapapi
+     * @memberof SetTopicGroup
+     */
     constructor(public payload: TopicGroup) {}
 }
 
+/**
+ * Trigger an effect to fetch a topic hierarchy from mapapi
+ * 
+ * @export
+ * @class FetchTopic
+ * @implements {Action}
+ */
 export class FetchTopic implements Action {
     readonly type = FETCH_TOPIC;
 
+    /**
+     * Creates an instance of FetchTopic.
+     * @param {number} payload - The id of the topic in mapapi 
+     * @memberof FetchTopic
+     */
     constructor(public payload: number) {}
 }
 
+/**
+ * Append the result of FetchTopic to the reducer
+ * 
+ * @export
+ * @class AppendTopic
+ * @implements {Action}
+ */
 export class AppendTopic implements Action {
     readonly type = APPEND_TOPIC;
 
+    /**
+     * Creates an instance of AppendTopic.
+     * @param {Topic} payload - The Topic result from mapapi
+     * @memberof AppendTopic
+     */
     constructor(public payload: Topic) {}
 }
 
+/**
+ * Set a topic to expanded for display in the UI, trigger an action to fetch
+ * the category hierarchy. 
+ * 
+ * @export
+ * @class SetTopicExpanded
+ * @implements {Action}
+ */
 export class SetTopicExpanded implements Action {
     readonly type = SET_TOPIC_EXPANDED;
 
+    /**
+     * Creates an instance of SetTopicExpanded.
+     * @param {{
+     *         topicIndex: number, - The index of the topic in the reducer topic
+     *                               list
+     *         expanded: boolean - The new expanded setting for the target topic
+     *     }} payload 
+     * @memberof SetTopicExpanded
+     */
     constructor(public payload: {
-        topicId: number,
+        topicIndex: number,
         expanded: boolean
     }) {}
 }
 
+/**
+ * Trigger an effect to fetch the category hierarchy from mapapi
+ * 
+ * @export
+ * @class FetchCategoryHierarchy
+ * @implements {Action}
+ */
 export class FetchCategoryHierarchy implements Action {
     readonly type = FETCH_CATEGORY_HIERARCHY;
 
+    /**
+     * Creates an instance of FetchCategoryHierarchy.
+     * @param {number} payload - The index of the topic in the reducer topic list
+     * @memberof FetchCategoryHierarchy
+     */
     constructor(public payload: number) {}
 }
 
+/**
+ * Use the reducer to store the result of the FetchCategoryHierarchy effect in
+ * the relevant topic in the reduceer
+ * 
+ * @export
+ * @class SetCategories
+ * @implements {Action}
+ */
 export class SetCategories implements Action {
     readonly type = SET_CATEGORIES;
 
-    constructor(public payload: {topicId: number, category: Category}) {}
+    /**
+     * Creates an instance of SetCategories.
+     * @param {{
+     *         topicId: number, - The id of the topic in mapapi
+     *         category: Category - The category hierarchy result from mapapi
+     *     }} payload 
+     * @memberof SetCategories
+     */
+    constructor(public payload: {
+        topicId: number,
+        category: Category
+    }) {}
 }
 
+/**
+ * Update a category that's nested in the category hierarchy
+ * 
+ * @export
+ * @class UpdateCategory
+ * @implements {Action}
+ */
 export class UpdateCategory implements Action {
     readonly type = UPDATE_CATEGORY;
 
-    constructor(public payload: {treeLocation: number[], newCategory: Category}) {}
+    /**
+     * Creates an instance of UpdateCategory.
+     * @param {{
+     *         treeLocation: number[], - The list of indices for traversing into
+     *                                   the category hierarchy to access the 
+     *                                   category to be replaced.
+     *         newCategory: Category - The replacement category to be used
+     *     }} payload 
+     * @memberof UpdateCategory
+     */
+    constructor(public payload: {
+        treeLocation: number[],
+        newCategory: Category
+    }) {}
 }
 
+/**
+ * Add a SelectedLayer to the selectedLayer list in the reducer. This list is 
+ * used to track the treeLocations of the categories for currently 
+ * selected layers so that they can be easily updated and modified based on
+ * their unique layerid.
+ * 
+ * @export
+ * @class AddSelectedLayer
+ * @implements {Action}
+ */
 export class AddSelectedLayer implements Action {
     readonly type = ADD_SELECTED_LAYER;
 
+    /**
+     * Creates an instance of AddSelectedLayer.
+     * @param {CatalogSelectedLayer} payload - The CataLogSelectedLayer to add
+     * @memberof AddSelectedLayer
+     */
     constructor(public payload: CatalogSelectedLayer) {}
 }
 
+/**
+ * Remove a SelectedLayer from the selectedLayer list in the reducer
+ * 
+ * @export
+ * @class RemoveSelectedLayer
+ * @implements {Action}
+ */
 export class RemoveSelectedLayer implements Action {
     readonly type = REMOVE_SELECTED_LAYER;
 
+    /**
+     * Creates an instance of RemoveSelectedLayer.
+     * @param {string} payload - The unique layerid of the selectedLayer entry
+     *                           to be removed
+     * @memberof RemoveSelectedLayer
+     */
     constructor(public payload: string) {}
 }
 

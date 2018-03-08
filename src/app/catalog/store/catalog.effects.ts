@@ -63,13 +63,13 @@ export class CatalogEffects {
         .map((action: CatalogActions.SetTopicExpanded) => action.payload)
         .withLatestFrom(this.store$.select('catalog'))
         .switchMap(([payload, store]) => {
-            const isLoaded = Boolean(store.topics[payload.topicId].category);
+            const isLoaded = Boolean(store.topics[payload.topicIndex].category);
             let obs;
             if (isLoaded) {
                 obs = Observable.of({type: "NO_ACTION"});
             } else {
-                const topicId = store.topics[payload.topicId].id;
-                obs = Observable.of(new CatalogActions.FetchCategoryHierarchy(payload.topicId));
+                const topicId = store.topics[payload.topicIndex].id;
+                obs = Observable.of(new CatalogActions.FetchCategoryHierarchy(payload.topicIndex));
             }
             return obs;
         });

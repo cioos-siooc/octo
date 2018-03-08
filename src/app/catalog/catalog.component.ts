@@ -26,7 +26,7 @@ export class CatalogComponent implements OnInit {
 
   onClickTopic(id: number, topic: Topic) {
     this.store.dispatch(new catalogActions.SetTopicExpanded({
-      topicId: id,
+      topicIndex: id,
       expanded: !topic.expanded
     }));
   }
