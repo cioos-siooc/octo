@@ -36,11 +36,11 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
                 topics: topics
             };
         case CatalogActions.SET_TOPIC_EXPANDED: 
-            const topic: Topic = {...state.topics[action.payload.topicId]};
+            const topic: Topic = {...state.topics[action.payload.topicIndex]};
             topic.expanded = action.payload.expanded;
 
             const oldTopics: Topic[] = [...state.topics]
-            oldTopics[action.payload.topicId] = topic;
+            oldTopics[action.payload.topicIndex] = topic;
             return {
                 ...state,
                 topics: oldTopics
