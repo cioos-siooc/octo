@@ -1,0 +1,60 @@
+stages:  
+- test
+- package
+- deploy
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+  - node_modules/
+
+test_async:
+  script:
+   - npm install
+   - node ./specs/start.js ./specs/async.spec.js
+
+
+run-test:  
+  stage: test
+  image: node:latest
+  script:
+    - npm install
+    - ng test
+  only:
+    - branches
+  except:
+    - master
+    - pre-production
+    - production
+    
+run-package-dev:  
+  stage: package
+  image: node:latest
+  script:
+    - npm install
+    - npm run test
+    - npm run build:dev
+    - pwd
+    - ls
+  artifacts:
+    paths:
+      - dist
+  only:
+    - master
+    
+run-deploy-dev:
+    stage: deploy
+    script:
+      - pwd
+      - ls
+    environment:
+      name: dev
+      url: 132.215.33.56/maponion
+    dependencies:
+    -  run-package-dev
+    only:
+     - master
+
+
+
