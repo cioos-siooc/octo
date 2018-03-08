@@ -8,7 +8,8 @@
     "build:test": "ng build --environment test --aot",
     "build:prod": "ng build --environment prod --aot",
     "start": "ng serve --aot",
-    "test": "ng test",
+    "test:local": "ng test --browsers=\"Chrome\"",
+    "test:ci": "ng test --browsers=\"PhantomJS\"",
     "lint": "ng lint",
     "e2e": "ng e2e --aot"
   },
@@ -53,6 +54,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.4",
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
