@@ -42,6 +42,7 @@ run-deploy-dev:
     script:
       - pwd
       - ls
+      - scp -r dist/* admin@132.215.33.56:/var/www/html/maponion
     environment:
       name: dev
       url: 132.215.33.56/maponion
