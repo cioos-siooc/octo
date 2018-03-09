@@ -1,7 +1,7 @@
-<div class="popup">
+<div class="popup" *ngIf="popupOpen">
   <div class="topBar align-middle">
     <span class="title">{{title}}</span>
-    <button type="button" class="close" aria-label="Close">
+    <button type="button" class="close" aria-label="Close" (click)=closePopup()>
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

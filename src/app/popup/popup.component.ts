@@ -7,10 +7,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PopupComponent implements OnInit {
   @Input() title: string;
+  @Input() popupOpen: boolean;
 
   constructor() { }
 
   ngOnInit() {
+    if (this.popupOpen == null) {
+      this.popupOpen = true;
+    }
   }
 
+  closePopup() {
+    this.popupOpen = false;
+  }
 }
