@@ -1,6 +1,6 @@
-import {Layer} from "./layer.model";
+import {Layer} from './layer.model';
 
-export  class WmsLayer extends Layer{
+export  class WmsLayer extends Layer {
   public identifier: string;
   public format: string;
   public namedStyle: string;

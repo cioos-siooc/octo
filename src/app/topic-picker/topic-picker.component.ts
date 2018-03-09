@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import * as fromCatalog from '../catalog/store/catalog.reducers';
-import * as catalogActions from '../catalog/store/catalog.actions'
+import * as catalogActions from '../catalog/store/catalog.actions';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { Topic } from '../shared/topic.model';
@@ -12,7 +12,7 @@ import { Topic } from '../shared/topic.model';
   styleUrls: ['./topic-picker.component.css']
 })
 export class TopicPickerComponent implements OnInit {
-  catalogState: Observable<fromCatalog.State>
+  catalogState: Observable<fromCatalog.State>;
 
   constructor(
     private store: Store<fromCatalog.AppState>

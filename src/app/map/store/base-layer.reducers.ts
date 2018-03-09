@@ -1,9 +1,9 @@
-import {Layer} from "../../shared/layer.model";
+import {Layer} from '../../shared/layer.model';
 import * as baseLayerActions from './base-layer.actions';
 
 export interface State {
-  currentBaseLayer: Layer,
-  baseLayers: Layer[]
+  currentBaseLayer: Layer;
+  baseLayers: Layer[];
 }
 
 const initialState: State = {

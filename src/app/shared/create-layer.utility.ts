@@ -7,7 +7,7 @@ import * as fromApp from '../store/app.reducers';
 
 export default class CreateLayer {
     static createLayer(layerId: number, store) {
-        let genUniqueId: string = uniqueId();
+        const genUniqueId: string = uniqueId();
         store.dispatch(new layerActions.FetchLayer({
             layerId: layerId,
             uniqueId: genUniqueId

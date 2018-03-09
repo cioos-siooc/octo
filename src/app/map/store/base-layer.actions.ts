@@ -1,5 +1,5 @@
-import {Layer} from "../../shared/layer.model";
-import {Action} from "@ngrx/store";
+import {Layer} from '../../shared/layer.model';
+import {Action} from '@ngrx/store';
 
 export const ADD_BASE_LAYER = 'ADD_BASE_LAYER';
 export const SET_CURRENT_BASE_LAYER = 'SET_CURRENT_BASE_LAYER';

@@ -6,7 +6,7 @@ import { Topic } from '../shared/topic.model';
 
 export default class Utils {
     static getCategory(category: Category, treeLocation) {
-        let treeLoc = [...treeLocation];
+        const treeLoc = [...treeLocation];
         if (treeLocation.length <= 1) {
             return category.categories[treeLoc.shift()];
         } else {
@@ -18,24 +18,24 @@ export default class Utils {
     }
 
     static setCategory(startingCategory: Category, treeLocation: number[], newCategory: Category) {
-        let categoryClone = cloneDeep(startingCategory);
-        let categoryToUpdate = this.getCategory(categoryClone, treeLocation);
+        const categoryClone = cloneDeep(startingCategory);
+        const categoryToUpdate = this.getCategory(categoryClone, treeLocation);
         Object.assign(categoryToUpdate, newCategory);
         return categoryClone;
     }
 
     static updateCategory(state, treeLocation, newCategory) {
-        let treeLoc = [...treeLocation];
-        let topicId = treeLoc.shift();
-        let topicToUpdate: Topic = {...state.topics[topicId]};
+        const treeLoc = [...treeLocation];
+        const topicId = treeLoc.shift();
+        const topicToUpdate: Topic = {...state.topics[topicId]};
         const updatedCategory: Category = Utils.setCategory(
-            topicToUpdate.category, 
-            treeLoc, 
+            topicToUpdate.category,
+            treeLoc,
             newCategory
         );
         topicToUpdate.category = updatedCategory;
-        let updatedTopicList = [...state.topics];
+        const updatedTopicList = [...state.topics];
         updatedTopicList[topicId] = topicToUpdate;
         return updatedTopicList;
     }
-} 
+}

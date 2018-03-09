@@ -61,7 +61,7 @@ export class CategoryComponent implements OnInit {
           }
         }));
       }
-    } else if(category.categories) {
+    } else if (category.categories) {
       // If the clicked category represents a category expand or collapse it
       this.store.dispatch(new catalogActions.UpdateCategory({
         treeLocation: treeLocation,

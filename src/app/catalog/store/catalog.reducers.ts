@@ -11,9 +11,9 @@ export interface AppState {
 }
 
 export interface State {
-    topicGroup: TopicGroup,
-    topics: Topic[],
-    selectedLayers: CatalogSelectedLayer[]
+    topicGroup: TopicGroup;
+    topics: Topic[];
+    selectedLayers: CatalogSelectedLayer[];
 }
 
 const initialState: State = {
@@ -35,19 +35,19 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
                 ...state,
                 topics: topics
             };
-        case CatalogActions.SET_TOPIC_EXPANDED: 
+        case CatalogActions.SET_TOPIC_EXPANDED:
             const topic: Topic = {...state.topics[action.payload.topicIndex]};
             topic.expanded = action.payload.expanded;
 
-            const oldTopics: Topic[] = [...state.topics]
+            const oldTopics: Topic[] = [...state.topics];
             oldTopics[action.payload.topicIndex] = topic;
             return {
                 ...state,
                 topics: oldTopics
             };
         case CatalogActions.SET_CATEGORIES:
-            let idToUpdate = -1
-            for (var i = 0; i < state.topics.length; i++) {
+            let idToUpdate = -1;
+            for (let i = 0; i < state.topics.length; i++) {
                 if (state.topics[i].id === action.payload.topicId) {
                     idToUpdate = i;
                     break;
@@ -56,7 +56,7 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
             const updatedTopic: Topic = {
                 ...state.topics[idToUpdate],
                 category: action.payload.category
-            }
+            };
             const updatedTopics: Topic[] = [...state.topics];
             updatedTopics[idToUpdate] = updatedTopic;
             return {
@@ -64,7 +64,7 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
                 topics: updatedTopics
             };
         case CatalogActions.UPDATE_CATEGORY:
-            let updatedTopicList = Utils.updateCategory(
+            const updatedTopicList = Utils.updateCategory(
                 state,
                 action.payload.treeLocation,
                 action.payload.newCategory
@@ -79,33 +79,33 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
                 selectedLayers: [...state.selectedLayers, action.payload]
             };
         case CatalogActions.REMOVE_SELECTED_LAYER:
-            let selectedLayers = [...state.selectedLayers];
-            for(let i=0; i<selectedLayers.length; i++) {
+            const selectedLayers = [...state.selectedLayers];
+            for (let i = 0; i < selectedLayers.length; i++) {
                 if (selectedLayers[i].layerUniqueId === action.payload) {
-                    let targetSelectedLayer = selectedLayers[i];
+                    const targetSelectedLayer = selectedLayers[i];
                     selectedLayers.splice(i, 1);
 
-                    let tempTreeLoc = [...targetSelectedLayer.treeLocation];
-                    let topicId = tempTreeLoc.shift();
-                    let topicToUpdate: Topic = {...state.topics[topicId]};
-                    let categoryToUpdate = Utils.getCategory(
+                    const tempTreeLoc = [...targetSelectedLayer.treeLocation];
+                    const topicId = tempTreeLoc.shift();
+                    const topicToUpdate: Topic = {...state.topics[topicId]};
+                    const categoryToUpdate = Utils.getCategory(
                         topicToUpdate.category,
                         tempTreeLoc
                     );
-                    let newCategory: Category = {
+                    const newCategory: Category = {
                         ...categoryToUpdate,
                         layerUniqueId: null,
                         isChecked: false
                     };
-                    let updatedTopicList = Utils.updateCategory(
+                    const updatedTopicList_l = Utils.updateCategory(
                         state,
                         targetSelectedLayer.treeLocation,
                         newCategory
                     );
                     return {
                         ...state,
-                        topics: updatedTopicList
-                    }
+                        topics: updatedTopicList_l
+                    };
                 }
             }
             return {

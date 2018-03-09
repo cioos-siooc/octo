@@ -1,11 +1,11 @@
-import {Actions, Effect} from "@ngrx/effects";
-import 'rxjs/operator/map'
-import 'rxjs/operator/mergeMap'
-import {HttpClient} from "@angular/common/http"
-import {Injectable} from "@angular/core";
-import * as layerActions from "./layer.actions"
-import {Layer} from "../../shared/layer.model";
-import {environment} from "../../../environments/environment";
+import {Actions, Effect} from '@ngrx/effects';
+import 'rxjs/operator/map';
+import 'rxjs/operator/mergeMap';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import * as layerActions from './layer.actions';
+import {Layer} from '../../shared/layer.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class LayerEffects {
@@ -16,10 +16,10 @@ export class LayerEffects {
   .mergeMap((action: layerActions.FetchLayer) => {
     return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).map(
       (layer) => {
-        layer.uniqueId=action.payload.uniqueId;
+        layer.uniqueId = action.payload.uniqueId;
         return layer;
       }
-    )
+    );
   })
   .map(
     (layer) => {

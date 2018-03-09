@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
-import {Layer} from "../shared/layer.model";
+import {Layer} from '../shared/layer.model';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/first';
 import * as fromBaseLayer from './store/base-layer.reducers';
@@ -25,7 +25,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
-      return baseLayerState.currentBaseLayer != null
+      return baseLayerState.currentBaseLayer != null;
     }).subscribe((baseLayerState: fromBaseLayer.State) => {
       this.currentBaseLayer = baseLayerState.currentBaseLayer;
     });

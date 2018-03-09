@@ -1,5 +1,5 @@
-import {Action} from "@ngrx/store"
-import {Layer} from "../../shared/layer.model";
+import {Action} from '@ngrx/store';
+import {Layer} from '../../shared/layer.model';
 
 
 export const FETCH_LAYER = 'FETCH_LAYER';

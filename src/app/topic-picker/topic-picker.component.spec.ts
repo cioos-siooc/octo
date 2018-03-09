@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TopicPickerComponent} from './topic-picker.component';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from "../store/app.reducers";
+import {reducers} from '../store/app.reducers';
 
 describe('TopicPickerComponent', () => {
   let component: TopicPickerComponent;

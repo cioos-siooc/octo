@@ -1,18 +1,18 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
-import View from 'ol/view'
-import Map from 'ol/Map'
-import Proj from 'ol/proj'
-import OLLayer from 'ol/layer/layer'
-import LayerBase from 'ol/layer/base'
+import View from 'ol/view';
+import Map from 'ol/Map';
+import Proj from 'ol/proj';
+import OLLayer from 'ol/layer/layer';
+import LayerBase from 'ol/layer/base';
 import * as fromApp from '../../store/app.reducers';
 import * as fromBaseLayer from '../store/base-layer.reducers';
-import {OLLayerFactory} from "./ol-layer-factory.util";
-import * as fromLayer from '../store/layer.reducers'
+import {OLLayerFactory} from './ol-layer-factory.util';
+import * as fromLayer from '../store/layer.reducers';
 import {clone} from 'lodash';
 import {isEqual} from 'lodash';
-import {Layer} from "../../shared/layer.model";
-import 'rxjs/add/operator/filter'
+import {Layer} from '../../shared/layer.model';
+import 'rxjs/add/operator/filter';
 import {Observable} from 'rxjs/Observable';
 
 @Component({
@@ -32,9 +32,9 @@ export class OpenLayersComponent implements AfterViewInit {
     this.initMap();
     this.initBaseLayerSubscription();
     this.initLayerSubscription();
-    setInterval(()=>{
-      this.map.updateSize()
-    },5000)
+    setInterval(() => {
+      this.map.updateSize();
+    }, 5000);
   }
 
   private initMap() {
@@ -60,46 +60,46 @@ export class OpenLayersComponent implements AfterViewInit {
         this.map.addLayer(newLayer);
         this.baseOLLayer = newLayer;
       }
-    })
+    });
   }
 
   private getOLLayerFromId(id): LayerBase {
     return this.map.getLayers().getArray().filter((layer: LayerBase) => {
-      return layer.get('id') === id
+      return layer.get('id') === id;
     })[0];
   }
 
   private initLayerSubscription() {
      this.store.select('layer')
-    .subscribe((layerState : fromLayer.State) => {
+    .subscribe((layerState: fromLayer.State) => {
       const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
       currentOLLayers.forEach((layer: OLLayer) => {
         // If the new layer is already there
          if (layerState.layers.some((l) => (l.uniqueId === layer.get('uniqueId')))) {
           const updatedOgslLayer = layerState.layers.filter((l) => {
-            return l.uniqueId === layer.get('uniqueId')
+            return l.uniqueId === layer.get('uniqueId');
           })[0];
           const oldOgslLayer = this.layers.filter((l) => {
-            return l.uniqueId === layer.get('uniqueId')
+            return l.uniqueId === layer.get('uniqueId');
           })[0];
           if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
-            //Only update the old layer if the new one is different
+            // Only update the old layer if the new one is different
             const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);
             this.map.removeLayer(layer);
             this.map.addLayer(newOlLayer);
           }
-        } else if (layer.get('uniqueId')!=null){
-           //If old layer is not part of the new layers and isn't a background layer, remove it
+        } else if (layer.get('uniqueId') != null) {
+           // If old layer is not part of the new layers and isn't a background layer, remove it
           this.map.removeLayer(layer);
         }
       });
-      //Add remaining layers
+      // Add remaining layers
       layerState.layers.forEach((newLayer: Layer) => {
         if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
           this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
         }
       });
       this.layers = layerState.layers;
-    })
+    });
   }
 }
