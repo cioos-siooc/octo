@@ -42,6 +42,11 @@ run-deploy-dev:
     script:
       - pwd
       - ls
+      - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+      - eval $(ssh-agent -s)
+      - echo "$SSH_PRIVATE_KEY_DEV" | tr -d '\r' | ssh-add - > /dev/null
+      - mkdir -p ~/.ssh
+      - chmod 700 ~/.ssh
       - scp -r dist/* admin@132.215.33.56:/var/www/html/maponion
     environment:
       name: dev
