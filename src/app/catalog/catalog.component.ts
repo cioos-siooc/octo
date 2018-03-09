@@ -13,12 +13,19 @@ import {Topic} from '../shared/topic.model';
 })
 export class CatalogComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
+  numExpandedTopics: number;
 
   constructor(private store: Store<fromCatalog.AppState>) {
   }
 
   ngOnInit() {
     this.catalogState = this.store.select('catalog');
+    this.catalogState.subscribe(state => {
+      this.numExpandedTopics = 0;
+      for (const topic of state.topics) {
+        if (topic.expanded) { this.numExpandedTopics += 1; }
+      }
+    });
   }
 
   onClickTopic(id: number, topic: Topic) {

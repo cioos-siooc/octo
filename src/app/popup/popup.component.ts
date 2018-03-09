@@ -30,13 +30,23 @@ export class PopupComponent implements OnInit {
     this.lastMouseY = $event.clientY;
   }
 
-  onDrag($event) {
+  onDrag($event, popup) {
     const deltaX = $event.clientX - this.lastMouseX;
     const deltaY = $event.clientY - this.lastMouseY;
-    console.log(deltaY);
 
-    if (deltaX < 100 && deltaX > -100) { this.left += deltaX; }
-    if (deltaY < 100 && deltaY > -100) { this.top += deltaY; }
+    const container = popup.parentElement.parentElement;
+    const newLeft = this.left + deltaX;
+    const newTop = this.top + deltaY;
+    if (
+      deltaX < 100 && deltaX > -100 &&
+      (newLeft + popup.offsetWidth < container.offsetWidth) &&
+      newLeft > 0
+    ) { this.left = newLeft; }
+    if (
+      deltaY < 100 && deltaY > -100 &&
+      (newTop + popup.offsetHeight < container.offsetHeight) &&
+      newTop > 0
+    ) { this.top = newTop; }
 
     this.lastMouseX = $event.clientX;
     this.lastMouseY = $event.clientY;

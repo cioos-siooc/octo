@@ -3,7 +3,7 @@
   class="popup absolute"
   *ngIf="popupOpen"
   [ngStyle]="{'top': top + 'px', 'left': left + 'px'}">
-  <div class="topBar align-middle" draggable="true" (mousedown)="onMouseDown($event)" (drag)="onDrag($event)">
+  <div class="topBar align-middle" draggable="true" (mousedown)="onMouseDown($event)" (drag)="onDrag($event, popup)">
     <span class="title">{{title}}</span>
     <button type="button" class="close" aria-label="Close" (click)=closePopup()>
       <span aria-hidden="true">&times;</span>
