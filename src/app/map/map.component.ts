@@ -27,9 +27,9 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showCatalog = true;
-    this.showTopicPicker = true;
-    this.showLayerManager = true;
+    this.showCatalog = false;
+    this.showTopicPicker = false;
+    this.showLayerManager = false;
 
     this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
       return baseLayerState.currentBaseLayer != null;

@@ -3,6 +3,9 @@
 }
 
 .popup .topBar {
+  cursor: pointer;
+  user-select: none;
+
   height: 2em;
   background-color: #343a40;
   color: white;

@@ -8,12 +8,12 @@
     {{baseLayer.title}}
   </option>
 </select>
-<app-popup [popupOpen]="showCatalog" class="absolute" style="top:47px;left:45px;">
+<app-popup [popupOpen]="showCatalog" class="absolute" [top]="47" [left]="45">
   <app-catalog></app-catalog>
 </app-popup>
-<app-popup [popupOpen]="showTopicPicker" class="absolute" style="top:47px;left:500px;">
+<app-popup [popupOpen]="showTopicPicker" class="absolute" [top]="47" [left]="500">
   <app-topic-picker></app-topic-picker>
 </app-popup>
-<app-popup [popupOpen]="showLayerManager" class="absolute" style="bottom: 50px; left:45px">
+<app-popup [popupOpen]="showLayerManager" class="absolute" [top]="400" [left]="45">
   <app-layer-manager></app-layer-manager>
 </app-popup>
