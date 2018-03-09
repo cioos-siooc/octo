@@ -9,7 +9,7 @@
     "build:prod": "ng build --environment prod --aot",
     "start": "ng serve --aot",
     "test:local": "ng test --browsers=\"Chrome\"",
-    "test:ci": "ng test --browsers=\"PhantomJS\"",
+    "test:ci": "ng test --browsers=\"ChromeCustom\"",
     "lint": "ng lint",
     "e2e": "ng e2e --aot"
   },
@@ -46,6 +46,7 @@
     "@types/node": "~6.0.60",
     "@types/ol": "^4.6.1",
     "codelyzer": "^4.0.1",
+    "is-docker": "^1.1.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",
