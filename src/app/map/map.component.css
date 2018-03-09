@@ -1,6 +1,30 @@
+#toggleTopicPicker {
+  position: absolute;
+  left: 10px;
+  bottom: 3em;
+}
+
+#toggleCatalog {
+  position: absolute;
+  left: 10px;
+  bottom: 6em;
+}
+
+#toggleLayerManager {
+  position: absolute;
+  left: 10px;
+  bottom: 9em;
+}
+
+.toggleButton {
+  width: 12em;
+  opacity: 0.8;
+}
+
 .mapSelectStyle {
   position: absolute;
-  bottom: 25px;
+  /* bottom: 25px; */
+  bottom: 1em;
   left: 10px;
   font-family: 'Muli', sans-serif;
   letter-spacing: 1px;

@@ -19,11 +19,18 @@ import * as baseLayerActions from './store/base-layer.actions';
 export class MapComponent implements OnInit {
   layerState: Observable<fromBaseLayer.State>;
   currentBaseLayer: Layer;
+  showCatalog: Boolean;
+  showTopicPicker: Boolean;
+  showLayerManager: Boolean;
 
   constructor(private store: Store<fromApp.AppState>) {
   }
 
   ngOnInit() {
+    this.showCatalog = true;
+    this.showTopicPicker = true;
+    this.showLayerManager = true;
+
     this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
       return baseLayerState.currentBaseLayer != null;
     }).subscribe((baseLayerState: fromBaseLayer.State) => {
@@ -38,5 +45,17 @@ export class MapComponent implements OnInit {
 
   onSelectBaseLayer() {
     this.store.dispatch(new baseLayerActions.SetCurrentBaseLayer(this.currentBaseLayer));
+  }
+
+  toggleCatalog() {
+    this.showCatalog = !this.showCatalog;
+  }
+
+  toggleTopicPicker() {
+    this.showTopicPicker = !this.showTopicPicker;
+  }
+
+  toggleLayerManager() {
+    this.showLayerManager = !this.showLayerManager;
   }
 }
