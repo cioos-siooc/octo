@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import View from 'ol/view';
-import Map from 'ol/Map';
+import Map from 'ol/map';
 import Proj from 'ol/proj';
 import OLLayer from 'ol/layer/layer';
 import LayerBase from 'ol/layer/base';
