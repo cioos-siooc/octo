@@ -1,8 +1,9 @@
 <div>
     <span *ngFor="let topic of (catalogState | async).topics; let i = index">
         <span *ngIf="topic.expanded && topic.category">
-            <h5>{{ topic.label }}</h5>
+            <div class="text-center"><h5>{{ topic.label }}</h5></div>
             <app-category [category]="topic.category" [treeLocation]="[i]"></app-category>
         </span>
     </span>
+    <div class="text-center" *ngIf="numExpandedTopics < 1">Select a topic using the Topic Picker</div>
 </div>
