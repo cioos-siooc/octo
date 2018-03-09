@@ -1,10 +1,12 @@
-<span class="categoryHeader selectable" *ngIf="category.type != 'root'"><h6 (click)="onClickCategory(category, treeLocation)">{{ category.label }}</h6></span>
+<span class="categoryHeader selectable" *ngIf="category.type != 'root'"><h6
+  (click)="onClickCategory(category, treeLocation)">{{ category.label }}</h6></span>
 <ul class="list-group">
   <li class="list-group-item" *ngFor="let cat of category.categories; let i = index">
     <div class="selectable" (click)="onClickCategory(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
       <input *ngIf="cat.type === 'layer'" [(ngModel)]="cat.isChecked" type="checkbox">
       <span>{{ cat.label }}</span>
-      <span *ngIf="cat.type != 'layer'" class="badge badge-primary badge-pill float-right">{{ cat.categories.length }}</span>
+      <span *ngIf="cat.type != 'layer'"
+            class="badge badge-primary badge-pill float-right">{{ cat.categories.length }}</span>
     </div>
     <app-category *ngIf="cat.isExpanded" [category]="cat" [treeLocation]="treeLocation.concat([i])"></app-category>
   </li>

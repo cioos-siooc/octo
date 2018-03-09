@@ -23,7 +23,9 @@ export class CatalogComponent implements OnInit {
     this.catalogState.subscribe(state => {
       this.numExpandedTopics = 0;
       for (const topic of state.topics) {
-        if (topic.expanded) { this.numExpandedTopics += 1; }
+        if (topic.expanded) {
+          this.numExpandedTopics += 1;
+        }
       }
     });
   }

@@ -30,13 +30,16 @@ export class MapComponent implements OnInit {
     this.showCatalog = false;
     this.showTopicPicker = false;
     this.showLayerManager = false;
+    this.synchronizeBaseLayer();
+    this.layerState = this.store.select('baseLayer');
+  }
 
+  private synchronizeBaseLayer() {
     this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
       return baseLayerState.currentBaseLayer != null;
     }).subscribe((baseLayerState: fromBaseLayer.State) => {
       this.currentBaseLayer = baseLayerState.currentBaseLayer;
     });
-    this.layerState = this.store.select('baseLayer');
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {

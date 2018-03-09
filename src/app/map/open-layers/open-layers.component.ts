@@ -9,8 +9,7 @@ import * as fromApp from '../../store/app.reducers';
 import * as fromBaseLayer from '../store/base-layer.reducers';
 import {OLLayerFactory} from './ol-layer-factory.util';
 import * as fromLayer from '../store/layer.reducers';
-import {clone} from 'lodash';
-import {isEqual} from 'lodash';
+import {clone, isEqual} from 'lodash';
 import {Layer} from '../../shared/layer.model';
 import 'rxjs/add/operator/filter';
 import {Observable} from 'rxjs/Observable';
@@ -32,9 +31,6 @@ export class OpenLayersComponent implements AfterViewInit {
     this.initMap();
     this.initBaseLayerSubscription();
     this.initLayerSubscription();
-    setInterval(() => {
-      this.map.updateSize();
-    }, 5000);
   }
 
   private initMap() {
@@ -50,17 +46,17 @@ export class OpenLayersComponent implements AfterViewInit {
 
   private initBaseLayerSubscription() {
     (<Observable<fromBaseLayer.State>>this.store.select('baseLayer'))
-    .filter(baseLayerState => baseLayerState.currentBaseLayer != null)
-    .subscribe((baseLayerState: fromBaseLayer.State) => {
-      if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
-        if (this.baseOLLayer != null) {
-          this.map.removeLayer(this.baseOLLayer);
+      .filter(baseLayerState => baseLayerState.currentBaseLayer != null)
+      .subscribe((baseLayerState: fromBaseLayer.State) => {
+        if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
+          if (this.baseOLLayer != null) {
+            this.map.removeLayer(this.baseOLLayer);
+          }
+          const newLayer = OLLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
+          this.map.addLayer(newLayer);
+          this.baseOLLayer = newLayer;
         }
-        const newLayer = OLLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
-        this.map.addLayer(newLayer);
-        this.baseOLLayer = newLayer;
-      }
-    });
+      });
   }
 
   private getOLLayerFromId(id): LayerBase {
@@ -70,36 +66,36 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private initLayerSubscription() {
-     this.store.select('layer')
-    .subscribe((layerState: fromLayer.State) => {
-      const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
-      currentOLLayers.forEach((layer: OLLayer) => {
-        // If the new layer is already there
-         if (layerState.layers.some((l) => (l.uniqueId === layer.get('uniqueId')))) {
-          const updatedOgslLayer = layerState.layers.filter((l) => {
-            return l.uniqueId === layer.get('uniqueId');
-          })[0];
-          const oldOgslLayer = this.layers.filter((l) => {
-            return l.uniqueId === layer.get('uniqueId');
-          })[0];
-          if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
-            // Only update the old layer if the new one is different
-            const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);
+    this.store.select('layer')
+      .subscribe((layerState: fromLayer.State) => {
+        const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
+        currentOLLayers.forEach((layer: OLLayer) => {
+          // If the new layer is already there
+          if (layerState.layers.some((l) => (l.uniqueId === layer.get('uniqueId')))) {
+            const updatedOgslLayer = layerState.layers.filter((l) => {
+              return l.uniqueId === layer.get('uniqueId');
+            })[0];
+            const oldOgslLayer = this.layers.filter((l) => {
+              return l.uniqueId === layer.get('uniqueId');
+            })[0];
+            if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
+              // Only update the old layer if the new one is different
+              const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);
+              this.map.removeLayer(layer);
+              this.map.addLayer(newOlLayer);
+            }
+          } else if (layer.get('uniqueId') != null) {
+            // If old layer is not part of the new layers and isn't a background layer, remove it
             this.map.removeLayer(layer);
-            this.map.addLayer(newOlLayer);
           }
-        } else if (layer.get('uniqueId') != null) {
-           // If old layer is not part of the new layers and isn't a background layer, remove it
-          this.map.removeLayer(layer);
-        }
+        });
+        // Add remaining layers
+        layerState.layers.forEach((newLayer: Layer) => {
+          if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
+            this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
+          }
+        });
+        this.layers = layerState.layers;
       });
-      // Add remaining layers
-      layerState.layers.forEach((newLayer: Layer) => {
-        if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
-          this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
-        }
-      });
-      this.layers = layerState.layers;
-    });
   }
 }

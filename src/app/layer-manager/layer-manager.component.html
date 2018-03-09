@@ -2,10 +2,10 @@
   <ul>
     <li *ngFor="let layer of (layerState | async).layers" class="no-list-style">
       <a><i class="fa fa-times-circle foreground-red"
-              (click)="onRemoveClick(layer)"></i></a>
+            (click)="onRemoveClick(layer)"></i></a>
       <span>{{layer.title}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
-           (click)="onShowLayerInfoClick(layer)"></i></a>
+            (click)="onShowLayerInfoClick(layer)"></i></a>
     </li>
   </ul>
 </div>

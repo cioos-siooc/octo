@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../store/app.reducers';
 import * as fromLayer from '../map/store/layer.reducers';
@@ -14,7 +14,8 @@ import * as catalogActions from '../catalog/store/catalog.actions';
 export class LayerManagerComponent implements OnInit {
   layerState: Observable<fromLayer.State>;
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>) {
+  }
 
   ngOnInit() {
     this.layerState = this.store.select('layer');

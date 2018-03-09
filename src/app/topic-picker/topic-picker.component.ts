@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as catalogActions from '../catalog/store/catalog.actions';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-import { Topic } from '../shared/topic.model';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
+import {Topic} from '../shared/topic.model';
 
 @Component({
   selector: 'app-topic-picker',
@@ -14,9 +14,8 @@ import { Topic } from '../shared/topic.model';
 export class TopicPickerComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
 
-  constructor(
-    private store: Store<fromCatalog.AppState>
-  ) {}
+  constructor(private store: Store<fromCatalog.AppState>) {
+  }
 
   ngOnInit() {
     this.catalogState = this.store.select('catalog');

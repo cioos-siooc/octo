@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-popup',
@@ -13,7 +13,8 @@ export class PopupComponent implements OnInit {
   lastMouseX: number;
   lastMouseY: number;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
     if (this.popupOpen == null) {
@@ -41,12 +42,16 @@ export class PopupComponent implements OnInit {
       deltaX < 100 && deltaX > -100 &&
       (newLeft + popup.offsetWidth < container.offsetWidth) &&
       newLeft > 0
-    ) { this.left = newLeft; }
+    ) {
+      this.left = newLeft;
+    }
     if (
       deltaY < 100 && deltaY > -100 &&
       (newTop + popup.offsetHeight < container.offsetHeight) &&
       newTop > 0
-    ) { this.top = newTop; }
+    ) {
+      this.top = newTop;
+    }
 
     this.lastMouseX = $event.clientX;
     this.lastMouseY = $event.clientY;
