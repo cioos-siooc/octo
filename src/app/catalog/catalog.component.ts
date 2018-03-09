@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Store} from '@ngrx/store';
 
 import * as fromCatalog from './store/catalog.reducers';
 import * as catalogActions from './store/catalog.actions';
-import * as layerActions from '../map/store/layer.actions';
-import { Topic } from '../shared/topic.model';
-import { Category } from '../shared/category.model';
+import {Topic} from '../shared/topic.model';
 
 @Component({
   selector: 'app-catalog',
@@ -16,9 +14,8 @@ import { Category } from '../shared/category.model';
 export class CatalogComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
 
-  constructor(
-    private store: Store<fromCatalog.AppState>
-  ) {}
+  constructor(private store: Store<fromCatalog.AppState>) {
+  }
 
   ngOnInit() {
     this.catalogState = this.store.select('catalog');
