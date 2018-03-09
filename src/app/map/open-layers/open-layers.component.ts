@@ -13,7 +13,7 @@ import {clone} from 'lodash';
 import {isEqual} from 'lodash';
 import {Layer} from '../../shared/layer.model';
 import 'rxjs/add/operator/filter';
-import {Observable} from 'rxjs/observable';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-open-layers',
