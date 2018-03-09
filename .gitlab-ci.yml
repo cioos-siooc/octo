@@ -1,4 +1,4 @@
-stages:  
+stages:
 - test
 - package
 - deploy
@@ -9,7 +9,7 @@ cache:
   paths:
   - node_modules/
 
-run-test:  
+run-test:
   stage: test
   image: node:latest
   script:
@@ -21,13 +21,13 @@ run-test:
     - master
     - pre-production
     - production
-    
-run-package-dev:  
+
+run-package-dev:
   stage: package
   image: node:latest
   script:
     - npm install
-    - npm run test
+    - npm run test:ci
     - npm run build:dev
     - pwd
     - ls
@@ -36,7 +36,7 @@ run-package-dev:
       - dist
   only:
     - master
-    
+
 run-deploy-dev:
     stage: deploy
     script:

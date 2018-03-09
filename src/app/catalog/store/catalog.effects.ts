@@ -1,24 +1,24 @@
-import 'rxjs/add/operator/do';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-
-import { TopicGroup } from '../../shared/topic-group.model';
-import { Topic } from '../../shared/topic.model';
-import * as CatalogActions from './catalog.actions';
-import { AppState } from '../../store/app.reducers';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import { TopicHierarchy } from '../../shared/topic-hierarchy.model';
-import { Category } from '../../shared/category.model';
+
 import { environment } from '../../../environments/environment';
+import { Category } from '../../shared/category.model';
+import { TopicGroup } from '../../shared/topic-group.model';
+import { TopicHierarchy } from '../../shared/topic-hierarchy.model';
+import { Topic } from '../../shared/topic.model';
+import { AppState } from '../../store/app.reducers';
+import * as CatalogActions from './catalog.actions';
 
 @Injectable()
 export class CatalogEffects {
