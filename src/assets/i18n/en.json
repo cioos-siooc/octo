@@ -1,3 +1,7 @@
 {
-  "slgo-logo": "https://ogsl.ca/conditions/images/SLGO.png"
+  "slgo-logo": "https://ogsl.ca/conditions/images/SLGO.png",
+  "layer-manager-title": "Active Layers",
+  "catalog-title": "Catalog",
+  "topic-picker-title": "Themes",
+  "catalog-help-message": "Select a theme using the Themes dialogue"
 }

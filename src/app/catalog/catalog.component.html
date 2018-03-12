@@ -5,5 +5,5 @@
             <app-category [category]="topic.category" [treeLocation]="[i]"></app-category>
         </span>
     </span>
-    <div class="text-center" *ngIf="numExpandedTopics < 1">Select a topic using the Topic Picker</div>
+    <div class="text-center" *ngIf="numExpandedTopics < 1">{{'catalog-help-message' | translate}}</div>
 </div>

@@ -1,3 +1,7 @@
 {
-  "slgo-logo": "https://ogsl.ca/conditions/images/OGSL.png"
+  "slgo-logo": "https://ogsl.ca/conditions/images/OGSL.png",
+  "layer-manager-title": "Couches actives",
+  "catalog-title": "Catalogue",
+  "topic-picker-title": "Thèmes",
+  "catalog-help-message": "Sélectionner un thème à l'aide de la fenêtre \"Thèmes\""
 }
