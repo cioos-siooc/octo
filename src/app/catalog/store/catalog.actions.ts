@@ -1,9 +1,9 @@
-import { Action } from '@ngrx/store';
+import {Action} from '@ngrx/store';
 
-import { TopicGroup } from '../../shared/topic-group.model';
-import { Topic } from '../../shared/topic.model';
-import { Category } from '../../shared/category.model';
-import { CatalogSelectedLayer } from '../../shared/catalog-selected-layer.model';
+import {TopicGroup} from '../../shared/topic-group.model';
+import {Topic} from '../../shared/topic.model';
+import {Category} from '../../shared/category.model';
+import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 
 export const FETCH_TOPIC_GROUP = 'FETCH_TOPIC_GROUP';
 export const SET_TOPIC_GROUP = 'SET_TOPIC_GROUP';
@@ -24,14 +24,15 @@ export const REMOVE_SELECTED_LAYER = 'REMOVE_SELECTED_LAYER';
  * @implements {Action}
  */
 export class FetchTopicGroup implements Action {
-    readonly type = FETCH_TOPIC_GROUP;
+  readonly type = FETCH_TOPIC_GROUP;
 
-    /**
-     * Creates an instance of FetchTopicGroup.
-     * @param {number} payload - The id of the topic group in mapapi
-     * @memberof FetchTopicGroup
-     */
-    constructor(public payload: number) {}
+  /**
+   * Creates an instance of FetchTopicGroup.
+   * @param {number} payload - The id of the topic group in mapapi
+   * @memberof FetchTopicGroup
+   */
+  constructor(public payload: number) {
+  }
 }
 
 /**
@@ -42,14 +43,15 @@ export class FetchTopicGroup implements Action {
  * @implements {Action}
  */
 export class SetTopicGroup implements Action {
-    readonly type = SET_TOPIC_GROUP;
+  readonly type = SET_TOPIC_GROUP;
 
-    /**
-     * Creates an instance of SetTopicGroup.
-     * @param {TopicGroup} payload - The TopicGroup result from mapapi
-     * @memberof SetTopicGroup
-     */
-    constructor(public payload: TopicGroup) {}
+  /**
+   * Creates an instance of SetTopicGroup.
+   * @param {TopicGroup} payload - The TopicGroup result from mapapi
+   * @memberof SetTopicGroup
+   */
+  constructor(public payload: TopicGroup) {
+  }
 }
 
 /**
@@ -60,14 +62,15 @@ export class SetTopicGroup implements Action {
  * @implements {Action}
  */
 export class FetchTopic implements Action {
-    readonly type = FETCH_TOPIC;
+  readonly type = FETCH_TOPIC;
 
-    /**
-     * Creates an instance of FetchTopic.
-     * @param {number} payload - The id of the topic in mapapi
-     * @memberof FetchTopic
-     */
-    constructor(public payload: number) {}
+  /**
+   * Creates an instance of FetchTopic.
+   * @param {number} payload - The id of the topic in mapapi
+   * @memberof FetchTopic
+   */
+  constructor(public payload: number) {
+  }
 }
 
 /**
@@ -78,14 +81,15 @@ export class FetchTopic implements Action {
  * @implements {Action}
  */
 export class AppendTopic implements Action {
-    readonly type = APPEND_TOPIC;
+  readonly type = APPEND_TOPIC;
 
-    /**
-     * Creates an instance of AppendTopic.
-     * @param {Topic} payload - The Topic result from mapapi
-     * @memberof AppendTopic
-     */
-    constructor(public payload: Topic) {}
+  /**
+   * Creates an instance of AppendTopic.
+   * @param {Topic} payload - The Topic result from mapapi
+   * @memberof AppendTopic
+   */
+  constructor(public payload: Topic) {
+  }
 }
 
 /**
@@ -97,21 +101,22 @@ export class AppendTopic implements Action {
  * @implements {Action}
  */
 export class SetTopicExpanded implements Action {
-    readonly type = SET_TOPIC_EXPANDED;
+  readonly type = SET_TOPIC_EXPANDED;
 
-    /**
-     * Creates an instance of SetTopicExpanded.
-     * @param {{
+  /**
+   * Creates an instance of SetTopicExpanded.
+   * @param {{
      *         topicIndex: number, - The index of the topic in the reducer topic
      *                               list
      *         expanded: boolean - The new expanded setting for the target topic
      *     }} payload
-     * @memberof SetTopicExpanded
-     */
-    constructor(public payload: {
-        topicIndex: number,
-        expanded: boolean
-    }) {}
+   * @memberof SetTopicExpanded
+   */
+  constructor(public payload: {
+    topicIndex: number,
+    expanded: boolean
+  }) {
+  }
 }
 
 /**
@@ -122,14 +127,15 @@ export class SetTopicExpanded implements Action {
  * @implements {Action}
  */
 export class FetchCategoryHierarchy implements Action {
-    readonly type = FETCH_CATEGORY_HIERARCHY;
+  readonly type = FETCH_CATEGORY_HIERARCHY;
 
-    /**
-     * Creates an instance of FetchCategoryHierarchy.
-     * @param {number} payload - The index of the topic in the reducer topic list
-     * @memberof FetchCategoryHierarchy
-     */
-    constructor(public payload: number) {}
+  /**
+   * Creates an instance of FetchCategoryHierarchy.
+   * @param {number} payload - The index of the topic in the reducer topic list
+   * @memberof FetchCategoryHierarchy
+   */
+  constructor(public payload: number) {
+  }
 }
 
 /**
@@ -141,20 +147,21 @@ export class FetchCategoryHierarchy implements Action {
  * @implements {Action}
  */
 export class SetCategories implements Action {
-    readonly type = SET_CATEGORIES;
+  readonly type = SET_CATEGORIES;
 
-    /**
-     * Creates an instance of SetCategories.
-     * @param {{
+  /**
+   * Creates an instance of SetCategories.
+   * @param {{
      *         topicId: number, - The id of the topic in mapapi
      *         category: Category - The category hierarchy result from mapapi
      *     }} payload
-     * @memberof SetCategories
-     */
-    constructor(public payload: {
-        topicId: number,
-        category: Category
-    }) {}
+   * @memberof SetCategories
+   */
+  constructor(public payload: {
+    topicId: number,
+    category: Category
+  }) {
+  }
 }
 
 /**
@@ -165,22 +172,23 @@ export class SetCategories implements Action {
  * @implements {Action}
  */
 export class UpdateCategory implements Action {
-    readonly type = UPDATE_CATEGORY;
+  readonly type = UPDATE_CATEGORY;
 
-    /**
-     * Creates an instance of UpdateCategory.
-     * @param {{
+  /**
+   * Creates an instance of UpdateCategory.
+   * @param {{
      *         treeLocation: number[], - The list of indices for traversing into
      *                                   the category hierarchy to access the
      *                                   category to be replaced.
      *         newCategory: Category - The replacement category to be used
      *     }} payload
-     * @memberof UpdateCategory
-     */
-    constructor(public payload: {
-        treeLocation: number[],
-        newCategory: Category
-    }) {}
+   * @memberof UpdateCategory
+   */
+  constructor(public payload: {
+    treeLocation: number[],
+    newCategory: Category
+  }) {
+  }
 }
 
 /**
@@ -194,14 +202,15 @@ export class UpdateCategory implements Action {
  * @implements {Action}
  */
 export class AddSelectedLayer implements Action {
-    readonly type = ADD_SELECTED_LAYER;
+  readonly type = ADD_SELECTED_LAYER;
 
-    /**
-     * Creates an instance of AddSelectedLayer.
-     * @param {CatalogSelectedLayer} payload - The CataLogSelectedLayer to add
-     * @memberof AddSelectedLayer
-     */
-    constructor(public payload: CatalogSelectedLayer) {}
+  /**
+   * Creates an instance of AddSelectedLayer.
+   * @param {CatalogSelectedLayer} payload - The CataLogSelectedLayer to add
+   * @memberof AddSelectedLayer
+   */
+  constructor(public payload: CatalogSelectedLayer) {
+  }
 }
 
 /**
@@ -212,25 +221,26 @@ export class AddSelectedLayer implements Action {
  * @implements {Action}
  */
 export class RemoveSelectedLayer implements Action {
-    readonly type = REMOVE_SELECTED_LAYER;
+  readonly type = REMOVE_SELECTED_LAYER;
 
-    /**
-     * Creates an instance of RemoveSelectedLayer.
-     * @param {string} payload - The unique layerid of the selectedLayer entry
-     *                           to be removed
-     * @memberof RemoveSelectedLayer
-     */
-    constructor(public payload: string) {}
+  /**
+   * Creates an instance of RemoveSelectedLayer.
+   * @param {string} payload - The unique layerid of the selectedLayer entry
+   *                           to be removed
+   * @memberof RemoveSelectedLayer
+   */
+  constructor(public payload: string) {
+  }
 }
 
 export type CatalogActions =
-    FetchTopicGroup |
-    SetTopicGroup |
-    FetchTopic |
-    AppendTopic |
-    SetTopicExpanded |
-    FetchCategoryHierarchy |
-    SetCategories |
-    UpdateCategory |
-    AddSelectedLayer |
-    RemoveSelectedLayer;
+  FetchTopicGroup |
+  SetTopicGroup |
+  FetchTopic |
+  AppendTopic |
+  SetTopicExpanded |
+  FetchCategoryHierarchy |
+  SetCategories |
+  UpdateCategory |
+  AddSelectedLayer |
+  RemoveSelectedLayer;

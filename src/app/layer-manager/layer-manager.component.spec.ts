@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LayerManagerComponent } from './layer-manager.component';
+import {LayerManagerComponent} from './layer-manager.component';
+import {StoreModule} from '@ngrx/store';
+import {reducers} from '../store/app.reducers';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -8,9 +10,12 @@ describe('LayerManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayerManagerComponent ]
+      declarations: [LayerManagerComponent],
+      imports: [
+        StoreModule.forRoot(reducers),
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

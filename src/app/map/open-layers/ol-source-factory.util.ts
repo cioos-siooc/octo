@@ -12,8 +12,8 @@ export class OLSourceFactory {
     if (layer.type === 'bing') {
       source = this.generateBingMapsSource(<BingLayer>layer);
     } else if (layer.type === 'wms') {
-            source = this.generateTileWMSSource(<WmsLayer>layer);
-        }
+      source = this.generateTileWMSSource(<WmsLayer>layer);
+    }
     return source;
   }
 

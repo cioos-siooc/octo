@@ -11,6 +11,6 @@ export interface AppState {
 
 export const reducers: ActionReducerMap<AppState> = {
   catalog: fromCatalog.catalogReducer,
-  layer : fromLayer.layerReducer,
+  layer: fromLayer.layerReducer,
   baseLayer: fromBaseLayer.baseLayerReducer
 };

@@ -1,6 +1,5 @@
 export class CatalogSelectedLayer {
-    constructor(
-        public layerUniqueId: string,
-        public treeLocation: number[]
-    ) {}
+  constructor(public layerUniqueId: string,
+              public treeLocation: number[]) {
+  }
 }

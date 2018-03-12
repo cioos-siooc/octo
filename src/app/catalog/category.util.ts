@@ -1,41 +1,40 @@
-import { cloneDeep } from 'lodash';
+import {cloneDeep} from 'lodash';
 
-import { Category } from '../shared/category.model';
-import * as CatalogActions from './store/catalog.actions';
-import { Topic } from '../shared/topic.model';
+import {Category} from '../shared/category.model';
+import {Topic} from '../shared/topic.model';
 
 export default class Utils {
-    static getCategory(category: Category, treeLocation) {
-        const treeLoc = [...treeLocation];
-        if (treeLocation.length <= 1) {
-            return category.categories[treeLoc.shift()];
-        } else {
-            return this.getCategory(
-                category.categories[treeLoc.shift()],
-                treeLoc
-            );
-        }
+  static getCategory(category: Category, treeLocation) {
+    const treeLoc = [...treeLocation];
+    if (treeLocation.length <= 1) {
+      return category.categories[treeLoc.shift()];
+    } else {
+      return this.getCategory(
+        category.categories[treeLoc.shift()],
+        treeLoc
+      );
     }
+  }
 
-    static setCategory(startingCategory: Category, treeLocation: number[], newCategory: Category) {
-        const categoryClone = cloneDeep(startingCategory);
-        const categoryToUpdate = this.getCategory(categoryClone, treeLocation);
-        Object.assign(categoryToUpdate, newCategory);
-        return categoryClone;
-    }
+  static setCategory(startingCategory: Category, treeLocation: number[], newCategory: Category) {
+    const categoryClone = cloneDeep(startingCategory);
+    const categoryToUpdate = this.getCategory(categoryClone, treeLocation);
+    Object.assign(categoryToUpdate, newCategory);
+    return categoryClone;
+  }
 
-    static updateCategory(state, treeLocation, newCategory) {
-        const treeLoc = [...treeLocation];
-        const topicId = treeLoc.shift();
-        const topicToUpdate: Topic = {...state.topics[topicId]};
-        const updatedCategory: Category = Utils.setCategory(
-            topicToUpdate.category,
-            treeLoc,
-            newCategory
-        );
-        topicToUpdate.category = updatedCategory;
-        const updatedTopicList = [...state.topics];
-        updatedTopicList[topicId] = topicToUpdate;
-        return updatedTopicList;
-    }
+  static updateCategory(state, treeLocation, newCategory) {
+    const treeLoc = [...treeLocation];
+    const topicId = treeLoc.shift();
+    const topicToUpdate: Topic = {...state.topics[topicId]};
+    const updatedCategory: Category = Utils.setCategory(
+      topicToUpdate.category,
+      treeLoc,
+      newCategory
+    );
+    topicToUpdate.category = updatedCategory;
+    const updatedTopicList = [...state.topics];
+    updatedTopicList[topicId] = topicToUpdate;
+    return updatedTopicList;
+  }
 }

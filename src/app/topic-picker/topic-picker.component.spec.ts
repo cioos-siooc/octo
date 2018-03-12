@@ -14,7 +14,7 @@ describe('TopicPickerComponent', () => {
       imports:
         [StoreModule.forRoot(reducers)]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

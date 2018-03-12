@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, Input, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
 
-import { Category } from '../../shared/category.model';
+import {Category} from '../../shared/category.model';
 import CreateLayer from '../../shared/create-layer.utility';
 import * as catalogActions from '../store/catalog.actions';
 import * as layerActions from '../../map/store/layer.actions';
 import * as fromCatalog from '../store/catalog.reducers';
-import { CatalogSelectedLayer } from '../../shared/catalog-selected-layer.model';
+import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 
 @Component({
   selector: 'app-category',
@@ -17,10 +17,8 @@ export class CategoryComponent implements OnInit {
   @Input() category: Category;
   @Input() treeLocation: number[];
 
-  constructor(
-    private store: Store<fromCatalog.AppState>
-
-  ) { }
+  constructor(private store: Store<fromCatalog.AppState>) {
+  }
 
   ngOnInit() {
   }

@@ -10,25 +10,29 @@ export const UPDATE_LAYER = 'UPDATE_LAYER';
 export class FetchLayer implements Action {
   readonly type = FETCH_LAYER;
 
-  constructor(public payload: {layerId: number, uniqueId: string}) {}
+  constructor(public payload: { layerId: number, uniqueId: string }) {
+  }
 }
 
 export class AddLayer implements Action {
   readonly type = ADD_LAYER;
 
-  constructor(public payload: Layer) {}
+  constructor(public payload: Layer) {
+  }
 }
 
-export class DeleteLayer  implements Action {
+export class DeleteLayer implements Action {
   readonly type = DELETE_LAYER;
 
-  constructor(public payload: string) {}
+  constructor(public payload: string) {
+  }
 }
 
 export class UpdateLayer implements Action {
   readonly type = UPDATE_LAYER;
 
-  constructor(public payload: Layer) {}
+  constructor(public payload: Layer) {
+  }
 }
 
 

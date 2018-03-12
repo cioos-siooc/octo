@@ -9,7 +9,7 @@
     "build:prod": "ng build --environment prod --aot",
     "start": "ng serve --aot",
     "test:local": "ng test --browsers=\"Chrome\"",
-    "test:ci": "ng test --browsers=\"ChromeCustom\"",
+    "test:ci": "ng test --browsers=\"ChromeCustom\" --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e --aot"
   },

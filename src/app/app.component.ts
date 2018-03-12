@@ -13,7 +13,6 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Maponion';
 
   constructor(private httpClient: HttpClient, private store: Store<fromApp.AppState>, private translateService: TranslateService) {
   }

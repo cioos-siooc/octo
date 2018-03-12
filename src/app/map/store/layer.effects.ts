@@ -12,23 +12,23 @@ export class LayerEffects {
 
   @Effect()
   recipeFetch = this.actions$
-  .ofType(layerActions.FETCH_LAYER)
-  .mergeMap((action: layerActions.FetchLayer) => {
-    return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).map(
+    .ofType(layerActions.FETCH_LAYER)
+    .mergeMap((action: layerActions.FetchLayer) => {
+      return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).map(
+        (layer) => {
+          layer.uniqueId = action.payload.uniqueId;
+          return layer;
+        }
+      );
+    })
+    .map(
       (layer) => {
-        layer.uniqueId = action.payload.uniqueId;
-        return layer;
+        return {
+          type: layerActions.ADD_LAYER,
+          payload: layer
+        };
       }
     );
-  })
-  .map(
-    (layer) => {
-      return {
-        type: layerActions.ADD_LAYER,
-        payload: layer
-      };
-    }
-  );
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient) {
