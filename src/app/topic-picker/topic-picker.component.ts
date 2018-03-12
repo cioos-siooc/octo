@@ -19,7 +19,7 @@ export class TopicPickerComponent implements OnInit {
 
   ngOnInit() {
     this.catalogState = this.store.select('catalog');
-    this.store.dispatch(new catalogActions.FetchTopicGroup(12));
+    this.store.dispatch(new catalogActions.FetchTopicGroup(5));
   }
 
   onClickTopic(id: number, topic: Topic) {
