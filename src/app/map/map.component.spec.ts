@@ -10,6 +10,9 @@ import {reducers} from '../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
 import {CategoryComponent} from '../catalog/category/category.component';
+import {HttpLoaderFactory} from '../app.module';
+import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -21,7 +24,15 @@ describe('MapComponent', () => {
         CategoryComponent],
       imports: [
         StoreModule.forRoot(reducers),
-        FormsModule
+        FormsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
       ]
     })
       .compileComponents();
