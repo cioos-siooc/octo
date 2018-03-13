@@ -53,7 +53,7 @@ run-deploy-dev:
      # - echo "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
       - cat /root/.ssh/id_rsa
       - cat /root/.ssh/id_rsa.pub
-      - cat /root/.ssh/config
+     # - cat /root/.ssh/config
       - ls -la /root/.ssh/
       - scp -P 3031 -r dist/* admin@132.215.33.56:/var/www/html/maponion
     environment:
