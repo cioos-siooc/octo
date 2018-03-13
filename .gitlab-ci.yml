@@ -55,7 +55,7 @@ run-deploy-dev:
      #  - cat /root/.ssh/id_rsa.pub
      # - cat /root/.ssh/config
       - ls -la /root/.ssh/
-      - scp -P 3031 -r dist/* admin@132.215.33.56:/var/www/html/maponion
+      - scp -P 3031 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* admin@132.215.33.56:/var/www/html/maponion
     environment:
       name: dev
       url: 132.215.33.56/maponion
