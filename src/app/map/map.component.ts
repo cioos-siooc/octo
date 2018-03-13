@@ -19,27 +19,16 @@ import * as baseLayerActions from './store/base-layer.actions';
 export class MapComponent implements OnInit {
   layerState: Observable<fromBaseLayer.State>;
   currentBaseLayer: Layer;
-  showCatalog: Boolean;
-  showTopicPicker: Boolean;
-  showLayerManager: Boolean;
+  showCatalog = false;
+  showTopicPicker = false;
+  showLayerManager = false;
 
   constructor(private store: Store<fromApp.AppState>) {
   }
 
   ngOnInit() {
-    this.showCatalog = false;
-    this.showTopicPicker = false;
-    this.showLayerManager = false;
     this.synchronizeBaseLayer();
     this.layerState = this.store.select('baseLayer');
-  }
-
-  private synchronizeBaseLayer() {
-    this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
-      return baseLayerState.currentBaseLayer != null;
-    }).subscribe((baseLayerState: fromBaseLayer.State) => {
-      this.currentBaseLayer = baseLayerState.currentBaseLayer;
-    });
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
@@ -60,5 +49,13 @@ export class MapComponent implements OnInit {
 
   toggleLayerManager() {
     this.showLayerManager = !this.showLayerManager;
+  }
+
+  private synchronizeBaseLayer() {
+    this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
+      return baseLayerState.currentBaseLayer != null;
+    }).subscribe((baseLayerState: fromBaseLayer.State) => {
+      this.currentBaseLayer = baseLayerState.currentBaseLayer;
+    });
   }
 }

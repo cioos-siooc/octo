@@ -6,8 +6,8 @@ import {StoreModule} from '@ngrx/store';
 import {CategoryComponent} from './category/category.component';
 import {FormsModule} from '@angular/forms';
 import {HttpLoaderFactory} from '../app.module';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;
