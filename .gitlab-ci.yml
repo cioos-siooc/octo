@@ -22,6 +22,9 @@ run-test:
     - pre-production
     - production
 
+#########################################
+# Testing and packaging the application #
+#########################################
 run-package-dev:
   stage: package
   image: jemag/node-chrome:latest
@@ -29,40 +32,86 @@ run-package-dev:
     - npm install
     - npm run test:ci
     - npm run build:dev
-    - pwd
-    - ls
   artifacts:
     paths:
       - dist
   only:
     - master
 
+run-package-test:
+  stage: package
+  image: jemag/node-chrome:latest
+  script:
+    - npm install
+    - npm run test:ci
+    - npm run build:test
+  artifacts:
+    paths:
+      - dist
+  only:
+    - pre-production
+
+run-package-prod:
+  stage: package
+  image: jemag/node-chrome:latest
+  script:
+    - npm install
+    - npm run test:ci
+    - npm run build:prod
+  artifacts:
+    paths:
+      - dist
+  only:
+    - production
+
+##########################################################
+# Deploying the application on the proper infrastructure #
+##########################################################
 run-deploy-dev:
     stage: deploy
     script:
-      - pwd
-      - ls
       - mkdir -p /root/.ssh
       - echo "$SSH_PRIVATE_KEY_DEV" |  tr -d '\r' > /root/.ssh/id_rsa
-      - echo "$SSH_PRIVATE_KEY_DEV"
-     # - echo "$SSH_PUBLIC_KEY_DEV" |  tr -d '\r' > /root/.ssh/id_rsa.pub
-     # - echo "$SSH_PUBLIC_KEY_DEV" 
       - chmod 600 /root/.ssh/id_rsa
-     # - chmod 644 /root/.ssh/id_rsa.pub
       - chmod 700 /root/.ssh
-     # - echo "Host *\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
-      - cat /root/.ssh/id_rsa
-     #  - cat /root/.ssh/id_rsa.pub
-     # - cat /root/.ssh/config
-      - ls -la /root/.ssh/
       - scp -P 3031 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* admin@132.215.33.56:/var/www/html/maponion
     environment:
       name: dev
-      url: 132.215.33.56/maponion
+      url: http://$devHost:$devHttpPort/maponion
     dependencies:
     -  run-package-dev
     only:
      - master
 
+run-deploy-test:
+    stage: deploy
+    script:
+      - mkdir -p /root/.ssh
+      - echo "$SSH_PRIVATE_KEY_TEST" |  tr -d '\r' > /root/.ssh/id_rsa
+      - chmod 600 /root/.ssh/id_rsa
+      - chmod 700 /root/.ssh
+      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogslt@srogslwebt01.uqar.ca:/var/www/html/test-www/app/maponion
+    environment:
+      name: test
+      url: http://$testHost/maponion
+    dependencies:
+    -  run-package-test
+    only:
+     - pre-production
 
-
+run-deploy-prod:
+    stage: deploy
+    script:
+      - mkdir -p /root/.ssh
+      - echo "$SSH_PRIVATE_KEY_PROD" |  tr -d '\r' > /root/.ssh/id_rsa
+      - chmod 600 /root/.ssh/id_rsa
+      - chmod 700 /root/.ssh
+      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogsl@srogslweb01.uqar.ca:/var/www/html/www/app/maponion
+    environment:
+      name: prod
+      url: http://$prodHost/maponion
+    when: manual
+    dependencies:
+    -  run-package-prod
+    only:
+     - production
