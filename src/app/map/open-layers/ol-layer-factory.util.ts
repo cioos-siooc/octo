@@ -4,8 +4,8 @@ import OLLayer from 'ol/layer/layer';
 import Source from 'ol/source/source';
 import TileSource from 'ol/source/tile';
 import TileLayer from 'ol/layer/tile';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/vector';
+import VectorSource from 'ol/source/vector';
 import {StylesFromLiterals} from '../styles-from-literals.util';
 
 export class OLLayerFactory {
