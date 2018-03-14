@@ -9,31 +9,9 @@ a {
   cursor: pointer;
 }
 
-.flexbox-parent {
-  width: 100%;
+.full-sized{
   height: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  justify-content: flex-start; /* align items in Main Axis */
-  align-items: stretch; /* align items in Cross Axis */
-  align-content: stretch; /* Extra space in Cross Axis */
-}
-
-.fill-area {
-  display: flex;
-  flex-direction: row;
-
-  justify-content: flex-start; /* align items in Main Axis */
-  align-items: stretch; /* align items in Cross Axis */
-  align-content: stretch; /* Extra space in Cross Axis */
-  height:100%;
-  width:100%;
-}
-
-.flexbox-item-grow {
-  flex: 1; /* same as flex: 1 1 auto; */
+  width: 100%;;
 }
 
 .absolute {

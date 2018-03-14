@@ -14,7 +14,7 @@ import * as baseLayerActions from './store/base-layer.actions';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements OnInit {
-  @HostBinding('class') class = 'fill-area';
+  @HostBinding('class') class = 'full-sized';
   layerState: Observable<fromBaseLayer.State>;
   currentBaseLayer: Layer;
   showCatalog = false;
