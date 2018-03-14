@@ -1,5 +1,10 @@
 .popup {
   width: 25em;
+  -webkit-transition: all .05s ease;
+  -moz-transition: all .05s ease;
+  -o-transition: all .05s ease;
+  -ms-transition: all .05s ease;
+  transition: all .05s ease;
 }
 
 .popup .topBar {

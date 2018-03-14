@@ -1,4 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/throttleTime';
+import { throttle } from 'lodash';
 
 @Component({
   selector: 'app-popup',
@@ -12,6 +16,8 @@ export class PopupComponent implements OnInit {
   @Input() left: number;
   lastMouseX: number;
   lastMouseY: number;
+  dragOverSubscription: any;
+  mouseObservable: Observable<MouseEvent>;
 
   constructor() {
   }
@@ -20,33 +26,46 @@ export class PopupComponent implements OnInit {
     if (this.popupOpen == null) {
       this.popupOpen = true;
     }
+    this.mouseObservable = Observable.fromEvent<MouseEvent>(document.body, 'dragover').throttleTime(10);
   }
 
   closePopup() {
     this.popupOpen = false;
   }
 
-  onMouseDown($event) {
+  onDragStart($event, popup) {
+    $event.dataTransfer.setData('text/plain', 'dummy');
     this.lastMouseX = $event.clientX;
     this.lastMouseY = $event.clientY;
+    this.dragOverSubscription = this.mouseObservable
+      .subscribe(($ev) => {
+        this.onDrag($ev, popup);
+      });
+  }
+
+  onDragEnd($event, popup) {
+    this.dragOverSubscription.unsubscribe();
   }
 
   onDrag($event, popup) {
+    console.log('Drag');
+    console.log($event);
+
     const deltaX = $event.clientX - this.lastMouseX;
     const deltaY = $event.clientY - this.lastMouseY;
 
     const container = popup.parentElement.parentElement;
     const newLeft = this.left + deltaX;
     const newTop = this.top + deltaY;
+
+    console.log(deltaX, deltaY);
     if (
-      deltaX < 100 && deltaX > -100 &&
       (newLeft + popup.offsetWidth < container.offsetWidth) &&
       newLeft > 0
     ) {
       this.left = newLeft;
     }
     if (
-      deltaY < 100 && deltaY > -100 &&
       (newTop + popup.offsetHeight < container.offsetHeight) &&
       newTop > 0
     ) {
