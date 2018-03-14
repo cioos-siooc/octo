@@ -1,4 +1,17 @@
 import {extend} from 'lodash';
+import Style from 'ol/style/style';
+import Circle from 'ol/style/circle';
+import Fill from 'ol/style/fill';
+import Stroke from 'ol/style/stroke';
+import Icon from 'ol/style/icon';
+import RegularShape from 'ol/style/regularshape';
+import Text from 'ol/style/text';
+import Point from 'ol/geom/point';
+import MultiPoint from 'ol/geom/multipoint';
+import LineString from 'ol/geom/linestring';
+import MultiLineString from 'ol/geom/multilinestring';
+import Polygon from 'ol/geom/polygon';
+import MultiPolygon from 'ol/geom/multipolygon';
 
 export class StylesFromLiterals {
   private singleStyle: any;
@@ -157,9 +170,9 @@ export class StylesFromLiterals {
 
   public getOlStyleForPoint(options, shape): any {
     if (shape === 'circle') {
-      return new ol.style.Circle(options);
+      return new Circle(options);
     } else if (shape === 'icon') {
-      return new ol.style.Icon(options);
+      return new Icon(options);
     } else {
       const shapes = {
         square: {
@@ -182,7 +195,7 @@ export class StylesFromLiterals {
       };
       // {} to perserve the original object
       const style = extend({}, shapes[shape], options);
-      return new ol.style.RegularShape(style);
+      return new RegularShape(style);
     }
   }
 
@@ -192,13 +205,13 @@ export class StylesFromLiterals {
       const type = key;
       const style = options[key];
       if (type === 'stroke') {
-        olStyles[type] = new ol.style.Stroke(style);
+        olStyles[type] = new Stroke(style);
       } else if (type === 'fill') {
-        olStyles[type] = new ol.style.Fill(style);
+        olStyles[type] = new Fill(style);
       } else if (type === 'text') {
-        style.stroke = new ol.style.Stroke(style.stroke);
-        style.fill = new ol.style.Fill(style.fill);
-        olStyles[type] = new ol.style.Text(style);
+        style.stroke = new Stroke(style.stroke);
+        style.fill = new Fill(style.fill);
+        olStyles[type] = new Text(style);
       }
     });
     return olStyles;
@@ -233,18 +246,18 @@ export class StylesFromLiterals {
         }
       });
     }
-    return new ol.style.Style(olStyles);
+    return new Style(olStyles);
   }
 
   public getGeomTypeFromGeometry(olGeometry) {
-    if (olGeometry instanceof ol.geom.Point ||
-      olGeometry instanceof ol.geom.MultiPoint) {
+    if (olGeometry instanceof Point ||
+      olGeometry instanceof MultiPoint) {
       return 'point';
-    } else if (olGeometry instanceof ol.geom.LineString ||
-      olGeometry instanceof ol.geom.MultiLineString) {
+    } else if (olGeometry instanceof LineString ||
+      olGeometry instanceof MultiLineString) {
       return 'line';
-    } else if (olGeometry instanceof ol.geom.Polygon ||
-      olGeometry instanceof ol.geom.MultiPolygon) {
+    } else if (olGeometry instanceof Polygon ||
+      olGeometry instanceof MultiPolygon) {
       return 'polygon';
     }
   }
@@ -265,13 +278,13 @@ export class StylesFromLiterals {
    * Initialise le style à utiliser pour les points lorsque la valeur est nulle
    */
   private initNoValuePointStyle() {
-    const olStyleDefaultPoint = new ol.style.Style({
-      image: new ol.style.Circle({
+    const olStyleDefaultPoint = new Style({
+      image: new Circle({
         radius: 7,
-        fill: new ol.style.Fill({
+        fill: new Fill({
           color: '#FFFFFF'
         }),
-        stroke: new ol.style.Stroke({
+        stroke: new Stroke({
           color: '#000000',
           width: 1
         })
@@ -290,13 +303,13 @@ export class StylesFromLiterals {
    * Initialise le style à utiliser pour les points lorsqu'aucun style n'est défini pour la valeur
    */
   private initNoStyleDefinitionPointStyle() {
-    const olStyleDefaultPoint = new ol.style.Style({
-      image: new ol.style.Circle({
+    const olStyleDefaultPoint = new Style({
+      image: new Circle({
         radius: 7,
-        fill: new ol.style.Fill({
+        fill: new Fill({
           color: '#000000'
         }),
-        stroke: new ol.style.Stroke({
+        stroke: new Stroke({
           color: '#FFFFFF',
           width: 2
         })
