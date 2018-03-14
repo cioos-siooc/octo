@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostBinding} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -12,11 +12,9 @@ import * as baseLayerActions from './store/base-layer.actions';
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
-  host: {
-    class: 'fill-area'
-  }
 })
 export class MapComponent implements OnInit {
+  @HostBinding('class') class = 'fill-area';
   layerState: Observable<fromBaseLayer.State>;
   currentBaseLayer: Layer;
   showCatalog = false;

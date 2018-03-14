@@ -1,19 +1,19 @@
 #toggleTopicPicker {
   position: absolute;
   left: 10px;
-  bottom: 3em;
+  bottom: 120px;
 }
 
 #toggleCatalog {
   position: absolute;
   left: 10px;
-  bottom: 6em;
+  bottom: 80px;
 }
 
 #toggleLayerManager {
   position: absolute;
   left: 10px;
-  bottom: 9em;
+  bottom: 40px;
 }
 
 .toggleButton {
@@ -23,10 +23,8 @@
 
 .mapSelectStyle {
   position: absolute;
-  /* bottom: 25px; */
-  bottom: 1em;
+  bottom: 10px;
   left: 10px;
-  font-family: 'Muli', sans-serif;
   letter-spacing: 1px;
   color: #000;
   text-align: center;
