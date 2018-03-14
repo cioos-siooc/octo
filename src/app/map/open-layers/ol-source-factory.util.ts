@@ -3,6 +3,8 @@ import {BingLayer} from '../../shared/bing-layer.model';
 import Source from 'ol/source/source';
 import TileWMS from 'ol/source/tilewms';
 import BingMapsSource from 'ol/source/bingmaps';
+import GeoJSONFormat from 'ol/format/geojson';
+import VectorSource from 'ol/source/vector';
 import {WmsLayer} from '../../shared/wms-layer.model';
 
 export class OLSourceFactory {
@@ -13,6 +15,8 @@ export class OLSourceFactory {
       source = this.generateBingMapsSource(<BingLayer>layer);
     } else if (layer.type === 'wms') {
       source = this.generateTileWMSSource(<WmsLayer>layer);
+    } else if (layer.type === 'geojson') {
+      source = this.generateVectorSourceForGeojson(layer);
     }
     return source;
   }
@@ -33,8 +37,16 @@ export class OLSourceFactory {
       VERSION: layer.version,
       LAYERS: layer.identifier,
     };
-    const wmsSource = new TileWMS(sourceParams);
     // TODO: implement url_parameters
-    return wmsSource;
+    return new TileWMS(sourceParams);
+  }
+
+  private static generateVectorSourceForGeojson(layer: Layer) {
+    const sourceParams: any = {};
+    sourceParams.url = layer.url;
+    sourceParams.format = new GeoJSONFormat();
+
+    // TODO : implement url_parameters
+    return new VectorSource(sourceParams);
   }
 }

@@ -5,6 +5,9 @@ import {reducers} from '../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {CategoryComponent} from './category/category.component';
 import {FormsModule} from '@angular/forms';
+import {HttpLoaderFactory} from '../app.module';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;
@@ -16,6 +19,14 @@ describe('CatalogComponent', () => {
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
       ]
     })
       .compileComponents();

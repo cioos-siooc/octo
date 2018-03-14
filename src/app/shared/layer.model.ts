@@ -1,3 +1,5 @@
+import {ClientPresentation} from './client-presentation.model';
+
 export abstract class Layer {
   public id: number;
   public type: string;
@@ -11,4 +13,6 @@ export abstract class Layer {
   public code: string;
   public languageCode: string;
   public uniqueId: string;
+  public clientPresentations: ClientPresentation[];
+  public currentClientPresentation: ClientPresentation;
 }

@@ -3,6 +3,7 @@ import {Layer} from '../../shared/layer.model';
 
 
 export const FETCH_LAYER = 'FETCH_LAYER';
+export const FETCH_CLIENT_PRESENTATIONS = 'FETCH_CLIENT_PRESENTATIONS';
 export const ADD_LAYER = 'ADD_LAYER';
 export const DELETE_LAYER = 'DELETE_LAYER';
 export const UPDATE_LAYER = 'UPDATE_LAYER';
@@ -11,6 +12,13 @@ export class FetchLayer implements Action {
   readonly type = FETCH_LAYER;
 
   constructor(public payload: { layerId: number, uniqueId: string }) {
+  }
+}
+
+export class FetchClientPresentations implements Action {
+  readonly type = FETCH_CLIENT_PRESENTATIONS;
+
+  constructor(public payload: Layer) {
   }
 }
 

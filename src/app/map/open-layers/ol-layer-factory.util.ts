@@ -4,12 +4,17 @@ import OLLayer from 'ol/layer/layer';
 import Source from 'ol/source/source';
 import TileSource from 'ol/source/tile';
 import TileLayer from 'ol/layer/tile';
+import VectorLayer from 'ol/layer/vector';
+import VectorSource from 'ol/source/vector';
+import {StylesFromLiterals} from '../styles-from-literals.util';
 
 export class OLLayerFactory {
   public static generateLayer(layer: Layer): OLLayer {
     let olLayer: OLLayer;
     if (layer.type === 'bing' || layer.type === 'wms') {
       olLayer = this.generateTileLayer(layer);
+    } else if (layer.type === 'geojson') {
+      olLayer = this.generateVectorLayer(layer);
     }
     olLayer.setZIndex(layer.zIndex);
     return olLayer;
@@ -26,6 +31,26 @@ export class OLLayerFactory {
     olLayer.set('id', layer.id);
     olLayer.set('code', layer.code);
     olLayer.set('uniqueId', layer.uniqueId);
+  }
+
+  private static generateVectorLayer(layer: Layer) {
+    const source: Source = OLSourceFactory.generateSource(layer);
+    const olLayer: OLLayer = new VectorLayer({source: <VectorSource>source});
+    this.setOLLayerProperties(olLayer, layer);
+    this.setOLLayerStyle(layer, olLayer);
+    return olLayer;
+  }
+
+  private static setOLLayerStyle(layer: Layer, olLayer) {
+    if (layer.currentClientPresentation != null) {
+      const styleDef = layer.currentClientPresentation.styleDef;
+      if (styleDef != null) {
+        const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
+        (<VectorLayer>olLayer).setStyle(function (feature, resolution) {
+          return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
+        });
+      }
+    }
   }
 }
 
