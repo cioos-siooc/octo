@@ -9,4 +9,8 @@
     </li>
   </ul>
 </div>
+<app-popup [(popupOpen)]="showLayerInformation" [title]="'layer-information-title' | translate" class="absolute" [top]="47"
+           [left]="500">
+  <app-layer-information></app-layer-information>
+</app-popup>
 

@@ -23,6 +23,8 @@ import {LayerManagerComponent} from './layer-manager/layer-manager.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AngularDraggableModule} from 'angular2-draggable';
+import { LayerInformationComponent } from './layer-information/layer-information.component';
+import { LayerInformationEffects } from './layer-information/store/layer-information.effects';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -40,6 +42,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     CategoryComponent,
     TopicPickerComponent,
     LayerManagerComponent,
+    LayerInformationComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       }
     }),
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([LayerEffects, CatalogEffects]),
+    EffectsModule.forRoot([LayerEffects, CatalogEffects, LayerInformationEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production
