@@ -3,5 +3,6 @@
   "layer-manager-title": "Couches actives",
   "catalog-title": "Catalogue",
   "topic-picker-title": "Thèmes",
-  "catalog-help-message": "Sélectionner un thème à l'aide de la fenêtre \"Thèmes\""
+  "catalog-help-message": "Sélectionner un thème à l'aide de la fenêtre \"Thèmes\"",
+  "layer-information-title": "Informations de couche"
 }
