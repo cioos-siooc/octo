@@ -14,14 +14,14 @@
     {{baseLayer.title}}
   </option>
 </select>
-<app-popup [popupOpen]="showCatalog" [title]="'catalog-title' | translate" class="absolute" [top]="47" [left]="45">
+<app-popup [(popupOpen)]="showCatalog" [title]="'catalog-title' | translate" class="absolute" [top]="47" [left]="45">
   <app-catalog></app-catalog>
 </app-popup>
-<app-popup [popupOpen]="showTopicPicker" [title]="'topic-picker-title' | translate" class="absolute" [top]="47"
+<app-popup [(popupOpen)]="showTopicPicker" [title]="'topic-picker-title' | translate" class="absolute" [top]="47"
            [left]="500">
   <app-topic-picker></app-topic-picker>
 </app-popup>
-<app-popup [popupOpen]="showLayerManager" [title]="'layer-manager-title' | translate" class="absolute" [top]="400"
+<app-popup [(popupOpen)]="showLayerManager" [title]="'layer-manager-title' | translate" class="absolute" [top]="400"
            [left]="45">
   <app-layer-manager></app-layer-manager>
 </app-popup>
