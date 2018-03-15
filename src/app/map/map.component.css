@@ -1,27 +1,46 @@
-#toggleTopicPicker {
+#toggle-topic-picker {
   position: absolute;
   left: 10px;
   bottom: 120px;
 }
 
-#toggleCatalog {
+.above-ol {
+  z-index: 100;
+}
+
+#toggle-catalog {
   position: absolute;
   left: 10px;
   bottom: 80px;
 }
 
-#toggleLayerManager {
+#toggle-layer-manager {
   position: absolute;
   left: 10px;
   bottom: 40px;
 }
 
-.toggleButton {
+.toggle-button {
   width: 8em;
   opacity: 0.8;
 }
 
-.mapSelectStyle {
+.layer-manager-popup {
+  bottom: 100px;
+  left: 10px;
+}
+
+.topic-picker-popup {
+  top: 42px;
+  right: 5px;
+}
+
+.catalog-popup {
+  top: 42px;
+  left: 10px;
+}
+
+.map-select-style {
   position: absolute;
   bottom: 10px;
   left: 10px;

@@ -1,0 +1,42 @@
+/* Medium devices (tablets, 992px and down) */
+@media (max-width: 992px) {
+}
+
+/* Small devices (phones, 768px and down) */
+@media (max-width: 768px) {
+  .popup-mobile-bottom .popup-content{
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  .popup-mobile-bottom {
+    left: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    transform: translate3d(0, 0, 0) !important;
+    -ms-transform: translateX(0) translateY(0) !important
+  }
+
+  .popup-mobile-full {
+    top: 2% !important;
+    left: 2% !important;
+    right: 2% !important;
+    bottom: 2% !important;
+  }
+
+  .popup-mobile-full .popup-content {
+    width: auto !important;
+    max-height: none !important;
+    max-width: none !important;
+    -webkit-overflow-scrolling: touch
+  }
+
+  .popup-mobile-bottom .popup-content {
+    max-height: 240px;
+  }
+
+  .popup-mobile-full  .popup-content{
+    max-height: calc(100% - 40px);
+  }
+}

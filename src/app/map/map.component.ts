@@ -1,4 +1,4 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
+import {Component, ElementRef, HostBinding, OnInit} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';

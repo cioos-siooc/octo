@@ -54,6 +54,10 @@ a {
   color: #E4D836;
 }
 
+.hidden {
+  display:none;
+}
+
 .ol-control button {
   background-color: rgba(53, 55, 58, .7) !important;
 }

@@ -1,16 +1,12 @@
-<div
-  #popup
-  class="popup absolute"
-  *ngIf="popupOpen"
-  [ngStyle]="{'top': top + 'px', 'left': left + 'px'}">
-  <div class="topBar align-middle" draggable="true" (dragstart)="onDragStart($event, popup)" (dragend)="onDragEnd($event, popup)">  
-    <span class="title">{{title}}</span>
+<div class="popup" [ngStyle]="{display: popupOpen ? 'block': 'none'}">
+  <div class="topBar align-middle">
+    <span class="title" >{{title}}</span>
     <button type="button" class="close" aria-label="Close" (click)=closePopup()>
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 
-  <div class="content">
+  <div class="popup-content">
     <ng-content></ng-content>
   </div>
 

@@ -1,17 +1,8 @@
-.popup {
-  width: 25em;
-  -webkit-transition: all .05s ease;
-  -moz-transition: all .05s ease;
-  -o-transition: all .05s ease;
-  -ms-transition: all .05s ease;
-  transition: all .05s ease;
-}
-
 .popup .topBar {
   cursor: pointer;
   user-select: none;
 
-  height: 2em;
+  height: 30px;
   background-color: #343a40;
   color: white;
 }
@@ -20,15 +11,16 @@
   color: white !important;
 }
 
-.popup .content {
-  height: 25em;
+.popup .popup-content {
+  max-height: 350px;
+  width:350px;
   /* background-color: cornsilk; */
   background-color: white;
   overflow-y: auto;
 }
 
 .popup .bottomBar {
-  height: 1.5em;
+  height: 10px;
   background-color: #343a40;
 }
 

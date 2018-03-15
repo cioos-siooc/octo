@@ -22,6 +22,7 @@ import {TopicPickerComponent} from './topic-picker/topic-picker.component';
 import {LayerManagerComponent} from './layer-manager/layer-manager.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AngularDraggableModule} from 'angular2-draggable';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -44,6 +45,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AngularDraggableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

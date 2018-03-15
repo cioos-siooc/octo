@@ -22,7 +22,8 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ol/ol.css",
         "assets/fontawesome/webfonts/fontawesome-all.css",
-        "styles.css"
+        "styles.css",
+        "responsive.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
