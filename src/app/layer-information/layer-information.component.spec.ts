@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayerInformationComponent } from './layer-information.component';
+import {reducers} from '../store/app.reducers';
+import {StoreModule} from '@ngrx/store';
 
 describe('LayerInformationComponent', () => {
   let component: LayerInformationComponent;
@@ -8,7 +10,10 @@ describe('LayerInformationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayerInformationComponent ]
+      declarations: [ LayerInformationComponent ],
+      imports: [
+        StoreModule.forRoot(reducers),
+      ]
     })
     .compileComponents();
   }));

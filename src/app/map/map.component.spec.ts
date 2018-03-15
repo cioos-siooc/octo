@@ -13,6 +13,7 @@ import {CategoryComponent} from '../catalog/category/category.component';
 import {HttpLoaderFactory} from '../app.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {LayerInformationComponent} from '../layer-information/layer-information.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -21,7 +22,7 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
-        CategoryComponent],
+        CategoryComponent, LayerInformationComponent],
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,

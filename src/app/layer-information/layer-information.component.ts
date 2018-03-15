@@ -1,10 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 
 import * as fromLayerInformation from './store/layer-information.reducers';
 import * as fromApp from '../store/app.reducers';
-import * as layerInformationActions from './store/layer-information.actions';
-import { Store } from '@ngrx/store';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-layer-information',
@@ -15,7 +14,8 @@ export class LayerInformationComponent implements OnInit {
   layerInformationState: Observable<fromLayerInformation.State>;
   layerInformationHtml: string;
 
-  constructor(private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>) {
+  }
 
   ngOnInit() {
     this.layerInformationState = this.store.select('layerInformation');
