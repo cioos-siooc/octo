@@ -14,15 +14,16 @@
     {{baseLayer.title}}
   </option>
 </select>
-<app-popup [id]="CATALOG_POPUP_ID" ngDraggable [title]="'catalog-title' | translate" class="catalog-popup absolute popup-mobile-bottom above-ol">
+<span class="popup-bounds" #popupBounds></span>
+<app-popup [id]="CATALOG_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" [title]="'catalog-title' | translate" class="catalog-popup absolute popup-mobile-bottom above-ol">
   <app-catalog></app-catalog>
 </app-popup>
-<app-popup [id]="TOPIC_PICKER_POPUP_ID" ngDraggable [title]="'topic-picker-title' | translate" class="topic-picker-popup absolute popup-mobile-bottom above-ol">
+<app-popup [id]="TOPIC_PICKER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" [title]="'topic-picker-title' | translate" class="topic-picker-popup absolute popup-mobile-bottom above-ol">
   <app-topic-picker></app-topic-picker>
 </app-popup>
-<app-popup [id]="LAYER_MANAGER_POPUP_ID" ngDraggable [title]="'layer-manager-title' | translate" class="layer-manager-popup absolute popup-mobile-bottom above-ol">
+<app-popup [id]="LAYER_MANAGER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" [title]="'layer-manager-title' | translate" class="layer-manager-popup absolute popup-mobile-bottom above-ol">
   <app-layer-manager></app-layer-manager>
 </app-popup>
-<app-popup [id]="LAYER_INFORMATION_POPUP_ID" [title]="'layer-information-title' | translate" class="absolute">
+<app-popup [id]="LAYER_INFORMATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" [title]="'layer-information-title' | translate" class="absolute">
   <app-layer-information></app-layer-information>
 </app-popup>
