@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, ElementRef, ViewChild} from '@angular/core';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
 
@@ -10,6 +10,7 @@ import 'rxjs/add/operator/throttleTime';
 export class PopupComponent implements OnInit {
   @Input() title: string;
   @Input() popupOpen: boolean;
+  @Input() bounds;
   @Output() popupOpenChange = new EventEmitter<boolean>();
 
   constructor() {
