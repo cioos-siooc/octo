@@ -26,8 +26,7 @@ export class CatalogEffects {
   loadTopicGroup = this.actions$
     .ofType(CatalogActions.FETCH_TOPIC_GROUP)
     .switchMap((action: CatalogActions.FetchTopicGroup) => {
-      return this.httpClient.get<TopicGroup>(
-        environment.mapapiUrl.concat('/topic-groups/', String(action.payload)), {});
+      return this.httpClient.get<TopicGroup>(`${environment.mapapiUrl}/topic-groups/${action.payload}`);
     })
     .mergeMap(
       (topicGroup) => [
@@ -41,8 +40,7 @@ export class CatalogEffects {
   loadTopic = this.actions$
     .ofType(CatalogActions.FETCH_TOPIC)
     .concatMap((action: CatalogActions.FetchTopic) => {
-      return this.httpClient.get<Topic>(
-        environment.mapapiUrl.concat('/topics/', String(action.payload)), {});
+      return this.httpClient.get<Topic>(`${environment.mapapiUrl}/topics/${action.payload}`);
     })
     .map(
       (topic) => {
@@ -76,8 +74,7 @@ export class CatalogEffects {
     .withLatestFrom(this.store$.select('catalog'))
     .concatMap(([payload, store]) => {
       const topicId = store.topics[payload].id;
-      return this.httpClient.get<TopicHierarchy>(
-        environment.mapapiUrl.concat('/topics/', String(topicId), '/getTopicHierarchy'), {});
+      return this.httpClient.get<TopicHierarchy>(`${environment.mapapiUrl}/topics/${topicId}/getTopicHierarchy`);
     })
     .map(
       (topicHierarchy) => {
