@@ -1,6 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PopupComponent} from './popup.component';
+import {reducers} from '../store/app.reducers';
+import {StoreModule} from '@ngrx/store';
 
 describe('PopupComponent', () => {
   let component: PopupComponent;
@@ -8,7 +10,8 @@ describe('PopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PopupComponent]
+      declarations: [PopupComponent],
+      imports: [StoreModule.forRoot(reducers)]
     })
       .compileComponents();
   }));

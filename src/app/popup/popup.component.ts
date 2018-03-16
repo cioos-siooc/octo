@@ -15,6 +15,8 @@ import * as fromPopup from '../map/store/popup.reducers';
 export class PopupComponent implements OnInit {
   @Input() title: string;
   @Input() id: string;
+  @Input() bounds;
+  @Input() inBounds: boolean;
   isOpen: boolean;
 
   constructor(private store: Store<fromApp.AppState>) {
