@@ -5,3 +5,7 @@
   cursor: pointer;
   user-select: none;
 }
+
+.topick-picker-topic {
+  border-radius: 0px!important;
+}
