@@ -11,6 +11,7 @@ export class PopupComponent implements OnInit {
   @Input() title: string;
   @Input() popupOpen: boolean;
   @Input() bounds;
+  @Input() inBounds: boolean;
   @Output() popupOpenChange = new EventEmitter<boolean>();
 
   constructor() {
