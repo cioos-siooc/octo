@@ -1,6 +1,11 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/throttleTime';
+import {Store} from '@ngrx/store';
+import * as fromApp from '../store/app.reducers';
+import * as popupActions from '../map/store/popup.actions';
+import {PopupStatus} from '../map/store/popup.actions';
+import * as fromPopup from '../map/store/popup.reducers';
 
 @Component({
   selector: 'app-popup',
@@ -9,21 +14,26 @@ import 'rxjs/add/operator/throttleTime';
 })
 export class PopupComponent implements OnInit {
   @Input() title: string;
-  @Input() popupOpen: boolean;
-  @Output() popupOpenChange = new EventEmitter<boolean>();
+  @Input() id: string;
+  isOpen: boolean;
 
-  constructor() {
+  constructor(private store: Store<fromApp.AppState>) {
   }
 
   ngOnInit() {
-    if (this.popupOpen == null) {
-      this.popupOpen = true;
-    }
+    this.isOpen = false;
+    this.store.select('popup').subscribe((popupState: fromPopup.State) => {
+      const popupStatus = popupState.popupStatuses.filter((pS: PopupStatus) => {
+        return pS.id === this.id;
+      })[0];
+      if (popupStatus != null) {
+        this.isOpen = popupStatus.isOpen;
+      }
+    });
   }
 
   closePopup() {
-    this.popupOpen = false;
-    this.popupOpenChange.emit(this.popupOpen);
+    this.store.dispatch(new popupActions.TogglePopup(this.id));
   }
 
 }

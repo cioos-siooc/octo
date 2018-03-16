@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, OnInit} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs/Observable';
@@ -7,6 +7,7 @@ import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/first';
 import * as fromBaseLayer from './store/base-layer.reducers';
 import * as baseLayerActions from './store/base-layer.actions';
+import * as popupActions from './store/popup.actions';
 
 @Component({
   selector: 'app-map',
@@ -17,9 +18,11 @@ export class MapComponent implements OnInit {
   @HostBinding('class') class = 'full-sized';
   layerState: Observable<fromBaseLayer.State>;
   currentBaseLayer: Layer;
-  showCatalog = false;
-  showTopicPicker = false;
-  showLayerManager = false;
+  CATALOG_POPUP_ID = 'CATALOG';
+  LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
+  LAYER_INFORMATION_POPUP_ID = 'LAYER_INFORMATION';
+  TOPIC_PICKER_POPUP_ID = 'TOPIC_PICKER';
+  LEGEND_POPUP_ID = 'LEGEND';
 
   constructor(private store: Store<fromApp.AppState>) {
   }
@@ -27,6 +30,8 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.synchronizeBaseLayer();
     this.layerState = this.store.select('baseLayer');
+    // TODO: if popup reducer already contains needed ids, do not init...., otherwise init?!
+    this.initPopups();
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
@@ -38,15 +43,15 @@ export class MapComponent implements OnInit {
   }
 
   toggleCatalog() {
-    this.showCatalog = !this.showCatalog;
+    this.store.dispatch(new popupActions.TogglePopup(this.CATALOG_POPUP_ID));
   }
 
   toggleTopicPicker() {
-    this.showTopicPicker = !this.showTopicPicker;
+    this.store.dispatch(new popupActions.TogglePopup(this.TOPIC_PICKER_POPUP_ID));
   }
 
   toggleLayerManager() {
-    this.showLayerManager = !this.showLayerManager;
+    this.store.dispatch(new popupActions.TogglePopup(this.LAYER_MANAGER_POPUP_ID));
   }
 
   private synchronizeBaseLayer() {
@@ -55,5 +60,11 @@ export class MapComponent implements OnInit {
     }).subscribe((baseLayerState: fromBaseLayer.State) => {
       this.currentBaseLayer = baseLayerState.currentBaseLayer;
     });
+  }
+
+  private initPopups() {
+    this.store.dispatch(new popupActions.AddPopup({id: this.CATALOG_POPUP_ID, isOpen: false}));
+    this.store.dispatch(new popupActions.AddPopup({id: this.TOPIC_PICKER_POPUP_ID, isOpen: false}));
+    this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_MANAGER_POPUP_ID, isOpen: false}));
   }
 }

@@ -1,4 +1,4 @@
-<div class="popup" [ngStyle]="{display: popupOpen ? 'block': 'none'}">
+<div class="popup" [ngStyle]="{display: isOpen ? 'block': 'none'}">
   <div class="topBar align-middle">
     <span class="title" >{{title}}</span>
     <button type="button" class="close" aria-label="Close" (click)=closePopup()>
