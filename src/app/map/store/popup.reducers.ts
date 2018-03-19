@@ -16,6 +16,12 @@ export function popupReducer(state = initialState, action: popupActions.PopupAct
   switch (action.type) {
     case popupActions.ADD_POPUP:
       const clonedState = cloneDeep(state);
+      const isAlresadyInArray = clonedState.popupStatuses.some((pS) => {
+        return pS.id === action.payload.id;
+      });
+      if (isAlresadyInArray) {
+        return clonedState;
+      }
       clonedState.popupStatuses.push({...action.payload});
       return clonedState;
     case popupActions.DELETE_POPUP:
@@ -34,3 +40,4 @@ export function popupReducer(state = initialState, action: popupActions.PopupAct
       return state;
   }
 }
+

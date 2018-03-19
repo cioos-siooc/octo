@@ -9,6 +9,12 @@ import * as fromBaseLayer from './store/base-layer.reducers';
 import * as baseLayerActions from './store/base-layer.actions';
 import * as popupActions from './store/popup.actions';
 
+export const CATALOG_POPUP_ID = 'CATALOG';
+export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
+export const LAYER_INFORMATION_POPUP_ID = 'LAYER_INFORMATION';
+export const TOPIC_PICKER_POPUP_ID = 'TOPIC_PICKER';
+export const LEGEND_POPUP_ID = 'LEGEND';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -18,11 +24,11 @@ export class MapComponent implements OnInit {
   @HostBinding('class') class = 'full-sized';
   layerState: Observable<fromBaseLayer.State>;
   currentBaseLayer: Layer;
-  CATALOG_POPUP_ID = 'CATALOG';
-  LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
-  LAYER_INFORMATION_POPUP_ID = 'LAYER_INFORMATION';
-  TOPIC_PICKER_POPUP_ID = 'TOPIC_PICKER';
-  LEGEND_POPUP_ID = 'LEGEND';
+  CATALOG_POPUP_ID = CATALOG_POPUP_ID;
+  LAYER_MANAGER_POPUP_ID = LAYER_MANAGER_POPUP_ID;
+  LAYER_INFORMATION_POPUP_ID = LAYER_INFORMATION_POPUP_ID;
+  TOPIC_PICKER_POPUP_ID = TOPIC_PICKER_POPUP_ID;
+  LEGEND_POPUP_ID = LEGEND_POPUP_ID;
 
   constructor(private store: Store<fromApp.AppState>) {
   }
@@ -30,7 +36,6 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.synchronizeBaseLayer();
     this.layerState = this.store.select('baseLayer');
-    // TODO: if popup reducer already contains needed ids, do not init...., otherwise init?!
     this.initPopups();
   }
 
