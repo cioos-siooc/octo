@@ -13,7 +13,7 @@ export class OLLayerFactory {
     let olLayer: OLLayer;
     if (layer.type === 'bing' || layer.type === 'wms') {
       olLayer = this.generateTileLayer(layer);
-    } else if (layer.type === 'geojson') {
+    } else if (layer.type === 'geojson' || layer.type === 'wfs') {
       olLayer = this.generateVectorLayer(layer);
     }
     olLayer.setZIndex(layer.zIndex);

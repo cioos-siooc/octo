@@ -6,6 +6,7 @@ import BingMapsSource from 'ol/source/bingmaps';
 import GeoJSONFormat from 'ol/format/geojson';
 import VectorSource from 'ol/source/vector';
 import {WmsLayer} from '../../shared/wms-layer.model';
+import {WfsLayer} from '../../shared/wfs-layer.model';
 
 export class OLSourceFactory {
 
@@ -17,6 +18,8 @@ export class OLSourceFactory {
       source = this.generateTileWMSSource(<WmsLayer>layer);
     } else if (layer.type === 'geojson') {
       source = this.generateVectorSourceForGeojson(layer);
+    } else if (layer.type === 'wfs') {
+      source = this.generateVectorSourceForWfs(<WfsLayer>layer);
     }
     return source;
   }
@@ -48,5 +51,19 @@ export class OLSourceFactory {
 
     // TODO : implement url_parameters
     return new VectorSource(sourceParams);
+  }
+
+  private static generateVectorSourceForWfs(layer: WfsLayer) {
+    const sourceParams: any = {};
+    sourceParams.format = new GeoJSONFormat();
+    sourceParams.url = this.generateWfsUrl(layer);
+
+    // TODO : implement url_parameters
+    return new VectorSource(sourceParams);
+  }
+
+  // noinspection TsLint
+  private static generateWfsUrl(layer: WfsLayer) {
+    return `${layer.url}?service=WFS&version=${layer.version}&typeName=${layer.identifier}&request=GetFeature&outputFormat=application/json&srsname=${layer.crs}`;
   }
 }
