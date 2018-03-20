@@ -62,8 +62,8 @@ export class OLSourceFactory {
     return new VectorSource(sourceParams);
   }
 
-  // noinspection TsLint
   private static generateWfsUrl(layer: WfsLayer) {
-    return `${layer.url}?service=WFS&version=${layer.version}&typeName=${layer.identifier}&request=GetFeature&outputFormat=application/json&srsname=${layer.crs}`;
+    return `${layer.url}?service=WFS&version=${layer.version}&typeName=${layer.identifier}` +
+      `&request=GetFeature&outputFormat=application/json&srsname=${layer.crs}`;
   }
 }

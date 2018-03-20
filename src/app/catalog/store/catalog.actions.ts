@@ -31,7 +31,7 @@ export class FetchTopicGroup implements Action {
    * @param {number} payload - The id of the topic group in mapapi
    * @memberof FetchTopicGroup
    */
-  constructor(public payload: number) {
+  constructor(public payload: {languageCode: string, code: string}) {
   }
 }
 

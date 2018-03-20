@@ -6,5 +6,6 @@
 export const environment = {
   production: false,
   mapapiUrl: 'http://132.215.33.56:8080/mapapi/api',
-  backgroundLayerIds: ['2537', '2538', '2539']
+  backgroundLayerIds: ['2537', '2538', '2539'],
+  topicGroupCode: 'ca.ogsl.infosl'
 };

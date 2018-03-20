@@ -26,7 +26,9 @@ export class CatalogEffects {
   loadTopicGroup = this.actions$
     .ofType(CatalogActions.FETCH_TOPIC_GROUP)
     .switchMap((action: CatalogActions.FetchTopicGroup) => {
-      return this.httpClient.get<TopicGroup>(`${environment.mapapiUrl}/topic-groups/${action.payload}`);
+      return this.httpClient.get<TopicGroup>
+      (`${environment.mapapiUrl}/topic-groups/getTopicGroupForCode?code=${action.payload.code}` +
+        `&language-code=${action.payload.languageCode}`);
     })
     .mergeMap(
       (topicGroup) => [
