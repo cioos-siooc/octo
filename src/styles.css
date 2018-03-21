@@ -22,6 +22,14 @@ a {
   list-style-type: none;
 }
 
+.background-white {
+  background-color: #FFFFFF;
+}
+
+.foreground-white {
+  color: #FFFFFF
+}
+
 .background-teal {
   background-color: #1BC98E;
 }

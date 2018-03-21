@@ -54,6 +54,22 @@ export class CatalogEffects {
       }
     );
   @Effect()
+  fetchTopicByCode = this.actions$
+    .ofType(CatalogActions.FETCH_TOPIC_FOR_CODE)
+    .concatMap((action: CatalogActions.FetchTopicForCode) => {
+      return this.httpClient.get<Topic>(`${environment.mapapiUrl}/topics/getTopicForCode?code=${action.payload.code}` +
+      `&language-code=${action.payload.languageCode}`);
+    })
+    .map(
+      (topic) => {
+        topic.expanded = false;
+        return {
+          type: CatalogActions.APPEND_TOPIC,
+          payload: topic
+        };
+      }
+    );
+  @Effect()
   loadCategory = this.actions$
     .ofType(CatalogActions.SET_TOPIC_EXPANDED)
     .map((action: CatalogActions.SetTopicExpanded) => action.payload)

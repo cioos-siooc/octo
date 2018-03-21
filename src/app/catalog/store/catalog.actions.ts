@@ -8,6 +8,7 @@ import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 export const FETCH_TOPIC_GROUP = 'FETCH_TOPIC_GROUP';
 export const SET_TOPIC_GROUP = 'SET_TOPIC_GROUP';
 export const FETCH_TOPIC = 'FETCH_TOPIC';
+export const FETCH_TOPIC_FOR_CODE = 'FETCH_TOPIC_FOR_CODE';
 export const APPEND_TOPIC = 'APPEND_TOPIC';
 export const SET_TOPIC_EXPANDED = 'SET_TOPIC_EXPANDED';
 export const FETCH_CATEGORY_HIERARCHY = 'FETCH_CATEGORY_HIERARCHY';
@@ -31,7 +32,7 @@ export class FetchTopicGroup implements Action {
    * @param {number} payload - The id of the topic group in mapapi
    * @memberof FetchTopicGroup
    */
-  constructor(public payload: {languageCode: string, code: string}) {
+  constructor(public payload: { languageCode: string, code: string }) {
   }
 }
 
@@ -55,7 +56,7 @@ export class SetTopicGroup implements Action {
 }
 
 /**
- * Trigger an effect to fetch a topic hierarchy from mapapi
+ * Fetch a topic using its id and then append it to the list of topics
  *
  * @export
  * @class FetchTopic
@@ -70,6 +71,20 @@ export class FetchTopic implements Action {
    * @memberof FetchTopic
    */
   constructor(public payload: number) {
+  }
+}
+
+/**
+ * Fetch a topic using its code and language-code and then append it to the list of topics
+ *
+ * @export
+ * @class FetchTopicForCode
+ * @implements (Action)
+ */
+export class FetchTopicForCode implements Action {
+  readonly type = FETCH_TOPIC_FOR_CODE;
+
+  constructor(public payload: { languageCode: string, code: string }) {
   }
 }
 
@@ -235,6 +250,7 @@ export class RemoveSelectedLayer implements Action {
 
 export type CatalogActions =
   FetchTopicGroup |
+  FetchTopicForCode |
   SetTopicGroup |
   FetchTopic |
   AppendTopic |
