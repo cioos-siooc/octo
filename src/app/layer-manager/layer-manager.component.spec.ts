@@ -16,7 +16,7 @@ describe('LayerManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerManagerComponent, PopupComponent, LayerInformationComponent, LayerPresentationComponent],
+      declarations: [LayerManagerComponent],
       imports: [
         StoreModule.forRoot(reducers),
         HttpClientModule,

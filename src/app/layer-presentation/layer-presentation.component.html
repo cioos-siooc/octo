@@ -1,3 +1,14 @@
-<p>
-  layer-presentation works!
-</p>
+<div id="layer-presentation">
+  <h6 class="px-2 pt-2">{{'appearance' | translate}}: </h6>
+  <select
+    [(ngModel)]="currentClientPresentation"
+    (change)="onSelectClientPresentation()"
+    class="ml-3 legend-select">
+    <option *ngFor="let clientPresentation of (layerPresentationState | async).clientPresentations" [ngValue]="clientPresentation">
+      {{clientPresentation.legendLabel}}
+    </option>
+  </select>
+  <div id="current-legend">
+    <img *ngIf="currentClientPresentation != null" [src]="currentClientPresentation.legendUrl">
+  </div>
+</div>
