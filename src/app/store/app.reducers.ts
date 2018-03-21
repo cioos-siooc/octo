@@ -5,6 +5,7 @@ import * as fromLayerInformation from '../layer-information/store/layer-informat
 import * as fromBaseLayer from '../map/store/base-layer.reducers';
 import * as fromLayer from '../map/store/layer.reducers';
 import * as fromPopup from '../map/store/popup.reducers';
+import * as fromLayerPresentation from '../layer-presentation/store/layer-presentation.reducers';
 
 export interface AppState {
   catalog: fromCatalog.State;
@@ -12,6 +13,7 @@ export interface AppState {
   baseLayer: fromBaseLayer.State;
   layerInformation: fromLayerInformation.State;
   popup: fromPopup.State;
+  layerPresentation: fromLayerPresentation.State ;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -19,5 +21,6 @@ export const reducers: ActionReducerMap<AppState> = {
   layer: fromLayer.layerReducer,
   baseLayer: fromBaseLayer.baseLayerReducer,
   layerInformation: fromLayerInformation.layerInformationReducer,
-  popup: fromPopup.popupReducer
+  popup: fromPopup.popupReducer,
+  layerPresentation: fromLayerPresentation.layerPresentationReducer
 };

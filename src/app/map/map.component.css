@@ -30,6 +30,11 @@
   left: 10px;
 }
 
+.center-popup {
+  top: 42px;
+  left: calc((100% / 2) - 350px / 2)
+}
+
 .topic-picker-popup {
   top: 42px;
   right: 5px;

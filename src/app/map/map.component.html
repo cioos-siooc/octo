@@ -34,6 +34,11 @@
   <app-layer-manager></app-layer-manager>
 </app-popup>
 <app-popup [id]="LAYER_INFORMATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'layer-information-title' | translate" class="absolute">
+           [title]="'layer-information-title' | translate" class="center-popup absolute popup-mobile-bottom above-ol">
   <app-layer-information></app-layer-information>
+</app-popup>
+<app-popup [id]="LAYER_PRESENTATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
+           [title]="'layer-presentation-title' | translate"
+           class="center-popup absolute poppup-mobile-bottom above-ol">
+  <app-layer-presentation></app-layer-presentation>
 </app-popup>

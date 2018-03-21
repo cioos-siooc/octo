@@ -9,6 +9,9 @@ a {
   cursor: pointer;
 }
 
+.smaller-font {
+  font-size: 10px;
+}
 .full-sized{
   height: 100%;
   width: 100%;;
@@ -28,6 +31,14 @@ a {
 
 .foreground-white {
   color: #FFFFFF
+}
+
+.background-dark {
+  background-color: #343A40
+}
+
+.foreground-dark {
+  color: #343A40
 }
 
 .background-teal {

@@ -8,6 +8,7 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {PopupComponent} from '../popup/popup.component';
 import {LayerInformationComponent} from '../layer-information/layer-information.component';
+import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -15,7 +16,7 @@ describe('LayerManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerManagerComponent, PopupComponent, LayerInformationComponent],
+      declarations: [LayerManagerComponent, PopupComponent, LayerInformationComponent, LayerPresentationComponent],
       imports: [
         StoreModule.forRoot(reducers),
         HttpClientModule,

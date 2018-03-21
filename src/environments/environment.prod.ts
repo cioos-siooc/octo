@@ -4,6 +4,6 @@ export const environment = {
   backgroundLayerIds: ['2537', '2538', '2539'],
   topicGroupCode: 'ca.ogsl.infosl',
   titleKey: 'infosl-title',
-  isTopicPickerActive: false,
+  isTopicPickerActive: true,
   defaultTopic: 'ca.ogsl.slinfo',
 };

@@ -14,6 +14,7 @@ import {HttpLoaderFactory} from '../app.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {LayerInformationComponent} from '../layer-information/layer-information.component';
+import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -22,7 +23,7 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
-        CategoryComponent, LayerInformationComponent],
+        CategoryComponent, LayerInformationComponent, LayerPresentationComponent],
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,

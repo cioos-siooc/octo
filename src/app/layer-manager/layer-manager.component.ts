@@ -7,6 +7,10 @@ import * as layerActions from '../map/store/layer.actions';
 import * as layerInformationActions from '../layer-information/store/layer-information.actions';
 import * as catalogActions from '../catalog/store/catalog.actions';
 import {Layer} from '../shared/layer.model';
+import * as popupActions from '../map/store/popup.actions';
+import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
+import * as layerPresentationActions from '../layer-presentation/store/layer-presentation.actions';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layer-manager',
@@ -15,14 +19,13 @@ import {Layer} from '../shared/layer.model';
 })
 export class LayerManagerComponent implements OnInit {
   layerState: Observable<fromLayer.State>;
-  showLayerInformation: boolean;
 
-  constructor(private store: Store<fromApp.AppState>) {
+
+  constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.layerState = this.store.select('layer');
-    this.showLayerInformation = false;
   }
 
   onRemoveClick(layer) {
@@ -32,7 +35,13 @@ export class LayerManagerComponent implements OnInit {
 
   onShowLayerInfoClick(layer: Layer) {
     this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layer.id));
-    this.showLayerInformation = true;
+    this.store.dispatch(new popupActions.TogglePopup(LAYER_INFORMATION_POPUP_ID));
   }
 
+  onShowLayerPresentation(layer: Layer) {
+    this.store.dispatch(new layerPresentationActions.SetLayerUniqueId(layer.uniqueId));
+    this.store.dispatch(new layerPresentationActions.SetClientPresentations(layer.clientPresentations));
+    this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(layer.currentClientPresentation));
+    this.store.dispatch(new popupActions.TogglePopup(LAYER_PRESENTATION_POPUP_ID));
+  }
 }

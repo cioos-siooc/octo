@@ -25,6 +25,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AngularDraggableModule} from 'angular2-draggable';
 import { LayerInformationComponent } from './layer-information/layer-information.component';
 import { LayerInformationEffects } from './layer-information/store/layer-information.effects';
+import { LayerPresentationComponent } from './layer-presentation/layer-presentation.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TopicPickerComponent,
     LayerManagerComponent,
     LayerInformationComponent,
+    LayerPresentationComponent,
   ],
   imports: [
     BrowserModule,

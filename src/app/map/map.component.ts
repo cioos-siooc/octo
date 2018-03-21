@@ -16,7 +16,7 @@ export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
 export const LAYER_INFORMATION_POPUP_ID = 'LAYER_INFORMATION';
 export const TOPIC_PICKER_POPUP_ID = 'TOPIC_PICKER';
-export const LEGEND_POPUP_ID = 'LEGEND';
+export const LAYER_PRESENTATION_POPUP_ID = 'LEGEND';
 
 @Component({
   selector: 'app-map',
@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
   LAYER_MANAGER_POPUP_ID = LAYER_MANAGER_POPUP_ID;
   LAYER_INFORMATION_POPUP_ID = LAYER_INFORMATION_POPUP_ID;
   TOPIC_PICKER_POPUP_ID = TOPIC_PICKER_POPUP_ID;
-  LEGEND_POPUP_ID = LEGEND_POPUP_ID;
+  LAYER_PRESENTATION_POPUP_ID = LAYER_PRESENTATION_POPUP_ID;
   environment = environment;
 
   constructor(private translateService: TranslateService, private store: Store<fromApp.AppState>) {
@@ -82,6 +82,8 @@ export class MapComponent implements OnInit {
     this.store.dispatch(new popupActions.AddPopup({id: this.CATALOG_POPUP_ID, isOpen: false}));
     this.store.dispatch(new popupActions.AddPopup({id: this.TOPIC_PICKER_POPUP_ID, isOpen: false}));
     this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_MANAGER_POPUP_ID, isOpen: false}));
+    this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_INFORMATION_POPUP_ID, isOpen: false}));
+    this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_PRESENTATION_POPUP_ID, isOpen: false}));
   }
 
   /**
