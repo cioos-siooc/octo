@@ -11,4 +11,6 @@ export const environment = {
   titleKey: 'infosl-title',
   isTopicPickerActive: true,
   defaultTopic: 'ca.ogsl.slinfo',
+  frenchLanguageIdentifier: 'ogsl',
+  englishLanguageIdentifier: 'slgo'
 };

@@ -24,9 +24,11 @@ export class AppComponent implements OnInit {
 
   private initTranslation() {
     this.translateService.addLangs(['en', 'fr']);
-    this.translateService.setDefaultLang('fr');
-    const browserLang = this.translateService.getBrowserLang();
-    this.translateService.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    this.translateService.setDefaultLang('en');
+    this.translateService.use('en');
+    if (document.location.href.includes(environment.frenchLanguageIdentifier)) {
+      this.translateService.use('fr');
+    }
   }
 
   private initBaseLayers() {
