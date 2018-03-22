@@ -35,13 +35,13 @@ export class LayerManagerComponent implements OnInit {
 
   onShowLayerInfoClick(layer: Layer) {
     this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layer.id));
-    this.store.dispatch(new popupActions.TogglePopup(LAYER_INFORMATION_POPUP_ID));
+    this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
   }
 
   onShowLayerPresentation(layer: Layer) {
     this.store.dispatch(new layerPresentationActions.SetLayerUniqueId(layer.uniqueId));
     this.store.dispatch(new layerPresentationActions.SetClientPresentations(layer.clientPresentations));
     this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(layer.currentClientPresentation));
-    this.store.dispatch(new popupActions.TogglePopup(LAYER_PRESENTATION_POPUP_ID));
+    this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_PRESENTATION_POPUP_ID, isOpen: true}));
   }
 }

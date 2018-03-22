@@ -36,4 +36,8 @@ export class LayerPresentationComponent implements OnInit {
     }));
   }
 
+  compareClientPresentations(cp1: ClientPresentation, cp2: ClientPresentation) {
+    return cp1 && cp2 ? cp1.id === cp2.id : cp1 === cp2;
+  }
+
 }

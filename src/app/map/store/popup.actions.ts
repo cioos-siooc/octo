@@ -3,6 +3,7 @@ import {Action} from '@ngrx/store';
 export const ADD_POPUP = 'ADD_POPUP';
 export const DELETE_POPUP = 'DELETE_POPUP';
 export const TOGGLE_POPUP = 'TOGGLE_POPUP';
+export const SET_IS_OPEN = 'SET_IS_OPEN';
 
 export interface PopupStatus {
   id: string;
@@ -30,7 +31,15 @@ export class TogglePopup implements Action {
   }
 }
 
+export class SetIsOpen implements Action {
+  readonly type = SET_IS_OPEN;
+
+  constructor(public payload: {popupId: string, isOpen: boolean}) {
+  }
+}
+
 export type PopupActions =
   AddPopup |
   DeletePopup |
+  SetIsOpen |
   TogglePopup;

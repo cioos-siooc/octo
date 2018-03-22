@@ -3,8 +3,10 @@
   <select
     [(ngModel)]="currentClientPresentation"
     (change)="onSelectClientPresentation()"
-    class="ml-3 legend-select">
-    <option *ngFor="let clientPresentation of (layerPresentationState | async).clientPresentations" [ngValue]="clientPresentation">
+    class="ml-3 legend-select"
+    [compareWith]="compareClientPresentations">
+    <option *ngFor="let clientPresentation of (layerPresentationState | async).clientPresentations"
+            [ngValue]="clientPresentation">
       {{clientPresentation.legendLabel}}
     </option>
   </select>

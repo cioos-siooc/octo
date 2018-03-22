@@ -36,6 +36,13 @@ export function popupReducer(state = initialState, action: popupActions.PopupAct
       })[0];
       popupStatus.isOpen = !popupStatus.isOpen;
       return cloneState;
+    case popupActions.SET_IS_OPEN:
+      const newState = cloneDeep(state);
+      const pStatus = newState.popupStatuses.filter((ps) => {
+        return ps.id === action.payload.popupId;
+      })[0];
+      pStatus.isOpen = action.payload.isOpen;
+      return newState;
     default:
       return state;
   }
