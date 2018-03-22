@@ -37,11 +37,11 @@ export class OLLayerFactory {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new VectorLayer({source: <VectorSource>source});
     this.setOLLayerProperties(olLayer, layer);
-    this.setOLLayerStyle(layer, olLayer);
+    this.setOLVectorLayerStyle(layer, olLayer);
     return olLayer;
   }
 
-  private static setOLLayerStyle(layer: Layer, olLayer) {
+  private static setOLVectorLayerStyle(layer: Layer, olLayer) {
     if (layer.currentClientPresentation != null) {
       const styleDef = layer.currentClientPresentation.styleDef;
       if (styleDef != null) {

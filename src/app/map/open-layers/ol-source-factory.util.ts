@@ -40,6 +40,7 @@ export class OLSourceFactory {
       VERSION: layer.version,
       LAYERS: layer.identifier,
     };
+    this.setWMSStyle(layer, sourceParams.params);
     // TODO: implement url_parameters
     return new TileWMS(sourceParams);
   }
@@ -65,5 +66,11 @@ export class OLSourceFactory {
   private static generateWfsUrl(layer: WfsLayer) {
     return `${layer.url}?service=WFS&version=${layer.version}&typeName=${layer.identifier}` +
       `&request=GetFeature&outputFormat=application/json&srsname=${layer.crs}`;
+  }
+
+  private static setWMSStyle(layer: WmsLayer, params: any) {
+    if (layer.currentClientPresentation != null && layer.currentClientPresentation.namedStyle != null) {
+      params['STYLES'] = layer.currentClientPresentation.namedStyle;
+    }
   }
 }
