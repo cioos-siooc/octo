@@ -1,13 +1,36 @@
-<span class="categoryHeader selectable" *ngIf="category.type != 'root'"><h6
-  (click)="onClickCategory(category, treeLocation)">{{ category.label }}</h6></span>
+<ng-container *ngIf="category.type === 'layer'">
+    <span class="categoryHeader selectable" *ngIf="category.type != 'root'">
+        <h6 (click)="onClickLayer(category, treeLocation)">{{ category.label }}</h6>
+    </span>
+</ng-container>
+
+<ng-container *ngIf="category.type === 'category'">
+  <span class="categoryHeader selectable"
+        *ngIf="category.type != 'root'">
+      <h6 (click)="onClickCategory(category, treeLocation)"><i class="fa fa-caret-down pr-1"></i>{{ category.label }}</h6>
+  </span>
+</ng-container>
+
 <ul class="list-group">
   <li class="list-group-item" *ngFor="let cat of category.categories; let i = index">
-    <div class="selectable" (click)="onClickCategory(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
-      <input *ngIf="cat.type === 'layer'" [(ngModel)]="cat.isChecked" type="checkbox">
-      <span>{{ cat.label }}</span>
-      <span *ngIf="cat.type != 'layer'"
-            class="badge badge-primary badge-pill float-right">{{ cat.categories.length }}</span>
-    </div>
+
+    <ng-container *ngIf="cat.type === 'layer'">
+        <span class="selectable" (click)="onClickLayer(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
+          <input [(ngModel)]="cat.isChecked" type="checkbox">
+          <span>{{ cat.label }}</span>
+        </span>
+      <a><i class="glyphicon fa fa-info-circle foreground-teal"
+            (click)="onShowLayerInfoClick(cat.layerId)"></i></a>
+    </ng-container>
+
+    <ng-container *ngIf="cat.type === 'category'">
+      <div class="selectable" (click)="onClickCategory(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
+        <i class="fa fa-caret-right"></i>
+        <span>{{ cat.label }}</span>
+        <span class="badge badge-primary badge-pill float-right">{{ cat.categories.length }}</span>
+      </div>
+    </ng-container>
+
     <app-category *ngIf="cat.isExpanded" [category]="cat" [treeLocation]="treeLocation.concat([i])"></app-category>
   </li>
 </ul>
