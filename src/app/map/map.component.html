@@ -21,24 +21,27 @@
 </select>
 <span class="popup-bounds" #popupBounds></span>
 <app-popup [id]="CATALOG_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'catalog-title' | translate" class="catalog-popup absolute popup-mobile-bottom above-ol">
+           [title]="'catalog-title' | translate"
+           class="catalog-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-catalog></app-catalog>
 </app-popup>
 <app-popup [id]="TOPIC_PICKER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'topic-picker-title' | translate" class="topic-picker-popup absolute popup-mobile-bottom above-ol">
+           [title]="'topic-picker-title' | translate"
+           class="topic-picker-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-topic-picker></app-topic-picker>
 </app-popup>
 <app-popup [id]="LAYER_MANAGER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
            [title]="'layer-manager-title' | translate"
-           class="layer-manager-popup absolute popup-mobile-bottom above-ol">
+           class="layer-manager-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-layer-manager></app-layer-manager>
 </app-popup>
 <app-popup [id]="LAYER_INFORMATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'layer-information-title' | translate" class="center-popup absolute popup-mobile-bottom above-ol">
+           [title]="'layer-information-title' | translate"
+           class="center-popup absolute popup-mobile-bottom above-ol wider-popup">
   <app-layer-information></app-layer-information>
 </app-popup>
 <app-popup [id]="LAYER_PRESENTATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
            [title]="'layer-presentation-title' | translate"
-           class="center-popup absolute poppup-mobile-bottom above-ol">
+           class="center-popup absolute poppup-mobile-bottom above-ol regular-popup">
   <app-layer-presentation></app-layer-presentation>
 </app-popup>

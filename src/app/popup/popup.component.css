@@ -13,8 +13,8 @@
 
 .popup .popup-content {
   max-height: 350px;
-  width:350px;
-  /* background-color: cornsilk; */
+  width: 100%;
+  max-width: inherit;
   background-color: white;
   overflow-y: auto;
 }

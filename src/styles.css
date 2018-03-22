@@ -12,7 +12,16 @@ a {
 .smaller-font {
   font-size: 10px;
 }
-.full-sized{
+
+.regular-popup {
+  width: 350px;
+}
+
+.wider-popup {
+  width: 500px;
+}
+
+.full-sized {
   height: 100%;
   width: 100%;;
 }
@@ -74,7 +83,7 @@ a {
 }
 
 .hidden {
-  display:none;
+  display: none;
 }
 
 .ol-control button {

@@ -32,7 +32,7 @@
 
 .center-popup {
   top: 42px;
-  left: calc((100% / 2) - 350px / 2)
+  left: calc((100% / 2) - 500px / 2)
 }
 
 .topic-picker-popup {
