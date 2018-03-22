@@ -23,9 +23,10 @@ import {LayerManagerComponent} from './layer-manager/layer-manager.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AngularDraggableModule} from 'angular2-draggable';
-import { LayerInformationComponent } from './layer-information/layer-information.component';
-import { LayerInformationEffects } from './layer-information/store/layer-information.effects';
-import { LayerPresentationComponent } from './layer-presentation/layer-presentation.component';
+import {LayerInformationComponent} from './layer-information/layer-information.component';
+import {LayerInformationEffects} from './layer-information/store/layer-information.effects';
+import {LayerPresentationComponent} from './layer-presentation/layer-presentation.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LayerPresentationComponent,
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     HttpClientModule,
     FormsModule,

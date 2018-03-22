@@ -1,6 +1,10 @@
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark header">
-  <a class="navbar-brand" href="#">
-    <img [src]="'slgo-logo' | translate" alt="logo" height="25px">
-  </a>
-  <h4 class="navbar-text">{{titleKey | translate}}</h4>
-</nav>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark header col-12">
+      <a class="navbar-brand col-2 align-middle" href="#">
+        <img [src]="'slgo-logo' | translate" alt="logo" height="25px">
+      </a>
+      <h4 class="navbar-text offset-2 col-4 text-center align-middle header">{{titleKey | translate}}</h4>
+    </nav>
+  </div>
+</div>
