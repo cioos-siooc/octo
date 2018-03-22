@@ -5,6 +5,7 @@ import * as fromLayerPresentation from './store/layer-presentation.reducers';
 import {Observable} from 'rxjs/Observable';
 import {ClientPresentation} from '../shared/client-presentation.model';
 import * as layerPresentationActions from './store/layer-presentation.actions';
+import * as layerActions from '../map/store/layer.actions';
 
 @Component({
   selector: 'app-layer-presentation',
@@ -14,6 +15,7 @@ import * as layerPresentationActions from './store/layer-presentation.actions';
 export class LayerPresentationComponent implements OnInit {
   layerPresentationState: Observable<fromLayerPresentation.State>;
   currentClientPresentation: ClientPresentation;
+  private currentUniqueId: string;
 
   constructor(private store: Store<fromApp.AppState>) {
   }
@@ -22,12 +24,16 @@ export class LayerPresentationComponent implements OnInit {
     this.layerPresentationState = this.store.select('layerPresentation');
     this.store.select('layerPresentation').subscribe((state) => {
       this.currentClientPresentation = state.currentClientPresentation;
+      this.currentUniqueId = state.layerUniqueId;
     });
   }
 
   onSelectClientPresentation() {
     this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(this.currentClientPresentation));
-    // TODO: update the layerReducer to change the currentClientPresentation of the current layer
+    this.store.dispatch(new layerActions.SetClientPresentation({
+      uniqueId: this.currentUniqueId,
+      clientPresentation: this.currentClientPresentation
+    }));
   }
 
 }

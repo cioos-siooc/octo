@@ -29,6 +29,13 @@ export function layerReducer(state = initialState, action: layerActions.LayerAct
         clownState.layers[layerIndex] = action.payload;
       }
       return clownState;
+    case layerActions.SET_CLIENT_PRESENTATION:
+      const newState = cloneDeep(state);
+      const layerInd = newState.layers.findIndex((l) => l.uniqueId === action.payload.uniqueId);
+      if (layerInd > -1) {
+        newState.layers[layerInd].currentClientPresentation = action.payload.clientPresentation;
+      }
+      return newState;
     default:
       return state;
   }
