@@ -4,7 +4,7 @@ export const environment = {
   backgroundLayerIds: ['2537', '2538', '2539'],
   topicGroupCode: 'ca.ogsl.infosl',
   titleKey: 'infosl-title',
-  isTopicPickerActive: true,
+  isTopicPickerActive: false,
   defaultTopic: 'ca.ogsl.slinfo',
   frenchLanguageIdentifier: 'ogsl',
   englishLanguageIdentifier: 'slgo'
