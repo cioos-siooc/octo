@@ -32,12 +32,16 @@ export class AppComponent implements OnInit {
   }
 
   private initBaseLayers() {
-    for (const id of environment.backgroundLayerIds) {
-      this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${id}`).subscribe((layer: Layer) => {
-        this.store.dispatch(new baseLayerActions.AddBaseLayer(layer));
-        if (layer.code === 'bing.aerial') {
-          this.store.dispatch(new baseLayerActions.SetCurrentBaseLayer(layer));
-        }
+    for (const code of environment.backgroundLayerCodes) {
+      this.translateService.get('language').subscribe((lang) => {
+        this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/getLayerForCode?` +
+          `code=${code}&language-code=${lang}`)
+          .subscribe((layer: Layer) => {
+            this.store.dispatch(new baseLayerActions.AddBaseLayer(layer));
+            if (layer.code === 'bing.aerial') {
+              this.store.dispatch(new baseLayerActions.SetCurrentBaseLayer(layer));
+            }
+          });
       });
     }
   }
