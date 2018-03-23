@@ -5,17 +5,17 @@ import {Topic} from '../../shared/topic.model';
 import {Category} from '../../shared/category.model';
 import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 
-export const FETCH_TOPIC_GROUP = 'FETCH_TOPIC_GROUP';
-export const SET_TOPIC_GROUP = 'SET_TOPIC_GROUP';
-export const FETCH_TOPIC = 'FETCH_TOPIC';
-export const FETCH_TOPIC_FOR_CODE = 'FETCH_TOPIC_FOR_CODE';
-export const APPEND_TOPIC = 'APPEND_TOPIC';
-export const SET_TOPIC_EXPANDED = 'SET_TOPIC_EXPANDED';
-export const FETCH_CATEGORY_HIERARCHY = 'FETCH_CATEGORY_HIERARCHY';
-export const SET_CATEGORIES = 'SET_CATEGORIES';
-export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
-export const ADD_SELECTED_LAYER = 'ADD_SELECTED_LAYER';
-export const REMOVE_SELECTED_LAYER = 'REMOVE_SELECTED_LAYER';
+export const FETCH_TOPIC_GROUP = 'CATALOG_FETCH_TOPIC_GROUP';
+export const SET_TOPIC_GROUP = 'CATALOG_SET_TOPIC_GROUP';
+export const FETCH_TOPIC = 'CATALOG_FETCH_TOPIC';
+export const FETCH_TOPIC_FOR_CODE = 'CATALOG_FETCH_TOPIC_FOR_CODE';
+export const APPEND_TOPIC = 'CATALOG_APPEND_TOPIC';
+export const SET_TOPIC_EXPANDED = 'CATALOG_SET_TOPIC_EXPANDED';
+export const FETCH_CATEGORY_HIERARCHY = 'CATALOG_FETCH_CATEGORY_HIERARCHY';
+export const SET_CATEGORIES = 'CATALOG_SET_CATEGORIES';
+export const UPDATE_CATEGORY = 'CATALOG_UPDATE_CATEGORY';
+export const ADD_SELECTED_LAYER = 'CATALOG_ADD_SELECTED_LAYER';
+export const REMOVE_SELECTED_LAYER = 'CATALOG_REMOVE_SELECTED_LAYER';
 
 /**
  * Trigger an effect to fetch a topic group

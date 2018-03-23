@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
 
-export const SET_LAYER_INFORMATION = 'SET_LAYER_INFORMATION';
-export const SET_SELECTED_LAYER_ID = 'SET_SELECTED_LAYER_ID';
+export const SET_LAYER_INFORMATION = 'LAYER_INFORMATION_SET';
+export const SET_SELECTED_LAYER_ID = 'LAYER_INFORMATION_SET_SELECTED_LAYER_ID';
 
 export class SetLayerInformation implements Action {
   readonly type = SET_LAYER_INFORMATION;

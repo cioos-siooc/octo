@@ -1,9 +1,9 @@
 import {Action} from '@ngrx/store';
 
-export const ADD_POPUP = 'ADD_POPUP';
-export const DELETE_POPUP = 'DELETE_POPUP';
-export const TOGGLE_POPUP = 'TOGGLE_POPUP';
-export const SET_IS_OPEN = 'SET_IS_OPEN';
+export const ADD_POPUP = 'POPUP_ADD';
+export const DELETE_POPUP = 'POPUP_DELETE';
+export const TOGGLE_POPUP = 'POPUP_TOGGLE';
+export const SET_IS_OPEN = 'POPUP_SET_IS_OPEN';
 
 export interface PopupStatus {
   id: string;

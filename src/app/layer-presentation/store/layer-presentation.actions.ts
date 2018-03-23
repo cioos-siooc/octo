@@ -1,9 +1,9 @@
 import {Action} from '@ngrx/store';
 import {ClientPresentation} from '../../shared/client-presentation.model';
 
-export const SET_LAYER_UNIQUE_ID = 'SET_LAYER_UNIQUE_ID';
-export const SET_CLIENT_PRESENTATIONS = 'SET_CLIENT_PRESENTATIONS';
-export const SET_CURRENT_CLIENT_PRESENTATION = 'SET_CURRENT_CLIENT_PRESENTATION';
+export const SET_LAYER_UNIQUE_ID = 'LAYER_PRESENTATION_SET_LAYER_UNIQUE_ID';
+export const SET_CLIENT_PRESENTATIONS = 'LAYER_PRESENTATION_SET_PRESENTATIONS';
+export const SET_CURRENT_CLIENT_PRESENTATION = 'LAYER_PRESENTATION_SET_CURRENT';
 
 
 export class SetLayerUniqueId implements Action {

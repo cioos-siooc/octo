@@ -3,12 +3,12 @@ import {Layer} from '../../shared/layer.model';
 import {ClientPresentation} from '../../shared/client-presentation.model';
 
 
-export const FETCH_LAYER = 'FETCH_LAYER';
-export const FETCH_CLIENT_PRESENTATIONS = 'FETCH_CLIENT_PRESENTATIONS';
-export const ADD_LAYER = 'ADD_LAYER';
-export const DELETE_LAYER = 'DELETE_LAYER';
-export const UPDATE_LAYER = 'UPDATE_LAYER';
-export const SET_CLIENT_PRESENTATION = 'SET_CLIENT_PRESENTATION';
+export const FETCH_LAYER = 'LAYER_FETCH';
+export const FETCH_CLIENT_PRESENTATIONS = 'LAYER_FETCH_CLIENT_PRESENTATIONS';
+export const ADD_LAYER = 'LAYER_ADD';
+export const DELETE_LAYER = 'LAYER_DELETE';
+export const UPDATE_LAYER = 'LAYER_UPDATE';
+export const SET_CLIENT_PRESENTATION = 'LAYER_SET_CLIENT_PRESENTATION';
 
 export class FetchLayer implements Action {
   readonly type = FETCH_LAYER;
