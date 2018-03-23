@@ -90,7 +90,7 @@ run-deploy-test:
       - echo "$SSH_PRIVATE_KEY_TEST" |  tr -d '\r' > /root/.ssh/id_rsa
       - chmod 600 /root/.ssh/id_rsa
       - chmod 700 /root/.ssh
-      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogslt@srogslwebt01.uqar.ca:/var/www/html/test-www/app/maponion
+      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogslt@srogslwebt01.uqar.ca:/var/www/html/test-www/app/infosl2
     environment:
       name: test
       url: http://$testHost/maponion
