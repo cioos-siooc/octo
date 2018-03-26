@@ -60,9 +60,9 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private getOLLayerFromId(id): LayerBase {
-    return this.map.getLayers().getArray().filter((layer: LayerBase) => {
+    return this.map.getLayers().getArray().find((layer: LayerBase) => {
       return layer.get('id') === id;
-    })[0];
+    });
   }
 
   private initLayerSubscription() {
@@ -72,12 +72,12 @@ export class OpenLayersComponent implements AfterViewInit {
         currentOLLayers.forEach((layer: OLLayer) => {
           // If the new layer is already there
           if (layerState.layers.some((l) => (l.uniqueId === layer.get('uniqueId')))) {
-            const updatedOgslLayer = layerState.layers.filter((l) => {
+            const updatedOgslLayer = layerState.layers.find((l) => {
               return l.uniqueId === layer.get('uniqueId');
-            })[0];
-            const oldOgslLayer = this.layers.filter((l) => {
+            });
+            const oldOgslLayer = this.layers.find((l) => {
               return l.uniqueId === layer.get('uniqueId');
-            })[0];
+            });
             if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
               // Only update the old layer if the new one is different
               const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);

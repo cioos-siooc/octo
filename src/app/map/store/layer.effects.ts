@@ -63,9 +63,9 @@ export class LayerEffects {
       return this.httpClient.get<ClientPresentation[]>(`${environment.mapapiUrl}/layers/${action.payload.id}/client-presentations`).map(
         (clientPresentations) => {
           // Add clientPresentations to the layer and set the default as the current one
-          action.payload.currentClientPresentation = clientPresentations.filter((cp: ClientPresentation) => {
+          action.payload.currentClientPresentation = clientPresentations.find((cp: ClientPresentation) => {
             return cp.isDefault;
-          })[0];
+          });
           action.payload.clientPresentations = clientPresentations;
           return action.payload;
         }

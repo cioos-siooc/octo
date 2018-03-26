@@ -25,9 +25,9 @@ export class PopupComponent implements OnInit {
   ngOnInit() {
     this.isOpen = false;
     this.store.select('popup').subscribe((popupState: fromPopup.State) => {
-      const popupStatus = popupState.popupStatuses.filter((pS: PopupStatus) => {
+      const popupStatus = popupState.popupStatuses.find((pS: PopupStatus) => {
         return pS.id === this.id;
-      })[0];
+      });
       if (popupStatus != null) {
         this.isOpen = popupStatus.isOpen;
       }

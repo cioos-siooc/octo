@@ -31,16 +31,16 @@ export function popupReducer(state = initialState, action: popupActions.PopupAct
       });
     case popupActions.TOGGLE_POPUP:
       const cloneState = cloneDeep(state);
-      const popupStatus = cloneState.popupStatuses.filter((ps) => {
+      const popupStatus = cloneState.popupStatuses.find((ps) => {
         return ps.id === action.payload;
-      })[0];
+      });
       popupStatus.isOpen = !popupStatus.isOpen;
       return cloneState;
     case popupActions.SET_IS_OPEN:
       const newState = cloneDeep(state);
-      const pStatus = newState.popupStatuses.filter((ps) => {
+      const pStatus = newState.popupStatuses.find((ps) => {
         return ps.id === action.payload.popupId;
-      })[0];
+      });
       pStatus.isOpen = action.payload.isOpen;
       return newState;
     default:
