@@ -9,6 +9,7 @@ export const ADD_LAYER = 'LAYER_ADD';
 export const DELETE_LAYER = 'LAYER_DELETE';
 export const UPDATE_LAYER = 'LAYER_UPDATE';
 export const SET_CLIENT_PRESENTATION = 'LAYER_SET_CLIENT_PRESENTATION';
+export const FETCH_CLICK_STRATEGY = 'LAYER_FETCH_CLICK_STRATEGY';
 
 export class FetchLayer implements Action {
   readonly type = FETCH_LAYER;
@@ -52,10 +53,19 @@ export class SetClientPresentation implements Action {
   }
 }
 
+export class FetchClickStrategy implements Action {
+  readonly type = FETCH_CLICK_STRATEGY;
+
+  constructor(public payload: Layer) {
+  }
+}
+
 
 export type LayerActions =
   FetchLayer |
   AddLayer |
   DeleteLayer |
+  FetchClientPresentations |
+  FetchClickStrategy |
   SetClientPresentation |
   UpdateLayer;

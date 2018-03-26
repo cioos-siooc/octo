@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   mapapiUrl: 'http://132.215.33.56:8080/mapapi/api',
   backgroundLayerCodes: ['bing.aerial', 'bing.road', 'bing.aerialWithLabels'],
-  topicGroupCode: 'ca.ogsl.marineconditions',
+  topicGroupCode: 'ca.ogsl.infosl',
   titleKey: 'infosl-title',
   isTopicPickerActive: true,
   defaultTopic: 'ca.ogsl.slinfo',

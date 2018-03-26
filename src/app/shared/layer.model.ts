@@ -1,4 +1,5 @@
 import {ClientPresentation} from './client-presentation.model';
+import {ClickStrategy} from './click-strategy.model';
 
 export abstract class Layer {
   public id: number;
@@ -15,4 +16,5 @@ export abstract class Layer {
   public uniqueId: string;
   public clientPresentations: ClientPresentation[];
   public currentClientPresentation: ClientPresentation;
+  public clickStrategy: ClickStrategy;
 }
