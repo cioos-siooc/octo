@@ -131,7 +131,7 @@ export class OpenLayersComponent implements AfterViewInit {
       forkJoin(wmsCalls).subscribe((result) => {
         for (let i = result.length - 1; i >= 0; i--) {
           // TODO: Use proper setup to detect if payload is considered empty
-          if (result[i] !== 'no features were found\n') {
+          if (!this.isClickPayloadEmpty(result[i])) {
             this.store.dispatch(new mapClickActions.SetMapClickInfo(result[i]));
             this.store.dispatch(new mapClickActions.SetMapClickLayer(this.layers[i]));
             this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
@@ -140,5 +140,11 @@ export class OpenLayersComponent implements AfterViewInit {
         }
       });
     });
+  }
+
+  isClickPayloadEmpty(htmlContent) {
+    const insideBodyTags = htmlContent.substring(htmlContent.indexOf('<body>') + 6, htmlContent.indexOf('</body>'));
+    const trimmed = insideBodyTags.replace(/ /g, '').replace(/\r?\n|\r/g, '');
+    return (trimmed.length <= 0);
   }
 }
