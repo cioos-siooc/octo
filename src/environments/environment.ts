@@ -10,7 +10,7 @@ export const environment = {
   topicGroupCode: 'ca.ogsl.infosl',
   titleKey: 'infosl-title',
   isTopicPickerActive: true,
-  defaultTopic: 'ca.ogsl.slinfo',
+  defaultTopic: 'ca.ogsl.infosl',
   frenchLanguageIdentifier: 'ogsl',
   englishLanguageIdentifier: 'slgo'
 };
