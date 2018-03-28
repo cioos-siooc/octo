@@ -15,7 +15,7 @@
 </button>
 <select [(ngModel)]="currentBaseLayer" (change)="onSelectBaseLayer()"
         [compareWith]="compareBaseLayers" class="map-select-style">
-  <option *ngFor="let baseLayer of (layerState | async).baseLayers" [ngValue]="baseLayer">
+  <option *ngFor="let baseLayer of (baseLayerState | async).baseLayers" [ngValue]="baseLayer">
     {{baseLayer.title}}
   </option>
 </select>
@@ -44,4 +44,9 @@
            [title]="'layer-presentation-title' | translate"
            class="center-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-layer-presentation></app-layer-presentation>
+</app-popup>
+<app-popup [id]="MAP_CLICK_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
+           [title]="mapClickTitle"
+           class="map-click-popup absolute popup-mobile-bottom above-ol wider-popup">
+  <app-map-click></app-map-click>
 </app-popup>

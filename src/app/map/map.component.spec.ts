@@ -15,6 +15,8 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {LayerInformationComponent} from '../layer-information/layer-information.component';
 import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
+import {MapClickComponent} from '../map-click/map-click.component';
+import {KeepHtmlPipe} from '../pipes/keep-html.pipe';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -23,7 +25,7 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
-        CategoryComponent, LayerInformationComponent, LayerPresentationComponent],
+        CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe],
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,

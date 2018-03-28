@@ -1,27 +1,29 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {OpenLayersComponent} from './open-layers.component';
-import {reducers} from '../../store/app.reducers';
+import {MapClickComponent} from './map-click.component';
+import {KeepHtmlPipe} from '../pipes/keep-html.pipe';
+import {reducers} from '../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
-import {HttpClientModule} from '@angular/common/http';
 
-describe('OpenLayersComponent', () => {
-  let component: OpenLayersComponent;
-  let fixture: ComponentFixture<OpenLayersComponent>;
+describe('MapClickComponent', () => {
+  let component: MapClickComponent;
+  let fixture: ComponentFixture<MapClickComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OpenLayersComponent],
+      declarations: [
+        MapClickComponent,
+        KeepHtmlPipe
+      ],
       imports: [
         StoreModule.forRoot(reducers),
-        HttpClientModule,
       ]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OpenLayersComponent);
+    fixture = TestBed.createComponent(MapClickComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

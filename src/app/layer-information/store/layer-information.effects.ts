@@ -12,7 +12,7 @@ export class LayerInformationEffects {
     .ofType(LayerInformationActions.SET_SELECTED_LAYER_ID)
     .switchMap((action: LayerInformationActions.SetSelectedLayerId) => {
       return this.httpClient.get(`${environment.mapapiUrl}/layers/${action.payload}/getLayerInformation`,
-        {headers: {'Content-Type': 'text/html'}, responseType: 'text'}
+        {responseType: 'text'}
       ).map(layerInformation => {
         return new LayerInformationActions.SetLayerInformation(layerInformation);
       });

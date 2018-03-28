@@ -30,6 +30,11 @@
   left: 10px;
 }
 
+.map-click-popup{
+  bottom: 100px;
+  right: 5px;
+}
+
 .center-popup {
   top: 42px;
   left: calc((100% / 2) - 500px / 2)

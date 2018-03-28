@@ -1,10 +1,12 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {forkJoin} from 'rxjs/observable/forkJoin';
 import View from 'ol/view';
 import Map from 'ol/map';
 import Proj from 'ol/proj';
 import OLLayer from 'ol/layer/layer';
 import LayerBase from 'ol/layer/base';
+import TileWMS from 'ol/source/TileWMS';
 import * as fromApp from '../../store/app.reducers';
 import * as fromBaseLayer from '../store/base-layer.reducers';
 import {OLLayerFactory} from './ol-layer-factory.util';
@@ -13,6 +15,11 @@ import {clone, isEqual} from 'lodash';
 import {Layer} from '../../shared/layer.model';
 import 'rxjs/add/operator/filter';
 import {Observable} from 'rxjs/Observable';
+import {WmsStrategy} from '../../shared/wms-strategy.model';
+import {HttpClient} from '@angular/common/http';
+import {MAP_CLICK_POPUP_ID} from '../map.component';
+import * as popupActions from '../store/popup.actions';
+import * as mapClickActions from '../../map-click/store/map-click.actions';
 
 @Component({
   selector: 'app-open-layers',
@@ -24,13 +31,14 @@ export class OpenLayersComponent implements AfterViewInit {
   baseOLLayer: OLLayer = null;
   private layers: Layer[];
 
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(private httpClient: HttpClient, private store: Store<fromApp.AppState>) {
   }
 
   ngAfterViewInit(): void {
     this.initMap();
     this.initBaseLayerSubscription();
     this.initLayerSubscription();
+    this.initMapClick();
   }
 
   private initMap() {
@@ -97,5 +105,40 @@ export class OpenLayersComponent implements AfterViewInit {
         });
         this.layers = layerState.layers;
       });
+  }
+
+  // TODO: To refactor into proper setup with appropriate classes and not hardcoded
+  private initMapClick() {
+    this.map.on('singleclick', (evt: ol.MapBrowserEvent) => {
+      const view: View = this.map.getView();
+      const wmsCalls = [];
+      this.layers.forEach((l) => {
+        if (l.clickStrategy != null) {
+          if (l.clickStrategy.type === 'wms') {
+            const olLayer: OLLayer = <ol.layer.Layer> this.map.getLayers().getArray().find((olL) => {
+              return olL.get('uniqueId') === l.uniqueId;
+            });
+            const source: TileWMS = <TileWMS> olLayer.getSource();
+            const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), {
+              INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
+              FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
+            });
+            wmsCalls.push(this.httpClient.get(getFeatureUrl,
+              {responseType: 'text'}));
+          }
+        }
+      });
+      forkJoin(wmsCalls).subscribe((result) => {
+        for (let i = result.length - 1; i >= 0; i--) {
+          // TODO: Use proper setup to detect if payload is considered empty
+          if (result[i] !== 'no features were found\n') {
+            this.store.dispatch(new mapClickActions.SetMapClickInfo(result[i]));
+            this.store.dispatch(new mapClickActions.SetMapClickLayer(this.layers[i]));
+            this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
+            break;
+          }
+        }
+      });
+    });
   }
 }
