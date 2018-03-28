@@ -6,7 +6,7 @@ import Map from 'ol/map';
 import Proj from 'ol/proj';
 import OLLayer from 'ol/layer/layer';
 import LayerBase from 'ol/layer/base';
-import TileWMS from 'ol/source/TileWMS';
+import TileWMS from 'ol/source/tilewms';
 import * as fromApp from '../../store/app.reducers';
 import * as fromBaseLayer from '../store/base-layer.reducers';
 import {OLLayerFactory} from './ol-layer-factory.util';
