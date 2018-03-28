@@ -23,7 +23,7 @@ export const MAP_CLICK_POPUP_ID = 'MAP_CLICK';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css'],
+  styleUrls: ['./map.component.css', './map-responsive.component.css'],
 })
 export class MapComponent implements OnInit {
   @HostBinding('class') class = 'full-sized';
