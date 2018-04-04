@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import {Category} from '../../shared/category.model';
-import ActivateLayer from '../../shared/create-layer.utility';
+import ActivateLayer from '../../shared/activate-layer.util';
 import * as catalogActions from '../store/catalog.actions';
 import * as layerActions from '../../map/store/layer.actions';
 import * as fromCatalog from '../store/catalog.reducers';

@@ -2,7 +2,8 @@ import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {forkJoin} from 'rxjs/observable/forkJoin';
 import View from 'ol/view';
-import Map from 'ol/map';
+import Feature from 'ol/feature';
+import OLMap from 'ol/map';
 import Proj from 'ol/proj';
 import OLLayer from 'ol/layer/layer';
 import LayerBase from 'ol/layer/base';
@@ -20,6 +21,7 @@ import {HttpClient} from '@angular/common/http';
 import {MAP_CLICK_POPUP_ID} from '../map.component';
 import * as popupActions from '../store/popup.actions';
 import * as mapClickActions from '../../map-click/store/map-click.actions';
+import {EmptyValidatorFactory} from '../../shared/empty-validator-factory.util';
 
 @Component({
   selector: 'app-open-layers',
@@ -27,7 +29,7 @@ import * as mapClickActions from '../../map-click/store/map-click.actions';
   styleUrls: ['./open-layers.component.css']
 })
 export class OpenLayersComponent implements AfterViewInit {
-  map: Map;
+  map: OLMap;
   baseOLLayer: OLLayer = null;
   private layers: Layer[];
 
@@ -46,7 +48,7 @@ export class OpenLayersComponent implements AfterViewInit {
       center: Proj.transform([-66.0, 51.0], 'EPSG:4326', 'EPSG:3857'),
       zoom: 5,
     });
-    this.map = new Map({
+    this.map = new OLMap({
       target: 'map',
       view: mapview,
     });
@@ -110,8 +112,18 @@ export class OpenLayersComponent implements AfterViewInit {
   // TODO: To refactor into proper setup with appropriate classes and not hardcoded
   private initMapClick() {
     this.map.on('singleclick', (evt: ol.MapBrowserEvent) => {
+      const resultObservables = [];
+      const obsIndexToLayerUniqueId = new Map();
+      this.map.forEachFeatureAtPixel(evt.pixel,
+        (feature: Feature, olLayer) => {
+          const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
+          if (layer.clickStrategy != null) {
+            const length = resultObservables.push(Observable.of(feature.getProperties()));
+            obsIndexToLayerUniqueId.set(length - 1, layer.uniqueId);
+          }
+          return feature;
+        });
       const view: View = this.map.getView();
-      const wmsCalls = [];
       this.layers.forEach((l) => {
         if (l.clickStrategy != null) {
           if (l.clickStrategy.type === 'wms') {
@@ -123,28 +135,27 @@ export class OpenLayersComponent implements AfterViewInit {
               INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
               FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
             });
-            wmsCalls.push(this.httpClient.get(getFeatureUrl,
+            const length = resultObservables.push(this.httpClient.get(getFeatureUrl,
               {responseType: 'text'}));
+            obsIndexToLayerUniqueId.set(length - 1, l.uniqueId);
           }
         }
       });
-      forkJoin(wmsCalls).subscribe((result) => {
+      forkJoin(resultObservables).subscribe((result) => {
         for (let i = result.length - 1; i >= 0; i--) {
-          // TODO: Use proper setup to detect if payload is considered empty
-          if (!this.isClickPayloadEmpty(result[i])) {
+          const currentClickLayer = this.layers.find((la) => {
+            return la.uniqueId === obsIndexToLayerUniqueId.get(i);
+          });
+          const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentClickLayer.clickStrategy.emptyValidatorCode));
+          if (emptyValidator == null || !emptyValidator.isPayloadEmpty(result[i])) {
+            // TODO: FormatterFactory.getFormatter(layer[i].clickStrat.formatterCode)).format(result) !?!?!?!?!?!?!?
             this.store.dispatch(new mapClickActions.SetMapClickInfo(result[i]));
-            this.store.dispatch(new mapClickActions.SetMapClickLayer(this.layers[i]));
+            this.store.dispatch(new mapClickActions.SetMapClickLayer(currentClickLayer));
             this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
             break;
           }
         }
       });
     });
-  }
-
-  isClickPayloadEmpty(htmlContent) {
-    const insideBodyTags = htmlContent.substring(htmlContent.indexOf('<body>') + 6, htmlContent.indexOf('</body>'));
-    const trimmed = insideBodyTags.replace(/ /g, '').replace(/\r?\n|\r/g, '');
-    return (trimmed.length <= 0);
   }
 }
