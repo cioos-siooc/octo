@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Store} from '@ngrx/store';
 
+import * as fromApp from '../store/app.reducers';
 import * as fromCatalog from './store/catalog.reducers';
 import * as catalogActions from './store/catalog.actions';
 import {Topic} from '../shared/topic.model';
@@ -15,7 +16,7 @@ export class CatalogComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
   numExpandedTopics: number;
 
-  constructor(private store: Store<fromCatalog.AppState>) {
+  constructor(private store: Store<fromApp.AppState>) {
   }
 
   ngOnInit() {

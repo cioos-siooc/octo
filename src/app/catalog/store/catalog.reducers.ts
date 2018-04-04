@@ -1,14 +1,8 @@
 import {TopicGroup} from '../../shared/topic-group.model';
 import {Topic} from '../../shared/topic.model';
-import * as CatalogActions from './catalog.actions';
+import * as catalogActions from './catalog.actions';
 import Utils from '../category.util';
-import {Category} from '../../shared/category.model';
 import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
-
-
-export interface AppState {
-  catalog: State;
-}
 
 export interface State {
   topicGroup: TopicGroup;
@@ -22,40 +16,40 @@ const initialState: State = {
   selectedLayers: []
 };
 
-export function catalogReducer(state = initialState, action: CatalogActions.CatalogActions) {
+export function catalogReducer(state: State = initialState, action: catalogActions.CatalogActions) {
   switch (action.type) {
-    case CatalogActions.SET_TOPIC_GROUP:
+    case catalogActions.SET_TOPIC_GROUP:
       return {
         ...state,
-        topicGroup: action.payload
+        topicGroup: (<any>action).payload
       };
-    case CatalogActions.APPEND_TOPIC:
-      const topics: Topic[] = [...state.topics, action.payload];
+    case catalogActions.APPEND_TOPIC:
+      const topics: Topic[] = [...state.topics, (<any>action).payload];
       return {
         ...state,
         topics: topics
       };
-    case CatalogActions.SET_TOPIC_EXPANDED:
-      const topic: Topic = {...state.topics[action.payload.topicIndex]};
-      topic.expanded = action.payload.expanded;
+    case catalogActions.SET_TOPIC_EXPANDED:
+      const topic: Topic = <Topic>{...state.topics[(<any>action).payload.topicIndex]};
+      topic.expanded = (<any>action).payload.expanded;
 
       const oldTopics: Topic[] = [...state.topics];
-      oldTopics[action.payload.topicIndex] = topic;
+      oldTopics[(<any>action).payload.topicIndex] = topic;
       return {
         ...state,
         topics: oldTopics
       };
-    case CatalogActions.SET_CATEGORIES:
+    case catalogActions.SET_CATEGORIES:
       let idToUpdate = -1;
       for (let i = 0; i < state.topics.length; i++) {
-        if (state.topics[i].id === action.payload.topicId) {
+        if (state.topics[i].id === (<any>action).payload.topicId) {
           idToUpdate = i;
           break;
         }
       }
       const updatedTopic: Topic = {
         ...state.topics[idToUpdate],
-        category: action.payload.category
+        category: (<any>action).payload.category
       };
       const updatedTopics: Topic[] = [...state.topics];
       updatedTopics[idToUpdate] = updatedTopic;
@@ -63,25 +57,25 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
         ...state,
         topics: updatedTopics
       };
-    case CatalogActions.UPDATE_CATEGORY:
+    case catalogActions.UPDATE_CATEGORY:
       const updatedTopicList = Utils.updateCategory(
         state,
-        action.payload.treeLocation,
-        action.payload.newCategory
+        (<any>action).payload.treeLocation,
+        (<any>action).payload.newCategory
       );
       return {
         ...state,
         topics: updatedTopicList
       };
-    case CatalogActions.ADD_SELECTED_LAYER:
+    case catalogActions.ADD_SELECTED_LAYER:
       return {
         ...state,
-        selectedLayers: [...state.selectedLayers, action.payload]
+        selectedLayers: [...state.selectedLayers, (<any>action).payload]
       };
-    case CatalogActions.REMOVE_SELECTED_LAYER:
+    case catalogActions.REMOVE_SELECTED_LAYER:
       const selectedLayers = [...state.selectedLayers];
       for (let i = 0; i < selectedLayers.length; i++) {
-        if (selectedLayers[i].layerUniqueId === action.payload) {
+        if (selectedLayers[i].layerUniqueId === (<any>action).payload) {
           const targetSelectedLayer = selectedLayers[i];
           selectedLayers.splice(i, 1);
 
@@ -92,7 +86,7 @@ export function catalogReducer(state = initialState, action: CatalogActions.Cata
             topicToUpdate.category,
             tempTreeLoc
           );
-          const newCategory: Category = {
+          const newCategory = {
             ...categoryToUpdate,
             layerUniqueId: null,
             isChecked: false

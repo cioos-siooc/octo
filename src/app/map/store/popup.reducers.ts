@@ -4,7 +4,7 @@ import {cloneDeep} from 'lodash';
 
 
 export interface State {
-  popupStatuses: Array<PopupStatus>;
+  popupStatuses: PopupStatus[];
 }
 
 const initialState: State = {
@@ -12,23 +12,24 @@ const initialState: State = {
 };
 
 
-export function popupReducer(state = initialState, action: popupActions.PopupActions) {
+export function popupReducer(state: State = initialState, action: popupActions.PopupActions) {
   switch (action.type) {
     case popupActions.ADD_POPUP:
       const clonedState = cloneDeep(state);
-      const isAlresadyInArray = clonedState.popupStatuses.some((pS) => {
-        return pS.id === action.payload.id;
+      const isAlreadyInArray = clonedState.popupStatuses.some((pS) => {
+        return pS.id === (<PopupStatus>action.payload).id;
       });
-      if (isAlresadyInArray) {
+      if (isAlreadyInArray) {
         return clonedState;
       }
-      clonedState.popupStatuses.push({...action.payload});
+      clonedState.popupStatuses.push(<PopupStatus>{...action.payload});
       return clonedState;
     case popupActions.DELETE_POPUP:
       const clownState = cloneDeep(state);
-      return clownState.filter((p: PopupStatus) => {
+      clownState.popupStatuses = clownState.popupStatuses.filter((p: PopupStatus) => {
         return p.id !== action.payload;
       });
+      return clownState;
     case popupActions.TOGGLE_POPUP:
       const cloneState = cloneDeep(state);
       const popupStatus = cloneState.popupStatuses.find((ps) => {
@@ -39,9 +40,9 @@ export function popupReducer(state = initialState, action: popupActions.PopupAct
     case popupActions.SET_IS_OPEN:
       const newState = cloneDeep(state);
       const pStatus = newState.popupStatuses.find((ps) => {
-        return ps.id === action.payload.popupId;
+        return ps.id === (<any>action.payload).popupId;
       });
-      pStatus.isOpen = action.payload.isOpen;
+      pStatus.isOpen = (<any>action.payload).isOpen;
       return newState;
     default:
       return state;

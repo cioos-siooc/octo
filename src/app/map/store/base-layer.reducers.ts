@@ -11,7 +11,7 @@ const initialState: State = {
   baseLayers: []
 };
 
-export function baseLayerReducer(state = initialState, action: baseLayerActions.BaseLayerActions): State {
+export function baseLayerReducer(state = initialState, action: baseLayerActions.BaseLayerActions) {
   switch (action.type) {
     case baseLayerActions.ADD_BASE_LAYER:
       return {

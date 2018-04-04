@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
+import * as fromApp from '../store/app.reducers';
 import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as catalogActions from '../catalog/store/catalog.actions';
 import {Observable} from 'rxjs/Observable';
@@ -16,7 +17,7 @@ import {environment} from '../../environments/environment';
 export class TopicPickerComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
 
-  constructor(private store: Store<fromCatalog.AppState>, private translateService: TranslateService ) {
+  constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService ) {
   }
 
   ngOnInit() {
