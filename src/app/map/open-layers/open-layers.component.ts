@@ -22,6 +22,7 @@ import {MAP_CLICK_POPUP_ID} from '../map.component';
 import * as popupActions from '../store/popup.actions';
 import * as mapClickActions from '../../map-click/store/map-click.actions';
 import {EmptyValidatorFactory} from '../../shared/empty-validator-factory.util';
+import {ClickFormatterFactory} from '../../shared/click-formatter-factory.util';
 
 @Component({
   selector: 'app-open-layers',
@@ -80,19 +81,21 @@ export class OpenLayersComponent implements AfterViewInit {
       .subscribe((layerState: fromLayer.State) => {
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
         currentOLLayers.forEach((layer: OLLayer) => {
-          // If the new layer is already there
-          if (layerState.layers.some((l) => (l.uniqueId === layer.get('uniqueId')))) {
-            const updatedOgslLayer = layerState.layers.find((l) => {
-              return l.uniqueId === layer.get('uniqueId');
-            });
+          const updatedOgslLayer = layerState.layers.find((l) => {
+            return l.uniqueId === layer.get('uniqueId');
+          });
+          if (updatedOgslLayer != null) {
             const oldOgslLayer = this.layers.find((l) => {
               return l.uniqueId === layer.get('uniqueId');
             });
             if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
               // Only update the old layer if the new one is different
               const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);
-              this.map.removeLayer(layer);
-              this.map.addLayer(newOlLayer);
+              const index = this.map.getLayers().getArray().findIndex((l) => {
+                return l.get('uniqueId') === layer.get('uniqueId');
+              });
+              this.map.getLayers().removeAt(index);
+              this.map.getLayers().insertAt(index, newOlLayer);
             }
           } else if (layer.get('uniqueId') != null) {
             // If old layer is not part of the new layers and isn't a background layer, remove it
@@ -117,11 +120,11 @@ export class OpenLayersComponent implements AfterViewInit {
       this.map.forEachFeatureAtPixel(evt.pixel,
         (feature: Feature, olLayer) => {
           const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
-          if (layer.clickStrategy != null) {
+          if (layer.clickStrategy.type === 'json-included') {
             const length = resultObservables.push(Observable.of(feature.getProperties()));
             obsIndexToLayerUniqueId.set(length - 1, layer.uniqueId);
+            return feature;
           }
-          return feature;
         });
       const view: View = this.map.getView();
       this.layers.forEach((l) => {
@@ -131,7 +134,7 @@ export class OpenLayersComponent implements AfterViewInit {
               return olL.get('uniqueId') === l.uniqueId;
             });
             const source: TileWMS = <TileWMS> olLayer.getSource();
-            const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), {
+            const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), <any>{
               INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
               FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
             });
@@ -149,6 +152,9 @@ export class OpenLayersComponent implements AfterViewInit {
           const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentClickLayer.clickStrategy.emptyValidatorCode));
           if (emptyValidator == null || !emptyValidator.isPayloadEmpty(result[i])) {
             // TODO: FormatterFactory.getFormatter(layer[i].clickStrat.formatterCode)).format(result) !?!?!?!?!?!?!?
+            if (currentClickLayer.clickStrategy.type === 'json-included') {
+              result[i] = ClickFormatterFactory.getClickFormatter('json').format(result[i]);
+            }
             this.store.dispatch(new mapClickActions.SetMapClickInfo(result[i]));
             this.store.dispatch(new mapClickActions.SetMapClickLayer(currentClickLayer));
             this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));

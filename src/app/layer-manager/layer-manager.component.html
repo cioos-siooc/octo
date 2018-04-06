@@ -1,6 +1,6 @@
 <div id="layer-manager">
   <ul>
-    <li *ngFor="let layer of (layerState | async).layers" class="no-list-style">
+    <li *ngFor="let layer of (layerState | async).layers.reverse()" class="no-list-style">
       <a><i class="fa fa-times-circle foreground-red"
             (click)="onRemoveClick(layer)"></i></a>
       <span>{{layer.title}}</span>
