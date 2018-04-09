@@ -52,4 +52,8 @@ export class LayerManagerComponent implements OnInit {
   onMoveDownLayerClick(layer: Layer) {
     this.store.dispatch(new layerActions.MoveDownLayer(layer.uniqueId));
   }
+
+  onExpandSettingsClick(layer) {
+    layer.isSettingsExpanded = !layer.isSettingsExpanded;
+  }
 }

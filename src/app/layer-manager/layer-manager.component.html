@@ -1,17 +1,22 @@
 <div id="layer-manager">
-  <ul>
-    <li *ngFor="let layer of (layerState | async).layers.reverse()" class="no-list-style">
+  <ul class="pt-1 pb-1 pl-1">
+    <li *ngFor="let layer of (layerState | async).layers.reverse()" class="no-list-style pt-1 pb-1">
       <a><i class="fa fa-times-circle foreground-red"
             (click)="onRemoveClick(layer)"></i></a>
       <span>{{layer.title}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(layer)"></i></a>
-      <!-- TODO: Add collapsible region to put settings in-->
-      <a><i class="glyphicon fa fa-arrow-up foreground-dark"
-            (click)="onMoveUpLayerClick(layer)"></i></a>
-      <a><i class="glyphicon fa fa-arrow-down foreground-dark"
-            (click)="onMoveDownLayerClick(layer)"></i></a>
-      <button class="btn foreground-purple background-dark p-0 smaller-font text-uppercase" (click)="onShowLayerPresentation(layer)">{{ 'legend' | translate}}</button>
+      <button class="btn foreground-purple background-dark p-0 smaller-font text-uppercase"
+              (click)="onShowLayerPresentation(layer)">{{ 'legend' | translate}}
+      </button>
+      <a><i class="glyphicon fa fa-cog foreground-dark"
+            (click)="onExpandSettingsClick(layer)"></i></a>
+      <div *ngIf="layer.isSettingsExpanded" class="settings pt-1">
+        <a><i class="glyphicon fa fa-arrow-up foreground-dark"
+              (click)="onMoveUpLayerClick(layer)"></i></a>
+        <a><i class="glyphicon fa fa-arrow-down foreground-dark"
+              (click)="onMoveDownLayerClick(layer)"></i></a>
+      </div>
     </li>
   </ul>
 </div>
