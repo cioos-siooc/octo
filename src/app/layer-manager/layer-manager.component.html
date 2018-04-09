@@ -6,6 +6,11 @@
       <span>{{layer.title}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(layer)"></i></a>
+      <!-- TODO: Add collapsible region to put settings in-->
+      <a><i class="glyphicon fa fa-arrow-up foreground-dark"
+            (click)="onMoveUpLayerClick(layer)"></i></a>
+      <a><i class="glyphicon fa fa-arrow-down foreground-dark"
+            (click)="onMoveDownLayerClick(layer)"></i></a>
       <button class="btn foreground-purple background-dark p-0 smaller-font text-uppercase" (click)="onShowLayerPresentation(layer)">{{ 'legend' | translate}}</button>
     </li>
   </ul>

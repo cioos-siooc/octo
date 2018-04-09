@@ -29,6 +29,24 @@ export function layerReducer(state = initialState, action: layerActions.LayerAct
         clownState.layers[layerIndex] = <Layer>action.payload;
       }
       return clownState;
+    case layerActions.MOVE_UP_LAYER:
+      const cState = cloneDeep(state);
+      const layerIdx = cState.layers.findIndex((l) => l.uniqueId === action.payload);
+      if (layerIdx !== cState.layers.length - 1) {
+        const temp = cState.layers[layerIdx];
+        cState.layers[layerIdx] = cState.layers[layerIdx + 1];
+        cState.layers[layerIdx + 1] = temp;
+      }
+      return cState;
+    case layerActions.MOVE_DOWN_LAYER:
+      const clState = cloneDeep(state);
+      const layerId = clState.layers.findIndex((l) => l.uniqueId === action.payload);
+      if (layerId !== 0) {
+        const temp = clState.layers[layerId];
+        clState.layers[layerId] = clState.layers[layerId - 1];
+        clState.layers[layerId - 1] = temp;
+      }
+      return clState;
     case layerActions.SET_CLIENT_PRESENTATION:
       const newState = cloneDeep(state);
       const layerInd = newState.layers.findIndex((l) => l.uniqueId === (<any>action.payload).uniqueId);

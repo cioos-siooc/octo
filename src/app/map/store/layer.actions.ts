@@ -8,6 +8,8 @@ export const FETCH_CLIENT_PRESENTATIONS = 'LAYER_FETCH_CLIENT_PRESENTATIONS';
 export const ADD_LAYER = 'LAYER_ADD';
 export const DELETE_LAYER = 'LAYER_DELETE';
 export const UPDATE_LAYER = 'LAYER_UPDATE';
+export const MOVE_UP_LAYER = 'LAYER_MOVE_UP';
+export const MOVE_DOWN_LAYER = 'LAYER_MOVE_DOWN';
 export const SET_CLIENT_PRESENTATION = 'LAYER_SET_CLIENT_PRESENTATION';
 export const FETCH_CLICK_STRATEGY = 'LAYER_FETCH_CLICK_STRATEGY';
 
@@ -59,6 +61,18 @@ export class FetchClickStrategy implements Action {
   constructor(public payload: Layer) {
   }
 }
+export class MoveUpLayer implements Action {
+  readonly type = MOVE_UP_LAYER;
+
+  constructor(public payload: string) {
+  }
+}
+export class MoveDownLayer implements Action {
+  readonly type = MOVE_DOWN_LAYER;
+
+  constructor(public payload: string) {
+  }
+}
 
 
 export type LayerActions =
@@ -68,4 +82,6 @@ export type LayerActions =
   FetchClientPresentations |
   FetchClickStrategy |
   SetClientPresentation |
+  MoveUpLayer |
+  MoveDownLayer |
   UpdateLayer;

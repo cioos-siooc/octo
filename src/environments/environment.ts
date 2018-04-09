@@ -7,7 +7,7 @@ export const environment = {
   production: false,
   mapapiUrl: 'http://132.215.33.56:8080/mapapi/api',
   backgroundLayerCodes: ['bing.aerial', 'bing.road', 'bing.aerialWithLabels'],
-  topicGroupCode: 'ca.ogsl.infosl',
+  topicGroupCode: 'ca.ogsl.multi_topics',
   titleKey: 'infosl-title',
   isTopicPickerActive: true,
   defaultTopic: 'ca.ogsl.infosl',

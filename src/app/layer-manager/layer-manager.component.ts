@@ -44,4 +44,12 @@ export class LayerManagerComponent implements OnInit {
     this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(layer.currentClientPresentation));
     this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_PRESENTATION_POPUP_ID, isOpen: true}));
   }
+
+  onMoveUpLayerClick(layer: Layer) {
+    this.store.dispatch(new layerActions.MoveUpLayer(layer.uniqueId));
+  }
+
+  onMoveDownLayerClick(layer: Layer) {
+    this.store.dispatch(new layerActions.MoveDownLayer(layer.uniqueId));
+  }
 }

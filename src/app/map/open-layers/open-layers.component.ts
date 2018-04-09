@@ -97,7 +97,7 @@ export class OpenLayersComponent implements AfterViewInit {
               this.map.getLayers().removeAt(index);
               this.map.getLayers().insertAt(index, newOlLayer);
             }
-          } else if (layer.get('uniqueId') != null) {
+          } else if (!this.isBackgroundLayer(layer)) {
             // If old layer is not part of the new layers and isn't a background layer, remove it
             this.map.removeLayer(layer);
           }
@@ -109,10 +109,32 @@ export class OpenLayersComponent implements AfterViewInit {
           }
         });
         this.layers = layerState.layers;
+        this.checkLayerPriority();
       });
   }
 
-  // TODO: To refactor into proper setup with appropriate classes and not hardcoded
+  private checkLayerPriority() {
+    this.map.getLayers().getArray().sort((a, b) => {
+      // Consider background layers to be equal to other layers
+      if (this.isBackgroundLayer(a) || this.isBackgroundLayer(b)) {
+        return 0;
+      }
+        const aLayerIndex = this.layers.findIndex((l) => {
+          return l.uniqueId === a.get('uniqueId');
+        });
+      const bLayerIndex = this.layers.findIndex((l) => {
+        return l.uniqueId === b.get('uniqueId');
+      });
+      return aLayerIndex - bLayerIndex;
+    });
+    this.map.render();
+  }
+
+  private isBackgroundLayer(a) {
+    return a.get('uniqueId') == null;
+  }
+
+// TODO: To refactor into proper setup with appropriate classes and not hardcoded
   private initMapClick() {
     this.map.on('singleclick', (evt: ol.MapBrowserEvent) => {
       const resultObservables = [];
@@ -145,6 +167,7 @@ export class OpenLayersComponent implements AfterViewInit {
         }
       });
       forkJoin(resultObservables).subscribe((result) => {
+        // TODO: for last layer till first layer, getResult, if not empty display it with formatter
         for (let i = result.length - 1; i >= 0; i--) {
           const currentClickLayer = this.layers.find((la) => {
             return la.uniqueId === obsIndexToLayerUniqueId.get(i);
@@ -164,4 +187,5 @@ export class OpenLayersComponent implements AfterViewInit {
       });
     });
   }
+
 }
