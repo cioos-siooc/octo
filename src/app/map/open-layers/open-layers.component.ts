@@ -119,9 +119,9 @@ export class OpenLayersComponent implements AfterViewInit {
       if (this.isBackgroundLayer(a) || this.isBackgroundLayer(b)) {
         return 0;
       }
-        const aLayerIndex = this.layers.findIndex((l) => {
-          return l.uniqueId === a.get('uniqueId');
-        });
+      const aLayerIndex = this.layers.findIndex((l) => {
+        return l.uniqueId === a.get('uniqueId');
+      });
       const bLayerIndex = this.layers.findIndex((l) => {
         return l.uniqueId === b.get('uniqueId');
       });
@@ -130,29 +130,32 @@ export class OpenLayersComponent implements AfterViewInit {
     this.map.render();
   }
 
-  private isBackgroundLayer(a) {
-    return a.get('uniqueId') == null;
+  private isBackgroundLayer(layer) {
+    // Background layers do not have a uniqueId, since they cannot be duplicated
+    return layer.get('uniqueId') == null;
   }
 
 // TODO: To refactor into proper setup with appropriate classes and not hardcoded
   private initMapClick() {
     this.map.on('singleclick', (evt: ol.MapBrowserEvent) => {
       const resultObservables = [];
-      const obsIndexToLayerUniqueId = new Map();
+      const layerUniqueIdToObsIndex = new Map<string, number>();
+
       this.map.forEachFeatureAtPixel(evt.pixel,
         (feature: Feature, olLayer) => {
           const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
           if (layer.clickStrategy.type === 'json-included') {
             const length = resultObservables.push(Observable.of(feature.getProperties()));
-            obsIndexToLayerUniqueId.set(length - 1, layer.uniqueId);
+            layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
             return feature;
           }
         });
+
       const view: View = this.map.getView();
       this.layers.forEach((l) => {
         if (l.clickStrategy != null) {
           if (l.clickStrategy.type === 'wms') {
-            const olLayer: OLLayer = <ol.layer.Layer> this.map.getLayers().getArray().find((olL) => {
+            const olLayer: OLLayer = <OLLayer> this.map.getLayers().getArray().find((olL) => {
               return olL.get('uniqueId') === l.uniqueId;
             });
             const source: TileWMS = <TileWMS> olLayer.getSource();
@@ -162,24 +165,22 @@ export class OpenLayersComponent implements AfterViewInit {
             });
             const length = resultObservables.push(this.httpClient.get(getFeatureUrl,
               {responseType: 'text'}));
-            obsIndexToLayerUniqueId.set(length - 1, l.uniqueId);
+            layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
           }
         }
       });
+
       forkJoin(resultObservables).subscribe((result) => {
-        // TODO: for last layer till first layer, getResult, if not empty display it with formatter
-        for (let i = result.length - 1; i >= 0; i--) {
-          const currentClickLayer = this.layers.find((la) => {
-            return la.uniqueId === obsIndexToLayerUniqueId.get(i);
-          });
-          const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentClickLayer.clickStrategy.emptyValidatorCode));
-          if (emptyValidator == null || !emptyValidator.isPayloadEmpty(result[i])) {
-            // TODO: FormatterFactory.getFormatter(layer[i].clickStrat.formatterCode)).format(result) !?!?!?!?!?!?!?
-            if (currentClickLayer.clickStrategy.type === 'json-included') {
-              result[i] = ClickFormatterFactory.getClickFormatter('json').format(result[i]);
+        for (let i = this.layers.length - 1; i >= 0; i--) {
+          const currentLayer = this.layers[i];
+          let currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
+          const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
+          if ((emptyValidator == null || !emptyValidator.isPayloadEmpty(currentResult)) && currentResult != null) {
+            if (currentLayer.clickStrategy.type === 'json-included') {
+              currentResult = ClickFormatterFactory.getClickFormatter('json').format(currentResult);
             }
-            this.store.dispatch(new mapClickActions.SetMapClickInfo(result[i]));
-            this.store.dispatch(new mapClickActions.SetMapClickLayer(currentClickLayer));
+            this.store.dispatch(new mapClickActions.SetMapClickInfo(currentResult));
+            this.store.dispatch(new mapClickActions.SetMapClickLayer(currentLayer));
             this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
             break;
           }
