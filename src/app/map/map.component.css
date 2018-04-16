@@ -21,8 +21,15 @@
 }
 
 .toggle-button {
-  width: 150px;
+  width: 160px;
   opacity: 0.8;
+}
+.toggle-button:hover {
+  opacity: 1;
+}
+
+.button-border {
+  border: solid 1px #ffffff;
 }
 
 .layer-manager-popup {
