@@ -10,6 +10,7 @@ import {environment} from '../../../environments/environment';
 import {ClientPresentation} from '../../shared/client-presentation.model';
 import {ClickStrategy} from '../../shared/click-strategy.model';
 import {Observable} from 'rxjs/Observable';
+import {ClickFormatterInfo} from '../../shared/click-formatter-info.model';
 
 @Injectable()
 export class LayerEffects {
@@ -42,6 +43,28 @@ export class LayerEffects {
         map(
           (clickStrategy) => {
             action.payload.clickStrategy = clickStrategy;
+            return action.payload;
+          }
+        ), catchError((err: HttpErrorResponse) => {
+          return Observable.of(action.payload);
+        }));
+    })
+    .map(
+      (layer) => {
+        return {
+          type: layerActions.FETCH_CLICK_FORMATTER,
+          payload: layer
+        };
+      }
+    );
+  @Effect()
+  clickFormatterFetch = this.actions$
+    .ofType(layerActions.FETCH_CLICK_FORMATTER)
+    .mergeMap((action: layerActions.FetchClickFormatter) => {
+      return this.httpClient.get<ClickFormatterInfo>(`${environment.mapapiUrl}/layers/${action.payload.id}/click-formatters`).pipe(
+        map(
+          (clickFormatterInfo) => {
+            action.payload.clickFormatterInfo = clickFormatterInfo;
             return action.payload;
           }
         ), catchError((err: HttpErrorResponse) => {

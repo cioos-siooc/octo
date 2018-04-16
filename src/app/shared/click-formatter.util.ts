@@ -1,3 +1,3 @@
 export interface ClickFormatter {
-  format(result);
+  format(result): any;
 }

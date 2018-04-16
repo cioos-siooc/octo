@@ -141,43 +141,62 @@ export class OpenLayersComponent implements AfterViewInit {
       const resultObservables = [];
       const layerUniqueIdToObsIndex = new Map<string, number>();
 
-      this.map.forEachFeatureAtPixel(evt.pixel,
-        (feature: Feature, olLayer) => {
-          const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
-          if (layer.clickStrategy.type === 'json-included') {
-            const length = resultObservables.push(Observable.of(feature.getProperties()));
-            layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
-            return feature;
-          }
-        });
+      this.retrieveFeatureInfos(evt, resultObservables, layerUniqueIdToObsIndex);
+      this.retrieveWmsInfos(evt, resultObservables, layerUniqueIdToObsIndex);
+      this.setClickInformation(resultObservables, layerUniqueIdToObsIndex);
+    });
+  }
 
-      const view: View = this.map.getView();
-      this.layers.forEach((l) => {
-        if (l.clickStrategy != null) {
-          if (l.clickStrategy.type === 'wms') {
-            const olLayer: OLLayer = <OLLayer> this.map.getLayers().getArray().find((olL) => {
-              return olL.get('uniqueId') === l.uniqueId;
-            });
-            const source: TileWMS = <TileWMS> olLayer.getSource();
-            const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), <any>{
-              INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
-              FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
-            });
-            const length = resultObservables.push(this.httpClient.get(getFeatureUrl,
-              {responseType: 'text'}));
-            layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
-          }
+  private retrieveWmsInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
+    const view: View = this.map.getView();
+    this.layers.forEach((l) => {
+      if (l.clickStrategy != null) {
+        if (l.clickStrategy.type === 'wms') {
+          const olLayer: OLLayer = <OLLayer> this.map.getLayers().getArray().find((olL) => {
+            return olL.get('uniqueId') === l.uniqueId;
+          });
+          const source: TileWMS = <TileWMS> olLayer.getSource();
+          const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), <any>{
+            INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
+            FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
+          });
+          const length = resultObservables.push(this.httpClient.get(getFeatureUrl,
+            {responseType: 'text'}));
+          layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
+        }
+      }
+    });
+  }
+
+  private retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
+    this.map.forEachFeatureAtPixel(evt.pixel,
+      (feature: Feature, olLayer) => {
+        const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
+        if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
+          const length = resultObservables.push(Observable.of(feature.getProperties()));
+          layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
+          return feature;
         }
       });
+  }
 
-      forkJoin(resultObservables).subscribe((result) => {
-        for (let i = this.layers.length - 1; i >= 0; i--) {
-          const currentLayer = this.layers[i];
+  // TODO: Possibility to set layer here and return result payload for it to be formatted?
+  // TODO: Formatter method/class would check mapclicklayer.ClickLayer and format the result according to that layer formatter?
+  // TODO: subscribe + filter layer not null?
+  private setClickInformation(resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
+    forkJoin(resultObservables).subscribe((result) => {
+      for (let i = this.layers.length - 1; i >= 0; i--) {
+        const currentLayer = this.layers[i];
+        if (currentLayer.clickStrategy != null) {
           let currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
           const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
           if ((emptyValidator == null || !emptyValidator.isPayloadEmpty(currentResult)) && currentResult != null) {
-            if (currentLayer.clickStrategy.type === 'json-included') {
-              currentResult = ClickFormatterFactory.getClickFormatter('json').format(currentResult);
+            if (currentLayer.clickFormatterInfo != null) {
+              const type = currentLayer.clickFormatterInfo.type;
+              const formatterDef = currentLayer.clickFormatterInfo.formatterDef;
+              const clickFormatter = ClickFormatterFactory.getClickFormatter(type, formatterDef);
+              currentResult = clickFormatter.format(currentResult);
+
             }
             this.store.dispatch(new mapClickActions.SetMapClickInfo(currentResult));
             this.store.dispatch(new mapClickActions.SetMapClickLayer(currentLayer));
@@ -185,8 +204,7 @@ export class OpenLayersComponent implements AfterViewInit {
             break;
           }
         }
-      });
+      }
     });
   }
-
 }
