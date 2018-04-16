@@ -6,10 +6,10 @@
       <span>{{layer.title}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(layer)"></i></a>
-      <button class="btn foreground-purple background-dark p-0 smaller-font text-uppercase"
+      <button class="btn foreground-white background-gray p-0 smaller-font text-uppercase"
               (click)="onShowLayerPresentation(layer)">{{ 'legend' | translate}}
       </button>
-      <a><i class="glyphicon fa fa-cog foreground-dark"
+      <a><i class="glyphicon fa fa-cog foreground-gray"
             (click)="onExpandSettingsClick(layer)"></i></a>
       <div *ngIf="layer.isSettingsExpanded" class="settings pt-1">
         <a><i class="glyphicon fa fa-arrow-up foreground-dark"
