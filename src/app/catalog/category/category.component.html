@@ -27,7 +27,7 @@
       <div class="selectable" (click)="onClickCategory(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
         <i class="fa fa-caret-right"></i>
         <span>{{ cat.label }}</span>
-        <span class="badge badge-primary badge-pill float-right">{{ cat.categories.length }}</span>
+        <span class="badge background-blue foreground-white badge-pill float-right">{{ cat.categories.length }}</span>
       </div>
     </ng-container>
 

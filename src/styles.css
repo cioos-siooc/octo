@@ -59,11 +59,11 @@ a {
 }
 
 .background-red {
-  background-color: #E64759;
+  background-color: #E32020;
 }
 
 .foreground-red {
-  color: #E64759
+  color: #E32020
 }
 
 .background-purple {
@@ -80,6 +80,13 @@ a {
 
 .foreground-yellow {
   color: #FFC107;
+}
+.background-blue {
+  background-color: #32A8EE;
+}
+
+.foreground-blue {
+  color: #32A8EE;
 }
 
 .ol-control button {
