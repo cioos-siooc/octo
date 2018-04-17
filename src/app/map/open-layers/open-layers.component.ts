@@ -22,7 +22,7 @@ import {MAP_CLICK_POPUP_ID} from '../map.component';
 import * as popupActions from '../store/popup.actions';
 import * as mapClickActions from '../../map-click/store/map-click.actions';
 import {EmptyValidatorFactory} from '../../shared/empty-validator-factory.util';
-import {ClickFormatterFactory} from '../../shared/click-formatter-factory.util';
+import {ClickFormatterFactory} from '../../shared/click-formatter/click-formatter-factory.util';
 
 @Component({
   selector: 'app-open-layers',

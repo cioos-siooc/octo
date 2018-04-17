@@ -233,7 +233,7 @@ export class StylesFromLiterals {
       // Semble causer problème pour openlayers 4...
       // olImage.crossOrigin = 'anonymous';
 
-      delete olImage.label;
+      delete (<any>olImage).label;
       olImage = this.getOlStyleForPoint(olImage, style.type);
       olStyles.image = olImage;
       olStyles.text = olText;
