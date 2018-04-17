@@ -9,12 +9,13 @@ export class FieldClickFormatter implements ClickFormatter {
   }
 
   format(result) {
-    this.html = '<table>';
+    this.html = '<table class="click-table">';
     this.formatterDef.fields.forEach((fieldDef) => {
       this.html += '<tr>';
-      this.html += FieldFactory.getField(fieldDef, result).getHTML();
+      this.html += FieldFactory.getField(fieldDef, result, this.formatterDef.contentType).getHTML();
       this.html += '</tr>';
     });
+    this.html += '</table>';
     return this.html;
 
   }

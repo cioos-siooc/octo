@@ -103,3 +103,11 @@ a {
 .ol-attribution {
   z-index: 98;
 }
+
+.click-table, .click-table td{
+  border: 1px solid black;
+}
+
+.click-table {
+  margin: 5px;
+}
