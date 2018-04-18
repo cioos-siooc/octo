@@ -14,8 +14,9 @@ export class DateField implements Field {
     let value = propertyLocator.getValue(this.result, this.fieldDef.propertyPath);
     if (value == null) {
       value = '';
+    } else {
+      value = moment(value).format(this.fieldDef.formatString);
     }
-    value = moment(value).format(this.fieldDef.formatString);
     return `<td>${this.fieldDef.label}</td><td>${value}</td>`;
   }
 }
