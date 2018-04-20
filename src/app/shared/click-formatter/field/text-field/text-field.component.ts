@@ -8,11 +8,10 @@ import {PropertyLocatorFactory} from '../../../property-locator-factory.util';
   styleUrls: ['./text-field.component.css']
 })
 export class TextFieldComponent implements OnInit {
-  constructor() {
-  }
+
+  private value: string;
 
   private _field: TextField;
-  private value: string;
 
   get field(): TextField {
     return this._field;

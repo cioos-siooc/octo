@@ -30,6 +30,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {MapClickComponent} from './map-click/map-click.component';
 import {KeepHtmlPipe} from './pipes/keep-html.pipe';
 import {TextFieldComponent} from './shared/click-formatter/field/text-field/text-field.component';
+import {UrlFieldComponent} from './shared/click-formatter/field/url-field/url-field.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -52,6 +53,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     MapClickComponent,
     KeepHtmlPipe,
     TextFieldComponent,
+    UrlFieldComponent,
   ],
   imports: [
     NgbModule.forRoot(),

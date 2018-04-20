@@ -3,6 +3,7 @@
   <table>
     <tr *ngFor="let field of mapClickInfo.fields">
       <app-text-field *ngIf="field.type == 'text'" [field]="field"></app-text-field>
+      <app-url-field *ngIf="field.type == 'url'" [field]="field"></app-url-field>
     </tr>
   </table>
 </div>
