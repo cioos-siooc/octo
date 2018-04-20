@@ -1,2 +1,8 @@
-<div id="map-click" [innerHTML]="mapClickInfo | keepHtml"></div>
-
+<div *ngIf="mapClickInfo" id="map-click-html" [innerHTML]="mapClickInfo.html | keepHtml"></div>
+<div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields">
+  <table>
+    <tr *ngFor="let field of mapClickInfo.fields">
+      <app-text-field *ngIf="field.type == 'text'" [field]="field"></app-text-field>
+    </tr>
+  </table>
+</div>

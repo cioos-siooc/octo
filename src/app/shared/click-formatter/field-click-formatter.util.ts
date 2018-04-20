@@ -1,5 +1,6 @@
 import {ClickFormatter} from './click-formatter.util';
 import {FieldFactory} from './field/field-factory.util';
+import {MapClickInfo} from '../map-click-info.model';
 
 export class FieldClickFormatter implements ClickFormatter {
 
@@ -8,20 +9,17 @@ export class FieldClickFormatter implements ClickFormatter {
   constructor(public formatterDef: any) {
   }
 
-  format(result) {
-    this.html = '<table class="click-table">';
+  getMapClickInfo(result): MapClickInfo{
+    const fields = [];
+    const mapClickInfo = new MapClickInfo();
     this.formatterDef.fields.forEach((fieldDef) => {
-      console.log(fieldDef);
-      console.log(result);
       const field = FieldFactory.getField(fieldDef, result, this.formatterDef.contentType);
       if (field != null) {
-        this.html += '<tr>';
-        this.html += field.getHTML();
-        this.html += '</tr>';
+        fields.push(field);
       }
     });
-    this.html += '</table>';
-    return this.html;
+    mapClickInfo.fields = fields;
+    return mapClickInfo;
 
   }
 

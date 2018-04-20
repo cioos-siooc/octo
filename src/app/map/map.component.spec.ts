@@ -17,6 +17,7 @@ import {LayerInformationComponent} from '../layer-information/layer-information.
 import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
 import {MapClickComponent} from '../map-click/map-click.component';
 import {KeepHtmlPipe} from '../pipes/keep-html.pipe';
+import {TextFieldComponent} from '../shared/click-formatter/field/text-field/text-field.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -24,8 +25,11 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
-        CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe],
+      declarations: [
+        MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
+        CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
+        TextFieldComponent
+      ],
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,

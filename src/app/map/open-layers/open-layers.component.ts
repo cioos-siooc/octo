@@ -23,6 +23,7 @@ import * as popupActions from '../store/popup.actions';
 import * as mapClickActions from '../../map-click/store/map-click.actions';
 import {EmptyValidatorFactory} from '../../shared/empty-validator-factory.util';
 import {ClickFormatterFactory} from '../../shared/click-formatter/click-formatter-factory.util';
+import {MapClickInfo} from '../../shared/map-click-info.model';
 
 @Component({
   selector: 'app-open-layers',
@@ -188,17 +189,21 @@ export class OpenLayersComponent implements AfterViewInit {
       for (let i = this.layers.length - 1; i >= 0; i--) {
         const currentLayer = this.layers[i];
         if (currentLayer.clickStrategy != null) {
-          let currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
+          let mapClickInfo;
+          const currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
           const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
           if ((emptyValidator == null || !emptyValidator.isPayloadEmpty(currentResult)) && currentResult != null) {
             if (currentLayer.clickFormatterInfo != null) {
               const type = currentLayer.clickFormatterInfo.type;
               const formatterDef = currentLayer.clickFormatterInfo.formatterDef;
               const clickFormatter = ClickFormatterFactory.getClickFormatter(type, formatterDef);
-              currentResult = clickFormatter.format(currentResult);
+              mapClickInfo = clickFormatter.getMapClickInfo(currentResult);
 
+            } else {
+              mapClickInfo = new MapClickInfo();
+              mapClickInfo.html = currentResult;
             }
-            this.store.dispatch(new mapClickActions.SetMapClickInfo(currentResult));
+            this.store.dispatch(new mapClickActions.SetMapClickInfo(mapClickInfo));
             this.store.dispatch(new mapClickActions.SetMapClickLayer(currentLayer));
             this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
             break;

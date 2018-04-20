@@ -27,8 +27,9 @@ import {LayerInformationComponent} from './layer-information/layer-information.c
 import {LayerInformationEffects} from './layer-information/store/layer-information.effects';
 import {LayerPresentationComponent} from './layer-presentation/layer-presentation.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { MapClickComponent } from './map-click/map-click.component';
+import {MapClickComponent} from './map-click/map-click.component';
 import {KeepHtmlPipe} from './pipes/keep-html.pipe';
+import {TextFieldComponent} from './shared/click-formatter/field/text-field/text-field.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -50,6 +51,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     LayerPresentationComponent,
     MapClickComponent,
     KeepHtmlPipe,
+    TextFieldComponent,
   ],
   imports: [
     NgbModule.forRoot(),

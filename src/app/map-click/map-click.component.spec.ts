@@ -4,6 +4,7 @@ import {MapClickComponent} from './map-click.component';
 import {KeepHtmlPipe} from '../pipes/keep-html.pipe';
 import {reducers} from '../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
+import {TextFieldComponent} from '../shared/click-formatter/field/text-field/text-field.component';
 
 describe('MapClickComponent', () => {
   let component: MapClickComponent;
@@ -13,7 +14,8 @@ describe('MapClickComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         MapClickComponent,
-        KeepHtmlPipe
+        KeepHtmlPipe,
+        TextFieldComponent
       ],
       imports: [
         StoreModule.forRoot(reducers),

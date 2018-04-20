@@ -1,3 +1,5 @@
+import {MapClickInfo} from '../map-click-info.model';
+
 export interface ClickFormatter {
-  format(result): any;
+  getMapClickInfo(result): MapClickInfo;
 }
