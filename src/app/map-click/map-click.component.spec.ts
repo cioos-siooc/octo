@@ -6,6 +6,7 @@ import {reducers} from '../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {TextFieldComponent} from '../shared/click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from '../shared/click-formatter/field/url-field/url-field.component';
+import {DateFieldComponent} from '../shared/click-formatter/field/date-field/date-field.component';
 
 describe('MapClickComponent', () => {
   let component: MapClickComponent;
@@ -17,6 +18,7 @@ describe('MapClickComponent', () => {
         MapClickComponent,
         KeepHtmlPipe,
         TextFieldComponent,
+        DateFieldComponent,
         UrlFieldComponent
       ],
       imports: [
