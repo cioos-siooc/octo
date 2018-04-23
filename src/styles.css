@@ -2,11 +2,12 @@
 html, body {
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  /*font-family: 'Roboto', sans-serif;*/
 }
 
 a {
   cursor: pointer;
+  color:#32A8EE;
 }
 
 .smaller-font {
@@ -23,7 +24,7 @@ a {
 
 .full-sized {
   height: 100%;
-  width: 100%;;
+  width: 100%;
 }
 
 .absolute {
