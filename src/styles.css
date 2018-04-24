@@ -54,8 +54,15 @@ a {
   background-color: #6A7480
 }
 
-.foreground-gray {
+.foreground-lite-gray {
   color: #6A7480
+}
+.background-lite-gray {
+  background-color: #a5b9cc
+}
+
+.foreground-gray {
+  color: #a5b9cc
 }
 
 .background-teal {
