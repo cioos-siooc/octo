@@ -134,8 +134,9 @@ div#layer-information h5 {
   margin-top: 15px;
   margin-bottom: 5px;
   padding: 4px 4px 3px 6px;
+  color: #ffffff;
   font-size: 16px;
-  background-color: #82d1ff;
+  background-color: #32A8EE;
 }
 .popup-content {
   opacity: 0.86;
