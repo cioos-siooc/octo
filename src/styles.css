@@ -138,6 +138,13 @@ div#layer-information h5 {
   font-size: 16px;
   background-color: #32A8EE;
 }
+div#layer-information table {
+  width: 100%;
+}
+div#layer-information table tr {
+  border-bottom: dashed 1px #A5B9CC;
+}
+
 .popup-content {
   opacity: 0.86;
 }
