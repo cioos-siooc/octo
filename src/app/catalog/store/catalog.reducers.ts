@@ -16,6 +16,7 @@ const initialState: State = {
   selectedLayers: []
 };
 
+// TODO: Use cloneDeep when object has multiple nesting levels
 export function catalogReducer(state: State = initialState, action: catalogActions.CatalogActions) {
   switch (action.type) {
     case catalogActions.SET_TOPIC_GROUP:
@@ -47,7 +48,7 @@ export function catalogReducer(state: State = initialState, action: catalogActio
           break;
         }
       }
-      const updatedTopic: Topic = {
+      const updatedTopic: Topic = <Topic>{
         ...state.topics[idToUpdate],
         category: (<any>action).payload.category
       };
