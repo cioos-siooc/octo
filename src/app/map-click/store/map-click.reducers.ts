@@ -1,14 +1,15 @@
 import * as mapClickActions from './map-click.actions';
 import {Layer} from '../../shared/layer.model';
 import {cloneDeep} from 'lodash';
+import {MapClickInfo} from '../../shared/map-click-info.model';
 
 export interface State {
-  mapClickInfo: any;
+  mapClickInfo: MapClickInfo;
   mapClickLayer: Layer;
 }
 
 const initialState: State = {
-  mapClickInfo: '',
+  mapClickInfo: null,
   mapClickLayer: null
 };
 

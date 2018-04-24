@@ -12,6 +12,8 @@ import LineString from 'ol/geom/linestring';
 import MultiLineString from 'ol/geom/multilinestring';
 import Polygon from 'ol/geom/polygon';
 import MultiPolygon from 'ol/geom/multipolygon';
+import {ObjectPropertyLocator} from '../shared/object-property-locator.util';
+import {PropertyLocator} from '../shared/property-locator.utils';
 
 export class StylesFromLiterals {
   private singleStyle: any;
@@ -20,9 +22,11 @@ export class StylesFromLiterals {
   private styles: any;
   private type: any;
   private key: any;
+  private propertyLocator: PropertyLocator;
 
   constructor(properties: any) {
     this.singleStyle = null;
+    this.propertyLocator = new ObjectPropertyLocator();
 
     this.defaultVal = 'defaultVal';
     this.noStyleVal = 'noStyleVal';
@@ -134,7 +138,7 @@ export class StylesFromLiterals {
       const properties = feature.getProperties();
       // A value can be 0
       // var value = properties[this.key];
-      let value = this.getObjectValue(properties, this.key);
+      let value = this.propertyLocator.getValue(properties, this.key);
       value = value != null ? value : this.defaultVal;
       const geomType = this.getGeomTypeFromGeometry(feature.getGeometry());
       let olStyles = this.styles[geomType][value];
@@ -150,7 +154,7 @@ export class StylesFromLiterals {
       return res.olStyle;
     } else if (this.type === 'range') {
       const properties = feature.getProperties();
-      const value = this.getObjectValue(properties, this.key);
+      const value = this.propertyLocator.getValue(properties, this.key);
       const geomType = this.getGeomTypeFromGeometry(feature.getGeometry());
       let olStyles;
       if (value == null) {
@@ -233,7 +237,7 @@ export class StylesFromLiterals {
       // Semble causer problème pour openlayers 4...
       // olImage.crossOrigin = 'anonymous';
 
-      delete olImage.label;
+      delete (<any>olImage).label;
       olImage = this.getOlStyleForPoint(olImage, style.type);
       olStyles.image = olImage;
       olStyles.text = olText;

@@ -17,15 +17,20 @@ import {LayerInformationComponent} from '../layer-information/layer-information.
 import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
 import {MapClickComponent} from '../map-click/map-click.component';
 import {KeepHtmlPipe} from '../pipes/keep-html.pipe';
+import {TextFieldComponent} from '../shared/click-formatter/field/text-field/text-field.component';
+import {UrlFieldComponent} from '../shared/click-formatter/field/url-field/url-field.component';
+import {DateFieldComponent} from '../shared/click-formatter/field/date-field/date-field.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
-        CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe],
+    TestBed.configureTestingModule({declarations: [
+        MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
+        CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
+        TextFieldComponent, UrlFieldComponent, DateFieldComponent
+      ],
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,

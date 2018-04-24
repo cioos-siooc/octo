@@ -1,11 +1,11 @@
 <ng-container *ngIf="category.type === 'layer'">
-    <span class="categoryHeader selectable" *ngIf="category.type != 'root'">
+    <span class="category-header selectable" *ngIf="category.type != 'root'">
         <h6 (click)="onClickLayer(category, treeLocation)">{{ category.label }}</h6>
     </span>
 </ng-container>
 
 <ng-container *ngIf="category.type === 'category'">
-  <span class="categoryHeader selectable"
+  <span class="category-header selectable"
         *ngIf="category.type != 'root'">
       <h6 (click)="onClickCategory(category, treeLocation)"><i class="fa fa-caret-down pr-1"></i>{{ category.label }}</h6>
   </span>

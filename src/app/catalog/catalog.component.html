@@ -1,9 +1,9 @@
 <div>
-    <span *ngFor="let topic of (catalogState | async).topics; let i = index">
-        <span *ngIf="topic.expanded && topic.category">
-            <div class="text-center"><h5>{{ topic.label }}</h5></div>
-            <app-category [category]="topic.category" [treeLocation]="[i]"></app-category>
-        </span>
-    </span>
+    <div *ngFor="let topic of (catalogState | async).topics; let i = index">
+      <div *ngIf="topic.expanded && topic.category">
+        <h5 class="text-center">{{ topic.label }}</h5>
+        <app-category [category]="topic.category" [treeLocation]="[i]"></app-category>
+      </div>
+    </div>
   <div class="text-center" *ngIf="numExpandedTopics < 1">{{'catalog-help-message' | translate}}</div>
 </div>

@@ -72,6 +72,7 @@ export class CatalogEffects {
   @Effect()
   loadCategory = this.actions$
     .ofType(CatalogActions.SET_TOPIC_EXPANDED)
+    // TODO: payload should be topicId instead
     .map((action: CatalogActions.SetTopicExpanded) => action.payload)
     .withLatestFrom(this.store$.select('catalog'))
     .switchMap(([payload, store]) => {
@@ -81,6 +82,7 @@ export class CatalogEffects {
         obs = Observable.of({type: 'NO_ACTION'});
       } else {
         const topicId = store.topics[payload.topicIndex].id;
+        // TODO : Should probably send topicId in payload instead
         obs = Observable.of(new CatalogActions.FetchCategoryHierarchy(payload.topicIndex));
       }
       return obs;
@@ -90,6 +92,7 @@ export class CatalogEffects {
     .ofType(CatalogActions.FETCH_CATEGORY_HIERARCHY)
     .map((action: CatalogActions.FetchCategoryHierarchy) => action.payload)
     .withLatestFrom(this.store$.select('catalog'))
+    // TODO: Should use topic id as payload and could use the id directly here instead
     .concatMap(([payload, store]) => {
       const topicId = store.topics[payload].id;
       return this.httpClient.get<TopicHierarchy>(`${environment.mapapiUrl}/topics/${topicId}/getTopicHierarchy`);

@@ -9,3 +9,7 @@
 .topick-picker-topic {
   border-radius: 0px!important;
 }
+
+.expanded {
+  filter: grayscale(100%);
+}
