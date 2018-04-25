@@ -10,6 +10,7 @@ const initialState: State = {
   layers: [],
 };
 
+// TODO: clone payload before using it
 export function layerReducer(state = initialState, action: layerActions.LayerActions): State {
   switch (action.type) {
     case layerActions.ADD_LAYER:

@@ -1,5 +1,6 @@
 import {Layer} from '../../shared/layer.model';
 import * as baseLayerActions from './base-layer.actions';
+import {cloneDeep} from 'lodash';
 
 export interface State {
   currentBaseLayer: Layer;
@@ -14,15 +15,13 @@ const initialState: State = {
 export function baseLayerReducer(state = initialState, action: baseLayerActions.BaseLayerActions) {
   switch (action.type) {
     case baseLayerActions.ADD_BASE_LAYER:
-      return {
-        ...state,
-        baseLayers: [...state.baseLayers, action.payload]
-      };
+      const cloneState = cloneDeep(state);
+      cloneState.baseLayers.push(cloneDeep(action.payload));
+      return cloneState;
     case baseLayerActions.SET_CURRENT_BASE_LAYER:
-      return {
-        ...state,
-        currentBaseLayer: {...action.payload}
-      };
+      const clonedState = cloneDeep(state);
+      clonedState.currentBaseLayer = cloneDeep(action.payload);
+      return clonedState;
     default:
       return state;
   }
