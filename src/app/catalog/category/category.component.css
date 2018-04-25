@@ -6,6 +6,7 @@
 .selectable {
   cursor: pointer;
 }
+
 .list-group-item {
   padding: .75rem !important;
 }
