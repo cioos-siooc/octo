@@ -1,15 +1,30 @@
 .topic {
   background-position: center center;
-  color: white;
+  background-size: cover;
   text-align: center;
   cursor: pointer;
   user-select: none;
+}
+ul.list-group li {
+  border-bottom: solid 2px #a5b9cc;
+}
+ul.list-group li:last-child {
+  border-bottom: none;
+}
+
+ul.list-group li:hover {
+  filter: none;
+}
+
+ul.list-group h5 {
+  color: #fff907;
+  font-weight: 600;
 }
 
 .topick-picker-topic {
   border-radius: 0px!important;
 }
 
-.expanded {
+.not-expanded {
   filter: grayscale(100%);
 }
