@@ -1,9 +1,7 @@
-// import baseLayerReducer from 'base-layer.reducers';
-// import State from 'base-layer.reducers';
-import {WmsLayer} from '../../shared/wms-layer.model';
 import * as baseLayerActions from './base-layer.actions';
 import {baseLayerReducer} from './base-layer.reducers';
 import {Layer} from '../../shared/layer.model';
+import {BingLayer} from '../../shared/bing-layer.model';
 
 describe('BaseLayerReducer', () => {
 
@@ -20,7 +18,7 @@ describe('BaseLayerReducer', () => {
       currentBaseLayer: null,
       baseLayers: []
     };
-    const layer = new WmsLayer();
+    const layer = new BingLayer();
     layer.id = 1;
     const action = new baseLayerActions.SetCurrentBaseLayer(layer);
     const finalState = baseLayerReducer(initialState, action);
@@ -33,7 +31,7 @@ describe('BaseLayerReducer', () => {
       currentBaseLayer: null,
       baseLayers: []
     };
-    const layer = new WmsLayer();
+    const layer = new BingLayer();
     layer.id = 1;
     const action = new baseLayerActions.AddBaseLayer(layer);
     const finalState = baseLayerReducer(initialState, action);
@@ -49,7 +47,7 @@ describe('BaseLayerReducer', () => {
       currentBaseLayer: null,
       baseLayers: []
     };
-    const layer = new WmsLayer();
+    const layer = new BingLayer();
     layer.id = 1;
     const action = new baseLayerActions.SetCurrentBaseLayer(layer);
     const finalState = baseLayerReducer(initialState, action);

@@ -10,12 +10,11 @@ const initialState: State = {
   layers: [],
 };
 
-// TODO: clone payload before using it
 export function layerReducer(state = initialState, action: layerActions.LayerActions): State {
   switch (action.type) {
     case layerActions.ADD_LAYER:
       const clonedState = cloneDeep(state);
-      clonedState.layers.push(<Layer>action.payload);
+      clonedState.layers.push(cloneDeep(action.payload));
       return clonedState;
     case layerActions.DELETE_LAYER:
       const cloneState = cloneDeep(state);
@@ -27,7 +26,7 @@ export function layerReducer(state = initialState, action: layerActions.LayerAct
       const clownState = cloneDeep(state);
       const layerIndex = clownState.layers.findIndex((l) => l.uniqueId === (<any>action.payload).uniqueId);
       if (layerIndex > -1) {
-        clownState.layers[layerIndex] = <Layer>action.payload;
+        clownState.layers[layerIndex] = cloneDeep(action.payload);
       }
       return clownState;
     case layerActions.MOVE_UP_LAYER:
@@ -52,7 +51,7 @@ export function layerReducer(state = initialState, action: layerActions.LayerAct
       const newState = cloneDeep(state);
       const layerInd = newState.layers.findIndex((l) => l.uniqueId === (<any>action.payload).uniqueId);
       if (layerInd > -1) {
-        newState.layers[layerInd].currentClientPresentation = (<any>action.payload).clientPresentation;
+        newState.layers[layerInd].currentClientPresentation = (cloneDeep(action.payload)).clientPresentation;
       }
       return newState;
     default:
