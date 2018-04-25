@@ -1,12 +1,12 @@
 <div id="layer-manager">
-  <ul class="pt-1 pb-1 pl-1">
-    <li *ngFor="let layer of (layerState | async).layers.reverse()" class="no-list-style pt-1 pb-1">
+  <ul class="p-1">
+    <li *ngFor="let layer of (layerState | async).layers.reverse()" class="no-list-style pt-1 pb-1 pl-2">
       <a><i class="fa fa-times-circle foreground-red"
             (click)="onRemoveClick(layer)"></i></a>
       <span>{{layer.title}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(layer)"></i></a>
-      <button class="btn foreground-white background-gray p-0 smaller-font text-uppercase"
+      <button class="btn foreground-white background-gray smaller-font text-uppercase btn-legend-padding"
               (click)="onShowLayerPresentation(layer)">{{ 'legend' | translate}}
       </button>
       <a><i class="glyphicon fa fa-cog foreground-gray"
