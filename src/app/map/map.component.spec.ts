@@ -20,6 +20,7 @@ import {KeepHtmlPipe} from '../pipes/keep-html.pipe';
 import {TextFieldComponent} from '../shared/click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from '../shared/click-formatter/field/url-field/url-field.component';
 import {DateFieldComponent} from '../shared/click-formatter/field/date-field/date-field.component';
+import {ImageFieldComponent} from '../shared/click-formatter/field/image-field/image-field.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -29,7 +30,7 @@ describe('MapComponent', () => {
     TestBed.configureTestingModule({declarations: [
         MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
-        TextFieldComponent, UrlFieldComponent, DateFieldComponent
+        TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent
       ],
       imports: [
         StoreModule.forRoot(reducers),

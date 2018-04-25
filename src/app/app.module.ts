@@ -32,6 +32,7 @@ import {KeepHtmlPipe} from './pipes/keep-html.pipe';
 import {TextFieldComponent} from './shared/click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from './shared/click-formatter/field/url-field/url-field.component';
 import { DateFieldComponent } from './shared/click-formatter/field/date-field/date-field.component';
+import { ImageFieldComponent } from './shared/click-formatter/field/image-field/image-field.component';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     TextFieldComponent,
     UrlFieldComponent,
     DateFieldComponent,
+    ImageFieldComponent,
   ],
   imports: [
     NgbModule.forRoot(),
