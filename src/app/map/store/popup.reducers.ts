@@ -42,8 +42,12 @@ export function popupReducer(state: State = initialState, action: popupActions.P
       const pStatus = newState.popupStatuses.find((ps) => {
         return ps.id === (<any>action.payload).popupId;
       });
-      pStatus.isOpen = (<any>action.payload).isOpen;
-      return newState;
+      if (pStatus != null) {
+        pStatus.isOpen = (<any>action.payload).isOpen;
+        return newState;
+      } else {
+        return state;
+      }
     default:
       return state;
   }
