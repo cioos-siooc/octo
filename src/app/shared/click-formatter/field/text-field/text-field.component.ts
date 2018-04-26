@@ -9,7 +9,7 @@ import {PropertyLocatorFactory} from '../../../property-locator-factory.util';
 })
 export class TextFieldComponent implements OnInit {
 
-  private value: string;
+  value: string;
 
   private _field: TextField;
 
