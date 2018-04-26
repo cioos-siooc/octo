@@ -26,12 +26,12 @@
 }
 
 .layer-manager-popup {
-  bottom: 100px;
   left: 10px;
+  top: calc(100% - (350px + 140px + 40px));
 }
 
 .map-click-popup{
-  bottom: 100px;
+  top: calc(100% - (350px + 50px + 40px));
   right: 5px;
 }
 
