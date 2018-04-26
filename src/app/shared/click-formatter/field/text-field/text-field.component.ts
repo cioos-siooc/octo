@@ -21,11 +21,7 @@ export class TextFieldComponent implements OnInit {
   set field(field: TextField) {
     this._field = field;
     const propertyLocator = PropertyLocatorFactory.getPropertyLocator(this._field.contentType);
-    let value = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
-    if (value == null) {
-      value = '';
-    }
-    this.value = value;
+    this.value = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
   }
 
   ngOnInit() {
