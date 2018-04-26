@@ -9,7 +9,8 @@ import {ImageField} from '../image-field.util';
 })
 export class ImageFieldComponent implements OnInit {
 
-  private value: string;
+  value: string;
+  href:  string;
 
   private _field: ImageField;
 
@@ -22,6 +23,10 @@ export class ImageFieldComponent implements OnInit {
     this._field = field;
     const propertyLocator = PropertyLocatorFactory.getPropertyLocator(this._field.contentType);
     this.value = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
+    this.href = propertyLocator.getValue(this._field.result, this._field.fieldDef.fullscreenPropertyPath);
+    if (this.href == null) {
+      this.href = this.value;
+    }
   }
 
   ngOnInit() {
