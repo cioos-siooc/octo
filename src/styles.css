@@ -146,6 +146,11 @@ div#layer-information table tr {
   border-bottom: dashed 1px #A5B9CC;
 }
 
+div#layer-information table td {
+  vertical-align: top;
+}
+
+
 div#layer-information table tr:last-child {
   border-bottom: none;
 }
