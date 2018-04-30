@@ -162,3 +162,10 @@ div#layer-information table tr:last-child {
 .badge-pill {
   border-radius: 3px;
 }
+
+.hover-opacity {
+  opacity: 0.86;
+}
+.hover-opacity:hover {
+  opacity: 1;
+}

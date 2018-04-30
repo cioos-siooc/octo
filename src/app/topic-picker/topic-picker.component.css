@@ -6,7 +6,11 @@
   user-select: none;
 }
 ul.list-group li {
-  border-bottom: solid 2px #a5b9cc;
+  border-bottom: solid 3px #ffffff;
+  opacity: 1;
+}
+ul.list-group li:first-child {
+  border-top: solid 2px #ffffff;
 }
 ul.list-group li:last-child {
   border-bottom: none;
@@ -14,10 +18,11 @@ ul.list-group li:last-child {
 
 ul.list-group li:hover {
   filter: none;
+  opacity: 1;
 }
 
 ul.list-group h5 {
-  color: #fff907;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -27,4 +32,10 @@ ul.list-group h5 {
 
 .not-expanded {
   filter: grayscale(100%);
+  opacity: 0.86 !important;
+}
+
+
+.list-group-item {
+  padding: 2.75rem 1.25rem !important;
 }
