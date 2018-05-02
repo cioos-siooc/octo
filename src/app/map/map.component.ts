@@ -12,6 +12,7 @@ import * as popupActions from './store/popup.actions';
 import {environment} from '../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import * as catalogActions from '../catalog/store/catalog.actions';
+import { UrlBehaviorService } from '../layer-manager/url-behavior.service';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -38,7 +39,8 @@ export class MapComponent implements OnInit {
   environment = environment;
   mapClickTitle: string;
 
-  constructor(private translateService: TranslateService, private store: Store<fromApp.AppState>) {
+  constructor(private translateService: TranslateService, private store: Store<fromApp.AppState>,
+    private urlBehaviorService: UrlBehaviorService) {
   }
 
   ngOnInit() {

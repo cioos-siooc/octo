@@ -7,6 +7,7 @@ import * as fromLayer from '../map/store/layer.reducers';
 import * as fromPopup from '../map/store/popup.reducers';
 import * as fromLayerPresentation from '../layer-presentation/store/layer-presentation.reducers';
 import * as fromMapClick from '../map-click/store/map-click.reducers';
+import * as fromBehavior from '../layer-manager/store/behavior.reducers';
 
 export interface AppState {
   catalog: fromCatalog.State;
@@ -16,6 +17,7 @@ export interface AppState {
   popup: fromPopup.State;
   layerPresentation: fromLayerPresentation.State;
   mapClick: fromMapClick.State;
+  behavior: fromBehavior.State;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -25,5 +27,6 @@ export const reducers: ActionReducerMap<AppState> = {
   layerInformation: fromLayerInformation.layerInformationReducer,
   popup: fromPopup.popupReducer,
   layerPresentation: fromLayerPresentation.layerPresentationReducer,
-  mapClick: fromMapClick.mapClickReducer
+  mapClick: fromMapClick.mapClickReducer,
+  behavior: fromBehavior.behaviorReducer
 };

@@ -24,6 +24,7 @@ import * as mapClickActions from '../../map-click/store/map-click.actions';
 import {EmptyValidatorFactory} from '../../shared/empty-validator-factory.util';
 import {ClickFormatterFactory} from '../../shared/click-formatter/click-formatter-factory.util';
 import {MapClickInfo} from '../../shared/map-click-info.model';
+import {cloneDeep} from 'lodash';
 
 @Component({
   selector: 'app-open-layers',
@@ -109,7 +110,7 @@ export class OpenLayersComponent implements AfterViewInit {
             this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
           }
         });
-        this.layers = layerState.layers;
+        this.layers = cloneDeep(layerState.layers);
         this.checkLayerPriority();
       });
   }

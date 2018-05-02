@@ -21,6 +21,8 @@ import {TextFieldComponent} from '../shared/click-formatter/field/text-field/tex
 import {UrlFieldComponent} from '../shared/click-formatter/field/url-field/url-field.component';
 import {DateFieldComponent} from '../shared/click-formatter/field/date-field/date-field.component';
 import {ImageFieldComponent} from '../shared/click-formatter/field/image-field/image-field.component';
+import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
+import { UrlBehaviorService } from '../layer-manager/url-behavior.service';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -30,7 +32,7 @@ describe('MapComponent', () => {
     TestBed.configureTestingModule({declarations: [
         MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
-        TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent
+        TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent
       ],
       imports: [
         StoreModule.forRoot(reducers),
@@ -43,7 +45,8 @@ describe('MapComponent', () => {
             deps: [HttpClient]
           }
         }),
-      ]
+      ],
+      providers: [UrlBehaviorService]
     })
       .compileComponents();
   }));

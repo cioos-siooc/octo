@@ -4,11 +4,10 @@ import {LayerManagerComponent} from './layer-manager.component';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from '../store/app.reducers';
 import {HttpLoaderFactory} from '../app.module';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {PopupComponent} from '../popup/popup.component';
-import {LayerInformationComponent} from '../layer-information/layer-information.component';
-import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TimeBehaviorComponent} from './time-behavior/time-behavior.component';
+import {UrlBehaviorService} from './url-behavior.service';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -16,7 +15,7 @@ describe('LayerManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerManagerComponent],
+      declarations: [LayerManagerComponent, TimeBehaviorComponent],
       imports: [
         StoreModule.forRoot(reducers),
         HttpClientModule,
@@ -27,7 +26,8 @@ describe('LayerManagerComponent', () => {
             deps: [HttpClient]
           }
         }),
-      ]
+      ],
+      providers: [UrlBehaviorService]
     })
       .compileComponents();
   }));

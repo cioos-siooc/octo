@@ -33,6 +33,8 @@ import {TextFieldComponent} from './shared/click-formatter/field/text-field/text
 import {UrlFieldComponent} from './shared/click-formatter/field/url-field/url-field.component';
 import { DateFieldComponent } from './shared/click-formatter/field/date-field/date-field.component';
 import { ImageFieldComponent } from './shared/click-formatter/field/image-field/image-field.component';
+import { TimeBehaviorComponent } from './layer-manager/time-behavior/time-behavior.component';
+import { UrlBehaviorService } from './layer-manager/url-behavior.service';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -58,6 +60,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     UrlFieldComponent,
     DateFieldComponent,
     ImageFieldComponent,
+    TimeBehaviorComponent,
   ],
   imports: [
     NgbModule.forRoot(),
@@ -80,7 +83,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
     }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UrlBehaviorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

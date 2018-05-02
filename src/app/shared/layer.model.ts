@@ -11,7 +11,7 @@ export abstract class Layer {
   public isVisible: boolean;
   public defaultCrs: string;
   public url: string;
-  public urlParameters: string;
+  public urlParameters: any;
   public code: string;
   public languageCode: string;
   public uniqueId: string;
@@ -19,4 +19,5 @@ export abstract class Layer {
   public currentClientPresentation: ClientPresentation;
   public clickStrategy: ClickStrategy;
   public clickFormatterInfo: ClickFormatterInfo;
+  public urlBehaviors: any;
 }

@@ -11,6 +11,7 @@ import * as popupActions from '../map/store/popup.actions';
 import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
 import * as layerPresentationActions from '../layer-presentation/store/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';
+import {UrlBehaviorService} from './url-behavior.service';
 
 @Component({
   selector: 'app-layer-manager',
@@ -21,7 +22,8 @@ export class LayerManagerComponent implements OnInit {
   layerState: Observable<fromLayer.State>;
 
 
-  constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService) {
+  constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService,
+              private urlBehaviorService: UrlBehaviorService) {
   }
 
   ngOnInit() {
@@ -56,4 +58,5 @@ export class LayerManagerComponent implements OnInit {
   onExpandSettingsClick(layer) {
     layer.isSettingsExpanded = !layer.isSettingsExpanded;
   }
+
 }

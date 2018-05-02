@@ -11,6 +11,7 @@ import {ClientPresentation} from '../../shared/client-presentation.model';
 import {ClickStrategy} from '../../shared/click-strategy.model';
 import {Observable} from 'rxjs/Observable';
 import {ClickFormatterInfo} from '../../shared/click-formatter-info.model';
+import {uniqueId} from 'lodash';
 
 @Injectable()
 export class LayerEffects {
@@ -22,6 +23,12 @@ export class LayerEffects {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).map(
         (layer) => {
           layer.uniqueId = action.payload.uniqueId;
+          if (layer.urlBehaviors != null) {
+            layer.urlBehaviors.forEach((behavior) => {
+              behavior.uniqueId = uniqueId();
+              behavior.layerUniqueId = layer.uniqueId;
+            });
+          }
           return layer;
         }
       );

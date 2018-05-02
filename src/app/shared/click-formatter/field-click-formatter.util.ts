@@ -9,7 +9,7 @@ export class FieldClickFormatter implements ClickFormatter {
   constructor(public formatterDef: any) {
   }
 
-  getMapClickInfo(result): MapClickInfo{
+  getMapClickInfo(result): MapClickInfo {
     const fields = [];
     const mapClickInfo = new MapClickInfo();
     this.formatterDef.fields.forEach((fieldDef) => {
