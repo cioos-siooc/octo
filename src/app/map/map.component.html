@@ -1,18 +1,20 @@
 <app-open-layers class="full-sized"></app-open-layers>
-<button *ngIf="environment.isTopicPickerActive"
+<a *ngIf="environment.isTopicPickerActive"
         id="toggle-topic-picker"
-        class="toggle-button btn background-yellow"
-        type="button"
+        class="toggle-button btn background-yellow button-border text-left"
         (click)="toggleTopicPicker()">
-  {{'topic-picker-title' | translate }}
-</button>
-<button id="toggle-catalog" class="toggle-button btn background-yellow" type="button" (click)="toggleCatalog()">{{
-  'catalog-title' | translate }}
-</button>
-<button id="toggle-layer-manager" class="toggle-button btn background-yellow" type="button"
+        <i class="far fa-clipboard-list"></i>
+        <span>{{'topic-picker-title' | translate }}</span>
+</a>
+<a id="toggle-catalog" class="toggle-button btn background-yellow button-border text-left" (click)="toggleCatalog()">
+  <i class="far fa-book"></i>
+  <span>{{'catalog-title' | translate }}</span>
+</a>
+<a id="toggle-layer-manager" class="toggle-button btn background-yellow button-border text-left"
         (click)="toggleLayerManager()">
-  {{ 'layer-manager-title' | translate }}
-</button>
+       <i class="far fa-bars"></i>
+       <span>{{ 'layer-manager-title' | translate }}</span>
+</a>
 <select [(ngModel)]="currentBaseLayer" (change)="onSelectBaseLayer()"
         [compareWith]="compareBaseLayers" class="map-select-style">
   <option *ngFor="let baseLayer of (baseLayerState | async).baseLayers" [ngValue]="baseLayer">

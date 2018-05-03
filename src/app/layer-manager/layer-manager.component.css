@@ -1,7 +1,14 @@
 #layer-manager ul li {
   border-bottom: solid 1px #aaa;
 }
+#layer-manager ul li:last-child {
+  border-bottom: none;
+}
 
 .settings {
   border-top: dotted 1px rgba(170,170,170,0.8);
+}
+
+.btn-legend-padding {
+  padding: 1px 2px;
 }

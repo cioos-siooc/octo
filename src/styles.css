@@ -2,11 +2,11 @@
 html, body {
   width: 100%;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
 }
 
 a {
   cursor: pointer;
+  color:#32A8EE;
 }
 
 .smaller-font {
@@ -23,7 +23,7 @@ a {
 
 .full-sized {
   height: 100%;
-  width: 100%;;
+  width: 100%;
 }
 
 .absolute {
@@ -50,6 +50,21 @@ a {
   color: #343A40
 }
 
+.background-gray {
+  background-color: #6A7480
+}
+
+.foreground-gray {
+  color: #6A7480
+}
+
+.foreground-light-gray {
+  color: #a5b9cc
+}
+.background-light-gray {
+  background-color: #a5b9cc
+}
+
 .background-teal {
   background-color: #1BC98E;
 }
@@ -59,11 +74,11 @@ a {
 }
 
 .background-red {
-  background-color: #E64759;
+  background-color: #E32020;
 }
 
 .foreground-red {
-  color: #E64759
+  color: #E32020
 }
 
 .background-purple {
@@ -75,11 +90,18 @@ a {
 }
 
 .background-yellow {
-  background-color: #E4D836;
+  background-color: #FFC107;
 }
 
 .foreground-yellow {
-  color: #E4D836;
+  color: #FFC107;
+}
+.background-blue {
+  background-color: #32A8EE;
+}
+
+.foreground-blue {
+  color: #32A8EE;
 }
 
 .ol-control button {
@@ -104,10 +126,51 @@ a {
   z-index: 98;
 }
 
-.click-table, .click-table td{
-  border: 1px solid black;
+div#layer-information h4 {
+  font-size: 18px;
 }
 
-.click-table {
-  margin: 5px;
+div#layer-information h5 {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding: 4px 4px 3px 6px;
+  color: #ffffff;
+  font-size: 16px;
+  background-color: #32A8EE;
+}
+
+div#layer-information table {
+  width: 100%;
+}
+div#layer-information table tr {
+  border-bottom: dashed 1px #A5B9CC;
+}
+
+div#layer-information table td {
+  vertical-align: top;
+}
+
+
+div#layer-information table tr:last-child {
+  border-bottom: none;
+}
+
+.field-label {
+  width: 20%;
+  display: inline-block;
+}
+
+.field-value {
+  padding-left: 10px;
+}
+
+.badge-pill {
+  border-radius: 3px;
+}
+
+.hover-opacity {
+  opacity: 0.86;
+}
+.hover-opacity:hover {
+  opacity: 1;
 }
