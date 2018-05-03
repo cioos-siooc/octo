@@ -11,10 +11,10 @@ const initialState: State = {
 
 export function behaviorReducer(state = initialState, action: any): State {
   switch (action.type) {
-      case behaviorActions.ADD_BEHAVIOR:
-        const clonedState = cloneDeep(state);
-        clonedState.behaviors.push(action.payload);
-        return clonedState;
+    case behaviorActions.ADD_BEHAVIOR:
+      const clonedState = cloneDeep(state);
+      clonedState.behaviors.push(action.payload);
+      return clonedState;
     case behaviorActions.UPDATE_BEHAVIOR:
       const cloneState = cloneDeep(state);
       const behaviorIndex = cloneState.behaviors.findIndex((b) => b.uniqueId === action.payload.uniqueId);
@@ -22,6 +22,10 @@ export function behaviorReducer(state = initialState, action: any): State {
         cloneState.behaviors[behaviorIndex] = cloneDeep(action.payload);
       }
       return cloneState;
+    case behaviorActions.DELETE_BEHAVIOR:
+      const clownState = cloneDeep(state);
+      clownState.behaviors = clownState.behaviors.filter((b) => b.uniqueId !== action.payload);
+      return clownState;
     case 'LAYER_UPDATE':
       return state;
     default:

@@ -8,8 +8,13 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class UrlBehaviorService {
   constructor(private store: Store<fromApp.AppState>, private actionsSubject: ActionsSubject) {
+    this.onLayerAddInitBehaviors();
+    this.onLayerDeleteCleanBehaviors();
+  }
+
+  onLayerAddInitBehaviors() {
     this.actionsSubject.filter((action) => {
-      return action.type === 'LAYER_ADD';
+      return action.type === fromLayerActions.ADD_LAYER;
     })
       .subscribe((action: fromLayerActions.AddLayer) => {
         const layer = action.payload;
@@ -18,8 +23,8 @@ export class UrlBehaviorService {
             this.store.select('behavior').take(1).subscribe((state) => {
               if (!state.behaviors.some(b => b.uniqueId === behavior.uniqueId)) {
                 // TODO: factory.getBehaviorInitializer().init(behavior);
-                this.init(behavior);
                 this.store.dispatch(new fromBehaviorActions.AddBehavior(behavior));
+                this.init(behavior);
               }
             });
           });
@@ -27,10 +32,24 @@ export class UrlBehaviorService {
       });
   }
 
-  // TODO: On remove layer, remove all its behaviors in behavior store
+  onLayerDeleteCleanBehaviors() {
+    this.actionsSubject.filter((action) => {
+      return action.type === fromLayerActions.DELETE_LAYER;
+    })
+      .subscribe((action: fromLayerActions.DeleteLayer) => {
+        const layerUniqueId = action.payload;
+        this.store.select('behavior').take(1).subscribe((behaviorState) => {
+          behaviorState.behaviors.forEach((behavior) => {
+            if (behavior.layerUniqueId === layerUniqueId) {
+              clearInterval(behavior.interval);
+              this.store.dispatch(new fromBehaviorActions.DeleteBehavior(behavior.uniqueId));
+            }
 
+          });
+        });
+      });
+  }
 
-  // TODO: Should acquire layer and behavior from within the interval function?
   init(behavior) {
     this.store.select('layer').take(1).subscribe((state) => {
       const options = behavior.options;
@@ -39,7 +58,15 @@ export class UrlBehaviorService {
         // TODO: set behavior.state isNowEnabled= true?
         this.updateDateToNow(behavior, layer);
         const interval = setInterval(() => {
-          this.updateDateToNow(behavior, layer);
+          this.store.select('layer').take(1).subscribe((layerState) => {
+            this.store.select('behavior').take(1).subscribe((behaviorState) => {
+              // Use the latest values of layer and behavior
+              const lay = layerState.layers.find(l => l.uniqueId === layer.uniqueId);
+              const beh = behaviorState.behaviors.find(b => b.uniqueId === behavior.uniqueId);
+              beh.interval = interval;
+              this.updateDateToNow(beh, lay);
+            });
+          });
         }, options.nowDelay * 60 * 1000);
       }
     });
