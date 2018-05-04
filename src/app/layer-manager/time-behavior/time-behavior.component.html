@@ -1,1 +1,13 @@
-<p></p>
+<div *ngIf="behavior">
+  <a>
+    <span class="btn background-gray smaller-font font-weight-bold"
+          *ngIf="behavior.options.isNowSupported"
+          [ngClass]="{
+          'foreground-yellow': behavior.isNowEnabled,
+          'foreground-white': !behavior.isNowEnabled
+          }"
+          (click)="onNowClick()">
+      {{'now' | translate }}
+    </span>
+  </a>
+</div>

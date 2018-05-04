@@ -1,9 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import { TimeBehaviorComponent } from './time-behavior.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/app.reducers';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { HttpLoaderFactory } from '../../app.module';
 
 describe('TimeBehaviorComponent', () => {
   let component: TimeBehaviorComponent;
@@ -14,7 +16,15 @@ describe('TimeBehaviorComponent', () => {
       declarations: [ TimeBehaviorComponent ],
       imports : [
         FormsModule,
-        StoreModule.forRoot(reducers)
+        StoreModule.forRoot(reducers),
+        HttpClientModule,
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
       ]
     })
     .compileComponents();

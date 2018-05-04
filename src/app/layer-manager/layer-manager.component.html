@@ -16,9 +16,12 @@
               (click)="onMoveUpLayerClick(layer)"></i></a>
         <a><i class="glyphicon fal fa-arrow-alt-down foreground-dark"
               (click)="onMoveDownLayerClick(layer)"></i></a>
-        <ng-container *ngFor="let behavior of layer.urlBehaviors">
-          <app-time-behavior *ngIf="behavior.handler == 'time'" [layer]=layer [behavior]=behavior></app-time-behavior>
-        </ng-container>
+        <div class="url-behavior py-1" *ngFor="let behavior of layer.urlBehaviors">
+          <app-time-behavior *ngIf="behavior.handler == 'time'"
+            [layer]=layer
+            [behaviorUniqueId]=behavior.uniqueId>
+          </app-time-behavior>
+        </div>
       </div>
     </li>
   </ul>

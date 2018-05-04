@@ -2,7 +2,7 @@ import {TextField} from './text-field.util';
 import {Field} from './field.util';
 import {DateField} from './date-field.util';
 import {UrlField} from './url-field.util';
-import {ImageField} from'./image-field.util';
+import {ImageField} from './image-field.util';
 
 export class FieldFactory {
   public static getField(fieldDef: any, result: any, contentType: any): Field {
