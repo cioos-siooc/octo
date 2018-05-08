@@ -1,5 +1,4 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Layer} from '../../shared/layer.model';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import * as fromApp from '../../store/app.reducers';
@@ -13,19 +12,9 @@ import {TimeHandler} from '../behavior-handler/time-handler.util';
 })
 export class TimeBehaviorComponent implements OnInit, OnDestroy {
   behavior: any;
+  currentDate: Date;
 
   constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService) {
-  }
-
-  private _layer: Layer;
-
-  get layer(): Layer {
-    return this._layer;
-  }
-
-  @Input()
-  set layer(layer: Layer) {
-    this._layer = layer;
   }
 
   private _behaviorUniqueId: string;
@@ -45,6 +34,10 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   onNowClick() {
     const bH = <TimeHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
     bH.toggleNow(this.behavior);
+  }
+
+  onCloseDatetimePicker() {
+    this.currentDate = new Date();
   }
 
   ngOnInit() {

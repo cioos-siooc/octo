@@ -22,14 +22,16 @@ import {UrlFieldComponent} from '../shared/click-formatter/field/url-field/url-f
 import {DateFieldComponent} from '../shared/click-formatter/field/date-field/date-field.component';
 import {ImageFieldComponent} from '../shared/click-formatter/field/image-field/image-field.component';
 import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
-import { UrlBehaviorService } from '../layer-manager/url-behavior.service';
+import {UrlBehaviorService} from '../layer-manager/url-behavior.service';
+import {CalendarModule} from 'primeng/calendar';
 
 describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({declarations: [
+    TestBed.configureTestingModule({
+      declarations: [
         MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
         TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent
@@ -37,6 +39,7 @@ describe('MapComponent', () => {
       imports: [
         StoreModule.forRoot(reducers),
         FormsModule,
+        CalendarModule,
         HttpClientModule,
         TranslateModule.forRoot({
           loader: {

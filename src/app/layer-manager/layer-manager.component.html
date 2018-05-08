@@ -1,25 +1,24 @@
 <div id="layer-manager" class="hover-opacity">
   <ul class="p-1">
-    <li *ngFor="let layer of (layerState | async).layers.reverse()" class="no-list-style pt-1 pb-1 pl-2">
+    <li *ngFor="let uniqueId of layerIds.reverse()" class="no-list-style pt-1 pb-1 pl-2">
       <a><i class="fa fa-times-circle foreground-red"
-            (click)="onRemoveClick(layer)"></i></a>
-      <span>{{layer.title}}</span>
+            (click)="onRemoveClick(uniqueId)"></i></a>
+      <span>{{(testFunction(uniqueId) | async)}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
-            (click)="onShowLayerInfoClick(layer)"></i></a>
+            (click)="onShowLayerInfoClick(uniqueId)"></i></a>
       <button class="btn foreground-white background-gray smaller-font text-uppercase btn-legend-padding"
-              (click)="onShowLayerPresentation(layer)">{{ 'legend' | translate}}
+              (click)="onShowLayerPresentation(uniqueId)">{{ 'legend' | translate}}
       </button>
       <a><i class="glyphicon fa fa-cog foreground-gray"
-            (click)="onExpandSettingsClick(layer)"></i></a>
-      <div *ngIf="layer.isSettingsExpanded" class="settings pt-1">
+            (click)="onExpandSettingsClick(uniqueId)"></i></a>
+      <div *ngIf="isSettingsExpanded(uniqueId)" class="settings pt-1">
         <a><i class="glyphicon fal fa-arrow-alt-up foreground-dark"
-              (click)="onMoveUpLayerClick(layer)"></i></a>
+              (click)="onMoveUpLayerClick(uniqueId)"></i></a>
         <a><i class="glyphicon fal fa-arrow-alt-down foreground-dark"
-              (click)="onMoveDownLayerClick(layer)"></i></a>
-        <div class="url-behavior py-1" *ngFor="let behavior of layer.urlBehaviors">
+              (click)="onMoveDownLayerClick(uniqueId)"></i></a>
+        <div class="url-behavior py-1" *ngFor="let behavior of (getUrlBehaviors(uniqueId)| async)">
           <app-time-behavior *ngIf="behavior.handler == 'time'"
-            [layer]=layer
-            [behaviorUniqueId]=behavior.uniqueId>
+                             [behaviorUniqueId]=behavior.uniqueId>
           </app-time-behavior>
         </div>
       </div>

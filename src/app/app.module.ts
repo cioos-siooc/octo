@@ -2,6 +2,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
@@ -35,6 +36,7 @@ import { DateFieldComponent } from './shared/click-formatter/field/date-field/da
 import { ImageFieldComponent } from './shared/click-formatter/field/image-field/image-field.component';
 import { TimeBehaviorComponent } from './layer-manager/time-behavior/time-behavior.component';
 import { UrlBehaviorService } from './layer-manager/url-behavior.service';
+import { CalendarModule } from 'primeng/calendar';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -65,9 +67,11 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     AngularDraggableModule,
+    CalendarModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

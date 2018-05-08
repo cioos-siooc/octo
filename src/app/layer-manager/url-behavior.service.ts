@@ -3,8 +3,7 @@ import * as fromLayerActions from '../map/store/layer.actions';
 import * as fromApp from '../store/app.reducers';
 import * as fromBehaviorActions from './store/behavior.actions';
 import {Injectable} from '@angular/core';
-import { BehaviorHandlerFactory } from './behavior-handler/behavior-handler-factory.util';
-import { BehaviorHandler } from './behavior-handler/behavior-handler.util';
+import {BehaviorHandlerFactory} from './behavior-handler/behavior-handler-factory.util';
 
 @Injectable()
 export class UrlBehaviorService {

@@ -26,8 +26,6 @@ export function behaviorReducer(state = initialState, action: any): State {
       const clownState = cloneDeep(state);
       clownState.behaviors = clownState.behaviors.filter((b) => b.uniqueId !== action.payload);
       return clownState;
-    case 'LAYER_UPDATE':
-      return state;
     default:
       return state;
   }

@@ -7,7 +7,8 @@ import {HttpLoaderFactory} from '../app.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TimeBehaviorComponent} from './time-behavior/time-behavior.component';
-import {UrlBehaviorService} from './url-behavior.service';
+import {FormsModule} from '@angular/forms';
+import {CalendarModule} from 'primeng/calendar';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -17,8 +18,10 @@ describe('LayerManagerComponent', () => {
     TestBed.configureTestingModule({
       declarations: [LayerManagerComponent, TimeBehaviorComponent],
       imports: [
+        FormsModule,
         StoreModule.forRoot(reducers),
         HttpClientModule,
+        CalendarModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -27,7 +30,7 @@ describe('LayerManagerComponent', () => {
           }
         }),
       ],
-      providers: [UrlBehaviorService]
+      providers: []
     })
       .compileComponents();
   }));

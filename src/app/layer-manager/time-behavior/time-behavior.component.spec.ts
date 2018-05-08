@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/app.reducers';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { HttpLoaderFactory } from '../../app.module';
+import { CalendarModule } from 'primeng/calendar';
 
 describe('TimeBehaviorComponent', () => {
   let component: TimeBehaviorComponent;
@@ -18,6 +19,7 @@ describe('TimeBehaviorComponent', () => {
         FormsModule,
         StoreModule.forRoot(reducers),
         HttpClientModule,
+        CalendarModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

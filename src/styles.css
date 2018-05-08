@@ -174,3 +174,7 @@ div#layer-information table tr:last-child {
 .hover-opacity:hover {
   opacity: 1;
 }
+
+.ui-datepicker {
+  position: static;
+}

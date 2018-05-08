@@ -21,6 +21,8 @@
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ol/ol.css",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
         "assets/fontawesome/webfonts/fontawesome-all.css",
         "styles.css",
         "responsive.css"

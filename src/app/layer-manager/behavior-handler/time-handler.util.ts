@@ -38,9 +38,8 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   updateDateToNow(behavior, layer) {
-    behavior.parameterValue = moment(new Date()).format(behavior.options.format);
-    this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-    layer.urlParameters = this.addUrlParameter(layer.urlParameters, behavior.parameterName, behavior.parameterValue);
+    const newDate = moment(new Date()).format(behavior.options.format);
+    layer.urlParameters = this.addUrlParameter(layer.urlParameters, behavior.parameterName, newDate);
     this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
   }
 
