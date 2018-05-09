@@ -9,7 +9,7 @@ import * as popupActions from '../map/store/popup.actions';
 import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
 import * as layerPresentationActions from '../layer-presentation/store/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';
-import {isEqual} from 'lodash';
+import {isEqual, cloneDeep} from 'lodash';
 
 @Component({
   selector: 'app-layer-manager',
@@ -20,22 +20,23 @@ export class LayerManagerComponent implements OnInit {
   layerIds = [];
   expandedLayerIds = [];
 
-
   constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.store.select('layer').subscribe((layerState) => {
-      const layerUniqueIds = layerState.layers.map(l => l.uniqueId);
+      const layerStateCopy = cloneDeep(layerState);
+      const layerUniqueIds = layerStateCopy.layers.map(l => l.uniqueId);
       if (!isEqual(this.layerIds, layerUniqueIds)) {
         this.layerIds = layerUniqueIds;
       }
     });
   }
 
-  testFunction(layerUniqueId) {
+  getLayerTitle(layerUniqueId) {
     return this.store.select('layer').take(1).map((layerState) => {
-      const layer = layerState.layers.find(l => l.uniqueId === layerUniqueId);
+      const layerStateCopy = cloneDeep(layerState);
+      const layer = layerStateCopy.layers.find(l => l.uniqueId === layerUniqueId);
       return layer.title;
     });
   }
@@ -55,7 +56,7 @@ export class LayerManagerComponent implements OnInit {
 
   onShowLayerInfoClick(layerUniqueId) {
     this.store.select('layer').take(1).subscribe((layerState) => {
-      const layer = layerState.layers.find(l => l.uniqueId = layerUniqueId);
+      const layer = layerState.layers.find(l => l.uniqueId === layerUniqueId);
       this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layer.id));
       this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
     });
@@ -63,7 +64,7 @@ export class LayerManagerComponent implements OnInit {
 
   onShowLayerPresentation(layerUniqueId) {
     this.store.select('layer').take(1).subscribe((layerState) => {
-      const layer = layerState.layers.find(l => l.uniqueId = layerUniqueId);
+      const layer = layerState.layers.find(l => l.uniqueId === layerUniqueId);
       this.store.dispatch(new layerPresentationActions.SetLayerUniqueId(layerUniqueId));
       this.store.dispatch(new layerPresentationActions.SetClientPresentations(layer.clientPresentations));
       this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(layer.currentClientPresentation));
@@ -80,7 +81,7 @@ export class LayerManagerComponent implements OnInit {
   }
 
   onExpandSettingsClick(layerUniqueId) {
-    if (this.isLayerSettingsExpanded(layerUniqueId)) {
+    if (this.isSettingsExpanded(layerUniqueId)) {
       this.expandedLayerIds = this.expandedLayerIds.filter(id => id !== layerUniqueId);
     } else {
       this.expandedLayerIds.push(layerUniqueId);
@@ -88,10 +89,6 @@ export class LayerManagerComponent implements OnInit {
   }
 
   isSettingsExpanded(layerUniqueId) {
-    return this.isLayerSettingsExpanded(layerUniqueId);
-  }
-
-  private isLayerSettingsExpanded(layerUniqueId) {
     return this.expandedLayerIds.some(id => id === layerUniqueId);
   }
 }

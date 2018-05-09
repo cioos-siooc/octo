@@ -4,7 +4,7 @@ import * as fromApp from '../../store/app.reducers';
 import * as moment from 'moment';
 import * as fromBehaviorActions from '../store/behavior.actions';
 import * as fromLayerActions from '../../map/store/layer.actions';
-
+import {cloneDeep} from 'lodash';
 export class TimeHandler implements BehaviorHandler {
   type = 'time';
 
@@ -12,9 +12,10 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   init(behavior: any) {
-    this.store.select('layer').take(1).subscribe((state) => {
+    this.store.select('layer').take(1).subscribe((layerState) => {
+      const layerStateCopy = cloneDeep(layerState);
       const options = behavior.options;
-      const layer = state.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+      const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
       if (options.isNowSupported) {
         behavior.isNowEnabled = true;
         behavior.interval = this.setNowInterval(behavior);
@@ -27,9 +28,11 @@ export class TimeHandler implements BehaviorHandler {
     const interval = setInterval(() => {
       this.store.select('layer').take(1).subscribe((layerState) => {
         this.store.select('behavior').take(1).subscribe((behaviorState) => {
+          const layerStateCopy = cloneDeep(layerState);
+          const behaviorStateCopy = cloneDeep(behaviorState);
           // Use the latest values of layer and behavior
-          const beh = behaviorState.behaviors.find(b => b.uniqueId === behavior.uniqueId);
-          const lay = layerState.layers.find(l => l.uniqueId === beh.layerUniqueId);
+          const beh = behaviorStateCopy.behaviors.find(b => b.uniqueId === behavior.uniqueId);
+          const lay = layerStateCopy.layers.find(l => l.uniqueId === beh.layerUniqueId);
           this.updateDateToNow(beh, lay);
         });
       });
@@ -52,7 +55,8 @@ export class TimeHandler implements BehaviorHandler {
     } else {
       behavior.isNowEnabled = !behavior.isNowEnabled;
       this.store.select('layer').take(1).subscribe((layerState) => {
-        const layer = layerState.layers.find(l => l.uniqueId = behavior.layerUniqueId);
+        const layerStateCopy = cloneDeep(layerState);
+        const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
         behavior.interval = this.setNowInterval(behavior);
         behavior.currentDate = null;
         this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
@@ -91,7 +95,8 @@ export class TimeHandler implements BehaviorHandler {
 
   updateDateTime(behavior) {
     this.store.select('layer').take(1).subscribe((layerState) => {
-      const layer = layerState.layers.find(l => l.uniqueId = behavior.layerUniqueId);
+      const layerStateCopy = cloneDeep(layerState);
+      const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
       const date = moment(behavior.currentDate).format(behavior.options.format);
       layer.urlParameters = this.addUrlParameter(layer.urlParameters, behavior.parameterName, date);
       this.store.dispatch(new fromLayerActions.UpdateLayer(layer));

@@ -3,7 +3,7 @@
     <li *ngFor="let uniqueId of layerIds.reverse()" class="no-list-style pt-1 pb-1 pl-2">
       <a><i class="fa fa-times-circle foreground-red"
             (click)="onRemoveClick(uniqueId)"></i></a>
-      <span>{{(testFunction(uniqueId) | async)}}</span>
+      <span>{{(getLayerTitle(uniqueId) | async)}}</span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(uniqueId)"></i></a>
       <button class="btn foreground-white background-gray smaller-font text-uppercase btn-legend-padding"

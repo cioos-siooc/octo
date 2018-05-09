@@ -28,7 +28,8 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   set behaviorUniqueId(id: string) {
     this._behaviorUniqueId = id;
     this.store.select('behavior').subscribe((behaviorState) => {
-      this.behavior = cloneDeep(behaviorState.behaviors.find(b => b.uniqueId === id));
+      const behaviorStateCopy = cloneDeep(behaviorState);
+      this.behavior = behaviorStateCopy.behaviors.find(b => b.uniqueId === this._behaviorUniqueId);
       this.currentDate = this.behavior.currentDate;
     });
   }
