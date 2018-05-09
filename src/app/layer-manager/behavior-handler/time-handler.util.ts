@@ -54,6 +54,8 @@ export class TimeHandler implements BehaviorHandler {
       this.store.select('layer').take(1).subscribe((layerState) => {
         const layer = layerState.layers.find(l => l.uniqueId = behavior.layerUniqueId);
         behavior.interval = this.setNowInterval(behavior);
+        behavior.currentDate = null;
+        this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
         this.updateDateToNow(behavior, layer);
       });
     }
@@ -76,5 +78,23 @@ export class TimeHandler implements BehaviorHandler {
     urlParameter[paramName] = paramValue;
     urlParameters.push(urlParameter);
     return urlParameters;
+  }
+
+  setNowOff(behavior) {
+    if (behavior.interval != null) {
+      clearInterval(behavior.interval);
+      behavior.interval = null;
+    }
+    behavior.isNowEnabled = false;
+    this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
+  }
+
+  updateDateTime(behavior) {
+    this.store.select('layer').take(1).subscribe((layerState) => {
+      const layer = layerState.layers.find(l => l.uniqueId = behavior.layerUniqueId);
+      const date = moment(behavior.currentDate).format(behavior.options.format);
+      layer.urlParameters = this.addUrlParameter(layer.urlParameters, behavior.parameterName, date);
+      this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
+    });
   }
 }

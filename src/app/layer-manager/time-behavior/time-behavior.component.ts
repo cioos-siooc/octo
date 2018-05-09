@@ -4,7 +4,8 @@ import {TranslateService} from '@ngx-translate/core';
 import * as fromApp from '../../store/app.reducers';
 import {BehaviorHandlerFactory} from '../behavior-handler/behavior-handler-factory.util';
 import {TimeHandler} from '../behavior-handler/time-handler.util';
-
+import * as fromBehaviorActions from '../store/behavior.actions';
+import {cloneDeep} from 'lodash';
 @Component({
   selector: 'app-time-behavior',
   templateUrl: './time-behavior.component.html',
@@ -27,7 +28,8 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   set behaviorUniqueId(id: string) {
     this._behaviorUniqueId = id;
     this.store.select('behavior').subscribe((behaviorState) => {
-      this.behavior = behaviorState.behaviors.find(b => b.uniqueId === id);
+      this.behavior = cloneDeep(behaviorState.behaviors.find(b => b.uniqueId === id));
+      this.currentDate = this.behavior.currentDate;
     });
   }
 
@@ -37,7 +39,10 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   }
 
   onCloseDatetimePicker() {
-    this.currentDate = new Date();
+    this.behavior.currentDate = this.currentDate;
+    const bH = <TimeHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
+    bH.setNowOff(this.behavior);
+    bH.updateDateTime(this.behavior);
   }
 
   ngOnInit() {
