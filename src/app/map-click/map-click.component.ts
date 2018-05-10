@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import * as fromMapClick from './store/map-click.reducers';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../store/app.reducers';

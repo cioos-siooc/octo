@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/throttleTime';
+
+
 import {Store} from '@ngrx/store';
 import * as fromApp from '../store/app.reducers';
 import * as popupActions from '../map/store/popup.actions';
