@@ -4,9 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "build:dev": "ng build --environment dev --aot --base-href /maponion/",
-    "build:test": "ng build --environment test --aot --base-href /infosl2/",
-    "build:prod": "ng build --environment prod --aot --base-href /maponion/",
+    "build:dev": "ng build --configuration dev --aot --base-href /maponion/",
+    "build:test": "ng build --configuration test --aot --base-href /infosl2/",
+    "build:prod": "ng build --configuration prod --aot --base-href /maponion/",
     "start": "ng serve --aot",
     "test:local": "ng test --browsers=\"Chrome\"",
     "test:ci": "ng test --browsers=\"ChromeCustom\" --single-run",
