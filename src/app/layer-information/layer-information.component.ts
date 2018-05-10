@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 
 import * as fromLayerInformation from './store/layer-information.reducers';
 import * as fromApp from '../store/app.reducers';

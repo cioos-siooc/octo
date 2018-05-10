@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as fromApp from '../store/app.reducers';
 import * as fromLayerPresentation from './store/layer-presentation.reducers';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {ClientPresentation} from '../shared/client-presentation.model';
 import * as layerPresentationActions from './store/layer-presentation.actions';
 import * as layerActions from '../map/store/layer.actions';

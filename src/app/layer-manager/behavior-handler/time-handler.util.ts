@@ -5,6 +5,7 @@ import * as moment from 'moment';
 import * as fromBehaviorActions from '../store/behavior.actions';
 import * as fromLayerActions from '../../map/store/layer.actions';
 import {cloneDeep} from 'lodash';
+import {take} from 'rxjs/operators';
 export class TimeHandler implements BehaviorHandler {
   type = 'time';
 
@@ -12,7 +13,7 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   init(behavior: any) {
-    this.store.select('layer').take(1).subscribe((layerState) => {
+    this.store.select('layer').pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = cloneDeep(layerState);
       const options = behavior.options;
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
@@ -26,8 +27,8 @@ export class TimeHandler implements BehaviorHandler {
 
   setNowInterval(behavior) {
     const interval = setInterval(() => {
-      this.store.select('layer').take(1).subscribe((layerState) => {
-        this.store.select('behavior').take(1).subscribe((behaviorState) => {
+      this.store.select('layer').pipe(take(1)).subscribe((layerState) => {
+        this.store.select('behavior').pipe(take(1)).subscribe((behaviorState) => {
           const layerStateCopy = cloneDeep(layerState);
           const behaviorStateCopy = cloneDeep(behaviorState);
           // Use the latest values of layer and behavior
@@ -54,7 +55,7 @@ export class TimeHandler implements BehaviorHandler {
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
     } else {
       behavior.isNowEnabled = !behavior.isNowEnabled;
-      this.store.select('layer').take(1).subscribe((layerState) => {
+      this.store.select('layer').pipe(take(1)).subscribe((layerState) => {
         const layerStateCopy = cloneDeep(layerState);
         const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
         behavior.interval = this.setNowInterval(behavior);
@@ -94,7 +95,7 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   updateDateTime(behavior) {
-    this.store.select('layer').take(1).subscribe((layerState) => {
+    this.store.select('layer').pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = cloneDeep(layerState);
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
       const date = moment(behavior.currentDate).format(behavior.options.format);

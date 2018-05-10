@@ -3,7 +3,7 @@ import {Component, OnInit} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as catalogActions from '../catalog/store/catalog.actions';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {Topic} from '../shared/topic.model';
 import {TranslateService} from '@ngx-translate/core';

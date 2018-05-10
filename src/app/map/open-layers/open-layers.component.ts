@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {forkJoin} from 'rxjs/observable/forkJoin';
+import {forkJoin, Observable} from 'rxjs';
 import View from 'ol/view';
 import Feature from 'ol/feature';
 import OLMap from 'ol/map';
@@ -12,10 +12,8 @@ import * as fromApp from '../../store/app.reducers';
 import * as fromBaseLayer from '../store/base-layer.reducers';
 import {OLLayerFactory} from './ol-layer-factory.util';
 import * as fromLayer from '../store/layer.reducers';
-import {clone, isEqual} from 'lodash';
+import {clone, cloneDeep, isEqual} from 'lodash';
 import {Layer} from '../../shared/layer.model';
-import 'rxjs/add/operator/filter';
-import {Observable} from 'rxjs/Observable';
 import {WmsStrategy} from '../../shared/wms-strategy.model';
 import {HttpClient} from '@angular/common/http';
 import {MAP_CLICK_POPUP_ID} from '../map.component';
@@ -24,7 +22,8 @@ import * as mapClickActions from '../../map-click/store/map-click.actions';
 import {EmptyValidatorFactory} from '../../shared/empty-validator-factory.util';
 import {ClickFormatterFactory} from '../../shared/click-formatter/click-formatter-factory.util';
 import {MapClickInfo} from '../../shared/map-click-info.model';
-import {cloneDeep} from 'lodash';
+import {filter} from 'rxjs/operators';
+import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-open-layers',
@@ -59,17 +58,17 @@ export class OpenLayersComponent implements AfterViewInit {
 
   private initBaseLayerSubscription() {
     (<Observable<fromBaseLayer.State>>this.store.select('baseLayer'))
-      .filter(baseLayerState => baseLayerState.currentBaseLayer != null)
-      .subscribe((baseLayerState: fromBaseLayer.State) => {
-        if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
-          if (this.baseOLLayer != null) {
-            this.map.removeLayer(this.baseOLLayer);
-          }
-          const newLayer = OLLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
-          this.map.addLayer(newLayer);
-          this.baseOLLayer = newLayer;
+      .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
+      ).subscribe((baseLayerState: fromBaseLayer.State) => {
+      if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
+        if (this.baseOLLayer != null) {
+          this.map.removeLayer(this.baseOLLayer);
         }
-      });
+        const newLayer = OLLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
+        this.map.addLayer(newLayer);
+        this.baseOLLayer = newLayer;
+      }
+    });
   }
 
   private getOLLayerFromId(id): LayerBase {
@@ -175,7 +174,7 @@ export class OpenLayersComponent implements AfterViewInit {
       (feature: Feature, olLayer) => {
         const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
         if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
-          const length = resultObservables.push(Observable.of(feature.getProperties()));
+          const length = resultObservables.push(of(feature.getProperties()));
           layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
           return feature;
         }

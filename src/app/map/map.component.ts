@@ -1,10 +1,10 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
+import {Observable} from 'rxjs';
 import {Layer} from '../shared/layer.model';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/first';
+
+
 import * as fromBaseLayer from './store/base-layer.reducers';
 import * as fromMapClick from '../map-click/store/map-click.reducers';
 import * as baseLayerActions from './store/base-layer.actions';
@@ -13,6 +13,7 @@ import {environment} from '../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import * as catalogActions from '../catalog/store/catalog.actions';
 import { UrlBehaviorService } from '../layer-manager/url-behavior.service';
+import {filter, first, take} from 'rxjs/operators';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -86,9 +87,9 @@ export class MapComponent implements OnInit {
   }
 
   private synchronizeBaseLayer() {
-    this.store.select('baseLayer').first((baseLayerState: fromBaseLayer.State) => {
+    this.store.select('baseLayer').pipe(first((baseLayerState: fromBaseLayer.State) => {
       return baseLayerState.currentBaseLayer != null;
-    }).subscribe((baseLayerState: fromBaseLayer.State) => {
+    })).subscribe((baseLayerState: fromBaseLayer.State) => {
       this.currentBaseLayer = baseLayerState.currentBaseLayer;
     });
   }
@@ -106,13 +107,13 @@ export class MapComponent implements OnInit {
    * If there is no current topic, initialize the current topic
    */
   private initializeTopic() {
-    this.store.select('catalog').take(1).subscribe((currentState) => {
+    this.store.select('catalog').pipe(take(1)).subscribe((currentState) => {
       if (currentState.topics.length === 0) {
         this.translateService.get('language').subscribe((lang) => {
           this.store.dispatch(new catalogActions.FetchTopicForCode({languageCode: lang, code: environment.defaultTopic}));
-          this.store.select('catalog').filter((state) => {
+          this.store.select('catalog').pipe(filter((state) => {
             return state.topics.length > 0;
-          }).take(1).subscribe(() => {
+          }), take(1)).subscribe(() => {
             this.store.dispatch(new catalogActions.SetTopicExpanded({topicIndex: 0, expanded: true}));
           });
         });
