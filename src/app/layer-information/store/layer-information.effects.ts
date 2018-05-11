@@ -5,12 +5,13 @@ import {Actions, Effect} from '@ngrx/effects';
 import {environment} from '../../../environments/environment';
 import * as LayerInformationActions from './layer-information.actions';
 import {map, switchMap} from 'rxjs/operators';
+import {LayerInformationActionTypes, SetSelectedLayerId} from './layer-information.actions';
 
 @Injectable()
 export class LayerInformationEffects {
   @Effect()
   fetchLayerInformation = this.actions$
-    .ofType(LayerInformationActions.SET_SELECTED_LAYER_ID)
+    .ofType<SetSelectedLayerId>(LayerInformationActionTypes.SET_SELECTED_LAYER_ID)
     .pipe(switchMap((action: LayerInformationActions.SetSelectedLayerId) => {
       return this.httpClient.get(`${environment.mapapiUrl}/layers/${action.payload}/getLayerInformation`,
         {responseType: 'text'}
