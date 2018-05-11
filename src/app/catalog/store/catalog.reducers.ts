@@ -1,6 +1,6 @@
 import {TopicGroup} from '../../shared/topic-group.model';
 import {Topic} from '../../shared/topic.model';
-import * as catalogActions from './catalog.actions';
+import {CatalogActionsUnion, CatalogActionTypes} from './catalog.actions';
 import Utils from '../category.util';
 import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 
@@ -10,27 +10,27 @@ export interface State {
   selectedLayers: CatalogSelectedLayer[];
 }
 
-const initialState: State = {
+export const initialState: State = {
   topicGroup: new TopicGroup(-1, 'placeholder', null, []),
   topics: [],
   selectedLayers: []
 };
 
 // TODO: Use cloneDeep when object has multiple nesting levels
-export function catalogReducer(state: State = initialState, action: catalogActions.CatalogActions): State {
+export function catalogReducer(state: State = initialState, action: CatalogActionsUnion): State {
   switch (action.type) {
-    case catalogActions.SET_TOPIC_GROUP:
+    case CatalogActionTypes.SET_TOPIC_GROUP:
       return {
         ...state,
         topicGroup: (<any>action).payload
       };
-    case catalogActions.APPEND_TOPIC:
+    case CatalogActionTypes.APPEND_TOPIC:
       const topics: Topic[] = [...state.topics, (<any>action).payload];
       return {
         ...state,
         topics: topics
       };
-    case catalogActions.SET_TOPIC_EXPANDED:
+    case CatalogActionTypes.SET_TOPIC_EXPANDED:
       const topic: Topic = <Topic>{...state.topics[(<any>action).payload.topicIndex]};
       topic.expanded = (<any>action).payload.expanded;
 
@@ -40,7 +40,7 @@ export function catalogReducer(state: State = initialState, action: catalogActio
         ...state,
         topics: oldTopics
       };
-    case catalogActions.SET_CATEGORIES:
+    case CatalogActionTypes.SET_CATEGORIES:
       let idToUpdate = -1;
       for (let i = 0; i < state.topics.length; i++) {
         if (state.topics[i].id === (<any>action).payload.topicId) {
@@ -58,7 +58,7 @@ export function catalogReducer(state: State = initialState, action: catalogActio
         ...state,
         topics: updatedTopics
       };
-    case catalogActions.UPDATE_CATEGORY:
+    case CatalogActionTypes.UPDATE_CATEGORY:
       const updatedTopicList = Utils.updateCategory(
         state,
         (<any>action).payload.treeLocation,
@@ -68,12 +68,12 @@ export function catalogReducer(state: State = initialState, action: catalogActio
         ...state,
         topics: updatedTopicList
       };
-    case catalogActions.ADD_SELECTED_LAYER:
+    case CatalogActionTypes.ADD_SELECTED_LAYER:
       return {
         ...state,
         selectedLayers: [...state.selectedLayers, (<any>action).payload]
       };
-    case catalogActions.REMOVE_SELECTED_LAYER:
+    case CatalogActionTypes.REMOVE_SELECTED_LAYER:
       const selectedLayers = [...state.selectedLayers];
       for (let i = 0; i < selectedLayers.length; i++) {
         if (selectedLayers[i].layerUniqueId === (<any>action).payload) {
