@@ -10,7 +10,7 @@ const initialState: State = {
   selectedLayerId: null
 };
 
-export function layerInformationReducer(state = initialState, action: layerInformationActions.LayerInformationActions) {
+export function layerInformationReducer(state = initialState, action: layerInformationActions.LayerInformationActions): State {
   switch (action.type) {
     case layerInformationActions.SET_LAYER_INFORMATION:
       return {

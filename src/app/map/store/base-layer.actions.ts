@@ -1,23 +1,25 @@
 import {Layer} from '../../shared/layer.model';
 import {Action} from '@ngrx/store';
 
-export const ADD_BASE_LAYER = 'BASE_LAYER_ADD';
-export const SET_CURRENT_BASE_LAYER = 'BASE_LAYER_SET_CURRENT';
+export enum BaseLayerActionTypes {
+  ADD_BASE_LAYER = '[Base layer] Add',
+  SET_CURRENT_BASE_LAYER = '[Base layer] Set current',
+}
 
 export class AddBaseLayer implements Action {
-  readonly type = ADD_BASE_LAYER;
+  readonly type = BaseLayerActionTypes.ADD_BASE_LAYER;
 
   constructor(public payload: Layer) {
   }
 }
 
 export class SetCurrentBaseLayer implements Action {
-  readonly type = SET_CURRENT_BASE_LAYER;
+  readonly type = BaseLayerActionTypes.SET_CURRENT_BASE_LAYER;
 
   constructor(public payload: Layer) {
   }
 }
 
-export type BaseLayerActions =
+export type BaseLayerActionsUnion =
   AddBaseLayer |
   SetCurrentBaseLayer;

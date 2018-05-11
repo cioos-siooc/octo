@@ -13,12 +13,12 @@ const initialState: State = {
   currentClientPresentation: null
 };
 
-export function layerPresentationReducer(state = initialState, action: layerPresentationActions.LayerPresentationActions) {
+export function layerPresentationReducer(state = initialState, action: layerPresentationActions.LayerPresentationActions): State {
   switch (action.type) {
     case layerPresentationActions.SET_LAYER_UNIQUE_ID:
       return {
         ...state,
-        layerUniqueId : action.payload
+        layerUniqueId: action.payload
       };
     case layerPresentationActions.SET_CLIENT_PRESENTATIONS:
       return {

@@ -13,7 +13,7 @@ const initialState: State = {
   mapClickLayer: null
 };
 
-export function mapClickReducer(state = initialState, action: mapClickActions.MapClickActions) {
+export function mapClickReducer(state = initialState, action: mapClickActions.MapClickActions): State {
   switch (action.type) {
     case mapClickActions.SET_MAP_CLICK_INFO:
       const clonedState = cloneDeep(state);

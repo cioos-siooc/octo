@@ -1,4 +1,4 @@
-import { ActionReducerMap } from '@ngrx/store';
+import {ActionReducerMap} from '@ngrx/store';
 
 import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as fromLayerInformation from '../layer-information/store/layer-information.reducers';

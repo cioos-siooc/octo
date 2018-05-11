@@ -12,7 +12,7 @@ const initialState: State = {
 };
 
 
-export function popupReducer(state: State = initialState, action: popupActions.PopupActions) {
+export function popupReducer(state: State = initialState, action: popupActions.PopupActions): State {
   switch (action.type) {
     case popupActions.ADD_POPUP:
       const clonedState = cloneDeep(state);
@@ -45,7 +45,7 @@ export function popupReducer(state: State = initialState, action: popupActions.P
       if (pStatus != null) {
         pStatus.isOpen = (<any>action.payload).isOpen;
         return newState;
-      } else {
+      } else {
         return state;
       }
     default:
