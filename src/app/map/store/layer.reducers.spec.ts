@@ -1,4 +1,5 @@
 import {layerReducer} from './layer.reducers';
+import * as fromLayer from './layer.reducers';
 import {WmsLayer} from '../../shared/wms-layer.model';
 import {AddLayer, DeleteLayer, MoveDownLayer, MoveUpLayer, SetClientPresentation, UpdateLayer} from './layer.actions';
 import {ClientPresentation} from '../../shared/client-presentation.model';
@@ -13,26 +14,20 @@ describe('LayerReducer', () => {
   });
 
   it('should have immutable payload', () => {
-    const initialState = {
-      layers: []
-    };
     const layer = new WmsLayer();
     layer.id = 1;
     const action = new AddLayer(layer);
-    const finalState = layerReducer(initialState, action);
+    const finalState = layerReducer(fromLayer.initialState, action);
     layer.code = 'test-code';
     expect(finalState.layers[0]).not.toEqual(layer);
   });
 
 
   it('should add layer to state.layers', () => {
-    const initialState = {
-      layers: []
-    };
     const layer = new WmsLayer();
     layer.id = 1;
     const action = new AddLayer(layer);
-    const finalState = layerReducer(initialState, action);
+    const finalState = layerReducer(fromLayer.initialState, action);
     const expectedState = {
       layers: [layer]
     };
