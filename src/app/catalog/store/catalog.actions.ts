@@ -7,7 +7,7 @@ import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 
 export enum CatalogActionTypes {
   FETCH_TOPIC_GROUP = '[Catalog] Fetch topic group',
-  SET_TOPIC_GROUP = '[Catalog] Fetch topic group',
+  SET_TOPIC_GROUP = '[Catalog] Set topic group',
   FETCH_TOPIC = '[Catalog] Fetch topic',
   FETCH_TOPIC_FOR_CODE = '[Catalog] Fetch topic for code',
   APPEND_TOPIC = '[Catalog] Append topic',
