@@ -1,40 +1,32 @@
+import * as fromPopup from './popup.reducers';
 import {popupReducer} from './popup.reducers';
 import * as popupActions from './popup.actions';
 
 describe('PopupReducer', () => {
 
   it('should return default state when no state and no action passed', () => {
-    const defaultState = {
-      popupStatuses: []
-    };
-    expect(popupReducer(undefined, <any>{})).toEqual(defaultState);
+    expect(popupReducer(undefined, <any>{})).toEqual(fromPopup.initialState);
   });
 
 
   it('should have immutable payload', () => {
-    const initialState = {
-      popupStatuses: []
-    };
     const popupStatus = {
       id: '2',
       isOpen: true
     };
     const action = new popupActions.AddPopup(popupStatus);
-    const finalState = popupReducer(initialState, action);
+    const finalState = popupReducer(fromPopup.initialState, action);
     popupStatus.id = '3';
     expect(finalState.popupStatuses[0]).not.toEqual(popupStatus);
   });
 
   it('should add popupStatus to state.PopupStatuses', () => {
-    const initialState = {
-      popupStatuses: []
-    };
     const popupStatus = {
       id: '2',
       isOpen: true
     };
     const action = new popupActions.AddPopup(popupStatus);
-    const finalState = popupReducer(initialState, action);
+    const finalState = popupReducer(fromPopup.initialState, action);
     const expectedState = {
       popupStatuses: [popupStatus]
     };

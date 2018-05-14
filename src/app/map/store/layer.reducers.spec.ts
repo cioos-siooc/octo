@@ -7,10 +7,7 @@ import {ClientPresentation} from '../../shared/client-presentation.model';
 describe('LayerReducer', () => {
 
   it('should return default state when no state and no action passed', () => {
-    const defaultState = {
-      layers: [],
-    };
-    expect(layerReducer(undefined, <any>{})).toEqual(defaultState);
+    expect(layerReducer(undefined, <any>{})).toEqual(fromLayer.initialState);
   });
 
   it('should have immutable payload', () => {
