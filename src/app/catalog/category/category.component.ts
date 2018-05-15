@@ -65,10 +65,8 @@ export class CategoryComponent implements OnInit {
 
     // Add the layer to the active layers if necessary
     if (newCategory.isChecked) {
-      console.log('Adding active layer');
       this.activateLayer(newCategory, treeLocation);
     } else {
-      console.log('Remving active layer');
       this.removeLayer(newCategory, treeLocation);
     }
   }

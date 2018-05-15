@@ -99,11 +99,12 @@ export class LayerEffects {
           `${environment.mapapiUrl}/layers/${action.payload.id}/client-presentations`).pipe(map(
           (clientPresentations) => {
             // Add clientPresentations to the layer and set the default as the current one
-            action.payload.currentClientPresentation = clientPresentations.find((cp: ClientPresentation) => {
+            const newPayload = {...action.payload};
+            newPayload.currentClientPresentation = clientPresentations.find((cp: ClientPresentation) => {
               return cp.isDefault;
             });
-            action.payload.clientPresentations = clientPresentations;
-            return action.payload;
+            newPayload.clientPresentations = clientPresentations;
+            return newPayload;
           }
         ));
       })
