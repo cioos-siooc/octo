@@ -8,7 +8,7 @@
     "build:test": "ng build --configuration test --aot --base-href /infosl2/",
     "build:prod": "ng build --configuration prod --aot --base-href /maponion/",
     "start": "ng serve --aot",
-    "test:local": "ng test --browsers=\"Chrome\"",
+    "test:local": "ng test --browsers=\"Chrome\" --watch",
     "test:ci": "ng test --browsers=\"ChromeCustom\" --single-run",
     "lint": "ng lint",
     "e2e": "ng e2e --aot"

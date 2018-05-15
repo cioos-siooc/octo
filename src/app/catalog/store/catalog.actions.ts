@@ -5,17 +5,19 @@ import {Topic} from '../../shared/topic.model';
 import {Category} from '../../shared/category.model';
 import {CatalogSelectedLayer} from '../../shared/catalog-selected-layer.model';
 
-export const FETCH_TOPIC_GROUP = 'CATALOG_FETCH_TOPIC_GROUP';
-export const SET_TOPIC_GROUP = 'CATALOG_SET_TOPIC_GROUP';
-export const FETCH_TOPIC = 'CATALOG_FETCH_TOPIC';
-export const FETCH_TOPIC_FOR_CODE = 'CATALOG_FETCH_TOPIC_FOR_CODE';
-export const APPEND_TOPIC = 'CATALOG_APPEND_TOPIC';
-export const SET_TOPIC_EXPANDED = 'CATALOG_SET_TOPIC_EXPANDED';
-export const FETCH_CATEGORY_HIERARCHY = 'CATALOG_FETCH_CATEGORY_HIERARCHY';
-export const SET_CATEGORIES = 'CATALOG_SET_CATEGORIES';
-export const UPDATE_CATEGORY = 'CATALOG_UPDATE_CATEGORY';
-export const ADD_SELECTED_LAYER = 'CATALOG_ADD_SELECTED_LAYER';
-export const REMOVE_SELECTED_LAYER = 'CATALOG_REMOVE_SELECTED_LAYER';
+export enum CatalogActionTypes {
+  FETCH_TOPIC_GROUP = '[Catalog] Fetch topic group',
+  SET_TOPIC_GROUP = '[Catalog] Set topic group',
+  FETCH_TOPIC = '[Catalog] Fetch topic',
+  FETCH_TOPIC_FOR_CODE = '[Catalog] Fetch topic for code',
+  APPEND_TOPIC = '[Catalog] Append topic',
+  SET_TOPIC_EXPANDED = '[Catalog] Set topic expanded',
+  FETCH_CATEGORY_HIERARCHY = '[Catalog] Fetch category hierarchy',
+  SET_CATEGORIES = '[Catalog] Set categories',
+  UPDATE_CATEGORY = '[Catalog] Update category',
+  ADD_SELECTED_LAYER = '[Catalog] Add selected layer',
+  REMOVE_SELECTED_LAYER = '[Catalog] Remove selected layer',
+}
 
 /**
  * Trigger an effect to fetch a topic group
@@ -25,7 +27,7 @@ export const REMOVE_SELECTED_LAYER = 'CATALOG_REMOVE_SELECTED_LAYER';
  * @implements {Action}
  */
 export class FetchTopicGroup implements Action {
-  readonly type = FETCH_TOPIC_GROUP;
+  readonly type = CatalogActionTypes.FETCH_TOPIC_GROUP;
 
   /**
    * Creates an instance of FetchTopicGroup.
@@ -44,7 +46,7 @@ export class FetchTopicGroup implements Action {
  * @implements {Action}
  */
 export class SetTopicGroup implements Action {
-  readonly type = SET_TOPIC_GROUP;
+  readonly type = CatalogActionTypes.SET_TOPIC_GROUP;
 
   /**
    * Creates an instance of SetTopicGroup.
@@ -63,7 +65,7 @@ export class SetTopicGroup implements Action {
  * @implements {Action}
  */
 export class FetchTopic implements Action {
-  readonly type = FETCH_TOPIC;
+  readonly type = CatalogActionTypes.FETCH_TOPIC;
 
   /**
    * Creates an instance of FetchTopic.
@@ -82,7 +84,7 @@ export class FetchTopic implements Action {
  * @implements (Action)
  */
 export class FetchTopicForCode implements Action {
-  readonly type = FETCH_TOPIC_FOR_CODE;
+  readonly type = CatalogActionTypes.FETCH_TOPIC_FOR_CODE;
 
   constructor(public payload: { languageCode: string, code: string }) {
   }
@@ -96,7 +98,7 @@ export class FetchTopicForCode implements Action {
  * @implements {Action}
  */
 export class AppendTopic implements Action {
-  readonly type = APPEND_TOPIC;
+  readonly type = CatalogActionTypes.APPEND_TOPIC;
 
   /**
    * Creates an instance of AppendTopic.
@@ -116,7 +118,7 @@ export class AppendTopic implements Action {
  * @implements {Action}
  */
 export class SetTopicExpanded implements Action {
-  readonly type = SET_TOPIC_EXPANDED;
+  readonly type = CatalogActionTypes.SET_TOPIC_EXPANDED;
 
   /**
    * Creates an instance of SetTopicExpanded.
@@ -142,7 +144,7 @@ export class SetTopicExpanded implements Action {
  * @implements {Action}
  */
 export class FetchCategoryHierarchy implements Action {
-  readonly type = FETCH_CATEGORY_HIERARCHY;
+  readonly type = CatalogActionTypes.FETCH_CATEGORY_HIERARCHY;
 
   /**
    * Creates an instance of FetchCategoryHierarchy.
@@ -162,7 +164,7 @@ export class FetchCategoryHierarchy implements Action {
  * @implements {Action}
  */
 export class SetCategories implements Action {
-  readonly type = SET_CATEGORIES;
+  readonly type = CatalogActionTypes.SET_CATEGORIES;
 
   /**
    * Creates an instance of SetCategories.
@@ -187,7 +189,7 @@ export class SetCategories implements Action {
  * @implements {Action}
  */
 export class UpdateCategory implements Action {
-  readonly type = UPDATE_CATEGORY;
+  readonly type = CatalogActionTypes.UPDATE_CATEGORY;
 
   /**
    * Creates an instance of UpdateCategory.
@@ -217,7 +219,7 @@ export class UpdateCategory implements Action {
  * @implements {Action}
  */
 export class AddSelectedLayer implements Action {
-  readonly type = ADD_SELECTED_LAYER;
+  readonly type = CatalogActionTypes.ADD_SELECTED_LAYER;
 
   /**
    * Creates an instance of AddSelectedLayer.
@@ -236,7 +238,7 @@ export class AddSelectedLayer implements Action {
  * @implements {Action}
  */
 export class RemoveSelectedLayer implements Action {
-  readonly type = REMOVE_SELECTED_LAYER;
+  readonly type = CatalogActionTypes.REMOVE_SELECTED_LAYER;
 
   /**
    * Creates an instance of RemoveSelectedLayer.
@@ -248,7 +250,7 @@ export class RemoveSelectedLayer implements Action {
   }
 }
 
-export type CatalogActions =
+export type CatalogActionsUnion =
   FetchTopicGroup |
   FetchTopicForCode |
   SetTopicGroup |

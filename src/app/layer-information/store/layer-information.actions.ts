@@ -1,22 +1,24 @@
 import {Action} from '@ngrx/store';
 
-export const SET_LAYER_INFORMATION = 'LAYER_INFORMATION_SET';
-export const SET_SELECTED_LAYER_ID = 'LAYER_INFORMATION_SET_SELECTED_LAYER_ID';
+export enum LayerInformationActionTypes {
+  SET_LAYER_INFORMATION = '[Layer information] Set layer information',
+  SET_SELECTED_LAYER_ID = '[Layer information] Set selected layer id',
+}
 
 export class SetLayerInformation implements Action {
-  readonly type = SET_LAYER_INFORMATION;
+  readonly type = LayerInformationActionTypes.SET_LAYER_INFORMATION;
 
   constructor(public payload: string) {
   }
 }
 
 export class SetSelectedLayerId implements Action {
-  readonly type = SET_SELECTED_LAYER_ID;
+  readonly type = LayerInformationActionTypes.SET_SELECTED_LAYER_ID;
 
   constructor(public payload: number) {
   }
 }
 
-export type LayerInformationActions =
+export type LayerInformationActionsUnion =
   SetLayerInformation |
   SetSelectedLayerId;

@@ -9,47 +9,54 @@ import {TopicGroup} from '../../shared/topic-group.model';
 import {TopicHierarchy} from '../../shared/topic-hierarchy.model';
 import {Topic} from '../../shared/topic.model';
 import {AppState} from '../../store/app.reducers';
-import * as CatalogActions from './catalog.actions';
 import {concatMap, map, mergeMap, switchMap, withLatestFrom} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
+import {
+  CatalogActionTypes,
+  FetchCategoryHierarchy,
+  FetchTopic,
+  FetchTopicForCode,
+  FetchTopicGroup,
+  SetTopicExpanded, SetTopicGroup
+} from './catalog.actions';
 
 @Injectable()
 export class CatalogEffects {
   @Effect()
   loadTopicGroup = this.actions$
-    .ofType(CatalogActions.FETCH_TOPIC_GROUP)
-    .pipe(switchMap((action: CatalogActions.FetchTopicGroup) => {
+    .ofType<FetchTopicGroup>(CatalogActionTypes.FETCH_TOPIC_GROUP)
+    .pipe(switchMap((action: FetchTopicGroup) => {
         return this.httpClient.get<TopicGroup>
         (`${environment.mapapiUrl}/topic-groups/getTopicGroupForCode?code=${action.payload.code}` +
           `&language-code=${action.payload.languageCode}`);
       })
       , mergeMap(
         (topicGroup) => [
-          new CatalogActions.SetTopicGroup(topicGroup),
+          new SetTopicGroup(topicGroup),
           ...topicGroup.topicIds.map(topicId => {
-            return new CatalogActions.FetchTopic(topicId);
+            return new FetchTopic(topicId);
           })
         ]
       ));
   @Effect()
   loadTopic = this.actions$
-    .ofType(CatalogActions.FETCH_TOPIC)
-    .pipe(concatMap((action: CatalogActions.FetchTopic) => {
+    .ofType<FetchTopic>(CatalogActionTypes.FETCH_TOPIC)
+    .pipe(concatMap((action: FetchTopic) => {
         return this.httpClient.get<Topic>(`${environment.mapapiUrl}/topics/${action.payload}`);
       })
       , map(
         (topic) => {
           topic.expanded = false;
           return {
-            type: CatalogActions.APPEND_TOPIC,
+            type: CatalogActionTypes.APPEND_TOPIC,
             payload: topic
           };
         }
       ));
   @Effect()
   fetchTopicByCode = this.actions$
-    .ofType(CatalogActions.FETCH_TOPIC_FOR_CODE)
-    .pipe(concatMap((action: CatalogActions.FetchTopicForCode) => {
+    .ofType<FetchTopicForCode>(CatalogActionTypes.FETCH_TOPIC_FOR_CODE)
+    .pipe(concatMap((action: FetchTopicForCode) => {
         return this.httpClient.get<Topic>(`${environment.mapapiUrl}/topics/getTopicForCode?code=${action.payload.code}` +
           `&language-code=${action.payload.languageCode}`);
       })
@@ -57,16 +64,16 @@ export class CatalogEffects {
         (topic) => {
           topic.expanded = false;
           return {
-            type: CatalogActions.APPEND_TOPIC,
+            type: CatalogActionTypes.APPEND_TOPIC,
             payload: topic
           };
         }
       ));
   @Effect()
   loadCategory = this.actions$
-    .ofType(CatalogActions.SET_TOPIC_EXPANDED)
+    .ofType<SetTopicExpanded>(CatalogActionTypes.SET_TOPIC_EXPANDED)
     // TODO: payload should be topicId instead
-    .pipe(map((action: CatalogActions.SetTopicExpanded) => action.payload)
+    .pipe(map((action: SetTopicExpanded) => action.payload)
       , withLatestFrom(this.store$.select('catalog'))
       , switchMap(([payload, store]) => {
         const isLoaded = Boolean(store.topics[payload.topicIndex].category);
@@ -76,14 +83,14 @@ export class CatalogEffects {
         } else {
           const topicId = store.topics[payload.topicIndex].id;
           // TODO : Should probably send topicId in payload instead
-          obs = of(new CatalogActions.FetchCategoryHierarchy(payload.topicIndex));
+          obs = of(new FetchCategoryHierarchy(payload.topicIndex));
         }
         return obs;
       }));
   @Effect()
   loadCategoryHierarchy = this.actions$
-    .ofType(CatalogActions.FETCH_CATEGORY_HIERARCHY)
-    .pipe(map((action: CatalogActions.FetchCategoryHierarchy) => action.payload)
+    .ofType<FetchCategoryHierarchy>(CatalogActionTypes.FETCH_CATEGORY_HIERARCHY)
+    .pipe(map((action: FetchCategoryHierarchy) => action.payload)
       , withLatestFrom(this.store$.select('catalog'))
       // TODO: Should use topic id as payload and could use the id directly here instead
       , concatMap(([payload, store]) => {
@@ -94,7 +101,7 @@ export class CatalogEffects {
         (topicHierarchy) => {
           const category: Category = topicHierarchy.root;
           return {
-            type: CatalogActions.SET_CATEGORIES,
+            type: CatalogActionTypes.SET_CATEGORIES,
             payload: {topicId: topicHierarchy.id, category: category}
           };
         }

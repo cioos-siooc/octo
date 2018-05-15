@@ -1,9 +1,12 @@
 import {Action} from '@ngrx/store';
 
-export const ADD_POPUP = 'POPUP_ADD';
-export const DELETE_POPUP = 'POPUP_DELETE';
-export const TOGGLE_POPUP = 'POPUP_TOGGLE';
-export const SET_IS_OPEN = 'POPUP_SET_IS_OPEN';
+export enum PopupActionTypes {
+  ADD_POPUP = '[Popup] Add',
+  DELETE_POPUP = '[Popup] Delete',
+  TOGGLE_POPUP = '[Popup] Toggle',
+  SET_IS_OPEN = '[Popup] Set is open',
+}
+
 
 export interface PopupStatus {
   id: string;
@@ -11,34 +14,34 @@ export interface PopupStatus {
 }
 
 export class AddPopup implements Action {
-  readonly type = ADD_POPUP;
+  readonly type = PopupActionTypes.ADD_POPUP;
 
   constructor(public payload: PopupStatus) {
   }
 }
 
 export class DeletePopup implements Action {
-  readonly type = DELETE_POPUP;
+  readonly type = PopupActionTypes.DELETE_POPUP;
 
   constructor(public payload: string) {
   }
 }
 
 export class TogglePopup implements Action {
-  readonly type = TOGGLE_POPUP;
+  readonly type = PopupActionTypes.TOGGLE_POPUP;
 
   constructor(public payload: string) {
   }
 }
 
 export class SetIsOpen implements Action {
-  readonly type = SET_IS_OPEN;
+  readonly type = PopupActionTypes.SET_IS_OPEN;
 
   constructor(public payload: {popupId: string, isOpen: boolean}) {
   }
 }
 
-export type PopupActions =
+export type PopupActionsUnion =
   AddPopup |
   DeletePopup |
   SetIsOpen |

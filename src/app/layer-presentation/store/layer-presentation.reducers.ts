@@ -1,4 +1,4 @@
-import * as layerPresentationActions from './layer-presentation.actions';
+import {LayerPresentationActionsUnion, LayerPresentationActionTypes} from './layer-presentation.actions';
 import {ClientPresentation} from '../../shared/client-presentation.model';
 
 export interface State {
@@ -7,25 +7,25 @@ export interface State {
   currentClientPresentation: ClientPresentation;
 }
 
-const initialState: State = {
+export const initialState: State = {
   layerUniqueId: null,
   clientPresentations: [],
   currentClientPresentation: null
 };
 
-export function layerPresentationReducer(state = initialState, action: layerPresentationActions.LayerPresentationActions) {
+export function layerPresentationReducer(state = initialState, action: LayerPresentationActionsUnion): State {
   switch (action.type) {
-    case layerPresentationActions.SET_LAYER_UNIQUE_ID:
+    case LayerPresentationActionTypes.SET_LAYER_UNIQUE_ID:
       return {
         ...state,
-        layerUniqueId : action.payload
+        layerUniqueId: action.payload
       };
-    case layerPresentationActions.SET_CLIENT_PRESENTATIONS:
+    case LayerPresentationActionTypes.SET_CLIENT_PRESENTATIONS:
       return {
         ...state,
         clientPresentations: action.payload
       };
-    case layerPresentationActions.SET_CURRENT_CLIENT_PRESENTATION:
+    case LayerPresentationActionTypes.SET_CURRENT_CLIENT_PRESENTATION:
       return {
         ...state,
         currentClientPresentation: action.payload

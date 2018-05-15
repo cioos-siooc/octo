@@ -1,38 +1,30 @@
 import {layerReducer} from './layer.reducers';
+import * as fromLayer from './layer.reducers';
 import {WmsLayer} from '../../shared/wms-layer.model';
-import * as layerActions from './layer.actions';
+import {AddLayer, DeleteLayer, MoveDownLayer, MoveUpLayer, SetClientPresentation, UpdateLayer} from './layer.actions';
 import {ClientPresentation} from '../../shared/client-presentation.model';
 
 describe('LayerReducer', () => {
 
   it('should return default state when no state and no action passed', () => {
-    const defaultState = {
-      layers: [],
-    };
-    expect(layerReducer(undefined, <any>{})).toEqual(defaultState);
+    expect(layerReducer(undefined, <any>{})).toEqual(fromLayer.initialState);
   });
 
   it('should have immutable payload', () => {
-    const initialState = {
-      layers: []
-    };
     const layer = new WmsLayer();
     layer.id = 1;
-    const action = new layerActions.AddLayer(layer);
-    const finalState = layerReducer(initialState, action);
+    const action = new AddLayer(layer);
+    const finalState = layerReducer(fromLayer.initialState, action);
     layer.code = 'test-code';
     expect(finalState.layers[0]).not.toEqual(layer);
   });
 
 
   it('should add layer to state.layers', () => {
-    const initialState = {
-      layers: []
-    };
     const layer = new WmsLayer();
     layer.id = 1;
-    const action = new layerActions.AddLayer(layer);
-    const finalState = layerReducer(initialState, action);
+    const action = new AddLayer(layer);
+    const finalState = layerReducer(fromLayer.initialState, action);
     const expectedState = {
       layers: [layer]
     };
@@ -46,7 +38,7 @@ describe('LayerReducer', () => {
     const initialState = {
       layers: [layer]
     };
-    const action = new layerActions.DeleteLayer('1');
+    const action = new DeleteLayer('1');
     const finalState = layerReducer(initialState, action);
     const expectedState = {
       layers: []
@@ -66,7 +58,7 @@ describe('LayerReducer', () => {
     updatedLayer.id = 1;
     updatedLayer.uniqueId = '1';
     updatedLayer.code = 'final-code';
-    const action = new layerActions.UpdateLayer(updatedLayer);
+    const action = new UpdateLayer(updatedLayer);
     const finalState = layerReducer(initialState, action);
     expect(finalState.layers[0].code).toEqual('final-code');
   });
@@ -79,7 +71,7 @@ describe('LayerReducer', () => {
     const initialState = {
       layers: [firstLayer, secondLayer]
     };
-    const action = new layerActions.MoveUpLayer('1');
+    const action = new MoveUpLayer('1');
     const finalState = layerReducer(initialState, action);
     expect(finalState.layers[0].uniqueId).toEqual('2');
   });
@@ -92,7 +84,7 @@ describe('LayerReducer', () => {
     const initialState = {
       layers: [firstLayer, secondLayer]
     };
-    const action = new layerActions.MoveDownLayer('2');
+    const action = new MoveDownLayer('2');
     const finalState = layerReducer(initialState, action);
     expect(finalState.layers[0].uniqueId).toEqual('2');
   });
@@ -106,7 +98,7 @@ describe('LayerReducer', () => {
     const initialState = {
       layers: [layer]
     };
-    const action = new layerActions.SetClientPresentation({
+    const action = new SetClientPresentation({
       uniqueId: layer.uniqueId,
       clientPresentation: clientPresentation
     });
