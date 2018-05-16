@@ -27,6 +27,7 @@
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^6.0.0-beta.1",
+    "@ngrx/entity": "^5.2.0",
     "@ngrx/store": "^6.0.0-beta.1",
     "@ngrx/store-devtools": "^6.0.0-beta.1",
     "@ngx-translate/core": "^10.0.1",

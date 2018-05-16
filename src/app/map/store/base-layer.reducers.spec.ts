@@ -1,7 +1,6 @@
 import {AddBaseLayer, SetCurrentBaseLayer} from './base-layer.actions';
 import * as fromBaseLayer from './base-layer.reducers';
 import {baseLayerReducer} from './base-layer.reducers';
-import {Layer} from '../../shared/layer.model';
 import {BingLayer} from '../../shared/bing-layer.model';
 
 describe('BaseLayerReducer', () => {
@@ -24,11 +23,9 @@ describe('BaseLayerReducer', () => {
     layer.id = 1;
     const action = new AddBaseLayer(layer);
     const finalState = baseLayerReducer(fromBaseLayer.initialState, action);
-    const expectedState = {
-      currentBaseLayer: null,
-      baseLayers: [layer]
-    };
-    expect(finalState).toEqual(expectedState);
+    const finalLayers = getArrayFromEntities(finalState.entities);
+    expect(finalState.currentBaseLayer).toEqual(null);
+    expect(finalLayers).toEqual([layer]);
   });
 
   it('should set currentBaseLayer in state', () => {
@@ -36,10 +33,11 @@ describe('BaseLayerReducer', () => {
     layer.id = 1;
     const action = new SetCurrentBaseLayer(layer);
     const finalState = baseLayerReducer(fromBaseLayer.initialState, action);
-    const expectedState = {
-      currentBaseLayer: <Layer>layer,
-      baseLayers: []
-    };
-    expect(finalState).toEqual(expectedState);
+    expect(finalState.currentBaseLayer).toEqual(layer);
   });
+
 });
+
+function getArrayFromEntities(entities) {
+  return Object.keys(entities).map(id => entities[id]);
+}

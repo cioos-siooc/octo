@@ -1,23 +1,25 @@
 import {Layer} from '../../shared/layer.model';
 import {cloneDeep} from 'lodash';
 import {BaseLayerActionsUnion, BaseLayerActionTypes} from './base-layer.actions';
+import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
-export interface State {
+export interface State extends EntityState<Layer> {
   currentBaseLayer: Layer;
-  baseLayers: Layer[];
 }
 
-export const initialState: State = {
+export const adapter: EntityAdapter<Layer> = createEntityAdapter<Layer>({
+  selectId: (layer: Layer) => layer.id,
+  sortComparer: false,
+});
+
+export const initialState: State = adapter.getInitialState({
   currentBaseLayer: null,
-  baseLayers: []
-};
+});
 
 export function baseLayerReducer(state = initialState, action: BaseLayerActionsUnion): State {
   switch (action.type) {
     case BaseLayerActionTypes.ADD_BASE_LAYER:
-      const cloneState = cloneDeep(state);
-      cloneState.baseLayers.push(cloneDeep(action.payload));
-      return cloneState;
+      return adapter.addOne(action.payload, state);
     case BaseLayerActionTypes.SET_CURRENT_BASE_LAYER:
       const clonedState = cloneDeep(state);
       clonedState.currentBaseLayer = cloneDeep(action.payload);
@@ -26,3 +28,10 @@ export function baseLayerReducer(state = initialState, action: BaseLayerActionsU
       return state;
   }
 }
+
+export const {
+  selectIds: selectBaseLayerIds,
+  selectEntities: selectBaseLayerEntities,
+  selectAll: selectAllBaseLayers,
+  selectTotal: selectBaseLayersTotal,
+} = adapter.getSelectors();

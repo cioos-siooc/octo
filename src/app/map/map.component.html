@@ -17,7 +17,7 @@
 </a>
 <select [(ngModel)]="currentBaseLayer" (change)="onSelectBaseLayer()"
         [compareWith]="compareBaseLayers" class="map-select-style">
-  <option *ngFor="let baseLayer of (baseLayerState | async).baseLayers" [ngValue]="baseLayer">
+  <option *ngFor="let baseLayer of (baseLayers | async)" [ngValue]="baseLayer">
     {{baseLayer.title}}
   </option>
 </select>

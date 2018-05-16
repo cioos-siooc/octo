@@ -1,6 +1,6 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import * as fromApp from '../store/app.reducers';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {Layer} from '../shared/layer.model';
 
@@ -12,7 +12,7 @@ import * as popupActions from './store/popup.actions';
 import {environment} from '../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import * as catalogActions from '../catalog/store/catalog.actions';
-import { UrlBehaviorService } from '../layer-manager/url-behavior.service';
+import {UrlBehaviorService} from '../layer-manager/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
@@ -29,7 +29,7 @@ export const MAP_CLICK_POPUP_ID = 'MAP_CLICK';
 })
 export class MapComponent implements OnInit {
   @HostBinding('class') class = 'full-sized';
-  baseLayerState: Observable<fromBaseLayer.State>;
+  baseLayers: Observable<Layer[]>;
   currentBaseLayer: Layer;
   CATALOG_POPUP_ID = CATALOG_POPUP_ID;
   LAYER_MANAGER_POPUP_ID = LAYER_MANAGER_POPUP_ID;
@@ -41,29 +41,17 @@ export class MapComponent implements OnInit {
   mapClickTitle: string;
 
   constructor(private translateService: TranslateService, private store: Store<fromApp.AppState>,
-    private urlBehaviorService: UrlBehaviorService) {
+              private urlBehaviorService: UrlBehaviorService) {
   }
 
   ngOnInit() {
     this.synchronizeBaseLayer();
-    this.baseLayerState = this.store.select('baseLayer');
+    this.baseLayers = this.store.pipe(select(fromApp.selectAllBaseLayers));
     this.initPopups();
     this.initMapClickTitle();
     if (this.applicationUsesDefaultTopic()) {
       this.initializeTopic();
     }
-  }
-
-  private initMapClickTitle() {
-    this.store.select('mapClick').subscribe((mapClickState: fromMapClick.State) => {
-      if (mapClickState.mapClickLayer != null) {
-        this.mapClickTitle = mapClickState.mapClickLayer.title;
-      }
-    });
-  }
-
-  private applicationUsesDefaultTopic() {
-    return !this.environment.isTopicPickerActive;
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
@@ -84,6 +72,18 @@ export class MapComponent implements OnInit {
 
   toggleLayerManager() {
     this.store.dispatch(new popupActions.TogglePopup(this.LAYER_MANAGER_POPUP_ID));
+  }
+
+  private initMapClickTitle() {
+    this.store.select('mapClick').subscribe((mapClickState: fromMapClick.State) => {
+      if (mapClickState.mapClickLayer != null) {
+        this.mapClickTitle = mapClickState.mapClickLayer.title;
+      }
+    });
+  }
+
+  private applicationUsesDefaultTopic() {
+    return !this.environment.isTopicPickerActive;
   }
 
   private synchronizeBaseLayer() {
@@ -110,7 +110,10 @@ export class MapComponent implements OnInit {
     this.store.select('catalog').pipe(take(1)).subscribe((currentState) => {
       if (currentState.topics.length === 0) {
         this.translateService.get('language').subscribe((lang) => {
-          this.store.dispatch(new catalogActions.FetchTopicForCode({languageCode: lang, code: environment.defaultTopic}));
+          this.store.dispatch(new catalogActions.FetchTopicForCode({
+            languageCode: lang,
+            code: environment.defaultTopic
+          }));
           this.store.select('catalog').pipe(filter((state) => {
             return state.topics.length > 0;
           }), take(1)).subscribe(() => {

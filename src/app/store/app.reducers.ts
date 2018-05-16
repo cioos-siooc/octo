@@ -1,4 +1,4 @@
-import {ActionReducerMap} from '@ngrx/store';
+import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 
 import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as fromLayerInformation from '../layer-information/store/layer-information.reducers';
@@ -30,3 +30,25 @@ export const reducers: ActionReducerMap<AppState> = {
   mapClick: fromMapClick.mapClickReducer,
   behavior: fromBehavior.behaviorReducer
 };
+
+export const selectBaseLayerState = createFeatureSelector<fromBaseLayer.State>('baseLayer');
+
+export const selectAllBaseLayers = createSelector(
+  selectBaseLayerState,
+  fromBaseLayer.selectAllBaseLayers
+);
+
+export const selectBaseLayerIds = createSelector(
+  selectBaseLayerState,
+  fromBaseLayer.selectBaseLayerIds
+);
+
+export const selectBaseLayerEntities = createSelector(
+  selectBaseLayerState,
+  fromBaseLayer.selectBaseLayerEntities
+);
+
+export const selectBaseLayersTotal = createSelector(
+  selectBaseLayerState,
+  fromBaseLayer.selectBaseLayersTotal
+);
