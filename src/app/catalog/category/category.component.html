@@ -16,7 +16,7 @@
 
     <ng-container *ngIf="cat.type === 'layer'">
         <span class="selectable" (click)="onClickLayer(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
-          <input [(ngModel)]="cat.isChecked" type="checkbox">
+          <input type="checkbox" [checked]="cat.isChecked">
           <span>{{ cat.label }}</span>
         </span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"

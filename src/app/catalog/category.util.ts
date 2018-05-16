@@ -4,7 +4,7 @@ import {Category} from '../shared/category.model';
 import {Topic} from '../shared/topic.model';
 
 export default class Utils {
-  static getCategory(category: Category, treeLocation) {
+  static getCategory(category: Category, treeLocation): Category {
     const treeLoc = [...treeLocation];
     if (treeLocation.length <= 1) {
       return category.categories[treeLoc.shift()];

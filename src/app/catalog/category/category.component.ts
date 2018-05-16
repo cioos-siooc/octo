@@ -1,8 +1,11 @@
+import { uniqueId } from 'lodash';
+import { take, map } from 'rxjs/operators';
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import {Category} from '../../shared/category.model';
 import ActivateLayer from '../../shared/activate-layer.util';
+import Utils from '../category.util';
 import * as catalogActions from '../store/catalog.actions';
 import * as layerActions from '../../map/store/layer.actions';
 import * as fromApp from '../../store/app.reducers';
@@ -49,12 +52,22 @@ export class CategoryComponent implements OnInit {
    * @param {number[]} treeLocation the location of the category within the hierarchy
    */
   onClickLayer(category: Category, treeLocation: number[]) {
-    category.isChecked = !category.isChecked;
+    const newCategory = {
+      ...category,
+      isChecked: !category.isChecked
+    };
 
-    if (category.isChecked) {
-      this.activateLayer(category, treeLocation);
+    // Dispatch an action to toggle the isChecked property in the catalog state
+    this.store.dispatch(new catalogActions.UpdateCategory({
+      treeLocation: treeLocation,
+      newCategory: newCategory
+    }));
+
+    // Add the layer to the active layers if necessary
+    if (newCategory.isChecked) {
+      this.activateLayer(newCategory, treeLocation);
     } else {
-      this.removeLayer(category, treeLocation);
+      this.removeLayer(newCategory, treeLocation);
     }
   }
 
@@ -65,17 +78,17 @@ export class CategoryComponent implements OnInit {
     this.store.dispatch(
       new catalogActions.RemoveSelectedLayer(category.layerUniqueId)
     );
-    category.layerUniqueId = null;
     this.store.dispatch(new catalogActions.UpdateCategory({
       treeLocation: treeLocation,
       newCategory: <Category>{
-        ...category
+        ...category,
+        layerUniqueId: null
       }
     }));
   }
 
   private activateLayer(category: Category, treeLocation: number[]) {
-    category.layerUniqueId = ActivateLayer.activateLayer(category.layerId, this.store);
+    // category.layerUniqueId = ActivateLayer.activateLayer(category.layerId, this.store);
     this.store.dispatch(new catalogActions.AddSelectedLayer(
       new CatalogSelectedLayer(
         category.layerUniqueId,
@@ -85,7 +98,8 @@ export class CategoryComponent implements OnInit {
     this.store.dispatch(new catalogActions.UpdateCategory({
       treeLocation: treeLocation,
       newCategory: <Category>{
-        ...category
+        ...category,
+        layerUniqueId: ActivateLayer.activateLayer(category.layerId, this.store)
       }
     }));
   }

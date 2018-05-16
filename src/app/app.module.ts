@@ -18,7 +18,7 @@ import {MapComponent} from './map/map.component';
 import {OpenLayersComponent} from './map/open-layers/open-layers.component';
 import {LayerEffects} from './map/store/layer.effects';
 import {PopupComponent} from './popup/popup.component';
-import {reducers} from './store/app.reducers';
+import {metaReducers, reducers} from './store/app.reducers';
 import {TopicPickerComponent} from './topic-picker/topic-picker.component';
 import {LayerManagerComponent} from './layer-manager/layer-manager.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -32,11 +32,11 @@ import {MapClickComponent} from './map-click/map-click.component';
 import {KeepHtmlPipe} from './pipes/keep-html.pipe';
 import {TextFieldComponent} from './shared/click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from './shared/click-formatter/field/url-field/url-field.component';
-import { DateFieldComponent } from './shared/click-formatter/field/date-field/date-field.component';
-import { ImageFieldComponent } from './shared/click-formatter/field/image-field/image-field.component';
-import { TimeBehaviorComponent } from './layer-manager/time-behavior/time-behavior.component';
-import { UrlBehaviorService } from './layer-manager/url-behavior.service';
-import { CalendarModule } from 'primeng/calendar';
+import {DateFieldComponent} from './shared/click-formatter/field/date-field/date-field.component';
+import {ImageFieldComponent} from './shared/click-formatter/field/image-field/image-field.component';
+import {TimeBehaviorComponent} from './layer-manager/time-behavior/time-behavior.component';
+import {UrlBehaviorService} from './layer-manager/url-behavior.service';
+import {CalendarModule} from 'primeng/calendar';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, 'assets/i18n/', '.json');
@@ -79,7 +79,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot(reducers),
+    StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([LayerEffects, CatalogEffects, LayerInformationEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

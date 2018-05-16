@@ -1,4 +1,4 @@
-import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
+import {ActionReducerMap, MetaReducer, createFeatureSelector, createSelector} from '@ngrx/store';
 
 import * as fromCatalog from '../catalog/store/catalog.reducers';
 import * as fromLayerInformation from '../layer-information/store/layer-information.reducers';
@@ -8,6 +8,8 @@ import * as fromPopup from '../map/store/popup.reducers';
 import * as fromLayerPresentation from '../layer-presentation/store/layer-presentation.reducers';
 import * as fromMapClick from '../map-click/store/map-click.reducers';
 import * as fromBehavior from '../layer-manager/store/behavior.reducers';
+import {environment} from '../../environments/environment';
+import {storeFreeze} from 'ngrx-store-freeze';
 
 export interface AppState {
   catalog: fromCatalog.State;
@@ -31,6 +33,8 @@ export const reducers: ActionReducerMap<AppState> = {
   behavior: fromBehavior.behaviorReducer
 };
 
+export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [storeFreeze] : [];
+
 export const selectBaseLayerState = createFeatureSelector<fromBaseLayer.State>('baseLayer');
 
 export const selectAllBaseLayers = createSelector(
@@ -52,3 +56,4 @@ export const selectBaseLayersTotal = createSelector(
   selectBaseLayerState,
   fromBaseLayer.selectBaseLayersTotal
 );
+
