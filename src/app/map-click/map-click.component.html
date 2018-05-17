@@ -1,6 +1,6 @@
 <div *ngIf="mapClickInfo" id="map-click-html" [innerHTML]="mapClickInfo.html | keepHtml"></div>
 <div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2">
-    <div class="fields-container" *ngFor="let field of mapClickInfo.fields">
+    <div *ngFor="let field of mapClickInfo.fields">
       <app-text-field *ngIf="field.type == 'text'" [field]="field"></app-text-field>
       <app-url-field *ngIf="field.type == 'url'" [field]="field"></app-url-field>
       <app-date-field *ngIf="field.type == 'date'" [field]="field"></app-date-field>

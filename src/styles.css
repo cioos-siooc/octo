@@ -164,6 +164,10 @@ div#layer-information table tr:last-child {
   padding-left: 10px;
 }
 
+.fields-container {
+  border-bottom: dashed 1px #A5B9CC;
+}
+
 .badge-pill {
   border-radius: 3px;
 }
