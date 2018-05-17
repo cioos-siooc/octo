@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {ClientPresentation} from '../shared/client-presentation.model';
 import * as layerPresentationActions from './store/layer-presentation.actions';
 import * as layerActions from '../map/store/layer.actions';
+import {cloneDeep} from 'lodash';
 
 @Component({
   selector: 'app-layer-presentation',
@@ -23,8 +24,9 @@ export class LayerPresentationComponent implements OnInit {
   ngOnInit() {
     this.layerPresentationState = this.store.select('layerPresentation');
     this.store.select('layerPresentation').subscribe((state) => {
-      this.currentClientPresentation = state.currentClientPresentation;
-      this.currentUniqueId = state.layerUniqueId;
+      const clonedState = cloneDeep(state);
+      this.currentClientPresentation = clonedState.currentClientPresentation;
+      this.currentUniqueId = clonedState.layerUniqueId;
     });
   }
 

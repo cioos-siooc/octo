@@ -57,14 +57,15 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private initBaseLayerSubscription() {
-    (<Observable<fromBaseLayer.State>>this.store.select('baseLayer'))
+    this.store.select('baseLayer')
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
       ).subscribe((baseLayerState: fromBaseLayer.State) => {
-      if (this.getOLLayerFromId(baseLayerState.currentBaseLayer.id) == null) {
+        const clonedBaseLayerState = cloneDeep(baseLayerState);
+      if (this.getOLLayerFromId(clonedBaseLayerState.currentBaseLayer.id) == null) {
         if (this.baseOLLayer != null) {
           this.map.removeLayer(this.baseOLLayer);
         }
-        const newLayer = OLLayerFactory.generateLayer(baseLayerState.currentBaseLayer);
+        const newLayer = OLLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
         this.map.addLayer(newLayer);
         this.baseOLLayer = newLayer;
       }
@@ -80,9 +81,10 @@ export class OpenLayersComponent implements AfterViewInit {
   private initLayerSubscription() {
     this.store.select('layer')
       .subscribe((layerState: fromLayer.State) => {
+        const clonedLayerState = cloneDeep(layerState);
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
         currentOLLayers.forEach((layer: OLLayer) => {
-          const updatedOgslLayer = layerState.layers.find((l) => {
+          const updatedOgslLayer = clonedLayerState.layers.find((l) => {
             return l.uniqueId === layer.get('uniqueId');
           });
           if (updatedOgslLayer != null) {
@@ -104,12 +106,12 @@ export class OpenLayersComponent implements AfterViewInit {
           }
         });
         // Add remaining layers
-        layerState.layers.forEach((newLayer: Layer) => {
+        clonedLayerState.layers.forEach((newLayer: Layer) => {
           if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
             this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
           }
         });
-        this.layers = cloneDeep(layerState.layers);
+        this.layers = clonedLayerState.layers;
         this.checkLayerPriority();
       });
   }

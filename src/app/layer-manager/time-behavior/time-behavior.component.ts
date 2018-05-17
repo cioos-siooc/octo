@@ -4,8 +4,8 @@ import {TranslateService} from '@ngx-translate/core';
 import * as fromApp from '../../store/app.reducers';
 import {BehaviorHandlerFactory} from '../behavior-handler/behavior-handler-factory.util';
 import {TimeHandler} from '../behavior-handler/time-handler.util';
-import * as fromBehaviorActions from '../store/behavior.actions';
 import {cloneDeep} from 'lodash';
+
 @Component({
   selector: 'app-time-behavior',
   templateUrl: './time-behavior.component.html',
@@ -30,7 +30,9 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
     this.store.select('behavior').subscribe((behaviorState) => {
       const behaviorStateCopy = cloneDeep(behaviorState);
       this.behavior = behaviorStateCopy.behaviors.find(b => b.uniqueId === this._behaviorUniqueId);
-      this.currentDate = this.behavior.currentDate;
+      if (this.behavior != null) {
+        this.currentDate = this.behavior.currentDate;
+      }
     });
   }
 

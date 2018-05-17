@@ -5,6 +5,7 @@ import * as fromBehaviorActions from './store/behavior.actions';
 import {Injectable} from '@angular/core';
 import {BehaviorHandlerFactory} from './behavior-handler/behavior-handler-factory.util';
 import {filter, take} from 'rxjs/operators';
+import {cloneDeep} from 'lodash';
 
 @Injectable()
 export class UrlBehaviorService {
@@ -18,14 +19,14 @@ export class UrlBehaviorService {
         return action.type === LayerActionTypes.ADD_LAYER;
       })
     ).subscribe((action: AddLayer) => {
-      const layer = action.payload;
+      const layer = cloneDeep(action.payload);
       if (layer.urlBehaviors != null) {
         layer.urlBehaviors.forEach((behavior) => {
           this.store.select('behavior').pipe(take(1)).subscribe((state) => {
             if (!state.behaviors.some(b => b.uniqueId === behavior.uniqueId)) {
               const bH = BehaviorHandlerFactory.getBehaviorHandler(behavior.handler, this.store);
               this.store.dispatch(new fromBehaviorActions.AddBehavior(behavior));
-              bH.init(behavior);
+              bH.init(cloneDeep(behavior));
             }
           });
         });

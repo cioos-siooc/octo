@@ -79,7 +79,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([LayerEffects, CatalogEffects, LayerInformationEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

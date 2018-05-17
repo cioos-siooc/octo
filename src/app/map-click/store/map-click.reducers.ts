@@ -17,11 +17,11 @@ export function mapClickReducer(state = initialState, action: MapClickActionsUni
   switch (action.type) {
     case MapClickActionTypes.SET_MAP_CLICK_INFO:
       const clonedState = cloneDeep(state);
-      clonedState.mapClickInfo = action.payload;
+      clonedState.mapClickInfo = cloneDeep(action.payload);
       return clonedState;
     case MapClickActionTypes.SET_MAP_CLICK_LAYER:
       const cloneState = cloneDeep(state);
-      cloneState.mapClickLayer = action.payload;
+      cloneState.mapClickLayer = cloneDeep(action.payload);
       return cloneState;
     default:
       return state;

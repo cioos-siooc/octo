@@ -11,6 +11,7 @@ import {ClickStrategy} from '../../shared/click-strategy.model';
 import {ClickFormatterInfo} from '../../shared/click-formatter-info.model';
 import {uniqueId} from 'lodash';
 import {of} from 'rxjs/internal/observable/of';
+import {cloneDeep} from 'lodash';
 import {
   FetchClickFormatter,
   FetchClickStrategy,
@@ -54,8 +55,9 @@ export class LayerEffects {
         return this.httpClient.get<ClickStrategy>(`${environment.mapapiUrl}/layers/${action.payload.id}/click-strategies`).pipe(
           map(
             (clickStrategy) => {
-              action.payload.clickStrategy = clickStrategy;
-              return action.payload;
+              const newAction = cloneDeep(action);
+              newAction.payload.clickStrategy = clickStrategy;
+              return newAction.payload;
             }
           ), catchError((err: HttpErrorResponse) => {
             return of(action.payload);
@@ -76,8 +78,9 @@ export class LayerEffects {
         return this.httpClient.get<ClickFormatterInfo>(`${environment.mapapiUrl}/layers/${action.payload.id}/click-formatters`).pipe(
           map(
             (clickFormatterInfo) => {
-              action.payload.clickFormatterInfo = clickFormatterInfo;
-              return action.payload;
+              const newAction = cloneDeep(action);
+              newAction.payload.clickFormatterInfo = clickFormatterInfo;
+              return newAction.payload;
             }
           ), catchError((err: HttpErrorResponse) => {
             return of(action.payload);

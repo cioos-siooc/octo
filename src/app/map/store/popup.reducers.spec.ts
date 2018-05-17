@@ -46,8 +46,7 @@ describe('PopupReducer', () => {
     const expectedState = {
       popupStatuses: []
     };
-    expect(finalState).toEqual(expectedState);
-  });
+    expect(finalState).toEqual(expectedState); });
 
   it('should toggle popup isOpen status', () => {
     const popupStatus = {

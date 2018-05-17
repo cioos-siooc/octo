@@ -21,6 +21,7 @@ export class TimeHandler implements BehaviorHandler {
         behavior.isNowEnabled = true;
         behavior.interval = this.setNowInterval(behavior);
         this.updateDateToNow(behavior, layer);
+        this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
       }
     });
   }

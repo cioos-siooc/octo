@@ -3,6 +3,7 @@ import * as fromApp from '../store/app.reducers';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {Layer} from '../shared/layer.model';
+import {cloneDeep} from 'lodash';
 
 
 import * as fromBaseLayer from './store/base-layer.reducers';
@@ -76,8 +77,9 @@ export class MapComponent implements OnInit {
 
   private initMapClickTitle() {
     this.store.select('mapClick').subscribe((mapClickState: fromMapClick.State) => {
-      if (mapClickState.mapClickLayer != null) {
-        this.mapClickTitle = mapClickState.mapClickLayer.title;
+      const mapClickClonedState = cloneDeep(mapClickState);
+      if (mapClickClonedState.mapClickLayer != null) {
+        this.mapClickTitle = mapClickClonedState.mapClickLayer.title;
       }
     });
   }
@@ -90,7 +92,8 @@ export class MapComponent implements OnInit {
     this.store.select('baseLayer').pipe(first((baseLayerState: fromBaseLayer.State) => {
       return baseLayerState.currentBaseLayer != null;
     })).subscribe((baseLayerState: fromBaseLayer.State) => {
-      this.currentBaseLayer = baseLayerState.currentBaseLayer;
+      const clonedBaseLayerState = cloneDeep(baseLayerState);
+      this.currentBaseLayer = clonedBaseLayerState.currentBaseLayer;
     });
   }
 

@@ -1,11 +1,8 @@
-import { uniqueId } from 'lodash';
-import { take, map } from 'rxjs/operators';
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import {Category} from '../../shared/category.model';
 import ActivateLayer from '../../shared/activate-layer.util';
-import Utils from '../category.util';
 import * as catalogActions from '../store/catalog.actions';
 import * as layerActions from '../../map/store/layer.actions';
 import * as fromApp from '../../store/app.reducers';
@@ -71,6 +68,11 @@ export class CategoryComponent implements OnInit {
     }
   }
 
+  onShowLayerInfoClick(layerId) {
+    this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layerId));
+    this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
+  }
+
   private removeLayer(category: Category, treeLocation: number[]) {
     this.store.dispatch(
       new layerActions.DeleteLayer(category.layerUniqueId)
@@ -88,7 +90,6 @@ export class CategoryComponent implements OnInit {
   }
 
   private activateLayer(category: Category, treeLocation: number[]) {
-    // category.layerUniqueId = ActivateLayer.activateLayer(category.layerId, this.store);
     this.store.dispatch(new catalogActions.AddSelectedLayer(
       new CatalogSelectedLayer(
         category.layerUniqueId,
@@ -102,10 +103,5 @@ export class CategoryComponent implements OnInit {
         layerUniqueId: ActivateLayer.activateLayer(category.layerId, this.store)
       }
     }));
-  }
-
-  onShowLayerInfoClick(layerId) {
-    this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layerId));
-    this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
   }
 }

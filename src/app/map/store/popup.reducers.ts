@@ -42,10 +42,10 @@ export function popupReducer(state: State = initialState, action: PopupActionsUn
         return ps.id === (<any>action.payload).popupId;
       });
       if (pStatus != null) {
-        pStatus.isOpen = (<any>action.payload).isOpen;
+        pStatus.isOpen = cloneDeep(action.payload).isOpen;
         return newState;
       } else {
-        return state;
+        return newState;
       }
     default:
       return state;
