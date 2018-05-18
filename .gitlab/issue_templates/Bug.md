@@ -1,11 +1,12 @@
-# Indiquer les numéros d'issues liées à cette issue
+# Related issue numbers
 
-# URL du site
+# Website url
 
-# Décrire le comportement attendu
+# Describe expected behavior
 
-# Décrire le comportement actuel
+# Describe actual behavior
 
-# Quelles sont les étapes pour reproduire l'issue?
+# What steps will reproduce the issue?
 
-# Navigateur utilisé et sa version si comportement non constant (spécifier si vous êtes sur mobile ou utilisez un écran irrégulier)
+# If relevant, specify the browser name, version and whether you are on a using an irregular screen
+

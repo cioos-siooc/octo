@@ -1,7 +1,7 @@
-# Indiquer les numéros d'issues liées à cette merge request
+# Related issue numbers
 
-# Que fait la merge request?
+# What is the merge request doing?
 
-# Existe-t-il des points dans le code que l'examinateur doit particulièrement vérifier?
+# Are there any points in the code that the examiner should specifically check?
 
-# Pourquoi cette MR est-elle nécessaire?
+# Why is this merge request necessary?

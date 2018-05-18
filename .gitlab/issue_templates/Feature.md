@@ -1,7 +1,7 @@
-# Indiquer les numéros d'issues liées à cette issue
+# Related issue numbers
 
-# Décrire brièvement la feature
+# Briefly describe the feature
 
-# Pourquoi la feature est-elle nécessaire?
+# Why is the feature necessary
 
-# Est-ce que la feature remplace ou améliore une fonctionnalité déjà existante? Si oui, laquelle?
+# Does the feature replace or improve an existing one? If so, which one?
