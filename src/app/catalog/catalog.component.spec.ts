@@ -5,7 +5,7 @@ import {reducers} from '../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {CategoryComponent} from './category/category.component';
 import {FormsModule} from '@angular/forms';
-import {HttpLoaderFactory} from '../app.module';
+import {HttpLoaderFactory} from '../shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 

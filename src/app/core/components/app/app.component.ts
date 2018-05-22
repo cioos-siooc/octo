@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import * as fromApp from './store/app.reducers';
-import {Layer} from './shared/layer.model';
-import {environment} from '../environments/environment';
+import * as fromApp from '../../../store/app.reducers';
+import {Layer} from '../../../shared/layer.model';
+import {environment} from '../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Store} from '@ngrx/store';
-import * as baseLayerActions from './map/store/base-layer.actions';
+import * as baseLayerActions from '../../../map/store/base-layer.actions';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -32,6 +32,8 @@ export class AppComponent implements OnInit {
   }
 
   private initBaseLayers() {
+    // TODO: move to mapcomponent -> check if currentbaselayers is empty in store, if it is -> retrieve baselayers
+    // from mapapi and populate
     for (const code of environment.backgroundLayerCodes) {
       this.translateService.get('language').subscribe((lang) => {
         this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/getLayerForCode?` +

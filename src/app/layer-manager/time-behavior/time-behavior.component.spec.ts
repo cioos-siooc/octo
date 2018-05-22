@@ -5,7 +5,7 @@ import { TimeBehaviorComponent } from './time-behavior.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/app.reducers';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import { HttpLoaderFactory } from '../../app.module';
+import { HttpLoaderFactory } from '../../shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
 
 describe('TimeBehaviorComponent', () => {

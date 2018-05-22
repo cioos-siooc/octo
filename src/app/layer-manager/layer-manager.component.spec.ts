@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {LayerManagerComponent} from './layer-manager.component';
 import {StoreModule} from '@ngrx/store';
 import {reducers} from '../store/app.reducers';
-import {HttpLoaderFactory} from '../app.module';
+import {HttpLoaderFactory} from '../shared/shared.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TimeBehaviorComponent} from './time-behavior/time-behavior.component';

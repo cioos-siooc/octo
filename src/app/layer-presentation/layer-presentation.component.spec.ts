@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayerPresentationComponent } from './layer-presentation.component';
-import {HttpLoaderFactory} from '../app.module';
+import {HttpLoaderFactory} from '../shared/shared.module';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
