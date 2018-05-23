@@ -6,7 +6,7 @@ import TileSource from 'ol/source/tile';
 import TileLayer from 'ol/layer/tile';
 import VectorLayer from 'ol/layer/vector';
 import VectorSource from 'ol/source/vector';
-import {StylesFromLiterals} from '../../styles-from-literals.util';
+import {StylesFromLiterals} from '../styles-from-literals.util';
 
 export class OLLayerFactory {
   public static generateLayer(layer: Layer): OLLayer {

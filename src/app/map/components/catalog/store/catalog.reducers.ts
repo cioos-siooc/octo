@@ -2,7 +2,7 @@ import {CatalogActionsUnion, CatalogActionTypes} from './catalog.actions';
 import {TopicGroup} from '../../../../shared/topic-group.model';
 import {Topic} from '../../../../shared/topic.model';
 import {CatalogSelectedLayer} from '../../../../shared/catalog-selected-layer.model';
-import Utils from '../category.util';
+import Utils from '../../../utils/category.util';
 
 export interface State {
   topicGroup: TopicGroup;

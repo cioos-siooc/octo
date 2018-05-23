@@ -1,9 +1,9 @@
 import {BehaviorHandler} from './behavior-handler.util';
 import {Store} from '@ngrx/store';
-import * as fromApp from '../../../../store/app.reducers';
+import * as fromApp from '../../../store/app.reducers';
 import * as moment from 'moment';
-import * as fromBehaviorActions from '../store/behavior.actions';
-import * as fromLayerActions from '../../../store/actions/layer.actions';
+import * as fromBehaviorActions from '../../components/layer-manager/store/behavior.actions';
+import * as fromLayerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
 import {take} from 'rxjs/operators';
 export class TimeHandler implements BehaviorHandler {

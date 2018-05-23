@@ -10,7 +10,7 @@ import LayerBase from 'ol/layer/base';
 import TileWMS from 'ol/source/tilewms';
 import * as fromApp from '../../../store/app.reducers';
 import * as fromBaseLayer from '../../store/reducers/base-layer.reducers';
-import {OLLayerFactory} from './ol-layer-factory.util';
+import {OLLayerFactory} from '../../utils/open-layers/ol-layer-factory.util';
 import * as fromLayer from '../../store/reducers/layer.reducers';
 import {clone, cloneDeep, isEqual} from 'lodash';
 import {Layer} from '../../../shared/layer.model';
@@ -23,7 +23,7 @@ import {EmptyValidatorFactory} from '../../../shared/empty-validator-factory.uti
 import {MapClickInfo} from '../../../shared/map-click-info.model';
 import {filter} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
-import {ClickFormatterFactory} from '../click-formatter/click-formatter-factory.util';
+import {ClickFormatterFactory} from '../../utils/click-formatter/click-formatter-factory.util';
 
 @Component({
   selector: 'app-open-layers',

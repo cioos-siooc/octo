@@ -2,8 +2,8 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import * as fromApp from '../../../../store/app.reducers';
-import {BehaviorHandlerFactory} from '../behavior-handler/behavior-handler-factory.util';
-import {TimeHandler} from '../behavior-handler/time-handler.util';
+import {BehaviorHandlerFactory} from '../../../utils/behavior-handler/behavior-handler-factory.util';
+import {TimeHandler} from '../../../utils/behavior-handler/time-handler.util';
 import {cloneDeep} from 'lodash';
 
 @Component({
