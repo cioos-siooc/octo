@@ -22,7 +22,7 @@ import {UrlFieldComponent} from '../map-click/click-formatter/field/url-field/ur
 import {DateFieldComponent} from '../map-click/click-formatter/field/date-field/date-field.component';
 import {ImageFieldComponent} from '../map-click/click-formatter/field/image-field/image-field.component';
 import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
-import {UrlBehaviorService} from '../services/url-behavior.service';
+import {UrlBehaviorService} from '../../services/url-behavior.service';
 import {CalendarModule} from 'primeng/calendar';
 
 describe('MapComponent', () => {

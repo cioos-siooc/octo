@@ -12,7 +12,7 @@ import {LayerEffects} from './map/store/effects/layer.effects';
 import {reducers} from './store/app.reducers';
 import {LayerInformationEffects} from './map/store/effects/layer-information.effects';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {UrlBehaviorService} from './map/components/services/url-behavior.service';
+import {UrlBehaviorService} from './map/services/url-behavior.service';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {MapModule} from './map/map.module';
