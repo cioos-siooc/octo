@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TextField} from '../text-field.util';
-import {PropertyLocatorFactory} from '../../../property-locator-factory.util';
+import {PropertyLocatorFactory} from '../../../../../shared/property-locator-factory.util';
 
 @Component({
   selector: 'app-text-field',

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {forkJoin, Observable} from 'rxjs';
+import {forkJoin} from 'rxjs';
 import View from 'ol/view';
 import Feature from 'ol/feature';
 import OLMap from 'ol/map';
@@ -20,10 +20,10 @@ import {MAP_CLICK_POPUP_ID} from '../../map.component';
 import * as popupActions from '../../store/popup.actions';
 import * as mapClickActions from '../map-click/store/map-click.actions';
 import {EmptyValidatorFactory} from '../../../shared/empty-validator-factory.util';
-import {ClickFormatterFactory} from '../../../shared/click-formatter/click-formatter-factory.util';
 import {MapClickInfo} from '../../../shared/map-click-info.model';
 import {filter} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
+import {ClickFormatterFactory} from '../click-formatter/click-formatter-factory.util';
 
 @Component({
   selector: 'app-open-layers',
@@ -60,7 +60,7 @@ export class OpenLayersComponent implements AfterViewInit {
     this.store.select('baseLayer')
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
       ).subscribe((baseLayerState: fromBaseLayer.State) => {
-        const clonedBaseLayerState = cloneDeep(baseLayerState);
+      const clonedBaseLayerState = cloneDeep(baseLayerState);
       if (this.getOLLayerFromId(clonedBaseLayerState.currentBaseLayer.id) == null) {
         if (this.baseOLLayer != null) {
           this.map.removeLayer(this.baseOLLayer);

@@ -1,5 +1,5 @@
 import {ClickFormatter} from './click-formatter.util';
-import {MapClickInfo} from '../map-click-info.model';
+import {MapClickInfo} from '../../../shared/map-click-info.model';
 
 export class WmsTextClickFormatter implements ClickFormatter {
   getMapClickInfo(result): MapClickInfo {

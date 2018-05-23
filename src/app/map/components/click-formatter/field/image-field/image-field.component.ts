@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PropertyLocatorFactory} from '../../../property-locator-factory.util';
+import {PropertyLocatorFactory} from '../../../../../shared/property-locator-factory.util';
 import {ImageField} from '../image-field.util';
 
 @Component({
