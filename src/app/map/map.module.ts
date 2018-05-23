@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MapComponent} from './map.component';
+import {MapComponent} from './components/map/map.component';
 import {OpenLayersComponent} from './components/open-layers/open-layers.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
 import {PopupComponent} from './components/popup/popup.component';

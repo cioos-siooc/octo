@@ -6,7 +6,7 @@ import * as layerActions from '../../store/layer.actions';
 import * as layerInformationActions from '../layer-information/store/layer-information.actions';
 import * as catalogActions from '../catalog/store/catalog.actions';
 import * as popupActions from '../../store/popup.actions';
-import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../../map.component';
+import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
 import * as layerPresentationActions from '../layer-presentation/store/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';
 import {isEqual, cloneDeep} from 'lodash';

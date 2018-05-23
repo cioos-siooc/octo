@@ -7,7 +7,7 @@ import * as layerInformationActions from '../../layer-information/store/layer-in
 import * as popupActions from '../../../store/popup.actions';
 import {Category} from '../../../../shared/category.model';
 import {CatalogSelectedLayer} from '../../../../shared/catalog-selected-layer.model';
-import {LAYER_INFORMATION_POPUP_ID} from '../../../map.component';
+import {LAYER_INFORMATION_POPUP_ID} from '../../map/map.component';
 import {AppState} from '../../../../store/app.reducers';
 import ActivateLayer from '../../../activate-layer.util';
 
