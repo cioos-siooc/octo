@@ -1,8 +1,8 @@
 import {layerReducer} from './layer.reducers';
 import * as fromLayer from './layer.reducers';
-import {WmsLayer} from '../../shared/wms-layer.model';
-import {AddLayer, DeleteLayer, MoveDownLayer, MoveUpLayer, SetClientPresentation, UpdateLayer} from './layer.actions';
-import {ClientPresentation} from '../../shared/client-presentation.model';
+import {WmsLayer} from '../../../shared/wms-layer.model';
+import {AddLayer, DeleteLayer, MoveDownLayer, MoveUpLayer, SetClientPresentation, UpdateLayer} from '../actions/layer.actions';
+import {ClientPresentation} from '../../../shared/client-presentation.model';
 
 describe('LayerReducer', () => {
 

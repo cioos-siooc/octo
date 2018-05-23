@@ -2,9 +2,9 @@ import {ActionReducerMap, MetaReducer, createFeatureSelector, createSelector} fr
 
 import * as fromCatalog from '../map/components/catalog/store/catalog.reducers';
 import * as fromLayerInformation from '../map/components/layer-information/store/layer-information.reducers';
-import * as fromBaseLayer from '../map/store/base-layer.reducers';
-import * as fromLayer from '../map/store/layer.reducers';
-import * as fromPopup from '../map/store/popup.reducers';
+import * as fromBaseLayer from '../map/store/reducers/base-layer.reducers';
+import * as fromLayer from '../map/store/reducers/layer.reducers';
+import * as fromPopup from '../map/store/reducers/popup.reducers';
 import * as fromLayerPresentation from '../map/components/layer-presentation/store/layer-presentation.reducers';
 import * as fromMapClick from '../map/components/map-click/store/map-click.reducers';
 import * as fromBehavior from '../map/components/layer-manager/store/behavior.reducers';

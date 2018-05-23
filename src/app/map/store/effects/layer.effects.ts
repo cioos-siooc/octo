@@ -4,11 +4,11 @@ import {Actions, Effect} from '@ngrx/effects';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Layer} from '../../shared/layer.model';
-import {environment} from '../../../environments/environment';
-import {ClientPresentation} from '../../shared/client-presentation.model';
-import {ClickStrategy} from '../../shared/click-strategy.model';
-import {ClickFormatterInfo} from '../../shared/click-formatter-info.model';
+import {Layer} from '../../../shared/layer.model';
+import {environment} from '../../../../environments/environment';
+import {ClientPresentation} from '../../../shared/client-presentation.model';
+import {ClickStrategy} from '../../../shared/click-strategy.model';
+import {ClickFormatterInfo} from '../../../shared/click-formatter-info.model';
 import {uniqueId} from 'lodash';
 import {of} from 'rxjs/internal/observable/of';
 import {cloneDeep} from 'lodash';
@@ -18,7 +18,7 @@ import {
   FetchClientPresentations,
   FetchLayer,
   LayerActionTypes
-} from './layer.actions';
+} from '../actions/layer.actions';
 
 @Injectable()
 export class LayerEffects {

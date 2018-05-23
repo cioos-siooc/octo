@@ -1,6 +1,6 @@
 import * as fromPopup from './popup.reducers';
 import {popupReducer} from './popup.reducers';
-import * as popupActions from './popup.actions';
+import * as popupActions from '../actions/popup.actions';
 
 describe('PopupReducer', () => {
 

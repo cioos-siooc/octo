@@ -8,7 +8,7 @@ import {environment} from '../environments/environment.prod';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './core/components';
 import {CatalogEffects} from './map/components/catalog/store/catalog.effects';
-import {LayerEffects} from './map/store/layer.effects';
+import {LayerEffects} from './map/store/effects/layer.effects';
 import {reducers} from './store/app.reducers';
 import {LayerInformationEffects} from './map/components/layer-information/store/layer-information.effects';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';

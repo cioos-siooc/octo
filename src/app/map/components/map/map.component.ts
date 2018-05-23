@@ -6,10 +6,10 @@ import {Layer} from '../../../shared/layer.model';
 import {cloneDeep} from 'lodash';
 
 
-import * as fromBaseLayer from '../../store/base-layer.reducers';
+import * as fromBaseLayer from '../../store/reducers/base-layer.reducers';
 import * as fromMapClick from '../map-click/store/map-click.reducers';
-import * as baseLayerActions from '../../store/base-layer.actions';
-import * as popupActions from '../../store/popup.actions';
+import * as baseLayerActions from '../../store/actions/base-layer.actions';
+import * as popupActions from '../../store/actions/popup.actions';
 import {environment} from '../../../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import * as catalogActions from '../catalog/store/catalog.actions';

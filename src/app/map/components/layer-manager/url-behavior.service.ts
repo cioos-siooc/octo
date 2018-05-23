@@ -1,5 +1,5 @@
 import {ActionsSubject, Store} from '@ngrx/store';
-import {AddLayer, DeleteLayer, LayerActionTypes} from '../../store/layer.actions';
+import {AddLayer, DeleteLayer, LayerActionTypes} from '../../store/actions/layer.actions';
 import * as fromApp from '../../../store/app.reducers';
 import * as fromBehaviorActions from './store/behavior.actions';
 import {Injectable} from '@angular/core';

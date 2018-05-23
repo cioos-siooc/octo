@@ -1,7 +1,7 @@
-import {AddBaseLayer, SetCurrentBaseLayer} from './base-layer.actions';
+import {AddBaseLayer, SetCurrentBaseLayer} from '../actions/base-layer.actions';
 import * as fromBaseLayer from './base-layer.reducers';
 import {baseLayerReducer} from './base-layer.reducers';
-import {BingLayer} from '../../shared/bing-layer.model';
+import {BingLayer} from '../../../shared/bing-layer.model';
 
 describe('BaseLayerReducer', () => {
 

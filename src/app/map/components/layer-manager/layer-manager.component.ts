@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import * as fromApp from '../../../store/app.reducers';
-import * as layerActions from '../../store/layer.actions';
+import * as layerActions from '../../store/actions/layer.actions';
 import * as layerInformationActions from '../layer-information/store/layer-information.actions';
 import * as catalogActions from '../catalog/store/catalog.actions';
-import * as popupActions from '../../store/popup.actions';
+import * as popupActions from '../../store/actions/popup.actions';
 import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
 import * as layerPresentationActions from '../layer-presentation/store/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';

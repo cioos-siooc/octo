@@ -2,9 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
 import * as catalogActions from '../store/catalog.actions';
-import * as layerActions from '../../../store/layer.actions';
+import * as layerActions from '../../../store/actions/layer.actions';
 import * as layerInformationActions from '../../layer-information/store/layer-information.actions';
-import * as popupActions from '../../../store/popup.actions';
+import * as popupActions from '../../../store/actions/popup.actions';
 import {Category} from '../../../../shared/category.model';
 import {CatalogSelectedLayer} from '../../../../shared/catalog-selected-layer.model';
 import {LAYER_INFORMATION_POPUP_ID} from '../../map/map.component';

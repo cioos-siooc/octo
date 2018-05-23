@@ -1,4 +1,4 @@
-import {PopupActionsUnion, PopupActionTypes, PopupStatus} from './popup.actions';
+import {PopupActionsUnion, PopupActionTypes, PopupStatus} from '../actions/popup.actions';
 import {cloneDeep} from 'lodash';
 
 

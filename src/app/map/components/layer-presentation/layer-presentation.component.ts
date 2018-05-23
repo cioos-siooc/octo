@@ -5,7 +5,7 @@ import * as fromLayerPresentation from './store/layer-presentation.reducers';
 import {Observable} from 'rxjs';
 import {ClientPresentation} from '../../../shared/client-presentation.model';
 import * as layerPresentationActions from './store/layer-presentation.actions';
-import * as layerActions from '../../store/layer.actions';
+import * as layerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
 
 @Component({

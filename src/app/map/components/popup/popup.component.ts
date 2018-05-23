@@ -3,9 +3,9 @@ import {Component, Input, OnInit} from '@angular/core';
 
 import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
-import * as popupActions from '../../store/popup.actions';
-import {PopupStatus} from '../../store/popup.actions';
-import * as fromPopup from '../../store/popup.reducers';
+import * as popupActions from '../../store/actions/popup.actions';
+import {PopupStatus} from '../../store/actions/popup.actions';
+import * as fromPopup from '../../store/reducers/popup.reducers';
 
 @Component({
   selector: 'app-popup',
