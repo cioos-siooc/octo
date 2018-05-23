@@ -13,7 +13,7 @@ import * as popupActions from '../../store/actions/popup.actions';
 import {environment} from '../../../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
 import * as catalogActions from '../../store/actions/catalog.actions';
-import {UrlBehaviorService} from '../layer-manager/url-behavior.service';
+import {UrlBehaviorService} from '../services/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
