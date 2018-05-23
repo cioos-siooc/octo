@@ -1,6 +1,6 @@
 import {uniqueId} from 'lodash';
 
-import * as layerActions from '../map/store/layer.actions';
+import * as layerActions from './store/layer.actions';
 
 export default class ActivateLayer {
   static activateLayer(layerId: number, store) {
