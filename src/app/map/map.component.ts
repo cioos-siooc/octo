@@ -7,14 +7,15 @@ import {cloneDeep} from 'lodash';
 
 
 import * as fromBaseLayer from './store/base-layer.reducers';
-import * as fromMapClick from '../map-click/store/map-click.reducers';
+import * as fromMapClick from './components/map-click/store/map-click.reducers';
 import * as baseLayerActions from './store/base-layer.actions';
 import * as popupActions from './store/popup.actions';
 import {environment} from '../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
-import * as catalogActions from '../catalog/store/catalog.actions';
-import {UrlBehaviorService} from '../layer-manager/url-behavior.service';
+import * as catalogActions from './components/catalog/store/catalog.actions';
+import {UrlBehaviorService} from './components/layer-manager/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -41,12 +42,12 @@ export class MapComponent implements OnInit {
   environment = environment;
   mapClickTitle: string;
 
-  constructor(private translateService: TranslateService, private store: Store<fromApp.AppState>,
-              private urlBehaviorService: UrlBehaviorService) {
+  constructor(private httpClient: HttpClient, private translateService: TranslateService,
+              private store: Store<fromApp.AppState>, private urlBehaviorService: UrlBehaviorService) {
   }
 
   ngOnInit() {
-    this.synchronizeBaseLayer();
+    this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(fromApp.selectAllBaseLayers));
     this.initPopups();
     this.initMapClickTitle();
@@ -73,6 +74,31 @@ export class MapComponent implements OnInit {
 
   toggleLayerManager() {
     this.store.dispatch(new popupActions.TogglePopup(this.LAYER_MANAGER_POPUP_ID));
+  }
+
+  private initBaseLayers() {
+    this.store.select('baseLayer').pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.State) => {
+      if (baseLayerState.currentBaseLayer == null) {
+        this.populateBaseLayers();
+      }
+    });
+    this.synchronizeBaseLayer();
+  }
+
+  private populateBaseLayers() {
+    for (const code of environment.backgroundLayerCodes) {
+      this.translateService.get('language').subscribe((lang) => {
+        // TODO: move http  base layers retrieval into service or effect?
+        this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/getLayerForCode?` +
+          `code=${code}&language-code=${lang}`)
+          .subscribe((layer: Layer) => {
+            this.store.dispatch(new baseLayerActions.AddBaseLayer(layer));
+            if (layer.code === 'bing.aerial') {
+              this.store.dispatch(new baseLayerActions.SetCurrentBaseLayer(layer));
+            }
+          });
+      });
+    }
   }
 
   private initMapClickTitle() {
