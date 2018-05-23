@@ -11,10 +11,10 @@ import {LayerPresentationComponent} from './components/layer-presentation/layer-
 import {MapClickComponent} from './components/map-click/map-click.component';
 import {TimeBehaviorComponent} from './components/layer-manager/time-behavior/time-behavior.component';
 import {SharedModule} from '../shared/shared.module';
-import {TextFieldComponent} from './components/click-formatter/field/text-field/text-field.component';
-import {ImageFieldComponent} from './components/click-formatter/field/image-field/image-field.component';
-import {DateFieldComponent} from './components/click-formatter/field/date-field/date-field.component';
-import {UrlFieldComponent} from './components/click-formatter/field/url-field/url-field.component';
+import {TextFieldComponent} from './components/map-click/click-formatter/field/text-field/text-field.component';
+import {ImageFieldComponent} from './components/map-click/click-formatter/field/image-field/image-field.component';
+import {DateFieldComponent} from './components/map-click/click-formatter/field/date-field/date-field.component';
+import {UrlFieldComponent} from './components/map-click/click-formatter/field/url-field/url-field.component';
 import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularDraggableModule} from 'angular2-draggable';

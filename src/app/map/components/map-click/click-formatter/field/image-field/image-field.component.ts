@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PropertyLocatorFactory} from '../../../../../shared/property-locator-factory.util';
-import {ImageField} from '../../../../utils/click-formatter/field/image-field.util';
+import {PropertyLocatorFactory} from '../../../../../../shared/property-locator-factory.util';
+import {ImageField} from '../../../../../utils/click-formatter/field/image-field.util';
 
 @Component({
   selector: 'app-image-field',
