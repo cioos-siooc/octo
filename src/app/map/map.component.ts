@@ -7,13 +7,13 @@ import {cloneDeep} from 'lodash';
 
 
 import * as fromBaseLayer from './store/base-layer.reducers';
-import * as fromMapClick from '../map-click/store/map-click.reducers';
+import * as fromMapClick from './components/map-click/store/map-click.reducers';
 import * as baseLayerActions from './store/base-layer.actions';
 import * as popupActions from './store/popup.actions';
 import {environment} from '../../environments/environment';
 import {TranslateService} from '@ngx-translate/core';
-import * as catalogActions from '../catalog/store/catalog.actions';
-import {UrlBehaviorService} from '../layer-manager/url-behavior.service';
+import * as catalogActions from './components/catalog/store/catalog.actions';
+import {UrlBehaviorService} from './components/layer-manager/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
