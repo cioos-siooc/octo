@@ -18,7 +18,7 @@ import {WmsStrategy} from '../../../shared/wms-strategy.model';
 import {HttpClient} from '@angular/common/http';
 import {MAP_CLICK_POPUP_ID} from '../map/map.component';
 import * as popupActions from '../../store/actions/popup.actions';
-import * as mapClickActions from '../map-click/store/map-click.actions';
+import * as mapClickActions from '../../store/actions/map-click.actions';
 import {EmptyValidatorFactory} from '../../../shared/empty-validator-factory.util';
 import {MapClickInfo} from '../../../shared/map-click-info.model';
 import {filter} from 'rxjs/operators';

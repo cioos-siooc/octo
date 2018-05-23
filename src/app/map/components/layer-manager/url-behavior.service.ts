@@ -1,7 +1,7 @@
 import {ActionsSubject, Store} from '@ngrx/store';
 import {AddLayer, DeleteLayer, LayerActionTypes} from '../../store/actions/layer.actions';
 import * as fromApp from '../../../store/app.reducers';
-import * as fromBehaviorActions from './store/behavior.actions';
+import * as fromBehaviorActions from '../../store/actions/behavior.actions';
 import {Injectable} from '@angular/core';
 import {BehaviorHandlerFactory} from '../../utils/behavior-handler/behavior-handler-factory.util';
 import {filter, take} from 'rxjs/operators';

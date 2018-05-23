@@ -12,13 +12,13 @@ import {
   FetchTopicForCode,
   FetchTopicGroup,
   SetTopicExpanded, SetTopicGroup
-} from './catalog.actions';
-import {TopicGroup} from '../../../../shared/topic-group.model';
-import {Topic} from '../../../../shared/topic.model';
-import {environment} from '../../../../../environments/environment';
-import {TopicHierarchy} from '../../../../shared/topic-hierarchy.model';
-import {Category} from '../../../../shared/category.model';
-import {AppState} from '../../../../store/app.reducers';
+} from '../actions/catalog.actions';
+import {TopicGroup} from '../../../shared/topic-group.model';
+import {Topic} from '../../../shared/topic.model';
+import {environment} from '../../../../environments/environment';
+import {TopicHierarchy} from '../../../shared/topic-hierarchy.model';
+import {Category} from '../../../shared/category.model';
+import {AppState} from '../../../store/app.reducers';
 
 @Injectable()
 export class CatalogEffects {

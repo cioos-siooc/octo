@@ -1,4 +1,4 @@
-import {LayerInformationActionsUnion, LayerInformationActionTypes} from './layer-information.actions';
+import {LayerInformationActionsUnion, LayerInformationActionTypes} from '../actions/layer-information.actions';
 
 export interface State {
   informationHtml: string;

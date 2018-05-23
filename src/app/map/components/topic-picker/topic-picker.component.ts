@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
 import * as fromApp from '../../../store/app.reducers';
-import * as fromCatalog from '../catalog/store/catalog.reducers';
-import * as catalogActions from '../catalog/store/catalog.actions';
+import * as fromCatalog from '../../store/reducers/catalog.reducers';
+import * as catalogActions from '../../store/actions/catalog.actions';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {Topic} from '../../../shared/topic.model';

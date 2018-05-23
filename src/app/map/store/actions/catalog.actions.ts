@@ -1,8 +1,8 @@
 import {Action} from '@ngrx/store';
-import {Category} from '../../../../shared/category.model';
-import {CatalogSelectedLayer} from '../../../../shared/catalog-selected-layer.model';
-import {Topic} from '../../../../shared/topic.model';
-import {TopicGroup} from '../../../../shared/topic-group.model';
+import {Category} from '../../../shared/category.model';
+import {CatalogSelectedLayer} from '../../../shared/catalog-selected-layer.model';
+import {Topic} from '../../../shared/topic.model';
+import {TopicGroup} from '../../../shared/topic-group.model';
 
 export enum CatalogActionTypes {
   FETCH_TOPIC_GROUP = '[Catalog] Fetch topic group',

@@ -1,5 +1,5 @@
-import {LayerPresentationActionsUnion, LayerPresentationActionTypes} from './layer-presentation.actions';
-import {ClientPresentation} from '../../../../shared/client-presentation.model';
+import {LayerPresentationActionsUnion, LayerPresentationActionTypes} from '../actions/layer-presentation.actions';
+import {ClientPresentation} from '../../../shared/client-presentation.model';
 
 export interface State {
   layerUniqueId: string;

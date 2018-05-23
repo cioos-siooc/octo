@@ -1,4 +1,4 @@
-import {BehaviorActionsUnion, BehaviorActionTypes} from './behavior.actions';
+import {BehaviorActionsUnion, BehaviorActionTypes} from '../actions/behavior.actions';
 import {cloneDeep} from 'lodash';
 
 export interface State {
