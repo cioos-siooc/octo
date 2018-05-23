@@ -3,7 +3,7 @@ import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as fromLayerPresentation from '../../store/reducers/layer-presentation.reducers';
 import {Observable} from 'rxjs';
-import {ClientPresentation} from '../../../shared/client-presentation.model';
+import {ClientPresentation} from '../../../shared/models/client-presentation.model';
 import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
 import * as layerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';

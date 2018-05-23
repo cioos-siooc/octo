@@ -1,7 +1,7 @@
 import {cloneDeep} from 'lodash';
 
-import {Category} from '../../shared/category.model';
-import {Topic} from '../../shared/topic.model';
+import {Category} from '../../shared/models/category.model';
+import {Topic} from '../../shared/models/topic.model';
 
 export default class Utils {
   static getCategory(category: Category, treeLocation): Category {

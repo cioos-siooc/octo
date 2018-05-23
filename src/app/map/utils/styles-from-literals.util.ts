@@ -12,8 +12,8 @@ import LineString from 'ol/geom/linestring';
 import MultiLineString from 'ol/geom/multilinestring';
 import Polygon from 'ol/geom/polygon';
 import MultiPolygon from 'ol/geom/multipolygon';
-import {ObjectPropertyLocator} from '../../shared/object-property-locator.util';
-import {PropertyLocator} from '../../shared/property-locator.utils';
+import {ObjectPropertyLocator} from '../../shared/utils/object-property-locator.util';
+import {PropertyLocator} from '../../shared/utils/property-locator.util';
 
 export class StylesFromLiterals {
   private singleStyle: any;

@@ -13,11 +13,11 @@ import {
   FetchTopicGroup,
   SetTopicExpanded, SetTopicGroup
 } from '../actions/catalog.actions';
-import {TopicGroup} from '../../../shared/topic-group.model';
-import {Topic} from '../../../shared/topic.model';
+import {TopicGroup} from '../../../shared/models/topic-group.model';
+import {Topic} from '../../../shared/models/topic.model';
 import {environment} from '../../../../environments/environment';
-import {TopicHierarchy} from '../../../shared/topic-hierarchy.model';
-import {Category} from '../../../shared/category.model';
+import {TopicHierarchy} from '../../../shared/models/topic-hierarchy.model';
+import {Category} from '../../../shared/models/category.model';
 import {AppState} from '../../../store/app.reducers';
 
 @Injectable()

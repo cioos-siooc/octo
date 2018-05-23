@@ -1,4 +1,4 @@
-import {Layer} from '../../../shared/layer.model';
+import {Layer} from '../../../shared/models/layer.model';
 import {Action} from '@ngrx/store';
 
 export enum BaseLayerActionTypes {

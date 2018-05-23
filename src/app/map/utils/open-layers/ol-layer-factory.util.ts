@@ -1,4 +1,4 @@
-import {Layer} from '../../../shared/layer.model';
+import {Layer} from '../../../shared/models/layer.model';
 import {OLSourceFactory} from './ol-source-factory.util';
 import OLLayer from 'ol/layer/layer';
 import Source from 'ol/source/source';

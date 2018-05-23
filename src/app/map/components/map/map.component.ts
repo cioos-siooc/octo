@@ -2,7 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import * as fromApp from '../../../store/app.reducers';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {Layer} from '../../../shared/layer.model';
+import {Layer} from '../../../shared/models/layer.model';
 import {cloneDeep} from 'lodash';
 
 

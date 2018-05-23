@@ -1,4 +1,4 @@
-import {PropertyLocator} from './property-locator.utils';
+import {PropertyLocator} from './property-locator.util';
 
 export class ObjectPropertyLocator implements PropertyLocator {
   getValue(obj: any, path: any): any {

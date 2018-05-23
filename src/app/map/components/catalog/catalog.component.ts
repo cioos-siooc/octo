@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import * as fromApp from '../../../store/app.reducers';
 import * as fromCatalog from '../../store/reducers/catalog.reducers';
 import * as catalogActions from '../../store/actions/catalog.actions';
-import {Topic} from '../../../shared/topic.model';
+import {Topic} from '../../../shared/models/topic.model';
 
 @Component({
   selector: 'app-catalog',

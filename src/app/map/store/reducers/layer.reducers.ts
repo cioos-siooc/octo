@@ -1,4 +1,4 @@
-import {Layer} from '../../../shared/layer.model';
+import {Layer} from '../../../shared/models/layer.model';
 import {cloneDeep} from 'lodash';
 import {LayerActionsUnion, LayerActionTypes} from '../actions/layer.actions';
 

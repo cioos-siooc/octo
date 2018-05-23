@@ -1,12 +1,12 @@
-import {Layer} from '../../../shared/layer.model';
-import {BingLayer} from '../../../shared/bing-layer.model';
+import {Layer} from '../../../shared/models/layer.model';
+import {BingLayer} from '../../../shared/models/bing-layer.model';
 import Source from 'ol/source/source';
 import TileWMS from 'ol/source/tilewms';
 import BingMapsSource from 'ol/source/bingmaps';
 import GeoJSONFormat from 'ol/format/geojson';
 import VectorSource from 'ol/source/vector';
-import {WmsLayer} from '../../../shared/wms-layer.model';
-import {WfsLayer} from '../../../shared/wfs-layer.model';
+import {WmsLayer} from '../../../shared/models/wms-layer.model';
+import {WfsLayer} from '../../../shared/models/wfs-layer.model';
 
 export class OLSourceFactory {
 

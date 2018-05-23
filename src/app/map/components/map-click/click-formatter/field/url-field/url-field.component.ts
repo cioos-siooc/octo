@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UrlField} from '../../../../../utils/click-formatter/field/url-field.util';
-import {PropertyLocatorFactory} from '../../../../../../shared/property-locator-factory.util';
+import {PropertyLocatorFactory} from '../../../../../../shared/utils/property-locator-factory.util';
 
 @Component({
   selector: 'app-url-field',

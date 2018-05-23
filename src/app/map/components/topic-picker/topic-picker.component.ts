@@ -5,7 +5,7 @@ import * as fromCatalog from '../../store/reducers/catalog.reducers';
 import * as catalogActions from '../../store/actions/catalog.actions';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {Topic} from '../../../shared/topic.model';
+import {Topic} from '../../../shared/models/topic.model';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '../../../../environments/environment';
 
