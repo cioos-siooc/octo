@@ -11,14 +11,15 @@ import {
   FetchTopic,
   FetchTopicForCode,
   FetchTopicGroup,
-  SetTopicExpanded, SetTopicGroup
+  SetTopicExpanded,
+  SetTopicGroup
 } from '../actions/catalog.actions';
 import {TopicGroup} from '../../../shared/models/topic-group.model';
 import {Topic} from '../../../shared/models/topic.model';
 import {environment} from '../../../../environments/environment';
 import {TopicHierarchy} from '../../../shared/models/topic-hierarchy.model';
 import {Category} from '../../../shared/models/category.model';
-import {AppState} from '../../../store/app.reducers';
+import {MapState, selectCatalogState} from '../reducers/map.reducers';
 
 @Injectable()
 export class CatalogEffects {
@@ -74,7 +75,7 @@ export class CatalogEffects {
     .ofType<SetTopicExpanded>(CatalogActionTypes.SET_TOPIC_EXPANDED)
     // TODO: payload should be topicId instead
     .pipe(map((action: SetTopicExpanded) => action.payload)
-      , withLatestFrom(this.store$.select('catalog'))
+      , withLatestFrom(this.store$.select(selectCatalogState))
       , switchMap(([payload, store]) => {
         const isLoaded = Boolean(store.topics[payload.topicIndex].category);
         let obs;
@@ -91,7 +92,7 @@ export class CatalogEffects {
   loadCategoryHierarchy = this.actions$
     .ofType<FetchCategoryHierarchy>(CatalogActionTypes.FETCH_CATEGORY_HIERARCHY)
     .pipe(map((action: FetchCategoryHierarchy) => action.payload)
-      , withLatestFrom(this.store$.select('catalog'))
+      , withLatestFrom(this.store$.select(selectCatalogState))
       // TODO: Should use topic id as payload and could use the id directly here instead
       , concatMap(([payload, store]) => {
         const topicId = store.topics[payload].id;
@@ -107,6 +108,6 @@ export class CatalogEffects {
         }
       ));
 
-  constructor(private actions$: Actions, private store$: Store<AppState>, private httpClient: HttpClient) {
+  constructor(private actions$: Actions, private store$: Store<MapState>, private httpClient: HttpClient) {
   }
 }

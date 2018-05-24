@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 
 import * as fromLayerInformation from '../../store/reducers/layer-information.reducers';
 import {Store} from '@ngrx/store';
-import {AppState} from '../../../store/app.reducers';
+import {MapState, selectLayerInformationState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-layer-information',
@@ -14,11 +14,11 @@ export class LayerInformationComponent implements OnInit {
   layerInformationState: Observable<fromLayerInformation.State>;
   layerInformationHtml: string;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
-    this.layerInformationState = this.store.select('layerInformation');
+    this.layerInformationState = this.store.select(selectLayerInformationState);
     this.layerInformationState.subscribe((state) => this.layerInformationHtml = state.informationHtml);
   }
 

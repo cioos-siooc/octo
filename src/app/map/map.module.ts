@@ -18,6 +18,12 @@ import {UrlFieldComponent} from './components/map-click/click-formatter/field/ur
 import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularDraggableModule} from 'angular2-draggable';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {mapReducers} from './store/reducers/map.reducers';
+import {LayerInformationEffects} from './store/effects/layer-information.effects';
+import {CatalogEffects} from './store/effects/catalog.effects';
+import {LayerEffects} from './store/effects/layer.effects';
 
 @NgModule({
   imports: [
@@ -25,6 +31,8 @@ import {AngularDraggableModule} from 'angular2-draggable';
     BrowserAnimationsModule,
     CalendarModule,
     AngularDraggableModule,
+    StoreModule.forFeature('map', mapReducers),
+    EffectsModule.forFeature([LayerEffects, CatalogEffects, LayerInformationEffects]),
   ],
   declarations: [
     MapComponent,

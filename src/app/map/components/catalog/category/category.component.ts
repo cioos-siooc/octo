@@ -8,8 +8,8 @@ import * as popupActions from '../../../store/actions/popup.actions';
 import {Category} from '../../../../shared/models/category.model';
 import {CatalogSelectedLayer} from '../../../../shared/models/catalog-selected-layer.model';
 import {LAYER_INFORMATION_POPUP_ID} from '../../map/map.component';
-import {AppState} from '../../../../store/app.reducers';
 import ActivateLayer from '../../../utils/activate-layer.util';
+import {MapState} from '../../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-category',
@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
   @Input() category: Category;
   @Input() treeLocation: number[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {

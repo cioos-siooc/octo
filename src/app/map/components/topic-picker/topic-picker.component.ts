@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-
-import * as fromApp from '../../../store/app.reducers';
 import * as fromCatalog from '../../store/reducers/catalog.reducers';
 import * as catalogActions from '../../store/actions/catalog.actions';
 import {Observable} from 'rxjs';
@@ -8,6 +6,7 @@ import {Store} from '@ngrx/store';
 import {Topic} from '../../../shared/models/topic.model';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '../../../../environments/environment';
+import {MapState, selectCatalogState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-topic-picker',
@@ -17,11 +16,11 @@ import {environment} from '../../../../environments/environment';
 export class TopicPickerComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
 
-  constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService ) {
+  constructor(private store: Store<MapState>, private translateService: TranslateService) {
   }
 
   ngOnInit() {
-    this.catalogState = this.store.select('catalog');
+    this.catalogState = this.store.select(selectCatalogState);
     this.translateService.get('language').subscribe((lang) => {
       this.store.dispatch(new catalogActions.FetchTopicGroup({languageCode: lang, code: environment.topicGroupCode}));
     });

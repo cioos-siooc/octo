@@ -1,13 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CatalogComponent} from './catalog.component';
-import {reducers} from '../../../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {CategoryComponent} from './category/category.component';
 import {FormsModule} from '@angular/forms';
 import {HttpLoaderFactory} from '../../../shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;
@@ -17,7 +17,8 @@ describe('CatalogComponent', () => {
     TestBed.configureTestingModule({
       declarations: [CatalogComponent, CategoryComponent],
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         FormsModule,
         HttpClientModule,
         TranslateModule.forRoot({

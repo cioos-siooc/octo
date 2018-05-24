@@ -1,5 +1,4 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import * as fromApp from '../../../store/app.reducers';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {Layer} from '../../../shared/models/layer.model';
@@ -16,6 +15,12 @@ import * as catalogActions from '../../store/actions/catalog.actions';
 import {UrlBehaviorService} from '../../services/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {
+  MapState,
+  selectAllBaseLayers,
+  selectBaseLayerState, selectCatalogState,
+  selectMapClickState
+} from '../../store/reducers/map.reducers';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -43,12 +48,12 @@ export class MapComponent implements OnInit {
   mapClickTitle: string;
 
   constructor(private httpClient: HttpClient, private translateService: TranslateService,
-              private store: Store<fromApp.AppState>, private urlBehaviorService: UrlBehaviorService) {
+              private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService) {
   }
 
   ngOnInit() {
     this.initBaseLayers();
-    this.baseLayers = this.store.pipe(select(fromApp.selectAllBaseLayers));
+    this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
     this.initPopups();
     this.initMapClickTitle();
     if (this.applicationUsesDefaultTopic()) {
@@ -77,7 +82,7 @@ export class MapComponent implements OnInit {
   }
 
   private initBaseLayers() {
-    this.store.select('baseLayer').pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.State) => {
+    this.store.select(selectBaseLayerState).pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.State) => {
       if (baseLayerState.currentBaseLayer == null) {
         this.populateBaseLayers();
       }
@@ -102,7 +107,7 @@ export class MapComponent implements OnInit {
   }
 
   private initMapClickTitle() {
-    this.store.select('mapClick').subscribe((mapClickState: fromMapClick.State) => {
+    this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.State) => {
       const mapClickClonedState = cloneDeep(mapClickState);
       if (mapClickClonedState.mapClickLayer != null) {
         this.mapClickTitle = mapClickClonedState.mapClickLayer.title;
@@ -115,7 +120,7 @@ export class MapComponent implements OnInit {
   }
 
   private synchronizeBaseLayer() {
-    this.store.select('baseLayer').pipe(first((baseLayerState: fromBaseLayer.State) => {
+    this.store.select(selectBaseLayerState).pipe(first((baseLayerState: fromBaseLayer.State) => {
       return baseLayerState.currentBaseLayer != null;
     })).subscribe((baseLayerState: fromBaseLayer.State) => {
       const clonedBaseLayerState = cloneDeep(baseLayerState);
@@ -136,14 +141,14 @@ export class MapComponent implements OnInit {
    * If there is no current topic, initialize the current topic
    */
   private initializeTopic() {
-    this.store.select('catalog').pipe(take(1)).subscribe((currentState) => {
+    this.store.select(selectCatalogState).pipe(take(1)).subscribe((currentState) => {
       if (currentState.topics.length === 0) {
         this.translateService.get('language').subscribe((lang) => {
           this.store.dispatch(new catalogActions.FetchTopicForCode({
             languageCode: lang,
             code: environment.defaultTopic
           }));
-          this.store.select('catalog').pipe(filter((state) => {
+          this.store.select(selectCatalogState).pipe(filter((state) => {
             return state.topics.length > 0;
           }), take(1)).subscribe(() => {
             this.store.dispatch(new catalogActions.SetTopicExpanded({topicIndex: 0, expanded: true}));

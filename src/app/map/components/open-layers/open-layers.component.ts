@@ -8,7 +8,6 @@ import Proj from 'ol/proj';
 import OLLayer from 'ol/layer/layer';
 import LayerBase from 'ol/layer/base';
 import TileWMS from 'ol/source/tilewms';
-import * as fromApp from '../../../store/app.reducers';
 import * as fromBaseLayer from '../../store/reducers/base-layer.reducers';
 import {OLLayerFactory} from '../../utils/open-layers/ol-layer-factory.util';
 import * as fromLayer from '../../store/reducers/layer.reducers';
@@ -24,6 +23,7 @@ import {MapClickInfo} from '../../../shared/models/map-click-info.model';
 import {filter} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {ClickFormatterFactory} from '../../utils/click-formatter/click-formatter-factory.util';
+import {MapState, selectBaseLayerState, selectLayerState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-open-layers',
@@ -35,7 +35,7 @@ export class OpenLayersComponent implements AfterViewInit {
   baseOLLayer: OLLayer = null;
   private layers: Layer[];
 
-  constructor(private httpClient: HttpClient, private store: Store<fromApp.AppState>) {
+  constructor(private httpClient: HttpClient, private store: Store<MapState>) {
   }
 
   ngAfterViewInit(): void {
@@ -57,7 +57,7 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private initBaseLayerSubscription() {
-    this.store.select('baseLayer')
+    this.store.select(selectBaseLayerState)
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
       ).subscribe((baseLayerState: fromBaseLayer.State) => {
       const clonedBaseLayerState = cloneDeep(baseLayerState);
@@ -79,7 +79,7 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private initLayerSubscription() {
-    this.store.select('layer')
+    this.store.select(selectLayerState)
       .subscribe((layerState: fromLayer.State) => {
         const clonedLayerState = cloneDeep(layerState);
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());

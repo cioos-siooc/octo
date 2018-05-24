@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
-import { TimeBehaviorComponent } from './time-behavior.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from '../../../../store/app.reducers';
+import {TimeBehaviorComponent} from './time-behavior.component';
+import {StoreModule} from '@ngrx/store';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import { HttpLoaderFactory } from '../../../../shared/shared.module';
-import { CalendarModule } from 'primeng/calendar';
+import {HttpLoaderFactory} from '../../../../shared/shared.module';
+import {CalendarModule} from 'primeng/calendar';
+import {mapReducers} from '../../../store/reducers/map.reducers';
 
 describe('TimeBehaviorComponent', () => {
   let component: TimeBehaviorComponent;
@@ -14,10 +14,11 @@ describe('TimeBehaviorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeBehaviorComponent ],
-      imports : [
+      declarations: [TimeBehaviorComponent],
+      imports: [
         FormsModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         HttpClientModule,
         CalendarModule,
         TranslateModule.forRoot({
@@ -29,7 +30,7 @@ describe('TimeBehaviorComponent', () => {
         }),
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

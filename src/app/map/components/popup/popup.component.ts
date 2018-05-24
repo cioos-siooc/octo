@@ -2,10 +2,10 @@ import {Component, Input, OnInit} from '@angular/core';
 
 
 import {Store} from '@ngrx/store';
-import * as fromApp from '../../../store/app.reducers';
 import * as popupActions from '../../store/actions/popup.actions';
 import {PopupStatus} from '../../store/actions/popup.actions';
 import * as fromPopup from '../../store/reducers/popup.reducers';
+import {MapState, selectPopupState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-popup',
@@ -19,12 +19,12 @@ export class PopupComponent implements OnInit {
   @Input() inBounds: boolean;
   isOpen: boolean;
 
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
     this.isOpen = false;
-    this.store.select('popup').subscribe((popupState: fromPopup.State) => {
+    this.store.select(selectPopupState).subscribe((popupState: fromPopup.State) => {
       const popupStatus = popupState.popupStatuses.find((pS: PopupStatus) => {
         return pS.id === this.id;
       });

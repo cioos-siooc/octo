@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromApp from '../../../store/app.reducers';
 import * as fromLayerPresentation from '../../store/reducers/layer-presentation.reducers';
 import {Observable} from 'rxjs';
 import {ClientPresentation} from '../../../shared/models/client-presentation.model';
 import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
 import * as layerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
+import {MapState, selectLayerPresentationState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-layer-presentation',
@@ -18,12 +18,12 @@ export class LayerPresentationComponent implements OnInit {
   currentClientPresentation: ClientPresentation;
   private currentUniqueId: string;
 
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
-    this.layerPresentationState = this.store.select('layerPresentation');
-    this.store.select('layerPresentation').subscribe((state) => {
+    this.layerPresentationState = this.store.select(selectLayerPresentationState);
+    this.store.select(selectLayerPresentationState).subscribe((state) => {
       const clonedState = cloneDeep(state);
       this.currentClientPresentation = clonedState.currentClientPresentation;
       this.currentUniqueId = clonedState.layerUniqueId;

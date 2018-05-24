@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as fromApp from '../../../store/app.reducers';
 import {cloneDeep} from 'lodash';
+import {MapState, selectMapClickState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-map-click',
@@ -11,11 +11,11 @@ import {cloneDeep} from 'lodash';
 export class MapClickComponent implements OnInit {
   mapClickInfo: any;
 
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
-    this.store.select('mapClick').subscribe((state) => {
+    this.store.select(selectMapClickState).subscribe((state) => {
       const clonedState = cloneDeep(state);
       this.mapClickInfo = clonedState.mapClickInfo;
     });

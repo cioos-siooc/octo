@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CategoryComponent} from './category.component';
 import {FormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from '../../../../store/app.reducers';
+import {mapReducers} from '../../../store/reducers/map.reducers';
 
 describe('CategoryComponent', () => {
   let component: CategoryComponent;
@@ -14,7 +14,8 @@ describe('CategoryComponent', () => {
       declarations: [CategoryComponent],
       imports: [
         FormsModule,
-        StoreModule.forRoot(reducers)
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
       ]
     })
       .compileComponents();

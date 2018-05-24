@@ -6,7 +6,6 @@ import {PopupComponent} from '../popup/popup.component';
 import {CatalogComponent} from '../catalog/catalog.component';
 import {TopicPickerComponent} from '../topic-picker/topic-picker.component';
 import {LayerManagerComponent} from '../layer-manager/layer-manager.component';
-import {reducers} from '../../../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {FormsModule} from '@angular/forms';
 import {CategoryComponent} from '../catalog/category/category.component';
@@ -24,6 +23,7 @@ import {ImageFieldComponent} from '../map-click/click-formatter/field/image-fiel
 import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
 import {UrlBehaviorService} from '../../services/url-behavior.service';
 import {CalendarModule} from 'primeng/calendar';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -37,7 +37,8 @@ describe('MapComponent', () => {
         TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent
       ],
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         FormsModule,
         CalendarModule,
         HttpClientModule,

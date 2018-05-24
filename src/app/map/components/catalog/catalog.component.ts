@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-
-import * as fromApp from '../../../store/app.reducers';
 import * as fromCatalog from '../../store/reducers/catalog.reducers';
 import * as catalogActions from '../../store/actions/catalog.actions';
 import {Topic} from '../../../shared/models/topic.model';
+import {MapState, selectCatalogState} from '../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-catalog',
@@ -16,11 +15,11 @@ export class CatalogComponent implements OnInit {
   catalogState: Observable<fromCatalog.State>;
   numExpandedTopics: number;
 
-  constructor(private store: Store<fromApp.AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
-    this.catalogState = this.store.select('catalog');
+    this.catalogState = this.store.select(selectCatalogState);
     this.catalogState.subscribe(state => {
       this.numExpandedTopics = 0;
       for (const topic of state.topics) {
