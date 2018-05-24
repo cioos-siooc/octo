@@ -1,9 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {OpenLayersComponent} from './open-layers.component';
-import {reducers} from '../../../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
 import {HttpClientModule} from '@angular/common/http';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('OpenLayersComponent', () => {
   let component: OpenLayersComponent;
@@ -13,7 +13,8 @@ describe('OpenLayersComponent', () => {
     TestBed.configureTestingModule({
       declarations: [OpenLayersComponent],
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         HttpClientModule,
       ]
     })

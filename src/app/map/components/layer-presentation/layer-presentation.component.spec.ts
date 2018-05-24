@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LayerPresentationComponent } from './layer-presentation.component';
+import {LayerPresentationComponent} from './layer-presentation.component';
 import {HttpLoaderFactory} from '../../../shared/shared.module';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from '../../../store/app.reducers';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('LayerPresentationComponent', () => {
   let component: LayerPresentationComponent;
@@ -14,9 +14,10 @@ describe('LayerPresentationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayerPresentationComponent ],
+      declarations: [LayerPresentationComponent],
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         HttpClientModule,
         FormsModule,
         TranslateModule.forRoot({
@@ -28,7 +29,7 @@ describe('LayerPresentationComponent', () => {
         }),
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

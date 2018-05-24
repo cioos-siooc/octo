@@ -1,8 +1,8 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PopupComponent} from './popup.component';
-import {reducers} from '../../../store/app.reducers';
 import {StoreModule} from '@ngrx/store';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('PopupComponent', () => {
   let component: PopupComponent;
@@ -11,7 +11,10 @@ describe('PopupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [PopupComponent],
-      imports: [StoreModule.forRoot(reducers)]
+      imports: [
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
+      ]
     })
       .compileComponents();
   }));

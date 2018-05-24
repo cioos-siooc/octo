@@ -2,13 +2,13 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {LayerManagerComponent} from './layer-manager.component';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from '../../../store/app.reducers';
 import {HttpLoaderFactory} from '../../../shared/shared.module';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TimeBehaviorComponent} from './time-behavior/time-behavior.component';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule} from 'primeng/calendar';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -19,7 +19,8 @@ describe('LayerManagerComponent', () => {
       declarations: [LayerManagerComponent, TimeBehaviorComponent],
       imports: [
         FormsModule,
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         HttpClientModule,
         CalendarModule,
         TranslateModule.forRoot({

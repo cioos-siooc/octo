@@ -7,12 +7,8 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment.prod';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './core/components';
-import {CatalogEffects} from './map/components/catalog/store/catalog.effects';
-import {LayerEffects} from './map/store/layer.effects';
-import {reducers} from './store/app.reducers';
-import {LayerInformationEffects} from './map/components/layer-information/store/layer-information.effects';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {UrlBehaviorService} from './map/components/layer-manager/url-behavior.service';
+import {UrlBehaviorService} from './map/services/url-behavior.service';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {MapModule} from './map/map.module';
@@ -26,8 +22,8 @@ import {MapModule} from './map/map.module';
     MapModule,
     BrowserModule,
     CoreModule,
-    StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([LayerEffects, CatalogEffects, LayerInformationEffects]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production

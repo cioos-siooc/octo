@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
-import * as catalogActions from '../store/catalog.actions';
-import * as layerActions from '../../../store/layer.actions';
-import * as layerInformationActions from '../../layer-information/store/layer-information.actions';
-import * as popupActions from '../../../store/popup.actions';
-import {Category} from '../../../../shared/category.model';
-import {CatalogSelectedLayer} from '../../../../shared/catalog-selected-layer.model';
-import {LAYER_INFORMATION_POPUP_ID} from '../../../map.component';
-import {AppState} from '../../../../store/app.reducers';
-import ActivateLayer from '../../../activate-layer.util';
+import * as catalogActions from '../../../store/actions/catalog.actions';
+import * as layerActions from '../../../store/actions/layer.actions';
+import * as layerInformationActions from '../../../store/actions/layer-information.actions';
+import * as popupActions from '../../../store/actions/popup.actions';
+import {Category} from '../../../../shared/models/category.model';
+import {CatalogSelectedLayer} from '../../../../shared/models/catalog-selected-layer.model';
+import {LAYER_INFORMATION_POPUP_ID} from '../../map/map.component';
+import ActivateLayer from '../../../utils/activate-layer.util';
+import {MapState} from '../../../store/reducers/map.reducers';
 
 @Component({
   selector: 'app-category',
@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
   @Input() category: Category;
   @Input() treeLocation: number[];
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {

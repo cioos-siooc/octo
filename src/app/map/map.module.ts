@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {MapComponent} from './map.component';
+import {MapComponent} from './components/map/map.component';
 import {OpenLayersComponent} from './components/open-layers/open-layers.component';
 import {CatalogComponent} from './components/catalog/catalog.component';
 import {PopupComponent} from './components/popup/popup.component';
@@ -11,13 +11,19 @@ import {LayerPresentationComponent} from './components/layer-presentation/layer-
 import {MapClickComponent} from './components/map-click/map-click.component';
 import {TimeBehaviorComponent} from './components/layer-manager/time-behavior/time-behavior.component';
 import {SharedModule} from '../shared/shared.module';
-import {TextFieldComponent} from './components/click-formatter/field/text-field/text-field.component';
-import {ImageFieldComponent} from './components/click-formatter/field/image-field/image-field.component';
-import {DateFieldComponent} from './components/click-formatter/field/date-field/date-field.component';
-import {UrlFieldComponent} from './components/click-formatter/field/url-field/url-field.component';
+import {TextFieldComponent} from './components/map-click/click-formatter/field/text-field/text-field.component';
+import {ImageFieldComponent} from './components/map-click/click-formatter/field/image-field/image-field.component';
+import {DateFieldComponent} from './components/map-click/click-formatter/field/date-field/date-field.component';
+import {UrlFieldComponent} from './components/map-click/click-formatter/field/url-field/url-field.component';
 import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularDraggableModule} from 'angular2-draggable';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {mapReducers} from './store/reducers/map.reducers';
+import {LayerInformationEffects} from './store/effects/layer-information.effects';
+import {CatalogEffects} from './store/effects/catalog.effects';
+import {LayerEffects} from './store/effects/layer.effects';
 
 @NgModule({
   imports: [
@@ -25,6 +31,8 @@ import {AngularDraggableModule} from 'angular2-draggable';
     BrowserAnimationsModule,
     CalendarModule,
     AngularDraggableModule,
+    StoreModule.forFeature('map', mapReducers),
+    EffectsModule.forFeature([LayerEffects, CatalogEffects, LayerInformationEffects]),
   ],
   declarations: [
     MapComponent,

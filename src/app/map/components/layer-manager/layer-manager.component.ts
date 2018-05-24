@@ -1,16 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-
-import * as fromApp from '../../../store/app.reducers';
-import * as layerActions from '../../store/layer.actions';
-import * as layerInformationActions from '../layer-information/store/layer-information.actions';
-import * as catalogActions from '../catalog/store/catalog.actions';
-import * as popupActions from '../../store/popup.actions';
-import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../../map.component';
-import * as layerPresentationActions from '../layer-presentation/store/layer-presentation.actions';
+import * as layerActions from '../../store/actions/layer.actions';
+import * as layerInformationActions from '../../store/actions/layer-information.actions';
+import * as catalogActions from '../../store/actions/catalog.actions';
+import * as popupActions from '../../store/actions/popup.actions';
+import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
+import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';
-import {isEqual, cloneDeep} from 'lodash';
+import {cloneDeep, isEqual} from 'lodash';
 import {map, take} from 'rxjs/operators';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
+import {selectLayerState} from '../../store/selectors/layer.selectors';
 
 @Component({
   selector: 'app-layer-manager',
@@ -21,11 +22,11 @@ export class LayerManagerComponent implements OnInit {
   layerIds = [];
   expandedLayerIds = [];
 
-  constructor(private store: Store<fromApp.AppState>, private translateService: TranslateService) {
+  constructor(private store: Store<MapState>, private translateService: TranslateService) {
   }
 
   ngOnInit() {
-    this.store.select('layer').subscribe((layerState) => {
+    this.store.select(selectLayerState).subscribe((layerState) => {
       const layerStateCopy = cloneDeep(layerState);
       const layerUniqueIds = layerStateCopy.layers.map(l => l.uniqueId);
       if (!isEqual(this.layerIds, layerUniqueIds)) {
@@ -35,7 +36,7 @@ export class LayerManagerComponent implements OnInit {
   }
 
   getLayerTitle(layerUniqueId) {
-    return this.store.select('layer').pipe(take(1), map((layerState) => {
+    return this.store.select(selectLayerState).pipe(take(1), map((layerState) => {
       const layerStateCopy = cloneDeep(layerState);
       const layer = layerStateCopy.layers.find(l => l.uniqueId === layerUniqueId);
       return layer.title;
@@ -43,7 +44,7 @@ export class LayerManagerComponent implements OnInit {
   }
 
   getUrlBehaviors(layerUniqueId) {
-    return this.store.select('behavior').pipe(take(1), map((behaviorState) => {
+    return this.store.select(selectBehaviorState).pipe(take(1), map((behaviorState) => {
       return behaviorState.behaviors.filter((b) => {
         return b.layerUniqueId === layerUniqueId;
       });
@@ -56,7 +57,7 @@ export class LayerManagerComponent implements OnInit {
   }
 
   onShowLayerInfoClick(layerUniqueId) {
-    this.store.select('layer').pipe(take(1)).subscribe((layerState) => {
+    this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layer = layerState.layers.find(l => l.uniqueId === layerUniqueId);
       this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layer.id));
       this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
@@ -64,7 +65,7 @@ export class LayerManagerComponent implements OnInit {
   }
 
   onShowLayerPresentation(layerUniqueId) {
-    this.store.select('layer').pipe(take(1)).subscribe((layerState) => {
+    this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layer = layerState.layers.find(l => l.uniqueId === layerUniqueId);
       this.store.dispatch(new layerPresentationActions.SetLayerUniqueId(layerUniqueId));
       this.store.dispatch(new layerPresentationActions.SetClientPresentations(layer.clientPresentations));

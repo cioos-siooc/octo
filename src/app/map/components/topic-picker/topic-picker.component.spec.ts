@@ -2,10 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TopicPickerComponent} from './topic-picker.component';
 import {StoreModule} from '@ngrx/store';
-import {reducers} from '../../../store/app.reducers';
 import {HttpLoaderFactory} from '../../../shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {mapReducers} from '../../store/reducers/map.reducers';
 
 describe('TopicPickerComponent', () => {
   let component: TopicPickerComponent;
@@ -15,7 +15,8 @@ describe('TopicPickerComponent', () => {
     TestBed.configureTestingModule({
       declarations: [TopicPickerComponent],
       imports: [
-        StoreModule.forRoot(reducers),
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
         HttpClientModule,
         TranslateModule.forRoot({
           loader: {
