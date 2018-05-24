@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {cloneDeep} from 'lodash';
-import {MapState, selectMapClickState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectMapClickState} from '../../store/selectors/map-click.selectors';
 
 @Component({
   selector: 'app-map-click',

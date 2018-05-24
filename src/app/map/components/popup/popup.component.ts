@@ -5,7 +5,8 @@ import {Store} from '@ngrx/store';
 import * as popupActions from '../../store/actions/popup.actions';
 import {PopupStatus} from '../../store/actions/popup.actions';
 import * as fromPopup from '../../store/reducers/popup.reducers';
-import {MapState, selectPopupState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectPopupState} from '../../store/selectors/popup.selectors';
 
 @Component({
   selector: 'app-popup',

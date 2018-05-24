@@ -6,7 +6,8 @@ import {ClientPresentation} from '../../../shared/models/client-presentation.mod
 import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
 import * as layerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
-import {MapState, selectLayerPresentationState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectLayerPresentationState} from '../../store/selectors/layer-presentation.selectors';
 
 @Component({
   selector: 'app-layer-presentation',

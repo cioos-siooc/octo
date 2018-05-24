@@ -6,7 +6,8 @@ import {Store} from '@ngrx/store';
 import {Topic} from '../../../shared/models/topic.model';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '../../../../environments/environment';
-import {MapState, selectCatalogState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectCatalogState} from '../../store/selectors/catalog.selectors';
 
 @Component({
   selector: 'app-topic-picker',

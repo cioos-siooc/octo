@@ -9,7 +9,9 @@ import * as layerPresentationActions from '../../store/actions/layer-presentatio
 import {TranslateService} from '@ngx-translate/core';
 import {cloneDeep, isEqual} from 'lodash';
 import {map, take} from 'rxjs/operators';
-import {MapState, selectBehaviorState, selectLayerState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
+import {selectLayerState} from '../../store/selectors/layer.selectors';
 
 @Component({
   selector: 'app-layer-manager',

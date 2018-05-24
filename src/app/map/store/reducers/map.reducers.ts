@@ -1,4 +1,4 @@
-import {ActionReducerMap, createFeatureSelector, createSelector, MetaReducer} from '@ngrx/store';
+import {ActionReducerMap, createFeatureSelector, MetaReducer} from '@ngrx/store';
 import {environment} from '../../../../environments/environment';
 import {storeFreeze} from 'ngrx-store-freeze';
 
@@ -38,57 +38,4 @@ export const metaReducers: MetaReducer<MapState>[] = !environment.production ? [
 // TODO: put map inside a constant?
 export const selectMapState = createFeatureSelector<MapState>(
   'map'
-);
-
-export const selectCatalogState = createSelector(
-  selectMapState,
-  state => state.catalog,
-);
-export const selectLayerState = createSelector(
-  selectMapState,
-  state => state.layer,
-);
-export const selectBaseLayerState = createSelector(
-  selectMapState,
-  state => state.baseLayer,
-);
-export const selectLayerInformationState = createSelector(
-  selectMapState,
-  state => state.layerInformation,
-);
-export const selectPopupState = createSelector(
-  selectMapState,
-  state => state.popup,
-);
-export const selectLayerPresentationState = createSelector(
-  selectMapState,
-  state => state.layerPresentation,
-);
-export const selectMapClickState = createSelector(
-  selectMapState,
-  state => state.mapClick,
-);
-export const selectBehaviorState = createSelector(
-  selectMapState,
-  state => state.behavior,
-);
-
-export const selectAllBaseLayers = createSelector(
-  selectBaseLayerState,
-  fromBaseLayer.selectAllBaseLayers
-);
-
-export const selectBaseLayerIds = createSelector(
-  selectBaseLayerState,
-  fromBaseLayer.selectBaseLayerIds
-);
-
-export const selectBaseLayerEntities = createSelector(
-  selectBaseLayerState,
-  fromBaseLayer.selectBaseLayerEntities
-);
-
-export const selectBaseLayersTotal = createSelector(
-  selectBaseLayerState,
-  fromBaseLayer.selectBaseLayersTotal
 );

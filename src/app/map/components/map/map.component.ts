@@ -16,11 +16,10 @@ import {UrlBehaviorService} from '../../services/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {
-  MapState,
-  selectAllBaseLayers,
-  selectBaseLayerState, selectCatalogState,
-  selectMapClickState
-} from '../../store/reducers/map.reducers';
+  MapState} from '../../store/reducers/map.reducers';
+import {selectAllBaseLayers, selectBaseLayerState} from '../../store/selectors/base-layer.selectors';
+import {selectCatalogState} from '../../store/selectors/catalog.selectors';
+import {selectMapClickState} from '../../store/selectors/map-click.selectors';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';

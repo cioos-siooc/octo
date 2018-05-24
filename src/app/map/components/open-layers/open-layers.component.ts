@@ -23,7 +23,9 @@ import {MapClickInfo} from '../../../shared/models/map-click-info.model';
 import {filter} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {ClickFormatterFactory} from '../../utils/click-formatter/click-formatter-factory.util';
-import {MapState, selectBaseLayerState, selectLayerState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectBaseLayerState} from '../../store/selectors/base-layer.selectors';
+import {selectLayerState} from '../../store/selectors/layer.selectors';
 
 @Component({
   selector: 'app-open-layers',

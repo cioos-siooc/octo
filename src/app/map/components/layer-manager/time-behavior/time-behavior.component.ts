@@ -4,7 +4,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {BehaviorHandlerFactory} from '../../../utils/behavior-handler/behavior-handler-factory.util';
 import {TimeHandler} from '../../../utils/behavior-handler/time-handler.util';
 import {cloneDeep} from 'lodash';
-import {MapState, selectBehaviorState} from '../../../store/reducers/map.reducers';
+import {MapState} from '../../../store/reducers/map.reducers';
+import {selectBehaviorState} from '../../../store/selectors/behavior.selectors';
 
 @Component({
   selector: 'app-time-behavior',

@@ -3,7 +3,8 @@ import {Observable} from 'rxjs';
 
 import * as fromLayerInformation from '../../store/reducers/layer-information.reducers';
 import {Store} from '@ngrx/store';
-import {MapState, selectLayerInformationState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectLayerInformationState} from '../../store/selectors/layer-information.selectors';
 
 @Component({
   selector: 'app-layer-information',

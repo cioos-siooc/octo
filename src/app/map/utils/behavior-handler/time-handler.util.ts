@@ -5,7 +5,9 @@ import * as fromBehaviorActions from '../../store/actions/behavior.actions';
 import * as fromLayerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
 import {take} from 'rxjs/operators';
-import {MapState, selectBehaviorState, selectLayerState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
+import {selectLayerState} from '../../store/selectors/layer.selectors';
 
 export class TimeHandler implements BehaviorHandler {
   type = 'time';

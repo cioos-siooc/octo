@@ -4,7 +4,8 @@ import {Store} from '@ngrx/store';
 import * as fromCatalog from '../../store/reducers/catalog.reducers';
 import * as catalogActions from '../../store/actions/catalog.actions';
 import {Topic} from '../../../shared/models/topic.model';
-import {MapState, selectCatalogState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store/reducers/map.reducers';
+import {selectCatalogState} from '../../store/selectors/catalog.selectors';
 
 @Component({
   selector: 'app-catalog',
