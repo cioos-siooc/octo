@@ -15,9 +15,9 @@
   <li class="list-group-item" *ngFor="let cat of category.categories; let i = index">
 
     <ng-container *ngIf="cat.type === 'layer'">
-        <span class="selectable" (click)="onClickLayer(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
+        <span class="selectable pr-1" (click)="onClickLayer(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
           <input type="checkbox" [checked]="cat.isChecked">
-          <span>{{ cat.label }}</span>
+          <span class="pl-1">{{ cat.label }}</span>
         </span>
       <a><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(cat.layerId)"></i></a>
