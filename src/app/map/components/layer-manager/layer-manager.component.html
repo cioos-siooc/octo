@@ -1,6 +1,6 @@
 <div id="layer-manager" class="hover-opacity">
   <ul class="p-1">
-    <li *ngFor="let uniqueId of layerIds.reverse()" class="no-list-style pt-1 pb-1 pl-2">
+    <li *ngFor="let uniqueId of layerIds.slice().reverse()" class="no-list-style pt-1 pb-1 pl-2">
       <a><i class="fa fa-times-circle foreground-red"
             (click)="onRemoveClick(uniqueId)"></i></a>
       <span>{{(getLayerTitle(uniqueId) | async)}}</span>
