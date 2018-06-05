@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import * as layerActions from '../../store/actions/layer.actions';
 import * as layerInformationActions from '../../store/actions/layer-information.actions';
@@ -7,7 +7,7 @@ import * as popupActions from '../../store/actions/popup.actions';
 import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
 import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';
-import {cloneDeep, isEqual} from 'lodash';
+import {isEqual} from 'lodash';
 import {map, take} from 'rxjs/operators';
 import {MapState} from '../../store/reducers/map.reducers';
 import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
@@ -16,33 +16,35 @@ import {selectLayerState} from '../../store/selectors/layer.selectors';
 @Component({
   selector: 'app-layer-manager',
   templateUrl: './layer-manager.component.html',
-  styleUrls: ['./layer-manager.component.css']
+  styleUrls: ['./layer-manager.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LayerManagerComponent implements OnInit {
   layerIds = [];
   expandedLayerIds = [];
 
-  constructor(private store: Store<MapState>, private translateService: TranslateService) {
+  constructor(private store: Store<MapState>, private translateService: TranslateService,
+              private changeDetector: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.store.select(selectLayerState).subscribe((layerState) => {
-      const layerStateCopy = cloneDeep(layerState);
-      const layerUniqueIds = layerStateCopy.layers.map(l => l.uniqueId);
+      const layerUniqueIds = layerState.layers.map(l => l.uniqueId);
       if (!isEqual(this.layerIds, layerUniqueIds)) {
         this.layerIds = layerUniqueIds;
+        this.changeDetector.markForCheck();
       }
     });
   }
 
   getLayerTitle(layerUniqueId) {
     return this.store.select(selectLayerState).pipe(take(1), map((layerState) => {
-      const layerStateCopy = cloneDeep(layerState);
-      const layer = layerStateCopy.layers.find(l => l.uniqueId === layerUniqueId);
+      const layer = layerState.layers.find(l => l.uniqueId === layerUniqueId);
       return layer.title;
     }));
   }
 
+  // TODO: store behaviors in local variable instead, so getUrlBehaviors is not called multiple times uselessly
   getUrlBehaviors(layerUniqueId) {
     return this.store.select(selectBehaviorState).pipe(take(1), map((behaviorState) => {
       return behaviorState.behaviors.filter((b) => {

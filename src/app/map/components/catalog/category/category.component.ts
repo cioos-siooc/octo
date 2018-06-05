@@ -90,9 +90,10 @@ export class CategoryComponent implements OnInit {
   }
 
   private activateLayer(category: Category, treeLocation: number[]) {
+    const layerUniqueId = ActivateLayer.activateLayer(category.layerId, this.store)
     this.store.dispatch(new catalogActions.AddSelectedLayer(
       new CatalogSelectedLayer(
-        category.layerUniqueId,
+        layerUniqueId,
         treeLocation
       )
     ));
@@ -100,7 +101,7 @@ export class CategoryComponent implements OnInit {
       treeLocation: treeLocation,
       newCategory: <Category>{
         ...category,
-        layerUniqueId: ActivateLayer.activateLayer(category.layerId, this.store)
+        layerUniqueId: layerUniqueId
       }
     }));
   }
