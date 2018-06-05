@@ -69,7 +69,7 @@ export function catalogReducer(state: State = initialState, action: CatalogActio
         topics: updatedTopicList
       };
     case CatalogActionTypes.ADD_SELECTED_LAYER:
-      return {
+      return <any>{
         ...state,
         selectedLayers: [...state.selectedLayers, (<any>action).payload]
       };
