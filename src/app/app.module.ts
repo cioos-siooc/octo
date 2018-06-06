@@ -4,7 +4,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
-import {environment} from '../environments/environment.prod';
+import {environment} from '@env/environment.prod';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './core/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
