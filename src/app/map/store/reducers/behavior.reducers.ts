@@ -1,15 +1,15 @@
 import {BehaviorActionsUnion, BehaviorActionTypes} from '../actions/behavior.actions';
 import {cloneDeep} from 'lodash';
 
-export interface State {
+export interface BehaviorState {
   behaviors: any[];
 }
 
-export const initialState: State = {
+export const initialState: BehaviorState = {
   behaviors: [],
 };
 
-export function behaviorReducer(state = initialState, action: BehaviorActionsUnion): State {
+export function behaviorReducer(state = initialState, action: BehaviorActionsUnion): BehaviorState {
   switch (action.type) {
     case BehaviorActionTypes.ADD_BEHAVIOR:
       const clonedState = cloneDeep(state);

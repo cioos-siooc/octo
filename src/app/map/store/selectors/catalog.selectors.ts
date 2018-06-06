@@ -1,5 +1,5 @@
 import {createSelector} from '@ngrx/store';
-import {selectMapState} from '../reducers/map.reducers';
+import {selectMapState} from '../reducers';
 
 export const selectCatalogState = createSelector(
   selectMapState,

@@ -4,20 +4,20 @@ import {Topic} from '../../../shared/models/topic.model';
 import {CatalogSelectedLayer} from '../../../shared/models/catalog-selected-layer.model';
 import Utils from '../../utils/category.util';
 
-export interface State {
+export interface CatalogState {
   topicGroup: TopicGroup;
   topics: Topic[];
   selectedLayers: CatalogSelectedLayer[];
 }
 
-export const initialState: State = {
+export const initialState: CatalogState = {
   topicGroup: new TopicGroup(-1, 'placeholder', null, []),
   topics: [],
   selectedLayers: []
 };
 
 // TODO: Use cloneDeep when object has multiple nesting levels
-export function catalogReducer(state: State = initialState, action: CatalogActionsUnion): State {
+export function catalogReducer(state: CatalogState = initialState, action: CatalogActionsUnion): CatalogState {
   switch (action.type) {
     case CatalogActionTypes.SET_TOPIC_GROUP:
       return {

@@ -1,9 +1,9 @@
-import {Layer} from '../../../shared/models/layer.model';
+import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {BaseLayerActionsUnion, BaseLayerActionTypes} from '../actions/base-layer.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
-export interface State extends EntityState<Layer> {
+export interface BaseLayerState extends EntityState<Layer> {
   currentBaseLayer: Layer;
 }
 
@@ -12,11 +12,11 @@ export const adapter: EntityAdapter<Layer> = createEntityAdapter<Layer>({
   sortComparer: false,
 });
 
-export const initialState: State = adapter.getInitialState({
+export const initialState: BaseLayerState = adapter.getInitialState({
   currentBaseLayer: null,
 });
 
-export function baseLayerReducer(state = initialState, action: BaseLayerActionsUnion): State {
+export function baseLayerReducer(state = initialState, action: BaseLayerActionsUnion): BaseLayerState {
   switch (action.type) {
     case BaseLayerActionTypes.ADD_BASE_LAYER:
       return adapter.addOne(action.payload, state);

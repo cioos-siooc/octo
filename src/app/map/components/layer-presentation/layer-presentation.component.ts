@@ -6,7 +6,7 @@ import {ClientPresentation} from '../../../shared/models/client-presentation.mod
 import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
 import * as layerActions from '../../store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 import {selectLayerPresentationState} from '../../store/selectors/layer-presentation.selectors';
 
 @Component({
@@ -15,7 +15,7 @@ import {selectLayerPresentationState} from '../../store/selectors/layer-presenta
   styleUrls: ['./layer-presentation.component.css']
 })
 export class LayerPresentationComponent implements OnInit {
-  layerPresentationState: Observable<fromLayerPresentation.State>;
+  layerPresentationState: Observable<fromLayerPresentation.LayerPresentationState>;
   currentClientPresentation: ClientPresentation;
   private currentUniqueId: string;
 

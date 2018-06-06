@@ -23,7 +23,7 @@ import {ImageFieldComponent} from '../map-click/click-formatter/field/image-fiel
 import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
 import {UrlBehaviorService} from '../../services/url-behavior.service';
 import {CalendarModule} from 'primeng/calendar';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '../../store';
 
 describe('MapComponent', () => {
   let component: MapComponent;

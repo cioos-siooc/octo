@@ -16,7 +16,7 @@ import {UrlBehaviorService} from '../../services/url-behavior.service';
 import {filter, first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {
-  MapState} from '../../store/reducers/map.reducers';
+  MapState} from '../../store';
 import {selectAllBaseLayers, selectBaseLayerState} from '../../store/selectors/base-layer.selectors';
 import {selectCatalogState} from '../../store/selectors/catalog.selectors';
 import {selectMapClickState} from '../../store/selectors/map-click.selectors';
@@ -81,7 +81,7 @@ export class MapComponent implements OnInit {
   }
 
   private initBaseLayers() {
-    this.store.select(selectBaseLayerState).pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.State) => {
+    this.store.select(selectBaseLayerState).pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) => {
       if (baseLayerState.currentBaseLayer == null) {
         this.populateBaseLayers();
       }
@@ -106,7 +106,7 @@ export class MapComponent implements OnInit {
   }
 
   private initMapClickTitle() {
-    this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.State) => {
+    this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.MapClickState) => {
       const mapClickClonedState = cloneDeep(mapClickState);
       if (mapClickClonedState.mapClickLayer != null) {
         this.mapClickTitle = mapClickClonedState.mapClickLayer.title;
@@ -119,9 +119,9 @@ export class MapComponent implements OnInit {
   }
 
   private synchronizeBaseLayer() {
-    this.store.select(selectBaseLayerState).pipe(first((baseLayerState: fromBaseLayer.State) => {
+    this.store.select(selectBaseLayerState).pipe(first((baseLayerState: fromBaseLayer.BaseLayerState) => {
       return baseLayerState.currentBaseLayer != null;
-    })).subscribe((baseLayerState: fromBaseLayer.State) => {
+    })).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) => {
       const clonedBaseLayerState = cloneDeep(baseLayerState);
       this.currentBaseLayer = clonedBaseLayerState.currentBaseLayer;
     });

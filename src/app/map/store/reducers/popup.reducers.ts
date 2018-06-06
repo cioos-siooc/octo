@@ -2,16 +2,16 @@ import {PopupActionsUnion, PopupActionTypes, PopupStatus} from '../actions/popup
 import {cloneDeep} from 'lodash';
 
 
-export interface State {
+export interface PopupState {
   popupStatuses: PopupStatus[];
 }
 
-export const initialState: State = {
+export const initialState: PopupState = {
   popupStatuses: [],
 };
 
 
-export function popupReducer(state: State = initialState, action: PopupActionsUnion): State {
+export function popupReducer(state: PopupState = initialState, action: PopupActionsUnion): PopupState {
   switch (action.type) {
     case PopupActionTypes.ADD_POPUP:
       const clonedState = cloneDeep(state);

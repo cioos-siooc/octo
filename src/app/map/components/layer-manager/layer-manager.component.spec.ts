@@ -8,7 +8,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TimeBehaviorComponent} from './time-behavior/time-behavior.component';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule} from 'primeng/calendar';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '../../store';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;

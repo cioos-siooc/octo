@@ -5,7 +5,7 @@ import {StoreModule} from '@ngrx/store';
 import {HttpLoaderFactory} from '../../../shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '../../store';
 
 describe('TopicPickerComponent', () => {
   let component: TopicPickerComponent;

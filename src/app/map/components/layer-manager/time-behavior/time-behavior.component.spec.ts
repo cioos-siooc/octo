@@ -6,7 +6,7 @@ import {StoreModule} from '@ngrx/store';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {HttpLoaderFactory} from '../../../../shared/shared.module';
 import {CalendarModule} from 'primeng/calendar';
-import {mapReducers} from '../../../store/reducers/map.reducers';
+import {mapReducers} from '@app/map/store';
 
 describe('TimeBehaviorComponent', () => {
   let component: TimeBehaviorComponent;

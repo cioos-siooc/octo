@@ -23,7 +23,7 @@ import {MapClickInfo} from '../../../shared/models/map-click-info.model';
 import {filter} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
 import {ClickFormatterFactory} from '../../utils/click-formatter/click-formatter-factory.util';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 import {selectBaseLayerState} from '../../store/selectors/base-layer.selectors';
 import {selectLayerState} from '../../store/selectors/layer.selectors';
 
@@ -61,7 +61,7 @@ export class OpenLayersComponent implements AfterViewInit {
   private initBaseLayerSubscription() {
     this.store.select(selectBaseLayerState)
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
-      ).subscribe((baseLayerState: fromBaseLayer.State) => {
+      ).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) => {
       const clonedBaseLayerState = cloneDeep(baseLayerState);
       if (this.getOLLayerFromId(clonedBaseLayerState.currentBaseLayer.id) == null) {
         if (this.baseOLLayer != null) {
@@ -82,7 +82,7 @@ export class OpenLayersComponent implements AfterViewInit {
 
   private initLayerSubscription() {
     this.store.select(selectLayerState)
-      .subscribe((layerState: fromLayer.State) => {
+      .subscribe((layerState: fromLayer.LayerState) => {
         const clonedLayerState = cloneDeep(layerState);
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
         currentOLLayers.forEach((layer: OLLayer) => {

@@ -6,7 +6,7 @@ import {Store} from '@ngrx/store';
 import {Topic} from '../../../shared/models/topic.model';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '../../../../environments/environment';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 import {selectCatalogState} from '../../store/selectors/catalog.selectors';
 
 @Component({
@@ -15,7 +15,7 @@ import {selectCatalogState} from '../../store/selectors/catalog.selectors';
   styleUrls: ['./topic-picker.component.css']
 })
 export class TopicPickerComponent implements OnInit {
-  catalogState: Observable<fromCatalog.State>;
+  catalogState: Observable<fromCatalog.CatalogState>;
 
   constructor(private store: Store<MapState>, private translateService: TranslateService) {
   }

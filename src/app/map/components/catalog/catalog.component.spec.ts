@@ -7,7 +7,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpLoaderFactory} from '../../../shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '../../store';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;

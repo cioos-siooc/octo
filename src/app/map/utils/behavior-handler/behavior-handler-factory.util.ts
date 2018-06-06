@@ -1,7 +1,7 @@
 import {TimeHandler} from './time-handler.util';
 import {BehaviorHandler} from './behavior-handler.util';
 import {Store} from '@ngrx/store';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 
 export class BehaviorHandlerFactory {
   public static getBehaviorHandler(type: string, store: Store<MapState>): BehaviorHandler {

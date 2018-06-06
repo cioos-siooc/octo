@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 
 import * as fromLayerInformation from '../../store/reducers/layer-information.reducers';
 import {Store} from '@ngrx/store';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 import {selectLayerInformationState} from '../../store/selectors/layer-information.selectors';
 
 @Component({
@@ -12,7 +12,7 @@ import {selectLayerInformationState} from '../../store/selectors/layer-informati
   styleUrls: ['./layer-information.component.css']
 })
 export class LayerInformationComponent implements OnInit {
-  layerInformationState: Observable<fromLayerInformation.State>;
+  layerInformationState: Observable<fromLayerInformation.LayerInformationState>;
   layerInformationHtml: string;
 
   constructor(private store: Store<MapState>) {

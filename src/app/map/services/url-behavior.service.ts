@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorHandlerFactory} from '../utils/behavior-handler/behavior-handler-factory.util';
 import {filter, take} from 'rxjs/operators';
 import {cloneDeep} from 'lodash';
-import {MapState} from '../store/reducers/map.reducers';
+import {MapState} from '../store';
 import {selectBehaviorState} from '../store/selectors/behavior.selectors';
 
 @Injectable()

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CategoryComponent} from './category.component';
 import {FormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
-import {mapReducers} from '../../../store/reducers/map.reducers';
+import {mapReducers} from '../../../store';
 
 describe('CategoryComponent', () => {
   let component: CategoryComponent;

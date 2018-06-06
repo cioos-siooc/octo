@@ -9,7 +9,7 @@ import * as layerPresentationActions from '../../store/actions/layer-presentatio
 import {TranslateService} from '@ngx-translate/core';
 import {isEqual} from 'lodash';
 import {map, take} from 'rxjs/operators';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
 import {selectLayerState} from '../../store/selectors/layer.selectors';
 

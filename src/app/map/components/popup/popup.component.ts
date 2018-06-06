@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import * as popupActions from '../../store/actions/popup.actions';
 import {PopupStatus} from '../../store/actions/popup.actions';
 import * as fromPopup from '../../store/reducers/popup.reducers';
-import {MapState} from '../../store/reducers/map.reducers';
+import {MapState} from '../../store';
 import {selectPopupState} from '../../store/selectors/popup.selectors';
 
 @Component({
@@ -25,7 +25,7 @@ export class PopupComponent implements OnInit {
 
   ngOnInit() {
     this.isOpen = false;
-    this.store.select(selectPopupState).subscribe((popupState: fromPopup.State) => {
+    this.store.select(selectPopupState).subscribe((popupState: fromPopup.PopupState) => {
       const popupStatus = popupState.popupStatuses.find((pS: PopupStatus) => {
         return pS.id === this.id;
       });

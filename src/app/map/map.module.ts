@@ -5,7 +5,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AngularDraggableModule} from 'angular2-draggable';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
-import {mapReducers} from './store/reducers/map.reducers';
+import {mapReducers} from './store';
 import {LayerInformationEffects} from './store/effects/layer-information.effects';
 import {CatalogEffects} from './store/effects/catalog.effects';
 import {LayerEffects} from './store/effects/layer.effects';

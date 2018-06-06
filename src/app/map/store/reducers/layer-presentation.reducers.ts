@@ -1,19 +1,19 @@
 import {LayerPresentationActionsUnion, LayerPresentationActionTypes} from '../actions/layer-presentation.actions';
 import {ClientPresentation} from '../../../shared/models/client-presentation.model';
 
-export interface State {
+export interface LayerPresentationState {
   layerUniqueId: string;
   clientPresentations: ClientPresentation[];
   currentClientPresentation: ClientPresentation;
 }
 
-export const initialState: State = {
+export const initialState: LayerPresentationState = {
   layerUniqueId: null,
   clientPresentations: [],
   currentClientPresentation: null
 };
 
-export function layerPresentationReducer(state = initialState, action: LayerPresentationActionsUnion): State {
+export function layerPresentationReducer(state = initialState, action: LayerPresentationActionsUnion): LayerPresentationState {
   switch (action.type) {
     case LayerPresentationActionTypes.SET_LAYER_UNIQUE_ID:
       return {

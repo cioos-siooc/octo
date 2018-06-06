@@ -7,7 +7,7 @@ import {TextFieldComponent} from './click-formatter/field/text-field/text-field.
 import {UrlFieldComponent} from './click-formatter/field/url-field/url-field.component';
 import {DateFieldComponent} from './click-formatter/field/date-field/date-field.component';
 import {ImageFieldComponent} from './click-formatter/field/image-field/image-field.component';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '../../store';
 
 describe('MapClickComponent', () => {
   let component: MapClickComponent;

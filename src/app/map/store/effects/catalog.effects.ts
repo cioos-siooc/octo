@@ -19,7 +19,7 @@ import {Topic} from '../../../shared/models/topic.model';
 import {environment} from '../../../../environments/environment';
 import {TopicHierarchy} from '../../../shared/models/topic-hierarchy.model';
 import {Category} from '../../../shared/models/category.model';
-import {MapState} from '../reducers/map.reducers';
+import {MapState} from '../reducers';
 import {selectCatalogState} from '../selectors/catalog.selectors';
 
 @Injectable()

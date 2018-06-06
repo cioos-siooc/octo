@@ -6,7 +6,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {StoreModule} from '@ngrx/store';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '../../store';
 
 describe('LayerPresentationComponent', () => {
   let component: LayerPresentationComponent;
