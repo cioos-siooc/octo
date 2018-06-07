@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {ClientPresentation} from '../../../shared/models/client-presentation.model';
+import {ClientPresentation} from '@app/shared/models';
 
 export enum LayerPresentationActionTypes {
   SET_LAYER_UNIQUE_ID = '[Layer presentation] Set layer unique id',

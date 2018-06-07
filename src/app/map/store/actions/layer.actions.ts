@@ -1,6 +1,6 @@
 import {Action} from '@ngrx/store';
-import {Layer} from '../../../shared/models/layer.model';
-import {ClientPresentation} from '../../../shared/models/client-presentation.model';
+import {Layer} from '@app/shared/models';
+import {ClientPresentation} from '@app/shared/models';
 
 export enum LayerActionTypes {
   FETCH_LAYER = '[Layer] Fetch',

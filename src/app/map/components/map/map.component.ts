@@ -1,25 +1,25 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {Layer} from '../../../shared/models/layer.model';
+import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 
 
-import * as fromBaseLayer from '../../store/reducers/base-layer.reducers';
-import * as fromMapClick from '../../store/reducers/map-click.reducers';
-import * as baseLayerActions from '../../store/actions/base-layer.actions';
-import * as popupActions from '../../store/actions/popup.actions';
-import {environment} from '../../../../environments/environment';
+import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
+import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
+import * as baseLayerActions from '@app/map/store/actions/base-layer.actions';
+import * as popupActions from '@app/map/store/actions/popup.actions';
+import {environment} from '@env/environment';
 import {TranslateService} from '@ngx-translate/core';
-import * as catalogActions from '../../store/actions/catalog.actions';
-import {UrlBehaviorService} from '../../services/url-behavior.service';
+import * as catalogActions from '@app/map/store/actions/catalog.actions';
+import {UrlBehaviorService} from '@app/map/services';
 import {filter, first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {
-  MapState} from '../../store/reducers/map.reducers';
-import {selectAllBaseLayers, selectBaseLayerState} from '../../store/selectors/base-layer.selectors';
-import {selectCatalogState} from '../../store/selectors/catalog.selectors';
-import {selectMapClickState} from '../../store/selectors/map-click.selectors';
+  MapState} from '@app/map/store';
+import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
+import {selectCatalogState} from '@app/map/store';
+import {selectMapClickState} from '@app/map/store';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -81,7 +81,7 @@ export class MapComponent implements OnInit {
   }
 
   private initBaseLayers() {
-    this.store.select(selectBaseLayerState).pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.State) => {
+    this.store.select(selectBaseLayerState).pipe(take(1)).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) => {
       if (baseLayerState.currentBaseLayer == null) {
         this.populateBaseLayers();
       }
@@ -106,7 +106,7 @@ export class MapComponent implements OnInit {
   }
 
   private initMapClickTitle() {
-    this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.State) => {
+    this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.MapClickState) => {
       const mapClickClonedState = cloneDeep(mapClickState);
       if (mapClickClonedState.mapClickLayer != null) {
         this.mapClickTitle = mapClickClonedState.mapClickLayer.title;
@@ -119,9 +119,9 @@ export class MapComponent implements OnInit {
   }
 
   private synchronizeBaseLayer() {
-    this.store.select(selectBaseLayerState).pipe(first((baseLayerState: fromBaseLayer.State) => {
+    this.store.select(selectBaseLayerState).pipe(first((baseLayerState: fromBaseLayer.BaseLayerState) => {
       return baseLayerState.currentBaseLayer != null;
-    })).subscribe((baseLayerState: fromBaseLayer.State) => {
+    })).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) => {
       const clonedBaseLayerState = cloneDeep(baseLayerState);
       this.currentBaseLayer = clonedBaseLayerState.currentBaseLayer;
     });

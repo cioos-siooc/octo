@@ -4,10 +4,10 @@ import {CatalogComponent} from './catalog.component';
 import {StoreModule} from '@ngrx/store';
 import {CategoryComponent} from './category/category.component';
 import {FormsModule} from '@angular/forms';
-import {HttpLoaderFactory} from '../../../shared/shared.module';
+import {HttpLoaderFactory} from '@app/shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {mapReducers} from '../../store/reducers/map.reducers';
+import {mapReducers} from '@app/map/store';
 
 describe('CatalogComponent', () => {
   let component: CatalogComponent;

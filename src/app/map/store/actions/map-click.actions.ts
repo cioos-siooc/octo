@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Layer} from '../../../shared/models/layer.model';
+import {Layer} from '@app/shared/models';
 
 export enum MapClickActionTypes {
   SET_MAP_CLICK_INFO = '[Map click] Set info',

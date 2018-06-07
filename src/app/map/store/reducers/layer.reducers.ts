@@ -1,16 +1,16 @@
-import {Layer} from '../../../shared/models/layer.model';
+import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {LayerActionsUnion, LayerActionTypes} from '../actions/layer.actions';
 
-export interface State {
+export interface LayerState {
   layers: Layer[];
 }
 
-export const initialState: State = {
+export const initialState: LayerState = {
   layers: [],
 };
 
-export function layerReducer(state = initialState, action: LayerActionsUnion): State {
+export function layerReducer(state = initialState, action: LayerActionsUnion): LayerState {
   switch (action.type) {
     case LayerActionTypes.ADD_LAYER:
       const clonedState = cloneDeep(state);

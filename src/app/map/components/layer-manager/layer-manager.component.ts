@@ -1,17 +1,17 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-import * as layerActions from '../../store/actions/layer.actions';
-import * as layerInformationActions from '../../store/actions/layer-information.actions';
-import * as catalogActions from '../../store/actions/catalog.actions';
-import * as popupActions from '../../store/actions/popup.actions';
+import * as layerActions from '@app/map/store/actions/layer.actions';
+import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
+import * as catalogActions from '@app/map/store/actions/catalog.actions';
+import * as popupActions from '@app/map/store/actions/popup.actions';
 import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
-import * as layerPresentationActions from '../../store/actions/layer-presentation.actions';
+import * as layerPresentationActions from '@app/map/store/actions/layer-presentation.actions';
 import {TranslateService} from '@ngx-translate/core';
 import {isEqual} from 'lodash';
 import {map, take} from 'rxjs/operators';
-import {MapState} from '../../store/reducers/map.reducers';
-import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
-import {selectLayerState} from '../../store/selectors/layer.selectors';
+import {MapState} from '@app/map/store';
+import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
+import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
 
 @Component({
   selector: 'app-layer-manager',

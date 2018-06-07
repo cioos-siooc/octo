@@ -1,4 +1,4 @@
-import {selectMapState} from '../reducers/map.reducers';
+import {selectMapState} from '../reducers';
 import {createSelector} from '@ngrx/store';
 import * as fromBaseLayer from '../reducers/base-layer.reducers';
 

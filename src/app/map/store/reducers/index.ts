@@ -12,14 +12,14 @@ import * as fromMapClick from './map-click.reducers';
 import * as fromBehavior from './behavior.reducers';
 
 export interface MapState {
-  catalog: fromCatalog.State;
-  layer: fromLayer.State;
-  baseLayer: fromBaseLayer.State;
-  layerInformation: fromLayerInformation.State;
-  popup: fromPopup.State;
-  layerPresentation: fromLayerPresentation.State;
-  mapClick: fromMapClick.State;
-  behavior: fromBehavior.State;
+  catalog: fromCatalog.CatalogState;
+  layer: fromLayer.LayerState;
+  baseLayer: fromBaseLayer.BaseLayerState;
+  layerInformation: fromLayerInformation.LayerInformationState;
+  popup: fromPopup.PopupState;
+  layerPresentation: fromLayerPresentation.LayerPresentationState;
+  mapClick: fromMapClick.MapClickState;
+  behavior: fromBehavior.BehaviorState;
 }
 
 export const mapReducers: ActionReducerMap<MapState> = {

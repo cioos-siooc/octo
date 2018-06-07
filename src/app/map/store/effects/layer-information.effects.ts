@@ -5,7 +5,7 @@ import {Actions, Effect} from '@ngrx/effects';
 import * as LayerInformationActions from '../actions/layer-information.actions';
 import {map, switchMap} from 'rxjs/operators';
 import {LayerInformationActionTypes, SetSelectedLayerId} from '../actions/layer-information.actions';
-import {environment} from '../../../../environments/environment';
+import {environment} from '@env/environment';
 
 @Injectable()
 export class LayerInformationEffects {

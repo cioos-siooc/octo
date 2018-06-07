@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import * as fromCatalog from '../../store/reducers/catalog.reducers';
-import * as catalogActions from '../../store/actions/catalog.actions';
-import {Topic} from '../../../shared/models/topic.model';
-import {MapState} from '../../store/reducers/map.reducers';
-import {selectCatalogState} from '../../store/selectors/catalog.selectors';
+import * as fromCatalog from '@app/map/store/reducers/catalog.reducers';
+import * as catalogActions from '@app/map/store/actions/catalog.actions';
+import {Topic} from '@app/shared/models';
+import {MapState} from '@app/map/store';
+import {selectCatalogState} from '@app/map/store/selectors/catalog.selectors';
 
 @Component({
   selector: 'app-catalog',
@@ -13,7 +13,7 @@ import {selectCatalogState} from '../../store/selectors/catalog.selectors';
   styleUrls: ['./catalog.component.css']
 })
 export class CatalogComponent implements OnInit {
-  catalogState: Observable<fromCatalog.State>;
+  catalogState: Observable<fromCatalog.CatalogState>;
   numExpandedTopics: number;
 
   constructor(private store: Store<MapState>) {

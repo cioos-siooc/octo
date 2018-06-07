@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import * as fromCatalog from '../../store/reducers/catalog.reducers';
-import * as catalogActions from '../../store/actions/catalog.actions';
+import * as fromCatalog from '@app/map/store/reducers/catalog.reducers';
+import * as catalogActions from '@app/map/store/actions/catalog.actions';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {Topic} from '../../../shared/models/topic.model';
+import {Topic} from '@app/shared/models';
 import {TranslateService} from '@ngx-translate/core';
-import {environment} from '../../../../environments/environment';
-import {MapState} from '../../store/reducers/map.reducers';
-import {selectCatalogState} from '../../store/selectors/catalog.selectors';
+import {environment} from '@env/environment';
+import {MapState} from '../../store';
+import {selectCatalogState} from '@app/map/store/selectors/catalog.selectors';
 
 @Component({
   selector: 'app-topic-picker',
@@ -15,7 +15,7 @@ import {selectCatalogState} from '../../store/selectors/catalog.selectors';
   styleUrls: ['./topic-picker.component.css']
 })
 export class TopicPickerComponent implements OnInit {
-  catalogState: Observable<fromCatalog.State>;
+  catalogState: Observable<fromCatalog.CatalogState>;
 
   constructor(private store: Store<MapState>, private translateService: TranslateService) {
   }

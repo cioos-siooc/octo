@@ -8,24 +8,24 @@ import Proj from 'ol/proj';
 import OLLayer from 'ol/layer/layer';
 import LayerBase from 'ol/layer/base';
 import TileWMS from 'ol/source/tilewms';
-import * as fromBaseLayer from '../../store/reducers/base-layer.reducers';
-import {OLLayerFactory} from '../../utils/open-layers/ol-layer-factory.util';
-import * as fromLayer from '../../store/reducers/layer.reducers';
+import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
+import {OLLayerFactory} from '@app/map/utils';
+import * as fromLayer from '@app/map/store/reducers/layer.reducers';
 import {clone, cloneDeep, isEqual} from 'lodash';
-import {Layer} from '../../../shared/models/layer.model';
-import {WmsStrategy} from '../../../shared/models/wms-strategy.model';
+import {Layer} from '@app/shared/models';
+import {WmsStrategy} from '@app/shared/models';
 import {HttpClient} from '@angular/common/http';
 import {MAP_CLICK_POPUP_ID} from '../map/map.component';
-import * as popupActions from '../../store/actions/popup.actions';
-import * as mapClickActions from '../../store/actions/map-click.actions';
-import {EmptyValidatorFactory} from '../../../shared/utils/empty-validator-factory.util';
-import {MapClickInfo} from '../../../shared/models/map-click-info.model';
+import * as popupActions from '@app/map/store/actions/popup.actions';
+import * as mapClickActions from '@app/map/store/actions/map-click.actions';
+import {EmptyValidatorFactory} from '@app/shared/utils';
+import {MapClickInfo} from '@app/shared/models';
 import {filter} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
-import {ClickFormatterFactory} from '../../utils/click-formatter/click-formatter-factory.util';
-import {MapState} from '../../store/reducers/map.reducers';
-import {selectBaseLayerState} from '../../store/selectors/base-layer.selectors';
-import {selectLayerState} from '../../store/selectors/layer.selectors';
+import {ClickFormatterFactory} from '@app/map/utils';
+import {MapState} from '@app/map/store';
+import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
+import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
 
 @Component({
   selector: 'app-open-layers',
@@ -61,7 +61,7 @@ export class OpenLayersComponent implements AfterViewInit {
   private initBaseLayerSubscription() {
     this.store.select(selectBaseLayerState)
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
-      ).subscribe((baseLayerState: fromBaseLayer.State) => {
+      ).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) => {
       const clonedBaseLayerState = cloneDeep(baseLayerState);
       if (this.getOLLayerFromId(clonedBaseLayerState.currentBaseLayer.id) == null) {
         if (this.baseOLLayer != null) {
@@ -82,7 +82,7 @@ export class OpenLayersComponent implements AfterViewInit {
 
   private initLayerSubscription() {
     this.store.select(selectLayerState)
-      .subscribe((layerState: fromLayer.State) => {
+      .subscribe((layerState: fromLayer.LayerState) => {
         const clonedLayerState = cloneDeep(layerState);
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
         currentOLLayers.forEach((layer: OLLayer) => {
