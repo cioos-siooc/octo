@@ -1,11 +1,11 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
-import {BehaviorHandlerFactory} from '../../../utils/behavior-handler/behavior-handler-factory.util';
-import {TimeHandler} from '../../../utils/behavior-handler/time-handler.util';
+import {BehaviorHandlerFactory} from '@app/map/utils';
+import {TimeHandler} from '@app/map/utils';
 import {cloneDeep} from 'lodash';
-import {MapState} from '../../../store';
-import {selectBehaviorState} from '../../../store/selectors/behavior.selectors';
+import {MapState} from '@app/map/store';
+import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
 
 @Component({
   selector: 'app-time-behavior',

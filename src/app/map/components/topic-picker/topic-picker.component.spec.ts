@@ -2,10 +2,10 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TopicPickerComponent} from './topic-picker.component';
 import {StoreModule} from '@ngrx/store';
-import {HttpLoaderFactory} from '../../../shared/shared.module';
+import {HttpLoaderFactory} from '@app/shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {mapReducers} from '../../store';
+import {mapReducers} from '@app/map/store';
 
 describe('TopicPickerComponent', () => {
   let component: TopicPickerComponent;

@@ -1,12 +1,12 @@
 import {ActionsSubject, Store} from '@ngrx/store';
-import {AddLayer, DeleteLayer, LayerActionTypes} from '../store/actions/layer.actions';
-import * as fromBehaviorActions from '../store/actions/behavior.actions';
+import {AddLayer, DeleteLayer, LayerActionTypes} from '@app/map/store/actions/layer.actions';
+import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
 import {Injectable} from '@angular/core';
-import {BehaviorHandlerFactory} from '../utils/behavior-handler/behavior-handler-factory.util';
+import {BehaviorHandlerFactory} from '@app/map/utils';
 import {filter, take} from 'rxjs/operators';
 import {cloneDeep} from 'lodash';
-import {MapState} from '../store';
-import {selectBehaviorState} from '../store/selectors/behavior.selectors';
+import {MapState} from '@app/map/store';
+import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
 
 @Injectable()
 export class UrlBehaviorService {

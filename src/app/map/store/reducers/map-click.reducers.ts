@@ -1,6 +1,6 @@
-import {Layer} from '../../../shared/models/layer.model';
+import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
-import {MapClickInfo} from '../../../shared/models/map-click-info.model';
+import {MapClickInfo} from '@app/shared/models';
 import {MapClickActionsUnion, MapClickActionTypes} from '../actions/map-click.actions';
 
 export interface MapClickState {

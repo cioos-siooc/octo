@@ -15,15 +15,15 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {LayerInformationComponent} from '../layer-information/layer-information.component';
 import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
 import {MapClickComponent} from '../map-click/map-click.component';
-import {KeepHtmlPipe} from '../../../shared/pipes';
+import {KeepHtmlPipe} from '@app/shared/pipes';
 import {TextFieldComponent} from '../map-click/click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from '../map-click/click-formatter/field/url-field/url-field.component';
 import {DateFieldComponent} from '../map-click/click-formatter/field/date-field/date-field.component';
 import {ImageFieldComponent} from '../map-click/click-formatter/field/image-field/image-field.component';
 import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
-import {UrlBehaviorService} from '../../services/url-behavior.service';
+import {UrlBehaviorService} from '@app/map/services';
 import {CalendarModule} from 'primeng/calendar';
-import {mapReducers} from '../../store';
+import {mapReducers} from '@app/map/store';
 
 describe('MapComponent', () => {
   let component: MapComponent;

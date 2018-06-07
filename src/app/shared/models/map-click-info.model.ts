@@ -1,4 +1,4 @@
-import {Field} from '../../map/utils/click-formatter/field/field.util';
+import {Field} from '@app/map/utils';
 
 export class MapClickInfo {
   html = '';

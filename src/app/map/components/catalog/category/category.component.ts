@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 
-import * as catalogActions from '../../../store/actions/catalog.actions';
-import * as layerActions from '../../../store/actions/layer.actions';
-import * as layerInformationActions from '../../../store/actions/layer-information.actions';
-import * as popupActions from '../../../store/actions/popup.actions';
+import * as catalogActions from '@app/map/store/actions/catalog.actions';
+import * as layerActions from '@app/map/store/actions/layer.actions';
+import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
+import * as popupActions from '@app/map/store/actions/popup.actions';
 import {Category} from '@app/shared/models';
-import {CatalogSelectedLayer} from '../../../../shared/models/catalog-selected-layer.model';
+import {CatalogSelectedLayer} from '@app/shared/models';
 import {LAYER_INFORMATION_POPUP_ID} from '../../map/map.component';
-import ActivateLayer from '../../../utils/activate-layer.util';
-import {MapState} from '../../../store';
+import ActivateLayer from '@app/map/utils/activate-layer.util';
+import {MapState} from '@app/map/store';
 
 @Component({
   selector: 'app-category',

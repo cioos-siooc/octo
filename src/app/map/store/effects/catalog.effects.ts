@@ -14,11 +14,11 @@ import {
   SetTopicExpanded,
   SetTopicGroup
 } from '../actions/catalog.actions';
-import {TopicGroup} from '../../../shared/models/topic-group.model';
-import {Topic} from '../../../shared/models/topic.model';
-import {environment} from '../../../../environments/environment';
-import {TopicHierarchy} from '../../../shared/models/topic-hierarchy.model';
-import {Category} from '../../../shared/models/category.model';
+import {TopicGroup} from '@app/shared/models';
+import {Topic} from '@app/shared/models';
+import {environment} from '@env/environment';
+import {TopicHierarchy} from '@app/shared/models';
+import {Category} from '@app/shared/models';
 import {MapState} from '../reducers';
 import {selectCatalogState} from '../selectors/catalog.selectors';
 

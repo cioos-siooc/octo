@@ -1,13 +1,13 @@
 import {BehaviorHandler} from './behavior-handler.util';
 import {Store} from '@ngrx/store';
 import * as moment from 'moment';
-import * as fromBehaviorActions from '../../store/actions/behavior.actions';
-import * as fromLayerActions from '../../store/actions/layer.actions';
+import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
+import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 import {cloneDeep} from 'lodash';
 import {take} from 'rxjs/operators';
-import {MapState} from '../../store';
-import {selectBehaviorState} from '../../store/selectors/behavior.selectors';
-import {selectLayerState} from '../../store/selectors/layer.selectors';
+import {MapState} from '@app/map/store';
+import {selectBehaviorState} from '@app/map/store';
+import {selectLayerState} from '@app/map/store';
 
 export class TimeHandler implements BehaviorHandler {
   type = 'time';

@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {TimeBehaviorComponent} from './time-behavior.component';
 import {StoreModule} from '@ngrx/store';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {HttpLoaderFactory} from '../../../../shared/shared.module';
+import {HttpLoaderFactory} from '@app/shared/shared.module';
 import {CalendarModule} from 'primeng/calendar';
 import {mapReducers} from '@app/map/store';
 

@@ -1,8 +1,8 @@
 import {CatalogActionsUnion, CatalogActionTypes} from '../actions/catalog.actions';
-import {TopicGroup} from '../../../shared/models/topic-group.model';
-import {Topic} from '../../../shared/models/topic.model';
-import {CatalogSelectedLayer} from '../../../shared/models/catalog-selected-layer.model';
-import Utils from '../../utils/category.util';
+import {TopicGroup} from '@app/shared/models';
+import {Topic} from '@app/shared/models';
+import {CatalogSelectedLayer} from '@app/shared/models';
+import Utils from '@app/map/utils/category.util';
 
 export interface CatalogState {
   topicGroup: TopicGroup;

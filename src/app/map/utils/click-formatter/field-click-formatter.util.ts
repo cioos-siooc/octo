@@ -1,6 +1,6 @@
 import {ClickFormatter} from './click-formatter.util';
 import {FieldFactory} from './field/field-factory.util';
-import {MapClickInfo} from '../../../shared/models/map-click-info.model';
+import {MapClickInfo} from '@app/shared/models';
 
 export class FieldClickFormatter implements ClickFormatter {
 

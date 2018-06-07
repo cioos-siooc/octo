@@ -1,13 +1,13 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MapClickComponent} from './map-click.component';
-import {KeepHtmlPipe} from '../../../shared/pipes';
+import {KeepHtmlPipe} from '@app/shared/pipes';
 import {StoreModule} from '@ngrx/store';
 import {TextFieldComponent} from './click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from './click-formatter/field/url-field/url-field.component';
 import {DateFieldComponent} from './click-formatter/field/date-field/date-field.component';
 import {ImageFieldComponent} from './click-formatter/field/image-field/image-field.component';
-import {mapReducers} from '../../store';
+import {mapReducers} from '@app/map/store';
 
 describe('MapClickComponent', () => {
   let component: MapClickComponent;

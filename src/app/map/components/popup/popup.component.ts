@@ -2,11 +2,11 @@ import {Component, Input, OnInit} from '@angular/core';
 
 
 import {Store} from '@ngrx/store';
-import * as popupActions from '../../store/actions/popup.actions';
-import {PopupStatus} from '../../store/actions/popup.actions';
-import * as fromPopup from '../../store/reducers/popup.reducers';
-import {MapState} from '../../store';
-import {selectPopupState} from '../../store/selectors/popup.selectors';
+import * as popupActions from '@app/map/store/actions/popup.actions';
+import {PopupStatus} from '@app/map/store/actions/popup.actions';
+import * as fromPopup from '@app/map/store/reducers/popup.reducers';
+import {MapState} from '@app/map/store';
+import {selectPopupState} from '@app/map/store/selectors/popup.selectors';
 
 @Component({
   selector: 'app-popup',

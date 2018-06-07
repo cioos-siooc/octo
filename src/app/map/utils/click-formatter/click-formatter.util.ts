@@ -1,4 +1,4 @@
-import {MapClickInfo} from '../../../shared/models/map-click-info.model';
+import {MapClickInfo} from '@app/shared/models';
 
 export interface ClickFormatter {
   getMapClickInfo(result): MapClickInfo;

@@ -3,7 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {OpenLayersComponent} from './open-layers.component';
 import {StoreModule} from '@ngrx/store';
 import {HttpClientModule} from '@angular/common/http';
-import {mapReducers} from '../../store';
+import {mapReducers} from '@app/map/store';
 
 describe('OpenLayersComponent', () => {
   let component: OpenLayersComponent;
