@@ -195,3 +195,7 @@ div#layer-information table tr:last-child {
 .ui-datepicker {
   position: static;
 }
+
+a:hover {
+  color: #1CA8DD;
+}
