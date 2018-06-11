@@ -1,14 +1,14 @@
 <div class="popup" [ngStyle]="{display: isOpen ? 'block': 'none'}">
-  <div class="topBar align-middle">
+  <div class="topBar align-middle background-dark-blue">
     <span class="title" >{{title}}</span>
     <button type="button" class="close" aria-label="Close" (click)=closePopup()>
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 
-  <div class="popup-content">
+  <div class="popup-content background-dark foreground-white">
     <ng-content></ng-content>
   </div>
 
-  <div class="bottomBar"></div>
+  <div class="bottomBar background-dark-blue"></div>
 </div>

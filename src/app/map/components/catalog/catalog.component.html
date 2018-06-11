@@ -1,7 +1,7 @@
 <div class="hover-opacity">
     <div *ngFor="let topic of (catalogState | async).topics; let i = index">
       <div *ngIf="topic.expanded && topic.category">
-        <h5 class="background-light-gray border-bottom-black pl-2">{{ topic.label }}</h5>
+        <h5 class="background-blue border-bottom-black pl-2">{{ topic.label }}</h5>
         <app-category [category]="topic.category" [treeLocation]="[i]"></app-category>
       </div>
     </div>
