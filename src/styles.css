@@ -2,11 +2,12 @@
 html, body {
   width: 100%;
   height: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 a {
   cursor: pointer;
-  color:#32A8EE;
+  color: #32A8EE;
 }
 
 .smaller-font {
@@ -61,6 +62,7 @@ a {
 .foreground-light-gray {
   color: #a5b9cc
 }
+
 .background-light-gray {
   background-color: #a5b9cc
 }
@@ -74,34 +76,44 @@ a {
 }
 
 .background-red {
-  background-color: #E32020;
+  background-color: #E64759;
 }
 
 .foreground-red {
-  color: #E32020
+  color: #E64759
 }
 
 .background-purple {
-  background-color: #9F86FF;
+  background-color: #755292;
 }
 
 .foreground-purple {
-  color: #9F86FF;
+  /*color: #9F86FF;*/
+  color: #614092;
 }
 
 .background-yellow {
-  background-color: #FFC107;
+  background-color: #E4D836;
 }
 
 .foreground-yellow {
-  color: #FFC107;
+  color: #E4D836;
 }
+
 .background-blue {
-  background-color: #32A8EE;
+  background-color: #1CA8DD;
 }
 
 .foreground-blue {
-  color: #32A8EE;
+  color: #1CA8DD;
+}
+
+.background-dark-blue {
+  background-color: #142A30;
+}
+
+.foreground-dark-blue {
+  color: #142A30;
 }
 
 .ol-control button {
@@ -142,6 +154,7 @@ div#layer-information h5 {
 div#layer-information table {
   width: 100%;
 }
+
 div#layer-information table tr {
   border-bottom: dashed 1px #A5B9CC;
 }
@@ -149,7 +162,6 @@ div#layer-information table tr {
 div#layer-information table td {
   vertical-align: top;
 }
-
 
 div#layer-information table tr:last-child {
   border-bottom: none;
@@ -175,6 +187,7 @@ div#layer-information table tr:last-child {
 .hover-opacity {
   opacity: 0.86;
 }
+
 .hover-opacity:hover {
   opacity: 1;
 }

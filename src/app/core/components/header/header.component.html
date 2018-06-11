@@ -8,8 +8,10 @@
       <div class="offset-4 offset-md-2 col-4 col-md-2">
         <div ngbDropdown class="float-right">
           <button class="btn btn-outline-secondary" id="help" ngbDropdownToggle>?</button>
-          <div ngbDropdownMenu aria-labelledby="help">
-            <button class="dropdown-item" (click)="onChangeLanguageClick()">{{'switch-language-code' | translate}}</button>
+          <div ngbDropdownMenu aria-labelledby="help" class="background-dark foreground-white">
+            <button class="dropdown-item background-dark foreground-white"
+                    (click)="onChangeLanguageClick()">{{'switch-language-code' | translate}}
+            </button>
           </div>
         </div>
       </div>

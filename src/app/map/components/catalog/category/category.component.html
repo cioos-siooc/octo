@@ -12,7 +12,7 @@
 </ng-container>
 
 <ul class="list-group">
-  <li class="list-group-item" *ngFor="let cat of category.categories; let i = index">
+  <li class="list-group-item background-dark" *ngFor="let cat of category.categories; let i = index">
 
     <ng-container *ngIf="cat.type === 'layer'">
         <span class="selectable pr-1" (click)="onClickLayer(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
@@ -27,7 +27,7 @@
       <div class="selectable" (click)="onClickCategory(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
         <i class="fa fa-caret-right"></i>
         <span>{{ cat.label }}</span>
-        <span class="badge background-blue foreground-white badge-pill float-right">{{ cat.categories.length }}</span>
+        <span class="badge background-purple foreground-white badge-pill float-right">{{ cat.categories.length }}</span>
       </div>
     </ng-container>
 

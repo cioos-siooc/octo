@@ -3,18 +3,18 @@
     <li *ngFor="let uniqueId of layerIds.slice().reverse()" class="no-list-style pt-1 pb-1 pl-2">
       <a><i class="fa fa-times-circle foreground-red"
             (click)="onRemoveClick(uniqueId)"></i></a>
-      <span>{{(getLayerTitle(uniqueId) | async)}}</span>
-      <a><i class="glyphicon fa fa-info-circle foreground-teal"
+      <span class="pl-1">{{(getLayerTitle(uniqueId) | async)}}</span>
+      <a class="px-1"><i class="glyphicon fa fa-info-circle foreground-teal"
             (click)="onShowLayerInfoClick(uniqueId)"></i></a>
       <button class="btn foreground-white background-gray smaller-font text-uppercase btn-legend-padding"
               (click)="onShowLayerPresentation(uniqueId)">{{ 'legend' | translate}}
       </button>
-      <a><i class="glyphicon fa fa-cog foreground-gray"
+      <a class="pl-1"><i class="glyphicon fa fa-cog foreground-gray"
             (click)="onExpandSettingsClick(uniqueId)"></i></a>
       <div *ngIf="isSettingsExpanded(uniqueId)" class="settings pt-1">
-        <a><i class="glyphicon fal fa-arrow-alt-up foreground-dark"
+        <a><i class="glyphicon fas fa-arrow-alt-up foreground-white"
               (click)="onMoveUpLayerClick(uniqueId)"></i></a>
-        <a><i class="glyphicon fal fa-arrow-alt-down foreground-dark"
+        <a><i class="glyphicon fas fa-arrow-alt-down foreground-white"
               (click)="onMoveDownLayerClick(uniqueId)"></i></a>
         <div class="url-behavior py-1" *ngFor="let behavior of (getUrlBehaviors(uniqueId)| async)">
           <app-time-behavior *ngIf="behavior.handler == 'time'"

@@ -1,7 +1,7 @@
 #toggle-topic-picker {
   position: absolute;
   left: 10px;
-  bottom: 120px;
+  bottom: 100px;
 }
 
 .above-ol {
@@ -11,7 +11,7 @@
 #toggle-catalog {
   position: absolute;
   left: 10px;
-  bottom: 80px;
+  bottom: 70px;
 }
 
 #toggle-layer-manager {
@@ -21,15 +21,16 @@
 }
 
 .toggle-button {
-  width: 160px;
   opacity: 0.8;
+  padding:0;
 }
 .toggle-button:hover {
   opacity: 1;
 }
 
 .button-border {
-  border: solid 1px #ffffff;
+  border: solid 1px darkgray;
+  border-radius: 20px;
 }
 
 .layer-manager-popup {
