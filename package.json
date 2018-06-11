@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "build:dev": "ng build --configuration dev --aot --base-href /maponion/",
-    "build:test": "ng build --configuration test --aot --base-href /infosl2/",
+    "build:test": "ng build --configuration test --aot --base-href /maponion/",
     "build:prod": "ng build --configuration prod --aot --base-href /maponion/",
     "start": "ng serve --aot",
     "test:local": "ng test --browsers=\"Chrome\" --watch",
