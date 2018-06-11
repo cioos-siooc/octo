@@ -1,19 +1,20 @@
 <app-open-layers class="full-sized"></app-open-layers>
 <a *ngIf="environment.isTopicPickerActive"
         id="toggle-topic-picker"
-        class="toggle-button btn background-yellow button-border text-left"
+        class="toggle-button btn background-dark button-border text-center px-3"
         (click)="toggleTopicPicker()">
-        <i class="far fa-clipboard-list"></i>
-        <span>{{'topic-picker-title' | translate }}</span>
+        <i class="far fa-clipboard-list foreground-yellow"></i>
+        <span class="foreground-white pl-1">{{'topic-picker-title' | translate }}</span>
 </a>
-<a id="toggle-catalog" class="toggle-button btn background-yellow button-border text-left" (click)="toggleCatalog()">
-  <i class="far fa-book"></i>
-  <span>{{'catalog-title' | translate }}</span>
+<a id="toggle-catalog" class="toggle-button btn background-dark button-border text-center
+ px-3" (click)="toggleCatalog()">
+  <i class="far fa-book foreground-yellow"></i>
+  <span class="foreground-white pl-1">{{'catalog-title' | translate }}</span>
 </a>
-<a id="toggle-layer-manager" class="toggle-button btn background-yellow button-border text-left"
+<a id="toggle-layer-manager" class="toggle-button btn background-dark button-border text-center px-3"
         (click)="toggleLayerManager()">
-       <i class="far fa-bars"></i>
-       <span>{{ 'layer-manager-title' | translate }}</span>
+       <i class="far fa-bars  foreground-yellow"></i>
+       <span class="foreground-white pl-1">{{ 'layer-manager-title' | translate }}</span>
 </a>
 <select [(ngModel)]="currentBaseLayer" (change)="onSelectBaseLayer()"
         [compareWith]="compareBaseLayers" class="map-select-style">
