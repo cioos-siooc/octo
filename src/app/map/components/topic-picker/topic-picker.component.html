@@ -1,3 +1,9 @@
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  -->
+
 <ul class="list-group">
   <li class="list-group-item topic topick-picker-topic"
       *ngFor="let topic of (catalogState | async).topics; let i = index" (click)="onClickTopic(i, topic)"

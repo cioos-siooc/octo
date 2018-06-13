@@ -4,6 +4,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 import {CatalogComponent} from '@app/map/components/catalog/catalog.component';
 import {CategoryComponent} from '@app/map/components/catalog/category/category.component';
 import {LayerInformationComponent} from '@app/map/components/layer-information/layer-information.component';

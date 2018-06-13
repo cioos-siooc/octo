@@ -1,3 +1,9 @@
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  -->
+
 <div *ngIf="mapClickInfo" id="map-click-html" [innerHTML]="mapClickInfo.html | keepHtml"></div>
 <div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2">
     <div *ngFor="let field of mapClickInfo.fields">

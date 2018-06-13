@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 import {Component, OnInit} from '@angular/core';
 import * as fromCatalog from '@app/map/store/reducers/catalog.reducers';
 import * as catalogActions from '@app/map/store/actions/catalog.actions';
