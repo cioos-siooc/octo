@@ -4,7 +4,7 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
-<div *ngIf="mapClickInfo" id="map-click-html" [innerHTML]="mapClickInfo.html | keepHtml"></div>
+<div *ngIf="mapClickInfo" id="map-click-html"  class="foreground-black background-white" [innerHTML]="mapClickInfo.html | keepHtml"></div>
 <div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2">
     <div *ngFor="let field of mapClickInfo.fields">
       <app-text-field *ngIf="field.type == 'text'" [field]="field"></app-text-field>

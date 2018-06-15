@@ -42,6 +42,10 @@ a {
   list-style-type: none;
 }
 
+.foreground-black {
+  color: black;
+}
+
 .background-white {
   background-color: #FFFFFF;
 }
