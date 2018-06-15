@@ -29,33 +29,33 @@
   </option>
 </select>
 <span class="popup-bounds" #popupBounds></span>
-<app-popup [id]="CATALOG_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'catalog-title' | translate"
+<app-popup [id]="CATALOG_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" #catalogPopup
+           [title]="'catalog-title' | translate" [handle]="catalogPopup.popupHandle.nativeElement"
            class="catalog-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-catalog></app-catalog>
 </app-popup>
-<app-popup [id]="TOPIC_PICKER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'topic-picker-title' | translate"
+<app-popup [id]="TOPIC_PICKER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" #topicPopup
+           [title]="'topic-picker-title' | translate" [handle]="topicPopup.popupHandle.nativeElement"
            class="topic-picker-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-topic-picker></app-topic-picker>
 </app-popup>
-<app-popup [id]="LAYER_MANAGER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'layer-manager-title' | translate"
+<app-popup [id]="LAYER_MANAGER_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" #layerManagerPopup
+           [title]="'layer-manager-title' | translate" [handle]="layerManagerPopup.popupHandle.nativeElement"
            class="layer-manager-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-layer-manager></app-layer-manager>
 </app-popup>
-<app-popup [id]="LAYER_INFORMATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'layer-information-title' | translate"
+<app-popup [id]="LAYER_INFORMATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" #layerInfoPopup
+           [title]="'layer-information-title' | translate"  [handle]="layerInfoPopup.popupHandle.nativeElement"
            class="center-popup absolute popup-mobile-bottom above-ol wider-popup">
   <app-layer-information></app-layer-information>
 </app-popup>
-<app-popup [id]="LAYER_PRESENTATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="'layer-presentation-title' | translate"
+<app-popup [id]="LAYER_PRESENTATION_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" #layerPresPopup
+           [title]="'layer-presentation-title' | translate" [handle]="layerPresPopup.popupHandle.nativeElement"
            class="center-popup absolute popup-mobile-bottom above-ol regular-popup">
   <app-layer-presentation></app-layer-presentation>
 </app-popup>
-<app-popup [id]="MAP_CLICK_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true"
-           [title]="mapClickTitle"
+<app-popup [id]="MAP_CLICK_POPUP_ID" ngDraggable [bounds]="popupBounds" [inBounds]="true" #mapClickPopup
+           [title]="mapClickTitle" [handle]="mapClickPopup.popupHandle.nativeElement"
            class="map-click-popup absolute popup-mobile-bottom above-ol wider-popup">
   <app-map-click></app-map-click>
 </app-popup>
