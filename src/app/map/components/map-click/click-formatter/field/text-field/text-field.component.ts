@@ -15,6 +15,7 @@ import {PropertyLocatorFactory} from '../../../../../../shared/utils/property-lo
 })
 export class TextFieldComponent implements OnInit {
 
+  @Input() result;
   value: string;
 
   private _field: TextField;
@@ -27,7 +28,7 @@ export class TextFieldComponent implements OnInit {
   set field(field: TextField) {
     this._field = field;
     const propertyLocator = PropertyLocatorFactory.getPropertyLocator(this._field.contentType);
-    this.value = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
+    this.value = propertyLocator.getValue(this.result, this._field.fieldDef.propertyPath);
   }
 
   ngOnInit() {

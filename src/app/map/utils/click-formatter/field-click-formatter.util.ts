@@ -19,12 +19,13 @@ export class FieldClickFormatter implements ClickFormatter {
     const fields = [];
     const mapClickInfo = new MapClickInfo();
     this.formatterDef.fields.forEach((fieldDef) => {
-      const field = FieldFactory.getField(fieldDef, result, this.formatterDef.contentType);
+      const field = FieldFactory.getField(fieldDef, this.formatterDef.contentType);
       if (field != null) {
         fields.push(field);
       }
     });
     mapClickInfo.fields = fields;
+    mapClickInfo.result = result;
     return mapClickInfo;
 
   }

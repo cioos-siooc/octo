@@ -11,16 +11,16 @@ import {UrlField} from './url-field.util';
 import {ImageField} from './image-field.util';
 
 export class FieldFactory {
-  public static getField(fieldDef: any, result: any, contentType: any): Field {
+  public static getField(fieldDef: any, contentType: any): Field {
     switch (fieldDef.type) {
       case 'text':
-        return new TextField(fieldDef, result, contentType);
+        return new TextField(fieldDef, contentType);
       case 'date':
-        return new DateField(fieldDef, result, contentType);
+        return new DateField(fieldDef, contentType);
       case 'url':
-        return new UrlField(fieldDef, result, contentType);
+        return new UrlField(fieldDef, contentType);
       case 'image':
-        return new ImageField(fieldDef, result, contentType);
+        return new ImageField(fieldDef, contentType);
       default:
         return null;
     }

@@ -17,6 +17,7 @@ export class UrlFieldComponent implements OnInit {
   value: any;
   urlLabel: string;
   url: string;
+  @Input() result;
 
   private _field: UrlField;
 
@@ -28,8 +29,8 @@ export class UrlFieldComponent implements OnInit {
   set field(field: UrlField) {
     this._field = field;
     const propertyLocator = PropertyLocatorFactory.getPropertyLocator(this._field.contentType);
-    const url = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
-    let urlLabel = propertyLocator.getValue(this._field.result, this._field.fieldDef.urlLabelPropertyPath);
+    const url = propertyLocator.getValue(this.result, this._field.fieldDef.propertyPath);
+    let urlLabel = propertyLocator.getValue(this.result, this._field.fieldDef.urlLabelPropertyPath);
     if (urlLabel == null && url != null) {
       urlLabel = url;
     }

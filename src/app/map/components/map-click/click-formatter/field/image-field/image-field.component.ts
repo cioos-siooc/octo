@@ -17,6 +17,7 @@ export class ImageFieldComponent implements OnInit {
 
   value: string;
   href:  string;
+  @Input() result;
 
   private _field: ImageField;
 
@@ -28,8 +29,8 @@ export class ImageFieldComponent implements OnInit {
   set field(field: ImageField) {
     this._field = field;
     const propertyLocator = PropertyLocatorFactory.getPropertyLocator(this._field.contentType);
-    this.value = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
-    this.href = propertyLocator.getValue(this._field.result, this._field.fieldDef.fullscreenPropertyPath);
+    this.value = propertyLocator.getValue(this.result, this._field.fieldDef.propertyPath);
+    this.href = propertyLocator.getValue(this.result, this._field.fieldDef.fullscreenPropertyPath);
     if (this.href == null) {
       this.href = this.value;
     }

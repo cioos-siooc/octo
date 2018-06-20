@@ -16,6 +16,7 @@ import * as moment from 'moment';
 })
 export class DateFieldComponent implements OnInit {
   value: string;
+  @Input() result;
 
   constructor() {
   }
@@ -30,7 +31,7 @@ export class DateFieldComponent implements OnInit {
   set field(field: DateField) {
     this._field = field;
     const propertyLocator = PropertyLocatorFactory.getPropertyLocator(this._field.contentType);
-    let value = propertyLocator.getValue(this._field.result, this._field.fieldDef.propertyPath);
+    let value = propertyLocator.getValue(this.result, this._field.fieldDef.propertyPath);
     if (value == null) {
       value = '';
     } else {
@@ -41,5 +42,4 @@ export class DateFieldComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

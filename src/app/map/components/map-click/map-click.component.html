@@ -7,9 +7,9 @@
 <div *ngIf="mapClickInfo" id="map-click-html"  class="foreground-black background-white" [innerHTML]="mapClickInfo.html | keepHtml"></div>
 <div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2">
     <div *ngFor="let field of mapClickInfo.fields">
-      <app-text-field *ngIf="field.type == 'text'" [field]="field"></app-text-field>
-      <app-url-field *ngIf="field.type == 'url'" [field]="field"></app-url-field>
-      <app-date-field *ngIf="field.type == 'date'" [field]="field"></app-date-field>
-      <app-image-field *ngIf="field.type == 'image'" [field]="field"></app-image-field>
+      <app-text-field *ngIf="field.type == 'text'" [field]="field" [result]="mapClickInfo.result"></app-text-field>
+      <app-url-field *ngIf="field.type == 'url'" [field]="field" [result]="mapClickInfo.result"></app-url-field>
+      <app-date-field *ngIf="field.type == 'date'" [field]="field" [result]="mapClickInfo.result"></app-date-field>
+      <app-image-field *ngIf="field.type == 'image'" [field]="field" [result]="mapClickInfo.result"></app-image-field>
     </div>
 </div>
