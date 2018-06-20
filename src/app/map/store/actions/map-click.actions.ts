@@ -9,7 +9,7 @@ import {Layer} from '@app/shared/models';
 
 export enum MapClickActionTypes {
   SET_MAP_CLICK_INFO = '[Map click] Set info',
-  SET_MAP_CLICK_LAYER = '[Map click] Set layer',
+  SET_MAP_CLICK_LAYER_UNIQUE_ID = '[Map click] Set layer unique id',
 }
 
 
@@ -20,13 +20,13 @@ export class SetMapClickInfo implements Action {
   }
 }
 
-export class SetMapClickLayer implements Action {
-  readonly type = MapClickActionTypes.SET_MAP_CLICK_LAYER;
+export class SetMapClickLayerUniqueId implements Action {
+  readonly type = MapClickActionTypes.SET_MAP_CLICK_LAYER_UNIQUE_ID;
 
-  constructor(public payload: Layer) {
+  constructor(public payload: string) {
   }
 }
 
 export type MapClickActionsUnion =
   SetMapClickInfo |
-  SetMapClickLayer;
+  SetMapClickLayerUniqueId;

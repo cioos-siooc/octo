@@ -4,19 +4,18 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {Layer} from '@app/shared/models';
-import {cloneDeep} from 'lodash';
 import {MapClickInfo} from '@app/shared/models';
+import {cloneDeep} from 'lodash';
 import {MapClickActionsUnion, MapClickActionTypes} from '../actions/map-click.actions';
 
 export interface MapClickState {
   mapClickInfo: MapClickInfo;
-  mapClickLayer: Layer;
+  mapClickLayerUniqueId: string;
 }
 
 export const initialState: MapClickState = {
   mapClickInfo: null,
-  mapClickLayer: null
+  mapClickLayerUniqueId: null
 };
 
 export function mapClickReducer(state = initialState, action: MapClickActionsUnion): MapClickState {
@@ -25,9 +24,9 @@ export function mapClickReducer(state = initialState, action: MapClickActionsUni
       const clonedState = cloneDeep(state);
       clonedState.mapClickInfo = cloneDeep(action.payload);
       return clonedState;
-    case MapClickActionTypes.SET_MAP_CLICK_LAYER:
+    case MapClickActionTypes.SET_MAP_CLICK_LAYER_UNIQUE_ID:
       const cloneState = cloneDeep(state);
-      cloneState.mapClickLayer = cloneDeep(action.payload);
+      cloneState.mapClickLayerUniqueId = cloneDeep(action.payload);
       return cloneState;
     default:
       return state;

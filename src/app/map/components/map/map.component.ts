@@ -13,6 +13,7 @@ import {cloneDeep} from 'lodash';
 
 import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
 import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
+import * as fromLayer from '@app/map/store/reducers/layer.reducers';
 import * as baseLayerActions from '@app/map/store/actions/base-layer.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
 import {environment} from '@env/environment';
@@ -21,11 +22,8 @@ import * as catalogActions from '@app/map/store/actions/catalog.actions';
 import {UrlBehaviorService} from '@app/map/services';
 import {filter, first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {
-  MapState} from '@app/map/store';
+import {MapState, selectCatalogState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
-import {selectCatalogState} from '@app/map/store';
-import {selectMapClickState} from '@app/map/store';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -114,8 +112,14 @@ export class MapComponent implements OnInit {
   private initMapClickTitle() {
     this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.MapClickState) => {
       const mapClickClonedState = cloneDeep(mapClickState);
-      if (mapClickClonedState.mapClickLayer != null) {
-        this.mapClickTitle = mapClickClonedState.mapClickLayer.title;
+      if (mapClickClonedState.mapClickLayerUniqueId != null) {
+        this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState: fromLayer.LayerState) => {
+          const clickResultLayer = layerState.layers
+            .find(l => l.uniqueId === mapClickClonedState.mapClickLayerUniqueId);
+          if (clickResultLayer != null) {
+            this.mapClickTitle = clickResultLayer.title;
+          }
+        });
       }
     });
   }
