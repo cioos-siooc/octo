@@ -19,9 +19,9 @@
   <div>
     <p-calendar
           [(ngModel)]="currentDate"
-          showTime="true"
-          hourFormat="24"
-          dateFormat="yy-mm-dd"
+          [showTime]="behavior.calendarShowTime != null ? behavior.calendarShowTime: true"
+          [hourFormat]="behavior.calendarHourFormat ? behavior.calendarHourFormat : 24"
+          [dateFormat]="behavior.calendarDateFormat ? behavior.calendarDateFormat: 'yy-mm-dd'"
           readonlyInput="true"
           (onClose)="onCloseDatetimePicker()"></p-calendar>
   </div>
