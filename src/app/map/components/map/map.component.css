@@ -28,8 +28,9 @@
 
 .toggle-button {
   opacity: 0.8;
-  padding:0;
+  padding: 0;
 }
+
 .toggle-button:hover {
   opacity: 1;
 }
@@ -42,26 +43,30 @@
 .layer-manager-popup {
   left: 10px;
   top: calc(100% - (350px + 140px + 40px));
+  z-index: 100;
 }
 
-.map-click-popup{
+.map-click-popup {
   top: calc(100% - (350px + 50px + 40px));
   right: 5px;
 }
 
 .center-popup {
   top: 42px;
-  left: calc((100% / 2) - 500px / 2)
+  left: calc((100% / 2) - 500px / 2);
+  z-index: 105;
 }
 
 .topic-picker-popup {
   top: 42px;
   right: 5px;
+  z-index: 102;
 }
 
 .catalog-popup {
   top: 42px;
   left: 10px;
+  z-index: 101;
 }
 
 .map-select-style {

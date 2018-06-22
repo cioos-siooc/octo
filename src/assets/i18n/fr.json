@@ -11,5 +11,6 @@
   "layer-presentation-title": "Légende",
   "appearance": "Apparence",
   "switch-language-code": "EN",
-  "now": "À JOUR"
+  "now": "À JOUR",
+  "active-layers-help-message": "Sélectionner une couche à l'aide de la fenêtre \"Catalogue\""
 }

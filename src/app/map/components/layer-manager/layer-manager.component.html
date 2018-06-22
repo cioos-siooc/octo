@@ -5,6 +5,7 @@
   -->
 
 <div id="layer-manager" class="hover-opacity">
+  <div *ngIf="layerIds.length < 1 " class="text-center">{{ 'active-layers-help-message' | translate}}</div>
   <ul class="p-1">
     <li *ngFor="let uniqueId of layerIds.slice().reverse()" class="no-list-style pt-1 pb-1 pl-2">
       <a><i class="fa fa-times-circle foreground-red"
