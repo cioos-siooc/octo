@@ -95,7 +95,7 @@ export class MapComponent implements OnInit {
 
   private populateBaseLayers() {
     for (const code of environment.backgroundLayerCodes) {
-      this.translateService.get('language').subscribe((lang) => {
+      this.translateService.get('language').pipe(take(1)).subscribe((lang) => {
         // TODO: move http  base layers retrieval into service or effect?
         this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/getLayerForCode?` +
           `code=${code}&language-code=${lang}`)

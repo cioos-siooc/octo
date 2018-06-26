@@ -8,6 +8,7 @@ import {TimeHandler} from './time-handler.util';
 import {BehaviorHandler} from './behavior-handler.util';
 import {Store} from '@ngrx/store';
 import {MapState} from '../../store';
+import {EnumHandler} from '@app/map/utils/behavior-handler/enum-handler.util';
 
 export class BehaviorHandlerFactory {
   public static getBehaviorHandler(type: string, store: Store<MapState>): BehaviorHandler {
@@ -15,7 +16,7 @@ export class BehaviorHandlerFactory {
       case 'time':
         return new TimeHandler(store);
       default:
-        return null;
+        return new EnumHandler(store);
     }
   }
 }
