@@ -20,6 +20,9 @@ export class EnumHandler implements BehaviorHandler {
   }
 
   init(behavior: any) {
+    const defaultPossibility = behavior.possibilities.find(p => p.isDefault === true);
+    behavior.currentValue = defaultPossibility.value;
+    this.updateParameter(behavior);
   }
 
   clean(behavior: any) {
@@ -32,6 +35,7 @@ export class EnumHandler implements BehaviorHandler {
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
       layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName,
         behavior.currentValue);
+      this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
       this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     });
   }

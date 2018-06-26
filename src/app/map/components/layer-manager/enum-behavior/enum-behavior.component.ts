@@ -12,11 +12,13 @@ import {EnumHandler} from '@app/map/utils/behavior-handler/enum-handler.util';
 })
 export class EnumBehaviorComponent implements OnInit {
 
-  constructor(private store: Store<MapState>) { }
-
   behavior: any;
-  private _behaviorUniqueId: string;
   currentPossibility: Possibility;
+
+  constructor(private store: Store<MapState>) {
+  }
+
+  private _behaviorUniqueId: string;
 
   get behaviorUniqueId(): string {
     return this._behaviorUniqueId;
@@ -28,8 +30,12 @@ export class EnumBehaviorComponent implements OnInit {
     this.store.select(selectBehaviorState).subscribe((behaviorState) => {
       const behaviorStateCopy = cloneDeep(behaviorState);
       this.behavior = behaviorStateCopy.behaviors.find(b => b.uniqueId === this._behaviorUniqueId);
+      if (this.behavior != null && this.behavior.currentValue != null) {
+        this.currentPossibility = this.behavior.possibilities.find(p => p.value === this.behavior.currentValue);
+      }
     });
   }
+
   ngOnInit() {
   }
 
@@ -38,9 +44,14 @@ export class EnumBehaviorComponent implements OnInit {
     const bH = <EnumHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
     bH.updateParameter(this.behavior);
   }
+
+  comparePossibilities(possibility1: Possibility, possibility2: Possibility) {
+    return possibility1 && possibility2 ? possibility1.value === possibility2.value : possibility1 === possibility2;
+  }
 }
 
 interface Possibility {
   label: string;
   value: string;
+  isDefault: boolean;
 }
