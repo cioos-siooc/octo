@@ -22,8 +22,9 @@ import {selectPopupState} from '@app/map/store/selectors/popup.selectors';
 export class PopupComponent implements OnInit {
   @Input() title: string;
   @Input() id: string;
-  @Input() bounds;
+  @Input() bounds: any;
   @Input() inBounds: boolean;
+  @Input() handle: any;
   @ViewChild('popupHandle') popupHandle;
   isOpen: boolean;
 
