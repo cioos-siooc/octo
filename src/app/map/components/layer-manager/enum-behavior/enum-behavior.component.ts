@@ -27,13 +27,7 @@ export class EnumBehaviorComponent implements OnInit {
   @Input()
   set behaviorUniqueId(id: string) {
     this._behaviorUniqueId = id;
-    this.store.select(selectBehaviorState).subscribe((behaviorState) => {
-      const behaviorStateCopy = cloneDeep(behaviorState);
-      this.behavior = behaviorStateCopy.behaviors.find(b => b.uniqueId === this._behaviorUniqueId);
-      if (this.behavior != null && this.behavior.currentValue != null) {
-        this.currentPossibility = this.behavior.possibilities.find(p => p.value === this.behavior.currentValue);
-      }
-    });
+    this.initComponentState();
   }
 
   ngOnInit() {
@@ -47,6 +41,16 @@ export class EnumBehaviorComponent implements OnInit {
 
   comparePossibilities(possibility1: Possibility, possibility2: Possibility) {
     return possibility1 && possibility2 ? possibility1.value === possibility2.value : possibility1 === possibility2;
+  }
+
+  private initComponentState() {
+    this.store.select(selectBehaviorState).subscribe((behaviorState) => {
+      const behaviorStateCopy = cloneDeep(behaviorState);
+      this.behavior = behaviorStateCopy.behaviors.find(b => b.uniqueId === this._behaviorUniqueId);
+      if (this.behavior != null && this.behavior.currentValue != null) {
+        this.currentPossibility = this.behavior.possibilities.find(p => p.value === this.behavior.currentValue);
+      }
+    });
   }
 }
 
