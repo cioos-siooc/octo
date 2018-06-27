@@ -14,6 +14,7 @@ import {take} from 'rxjs/operators';
 import {MapState} from '@app/map/store';
 import {selectBehaviorState} from '@app/map/store';
 import {selectLayerState} from '@app/map/store';
+import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
 export class TimeHandler implements BehaviorHandler {
   type = 'time';
@@ -53,7 +54,7 @@ export class TimeHandler implements BehaviorHandler {
 
   updateDateToNow(behavior, layer) {
     const newDate = moment(new Date()).format(behavior.options.format);
-    layer.urlParameters = this.addUrlParameter(layer.urlParameters, behavior.parameterName, newDate);
+    layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName, newDate);
     this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
   }
 
@@ -81,20 +82,6 @@ export class TimeHandler implements BehaviorHandler {
     this.store.dispatch(new fromBehaviorActions.DeleteBehavior(behavior.uniqueId));
   }
 
-  addUrlParameter(urlParameters, paramName, paramValue) {
-    if (urlParameters == null) {
-      urlParameters = [];
-    } else {
-      urlParameters = urlParameters.filter((urlParam) => {
-        return Object.keys(urlParam)[0] !== paramName;
-      });
-    }
-    const urlParameter = {};
-    urlParameter[paramName] = paramValue;
-    urlParameters.push(urlParameter);
-    return urlParameters;
-  }
-
   setNowOff(behavior) {
     if (behavior.interval != null) {
       clearInterval(behavior.interval);
@@ -109,7 +96,7 @@ export class TimeHandler implements BehaviorHandler {
       const layerStateCopy = cloneDeep(layerState);
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
       const date = moment(behavior.currentDate).format(behavior.options.format);
-      layer.urlParameters = this.addUrlParameter(layer.urlParameters, behavior.parameterName, date);
+      layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName, date);
       this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     });
   }
