@@ -15,6 +15,7 @@ import {TimeBehaviorComponent} from './time-behavior/time-behavior.component';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule} from 'primeng/calendar';
 import {mapReducers} from '@app/map/store';
+import {EnumBehaviorComponent} from '@app/map/components/layer-manager/enum-behavior/enum-behavior.component';
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -22,7 +23,7 @@ describe('LayerManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerManagerComponent, TimeBehaviorComponent],
+      declarations: [LayerManagerComponent, TimeBehaviorComponent, EnumBehaviorComponent],
       imports: [
         FormsModule,
         StoreModule.forRoot({}),

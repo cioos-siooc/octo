@@ -30,6 +30,7 @@ import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavio
 import {UrlBehaviorService} from '@app/map/services';
 import {CalendarModule} from 'primeng/calendar';
 import {mapReducers} from '@app/map/store';
+import {EnumBehaviorComponent} from '@app/map/components/layer-manager/enum-behavior/enum-behavior.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -40,7 +41,8 @@ describe('MapComponent', () => {
       declarations: [
         MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
-        TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent
+        TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent,
+        EnumBehaviorComponent
       ],
       imports: [
         StoreModule.forRoot({}),
