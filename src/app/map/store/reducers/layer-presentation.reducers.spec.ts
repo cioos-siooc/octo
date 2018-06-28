@@ -9,7 +9,7 @@ import {layerPresentationReducer} from '@app/map/store/reducers/layer-presentati
 import {ClientPresentation} from '@app/shared/models';
 import {SetClientPresentations, SetCurrentClientPresentation, SetLayerUniqueId} from '@app/map/store';
 
-describe('BaseLayerReducer', () => {
+describe('LayerPresentationReducer', () => {
 
   it('should return default state when no state and no action passed', () => {
     expect(layerPresentationReducer(undefined, <any>{})).toEqual(fromLayerPresentation.initialState);

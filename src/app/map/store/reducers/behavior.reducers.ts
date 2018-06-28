@@ -19,7 +19,7 @@ export function behaviorReducer(state = initialState, action: BehaviorActionsUni
   switch (action.type) {
     case BehaviorActionTypes.ADD_BEHAVIOR:
       const clonedState = cloneDeep(state);
-      clonedState.behaviors.push(action.payload);
+      clonedState.behaviors.push(cloneDeep(action.payload));
       return clonedState;
     case BehaviorActionTypes.UPDATE_BEHAVIOR:
       const cloneState = cloneDeep(state);

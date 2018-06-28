@@ -9,7 +9,7 @@ import {mapClickReducer} from '@app/map/store/reducers/map-click.reducers';
 import {MapClickInfo} from '@app/shared/models';
 import {SetMapClickInfo, SetMapClickLayerUniqueId} from '@app/map/store';
 
-describe('BaseLayerReducer', () => {
+describe('MapClickReducer', () => {
 
   it('should return default state when no state and no action passed', () => {
     expect(mapClickReducer(undefined, <any>{})).toEqual(fromMapClick.initialState);
