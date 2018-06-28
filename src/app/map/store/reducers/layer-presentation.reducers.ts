@@ -6,6 +6,7 @@
 
 import {LayerPresentationActionsUnion, LayerPresentationActionTypes} from '../actions/layer-presentation.actions';
 import {ClientPresentation} from '@app/shared/models';
+import {cloneDeep} from 'lodash';
 
 export interface LayerPresentationState {
   layerUniqueId: string;
@@ -22,19 +23,19 @@ export const initialState: LayerPresentationState = {
 export function layerPresentationReducer(state = initialState, action: LayerPresentationActionsUnion): LayerPresentationState {
   switch (action.type) {
     case LayerPresentationActionTypes.SET_LAYER_UNIQUE_ID:
-      return {
+      return <LayerPresentationState>{
         ...state,
         layerUniqueId: action.payload
       };
     case LayerPresentationActionTypes.SET_CLIENT_PRESENTATIONS:
-      return {
+      return <LayerPresentationState>{
         ...state,
-        clientPresentations: action.payload
+        clientPresentations: cloneDeep(action.payload)
       };
     case LayerPresentationActionTypes.SET_CURRENT_CLIENT_PRESENTATION:
-      return {
+      return <LayerPresentationState>{
         ...state,
-        currentClientPresentation: action.payload
+        currentClientPresentation: cloneDeep(action.payload)
       };
     default:
       return state;
