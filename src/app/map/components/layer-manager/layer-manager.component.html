@@ -24,9 +24,12 @@
         <a><i class="glyphicon fas fa-arrow-alt-down foreground-white"
               (click)="onMoveDownLayerClick(uniqueId)"></i></a>
         <div class="url-behavior py-1" *ngFor="let behavior of (getUrlBehaviors(uniqueId)| async)">
-          <app-time-behavior *ngIf="behavior.handler == 'time'"
+          <app-time-behavior *ngIf="behavior.handler === 'time'"
                              [behaviorUniqueId]=behavior.uniqueId>
           </app-time-behavior>
+          <app-enum-behavior *ngIf="behavior.handler === 'enum'"
+                              [behaviorUniqueId]=behavior.uniqueId>
+          </app-enum-behavior>
         </div>
       </div>
     </li>

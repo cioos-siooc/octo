@@ -5,7 +5,7 @@
  */
 
 .popup .topBar {
-  cursor: pointer;
+  cursor: move;
   user-select: none;
 
   height: 30px;

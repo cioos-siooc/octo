@@ -17,6 +17,7 @@ import {CatalogEffects} from './store/effects/catalog.effects';
 import {TopicEffects} from './store/effects/topic.effects';
 import {LayerEffects} from './store/effects/layer.effects';
 import * as fromComponents from './components';
+import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/enum-behavior.component';
 
 @NgModule({
   imports: [
@@ -27,7 +28,7 @@ import * as fromComponents from './components';
     StoreModule.forFeature('map', mapReducers),
     EffectsModule.forFeature([LayerEffects, CatalogEffects, TopicEffects, LayerInformationEffects]),
   ],
-  declarations: [...fromComponents.components]
+  declarations: [...fromComponents.components, EnumBehaviorComponent]
 })
 
 export class MapModule {

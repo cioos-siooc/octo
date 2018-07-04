@@ -19,12 +19,12 @@ export const initialState: LayerInformationState = {
 export function layerInformationReducer(state = initialState, action: LayerInformationActionsUnion): LayerInformationState {
   switch (action.type) {
     case LayerInformationActionTypes.SET_LAYER_INFORMATION:
-      return {
+      return <LayerInformationState>{
         ...state,
         informationHtml: action.payload
       };
     case LayerInformationActionTypes.SET_SELECTED_LAYER_ID:
-      return {
+      return <LayerInformationState>{
         ...state,
         selectedLayerId: action.payload
       };

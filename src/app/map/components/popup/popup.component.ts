@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 
 
 import {Store} from '@ngrx/store';
@@ -22,8 +22,10 @@ import {selectPopupState} from '@app/map/store/selectors/popup.selectors';
 export class PopupComponent implements OnInit {
   @Input() title: string;
   @Input() id: string;
-  @Input() bounds;
+  @Input() bounds: any;
   @Input() inBounds: boolean;
+  @Input() handle: any;
+  @ViewChild('popupHandle') popupHandle;
   isOpen: boolean;
 
   constructor(private store: Store<MapState>) {
