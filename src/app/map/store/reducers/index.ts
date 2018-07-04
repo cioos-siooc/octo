@@ -16,6 +16,8 @@ import * as fromPopup from './popup.reducers';
 import * as fromLayerPresentation from './layer-presentation.reducers';
 import * as fromMapClick from './map-click.reducers';
 import * as fromBehavior from './behavior.reducers';
+import * as fromTopic from './topic.reducers';
+import * as fromCategory from './category.reducers';
 
 export interface MapState {
   catalog: fromCatalog.CatalogState;
@@ -26,6 +28,8 @@ export interface MapState {
   layerPresentation: fromLayerPresentation.LayerPresentationState;
   mapClick: fromMapClick.MapClickState;
   behavior: fromBehavior.BehaviorState;
+  topic: fromTopic.TopicState;
+  category: fromCategory.CategoryState;
 }
 
 export const mapReducers: ActionReducerMap<MapState> = {
@@ -36,7 +40,9 @@ export const mapReducers: ActionReducerMap<MapState> = {
   popup: fromPopup.popupReducer,
   layerPresentation: fromLayerPresentation.layerPresentationReducer,
   mapClick: fromMapClick.mapClickReducer,
-  behavior: fromBehavior.behaviorReducer
+  behavior: fromBehavior.behaviorReducer,
+  topic: fromTopic.topicReducer,
+  category: fromCategory.categoryReducer,
 };
 
 export const metaReducers: MetaReducer<MapState>[] = !environment.production ? [storeFreeze] : [];

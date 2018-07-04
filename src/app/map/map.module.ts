@@ -14,6 +14,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {mapReducers} from './store';
 import {LayerInformationEffects} from './store/effects/layer-information.effects';
 import {CatalogEffects} from './store/effects/catalog.effects';
+import {TopicEffects} from './store/effects/topic.effects';
 import {LayerEffects} from './store/effects/layer.effects';
 import * as fromComponents from './components';
 
@@ -24,7 +25,7 @@ import * as fromComponents from './components';
     CalendarModule,
     AngularDraggableModule,
     StoreModule.forFeature('map', mapReducers),
-    EffectsModule.forFeature([LayerEffects, CatalogEffects, LayerInformationEffects]),
+    EffectsModule.forFeature([LayerEffects, CatalogEffects, TopicEffects, LayerInformationEffects]),
   ],
   declarations: [...fromComponents.components]
 })

@@ -11,5 +11,6 @@
  */
 
 export * from './catalog.effects';
+export * from './topic.effects';
 export * from './layer.effects';
 export * from './layer-information.effects';
