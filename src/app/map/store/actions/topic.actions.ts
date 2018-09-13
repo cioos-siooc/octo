@@ -1,12 +1,14 @@
 import { TopicGroup } from '@app/shared/models/topic-group.model';
 import { Action } from '@ngrx/store';
 import { Topic } from '@app/shared/models';
+import { Update } from '@ngrx/entity';
 
 export enum TopicActionTypes {
     FETCH_TOPIC_GROUP = '[Topic] Fetch Topic Group',
     SET_TOPIC_GROUP = '[Topic] Set Topic Group',
     FETCH_TOPIC = '[Topic] Fetch Topic',
     APPEND_TOPIC = '[Topic] Append Topic',
+    UPDATE_TOPIC = '[Topic] Update Topic',
 }
 
 /**
@@ -85,8 +87,16 @@ export class AppendTopic implements Action {
   }
 }
 
+export class UpdateTopic implements Action {
+  readonly type = TopicActionTypes.UPDATE_TOPIC;
+
+  constructor(public payload: Update<Topic>) {
+  }
+}
+
 export type TopicActionsUnion =
     FetchTopicGroup |
     SetTopicGroup |
     FetchTopic |
-    AppendTopic;
+    AppendTopic |
+    UpdateTopic;

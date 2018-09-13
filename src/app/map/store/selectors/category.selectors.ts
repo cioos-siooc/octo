@@ -26,3 +26,28 @@ export const selectCategoriesTotal = createSelector(
   selectCategoryState,
   fromCategory.selectCategoriesTotal
 );
+
+export const selectRootCategoryIds = createSelector(
+  selectCategoryState,
+  (categoryState) => {
+    return categoryState.rootCategoryIds;
+  }
+);
+
+export const selectLayerCategoryIds = createSelector(
+  selectCategoryState,
+  (categoryState) => {
+    return categoryState.layerCategoryIds;
+  }
+);
+
+export const selectCategoryById = (id) => createSelector(
+  selectCategoryEntities,
+  (categories) => {
+    if (categories) {
+      return categories[id];
+    } else {
+      return {};
+    }
+  }
+);

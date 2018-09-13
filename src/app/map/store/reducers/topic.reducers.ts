@@ -25,6 +25,8 @@ export function topicReducer(state: TopicState = initialState, action: TopicActi
             };
         case TopicActionTypes.APPEND_TOPIC:
             return adapter.addOne(action.payload, state);
+        case TopicActionTypes.UPDATE_TOPIC:
+            return adapter.updateOne(action.payload, state);
         default:
             return state;
     }
