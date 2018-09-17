@@ -8,6 +8,7 @@ export enum CategoryActionTypes {
   APPEND_ROOT_CATEGORY_IDS = '[Category] Append Root Category IDs',
   APPEND_LAYER_CATEGORY_IDS = '[Category] Append Layer Category IDs',
   UPDATE_CATEGORY = '[Category] Update Category',
+  REMOVE_CATEGORY_TREE = '[Category] Remove Category Tree',
 }
 
 export class FetchCategoriesForTopic implements Action {
@@ -45,9 +46,17 @@ export class UpdateCategory implements Action {
   }
 }
 
+export class RemoveCategoryTree implements Action {
+  readonly type = CategoryActionTypes.REMOVE_CATEGORY_TREE;
+
+  constructor(public payload: Number) {
+  }
+}
+
 export type CategoryActionsUnion =
   FetchCategoriesForTopic |
   AppendCategories |
   AppendRootCategoryIds |
   AppendLayerCategoryIds |
-  UpdateCategory;
+  UpdateCategory |
+  RemoveCategoryTree;

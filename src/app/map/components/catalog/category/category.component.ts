@@ -1,3 +1,5 @@
+import { Layer } from '@app/shared/models/layer.model';
+import { uniqueId } from 'lodash';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -9,11 +11,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity/src/models';
 
-import { MapState, selectCategoryEntities } from '@app/map/store';
+import { MapState, selectCategoryEntities, selectLayerState } from '@app/map/store';
 import { Category, NormalizedCategory } from '@app/shared/models';
 import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
 import * as categoryActions from '@app/map/store/actions/category.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
+import * as layerActions from '@app/map/store/actions/layer.actions';
+import * as fromLayer from '@app/map/store/reducers/layer.reducers';
 import { LAYER_INFORMATION_POPUP_ID } from '../../map/map.component';
 
 @Component({
@@ -24,13 +28,19 @@ import { LAYER_INFORMATION_POPUP_ID } from '../../map/map.component';
 export class CategoryComponent implements OnInit {
   @Input() category: NormalizedCategory;
 
+
   categories: Observable<Dictionary<NormalizedCategory>>;
+  layers: Layer[];
 
   constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
     this.categories = this.store.select(selectCategoryEntities);
+    this.store.select(selectLayerState)
+      .subscribe((layerState: fromLayer.LayerState) => {
+        this.layers = layerState.layers;
+      });
   }
 
   /**
@@ -49,8 +59,18 @@ export class CategoryComponent implements OnInit {
    * Create or destroy the layer
    * @param {Category} category the category of type "layer"
    */
-  onClickLayer(category: Category) {
-    console.log('onClickLayer');
+  onClickLayer(category: NormalizedCategory) {
+    if (this.layerIsAdded(category)) {
+      this.removeLayer(category);
+    } else {
+      this.addLayer(category);
+    }
+
+    const updatedCategory = {
+      ...category,
+      isChecked: !category.isChecked
+    };
+    this.store.dispatch(new categoryActions.UpdateCategory({id: updatedCategory.id, changes: updatedCategory}));
   }
 
   onShowLayerInfoClick(layerId) {
@@ -58,11 +78,21 @@ export class CategoryComponent implements OnInit {
     this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
   }
 
-  private removeLayer(category: Category) {
-    console.log('removeLayer');
+  private addLayer(category: NormalizedCategory) {
+    this.store.dispatch(new layerActions.FetchLayer({
+      layerId: category.layerId,
+      uniqueId: category.layerId.toString()
+    }));
   }
 
-  private activateLayer(category: Category) {
-    console.log('activeLayer');
+  private removeLayer(category: NormalizedCategory) {
+    this.store.dispatch(new layerActions.DeleteLayer(category.layerId.toString()));
+  }
+
+  private layerIsAdded(category: NormalizedCategory) {
+    const matchingLayers = this.layers.filter(
+      (l: Layer) => l.id === category.layerId
+    );
+    return matchingLayers.length > 0;
   }
 }

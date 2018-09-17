@@ -17,6 +17,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {environment} from '@env/environment';
 import {MapState} from '../../store';
 import {selectCatalogState} from '@app/map/store/selectors/catalog.selectors';
+import {selectRootCategoryIds} from '@app/map/store/selectors/category.selectors';
 import {selectTopicState, selectAllTopics} from '@app/map/store/selectors/topic.selectors';
 
 @Component({
@@ -28,11 +29,14 @@ export class TopicPickerComponent implements OnInit {
   catalogState: Observable<fromCatalog.CatalogState>;
   topics: Observable<Topic[]>;
 
+  rootCategoryIds: Number[];
+
   constructor(private store: Store<MapState>, private translateService: TranslateService) {
   }
 
   ngOnInit() {
     this.topics = this.store.select(selectAllTopics);
+    this.store.select(selectRootCategoryIds).subscribe(rootCategoryIds => this.rootCategoryIds = rootCategoryIds);
 
     this.translateService.get('language').subscribe((lang) => {
       this.store.dispatch(new catalogActions.FetchTopicGroup({languageCode: lang, code: environment.topicGroupCode}));
@@ -41,12 +45,20 @@ export class TopicPickerComponent implements OnInit {
   }
 
   onClickTopic(id: number, topic: Topic) {
-    this.store.dispatch(new categoryActions.FetchCategoriesForTopic(topic.id));
+    if (this.categoriesLoaded(topic.root)) {
+      this.store.dispatch(new categoryActions.RemoveCategoryTree(topic.root));
+    } else {
+      this.store.dispatch(new categoryActions.FetchCategoriesForTopic(topic.id));
+    }
 
     const updatedTopic = {
       ...topic,
       expanded: !topic.expanded
     };
     this.store.dispatch(new topicActions.UpdateTopic({id: updatedTopic.id, changes: updatedTopic}));
+  }
+
+  private categoriesLoaded(id: number) {
+    return this.rootCategoryIds.filter(rootCatId => rootCatId === id).length > 0;
   }
 }
