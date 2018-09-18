@@ -18,11 +18,10 @@ import * as baseLayerActions from '@app/map/store/actions/base-layer.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
 import {environment} from '@env/environment';
 import {TranslateService} from '@ngx-translate/core';
-import * as catalogActions from '@app/map/store/actions/catalog.actions';
 import {UrlBehaviorService} from '@app/map/services';
-import {filter, first, take} from 'rxjs/operators';
+import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {MapState, selectCatalogState, selectLayerState, selectMapClickState} from '@app/map/store';
+import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
@@ -60,7 +59,7 @@ export class MapComponent implements OnInit {
     this.initPopups();
     this.initMapClickTitle();
     if (this.applicationUsesDefaultTopic()) {
-      this.initializeTopic();
+      // this.initializeTopic();
     }
   }
 
@@ -149,7 +148,7 @@ export class MapComponent implements OnInit {
   /**
    * If there is no current topic, initialize the current topic
    */
-  private initializeTopic() {
+  /* private initializeTopic() {
     this.store.select(selectCatalogState).pipe(take(1)).subscribe((currentState) => {
       if (currentState.topics.length === 0) {
         this.translateService.get('language').subscribe((lang) => {
@@ -165,5 +164,5 @@ export class MapComponent implements OnInit {
         });
       }
     });
-  }
+  } */
 }

@@ -5,11 +5,21 @@
   -->
 
 <div class="hover-opacity">
-    <div *ngFor="let topic of (catalogState | async).topics; let i = index">
+    <!-- <div *ngFor="let topic of (catalogState | async).topics; let i = index">
       <div *ngIf="topic.expanded && topic.category">
         <h5 class="background-blue border-bottom-black pl-2">{{ topic.label }}</h5>
         <app-category [category]="topic.category" [treeLocation]="[i]"></app-category>
       </div>
+    </div> -->
+    <div *ngFor="let rootCategoryId of (rootCategoryIds | async); let i = index">
+      <div *ngIf="(categories | async)[rootCategoryId]; let rootCategory">
+        <h5 class="background-blue border-bottom-black pl-2">{{ rootCategory.label }}</h5>
+        <div *ngFor="let categoryId of rootCategory.categories; let i = index">
+          <span *ngIf="(categories | async)[categoryId]; let category">
+            <app-category [category]="category"></app-category>
+          </span>
+        </div>
+      </div>
     </div>
-  <div class="text-center" *ngIf="numExpandedTopics < 1">{{'catalog-help-message' | translate}}</div>
+  <div class="text-center" *ngIf="( rootCategoryIds | async ).length < 1">{{'catalog-help-message' | translate}}</div>
 </div>

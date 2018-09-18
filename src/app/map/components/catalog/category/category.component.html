@@ -6,37 +6,42 @@
 
 <ng-container *ngIf="category.type === 'layer'">
     <span class="category-header selectable" *ngIf="category.type != 'root'">
-        <h6 (click)="onClickLayer(category, treeLocation)">{{ category.label }}</h6>
+        <h6 (click)="onClickLayer(category)">{{ category.label }}</h6>
     </span>
 </ng-container>
 
 <ng-container *ngIf="category.type === 'category'">
   <span class="category-header selectable"
         *ngIf="category.type != 'root'">
-      <h6 (click)="onClickCategory(category, treeLocation)"><i class="fa fa-caret-down pr-1"></i>{{ category.label }}</h6>
+      <h6 (click)="onClickCategory(category)">
+        <i *ngIf="category.isExpanded" class="fa fa-caret-down pr-1"></i>
+        <i *ngIf="!category.isExpanded" class="fa fa-caret-right pr-1"></i>
+        {{ category.label }}
+      </h6>
   </span>
 </ng-container>
 
-<ul class="list-group">
-  <li class="list-group-item background-dark" *ngFor="let cat of category.categories; let i = index">
+<ul *ngIf="category.isExpanded" class="list-group">
+  <li class="list-group-item background-dark" *ngFor="let catId of category.categories; let i = index">
+    <span *ngIf="(categories | async)[catId]; let cat">
+      <ng-container *ngIf="cat.type === 'layer'">
+          <span class="selectable pr-1" (click)="onClickLayer(cat)" *ngIf="!cat.isExpanded">
+            <input type="checkbox" [checked]="layerIsAdded(cat)">
+            <span class="pl-1">{{ cat.label }}</span>
+          </span>
+        <a><i class="glyphicon fa fa-info-circle foreground-teal"
+              (click)="onShowLayerInfoClick(cat.layerId)"></i></a>
+      </ng-container>
 
-    <ng-container *ngIf="cat.type === 'layer'">
-        <span class="selectable pr-1" (click)="onClickLayer(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
-          <input type="checkbox" [checked]="cat.isChecked">
-          <span class="pl-1">{{ cat.label }}</span>
-        </span>
-      <a><i class="glyphicon fa fa-info-circle foreground-teal"
-            (click)="onShowLayerInfoClick(cat.layerId)"></i></a>
-    </ng-container>
+      <ng-container *ngIf="cat.type === 'category'">
+        <div class="selectable" (click)="onClickCategory(cat)" *ngIf="!cat.isExpanded">
+          <i class="fa fa-caret-right"></i>
+          <span>{{ cat.label }}</span>
+          <span class="badge background-purple foreground-white badge-pill float-right">{{ cat.categories.length }}</span>
+        </div>
+      </ng-container>
 
-    <ng-container *ngIf="cat.type === 'category'">
-      <div class="selectable" (click)="onClickCategory(cat, treeLocation.concat([i]))" *ngIf="!cat.isExpanded">
-        <i class="fa fa-caret-right"></i>
-        <span>{{ cat.label }}</span>
-        <span class="badge background-purple foreground-white badge-pill float-right">{{ cat.categories.length }}</span>
-      </div>
-    </ng-container>
-
-    <app-category *ngIf="cat.isExpanded" [category]="cat" [treeLocation]="treeLocation.concat([i])"></app-category>
+      <app-category *ngIf="cat.isExpanded" [category]="cat"></app-category>
+    </span>
   </li>
 </ul>

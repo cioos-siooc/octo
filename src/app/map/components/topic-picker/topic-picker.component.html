@@ -6,7 +6,7 @@
 
 <ul class="list-group">
   <li class="list-group-item topic topick-picker-topic"
-      *ngFor="let topic of (catalogState | async).topics; let i = index" (click)="onClickTopic(i, topic)"
+      *ngFor="let topic of (topics | async); let i = index" (click)="onClickTopic(i, topic)"
       [ngStyle]="{'background-image': 'url(' + topic.imageUrl + ')'}"
       [ngClass]="{'not-expanded': !topic.expanded}">
 

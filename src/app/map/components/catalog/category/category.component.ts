@@ -4,18 +4,19 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Dictionary } from '@ngrx/entity/src/models';
 
-import * as catalogActions from '@app/map/store/actions/catalog.actions';
-import * as layerActions from '@app/map/store/actions/layer.actions';
+import { MapState, selectCategoryEntities, selectLayerState } from '@app/map/store';
+import { NormalizedCategory, Layer } from '@app/shared/models';
 import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
+import * as categoryActions from '@app/map/store/actions/category.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
-import {Category} from '@app/shared/models';
-import {CatalogSelectedLayer} from '@app/shared/models';
-import {LAYER_INFORMATION_POPUP_ID} from '../../map/map.component';
-import ActivateLayer from '@app/map/utils/activate-layer.util';
-import {MapState} from '@app/map/store';
+import * as layerActions from '@app/map/store/actions/layer.actions';
+import * as fromLayer from '@app/map/store/reducers/layer.reducers';
+import { LAYER_INFORMATION_POPUP_ID } from '../../map/map.component';
 
 @Component({
   selector: 'app-category',
@@ -23,54 +24,44 @@ import {MapState} from '@app/map/store';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  @Input() category: Category;
-  @Input() treeLocation: number[];
+  @Input() category: NormalizedCategory;
+
+
+  categories: Observable<Dictionary<NormalizedCategory>>;
+  layers: Layer[];
 
   constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
+    this.categories = this.store.select(selectCategoryEntities);
+    this.store.select(selectLayerState)
+      .subscribe((layerState: fromLayer.LayerState) => {
+        this.layers = layerState.layers;
+      });
   }
 
   /**
    * Expand or collapse the category
-   * @param {Category} category the category of type "category"
-   * @param {number[]} treeLocation the location of the category within the hierarchy
+   * @param {NormalizedCategory} category the category of type "NormalizedCategory"
    */
-  onClickCategory(category: Category, treeLocation: number[]) {
-    if (category.categories) {
-      this.store.dispatch(new catalogActions.UpdateCategory({
-        treeLocation: treeLocation,
-        newCategory: <Category>{
-          ...category,
-          isExpanded: !category.isExpanded
-        }
-      }));
-    }
+  onClickCategory(category: NormalizedCategory) {
+    const updatedCategory = {
+      ...category,
+      isExpanded: !category.isExpanded
+    };
+    this.store.dispatch(new categoryActions.UpdateCategory({id: updatedCategory.id, changes: updatedCategory}));
   }
 
   /**
    * Create or destroy the layer
    * @param {Category} category the category of type "layer"
-   * @param {number[]} treeLocation the location of the category within the hierarchy
    */
-  onClickLayer(category: Category, treeLocation: number[]) {
-    const newCategory = {
-      ...category,
-      isChecked: !category.isChecked
-    };
-
-    // Dispatch an action to toggle the isChecked property in the catalog state
-    this.store.dispatch(new catalogActions.UpdateCategory({
-      treeLocation: treeLocation,
-      newCategory: newCategory
-    }));
-
-    // Add the layer to the active layers if necessary
-    if (newCategory.isChecked) {
-      this.activateLayer(newCategory, treeLocation);
+  onClickLayer(category: NormalizedCategory) {
+    if (this.layerIsAdded(category)) {
+      this.removeLayer(category);
     } else {
-      this.removeLayer(newCategory, treeLocation);
+      this.addLayer(category);
     }
   }
 
@@ -79,36 +70,21 @@ export class CategoryComponent implements OnInit {
     this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
   }
 
-  private removeLayer(category: Category, treeLocation: number[]) {
-    this.store.dispatch(
-      new layerActions.DeleteLayer(category.layerUniqueId)
-    );
-    this.store.dispatch(
-      new catalogActions.RemoveSelectedLayer(category.layerUniqueId)
-    );
-    this.store.dispatch(new catalogActions.UpdateCategory({
-      treeLocation: treeLocation,
-      newCategory: <Category>{
-        ...category,
-        layerUniqueId: null
-      }
+  private addLayer(category: NormalizedCategory) {
+    this.store.dispatch(new layerActions.FetchLayer({
+      layerId: category.layerId,
+      uniqueId: category.layerId.toString()
     }));
   }
 
-  private activateLayer(category: Category, treeLocation: number[]) {
-    const layerUniqueId = ActivateLayer.activateLayer(category.layerId, this.store);
-    this.store.dispatch(new catalogActions.AddSelectedLayer(
-      new CatalogSelectedLayer(
-        layerUniqueId,
-        treeLocation
-      )
-    ));
-    this.store.dispatch(new catalogActions.UpdateCategory({
-      treeLocation: treeLocation,
-      newCategory: <Category>{
-        ...category,
-        layerUniqueId: layerUniqueId
-      }
-    }));
+  private removeLayer(category: NormalizedCategory) {
+    this.store.dispatch(new layerActions.DeleteLayer(category.layerId.toString()));
+  }
+
+  layerIsAdded(category: NormalizedCategory) {
+    const matchingLayers = this.layers.filter(
+      (l: Layer) => l.id === category.layerId
+    );
+    return matchingLayers.length > 0;
   }
 }

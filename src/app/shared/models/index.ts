@@ -13,6 +13,7 @@
 export * from './bing-layer.model';
 export * from './catalog-selected-layer.model';
 export * from './category.model';
+export * from './normalized-category.model';
 export * from './click-formatter-info.model';
 export * from './click-strategy.model';
 export * from './client-presentation.model';
@@ -24,3 +25,4 @@ export * from './topic-hierarchy.model';
 export * from './wfs-layer.model';
 export * from './wms-layer.model';
 export * from './wms-strategy.model';
+export * from './layer.model';

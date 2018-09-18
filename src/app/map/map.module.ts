@@ -13,7 +13,8 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {mapReducers} from './store';
 import {LayerInformationEffects} from './store/effects/layer-information.effects';
-import {CatalogEffects} from './store/effects/catalog.effects';
+import {CategoryEffects} from './store/effects/category.effects';
+import {TopicEffects} from './store/effects/topic.effects';
 import {LayerEffects} from './store/effects/layer.effects';
 import * as fromComponents from './components';
 import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/enum-behavior.component';
@@ -25,7 +26,7 @@ import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/
     CalendarModule,
     AngularDraggableModule,
     StoreModule.forFeature('map', mapReducers),
-    EffectsModule.forFeature([LayerEffects, CatalogEffects, LayerInformationEffects]),
+    EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
   ],
   declarations: [...fromComponents.components, EnumBehaviorComponent]
 })
