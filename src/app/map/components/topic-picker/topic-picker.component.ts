@@ -5,9 +5,6 @@
  */
 
 import {Component, OnInit} from '@angular/core';
-import * as fromCatalog from '@app/map/store/reducers/catalog.reducers';
-import * as fromTopic from '@app/map/store/reducers/topic.reducers';
-import * as catalogActions from '@app/map/store/actions/catalog.actions';
 import * as categoryActions from '@app/map/store/actions/category.actions';
 import * as topicActions from '@app/map/store/actions/topic.actions';
 import {Observable} from 'rxjs';
@@ -16,9 +13,8 @@ import {Topic} from '@app/shared/models';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '@env/environment';
 import {MapState} from '../../store';
-import {selectCatalogState} from '@app/map/store/selectors/catalog.selectors';
 import {selectRootCategoryIds} from '@app/map/store/selectors/category.selectors';
-import {selectTopicState, selectAllTopics} from '@app/map/store/selectors/topic.selectors';
+import {selectAllTopics} from '@app/map/store/selectors/topic.selectors';
 
 @Component({
   selector: 'app-topic-picker',
@@ -26,7 +22,6 @@ import {selectTopicState, selectAllTopics} from '@app/map/store/selectors/topic.
   styleUrls: ['./topic-picker.component.css']
 })
 export class TopicPickerComponent implements OnInit {
-  catalogState: Observable<fromCatalog.CatalogState>;
   topics: Observable<Topic[]>;
 
   rootCategoryIds: Number[];
@@ -39,7 +34,6 @@ export class TopicPickerComponent implements OnInit {
     this.store.select(selectRootCategoryIds).subscribe(rootCategoryIds => this.rootCategoryIds = rootCategoryIds);
 
     this.translateService.get('language').subscribe((lang) => {
-      this.store.dispatch(new catalogActions.FetchTopicGroup({languageCode: lang, code: environment.topicGroupCode}));
       this.store.dispatch(new topicActions.FetchTopicGroup({languageCode: lang, code: environment.topicGroupCode}));
     });
   }

@@ -8,7 +8,6 @@ import {ActionReducerMap, createFeatureSelector, MetaReducer} from '@ngrx/store'
 import {environment} from '../../../../environments/environment';
 import {storeFreeze} from 'ngrx-store-freeze';
 
-import * as fromCatalog from './catalog.reducers';
 import * as fromLayerInformation from './/layer-information.reducers';
 import * as fromBaseLayer from './base-layer.reducers';
 import * as fromLayer from './layer.reducers';
@@ -20,7 +19,6 @@ import * as fromTopic from './topic.reducers';
 import * as fromCategory from './category.reducers';
 
 export interface MapState {
-  catalog: fromCatalog.CatalogState;
   layer: fromLayer.LayerState;
   baseLayer: fromBaseLayer.BaseLayerState;
   layerInformation: fromLayerInformation.LayerInformationState;
@@ -33,7 +31,6 @@ export interface MapState {
 }
 
 export const mapReducers: ActionReducerMap<MapState> = {
-  catalog: fromCatalog.catalogReducer,
   layer: fromLayer.layerReducer,
   baseLayer: fromBaseLayer.baseLayerReducer,
   layerInformation: fromLayerInformation.layerInformationReducer,

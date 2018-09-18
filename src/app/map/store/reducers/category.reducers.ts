@@ -42,7 +42,7 @@ export function categoryReducer(state: CategoryState = initialState, action: Cat
 
 function removeCategoryTree(id: Number, state: CategoryState) {
   // Remove the current category
-  const currentCategory: NormalizedCategory = {...state.entities[id]};
+  const currentCategory: NormalizedCategory = {...state.entities[id.toString()]};
   adapter.removeOne(currentCategory.id, state);
 
   let newState: CategoryState = null;
@@ -59,7 +59,7 @@ function removeCategoryTree(id: Number, state: CategoryState) {
       break;
     case 'layer':
       const newLayerCategoryIds = [...state.layerCategoryIds.filter(
-        layerId => layerId !== currentCategory.id 
+        layerId => layerId !== currentCategory.id
       )];
       newState = {
         ...state,

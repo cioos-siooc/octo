@@ -8,7 +8,6 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {Store} from '@ngrx/store';
 import * as layerActions from '@app/map/store/actions/layer.actions';
 import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
-import * as catalogActions from '@app/map/store/actions/catalog.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
 import {LAYER_INFORMATION_POPUP_ID, LAYER_PRESENTATION_POPUP_ID} from '../map/map.component';
 import * as layerPresentationActions from '@app/map/store/actions/layer-presentation.actions';
@@ -61,7 +60,6 @@ export class LayerManagerComponent implements OnInit {
 
   onRemoveClick(layerUniqueId) {
     this.store.dispatch(new layerActions.DeleteLayer(layerUniqueId));
-    this.store.dispatch(new catalogActions.RemoveSelectedLayer(layerUniqueId));
   }
 
   onShowLayerInfoClick(layerUniqueId) {

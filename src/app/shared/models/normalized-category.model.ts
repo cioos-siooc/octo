@@ -10,7 +10,6 @@ export class NormalizedCategory {
               public type: string,
               public layerId: number,
               public categories: number[],
-              public isExpanded: boolean,
-              public isChecked: boolean) {
+              public isExpanded: boolean) {
   }
 }

@@ -1,5 +1,3 @@
-import { Layer } from '@app/shared/models/layer.model';
-import { uniqueId } from 'lodash';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +10,7 @@ import { Observable } from 'rxjs';
 import { Dictionary } from '@ngrx/entity/src/models';
 
 import { MapState, selectCategoryEntities, selectLayerState } from '@app/map/store';
-import { Category, NormalizedCategory } from '@app/shared/models';
+import { NormalizedCategory, Layer } from '@app/shared/models';
 import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
 import * as categoryActions from '@app/map/store/actions/category.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
@@ -65,12 +63,6 @@ export class CategoryComponent implements OnInit {
     } else {
       this.addLayer(category);
     }
-
-    const updatedCategory = {
-      ...category,
-      isChecked: !category.isChecked
-    };
-    this.store.dispatch(new categoryActions.UpdateCategory({id: updatedCategory.id, changes: updatedCategory}));
   }
 
   onShowLayerInfoClick(layerId) {
@@ -89,7 +81,7 @@ export class CategoryComponent implements OnInit {
     this.store.dispatch(new layerActions.DeleteLayer(category.layerId.toString()));
   }
 
-  private layerIsAdded(category: NormalizedCategory) {
+  layerIsAdded(category: NormalizedCategory) {
     const matchingLayers = this.layers.filter(
       (l: Layer) => l.id === category.layerId
     );

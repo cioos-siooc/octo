@@ -12,7 +12,6 @@
 
 export * from './base-layer.selectors';
 export * from './behavior.selectors';
-export * from './catalog.selectors';
 export * from './layer.selectors';
 export * from './layer-information.selectors';
 export * from './layer-presentation.selectors';
