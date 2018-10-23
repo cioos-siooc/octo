@@ -9,11 +9,13 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
+import {Location} from '@angular/common';
 
 
 import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
 import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
 import * as fromLayer from '@app/map/store/reducers/layer.reducers';
+import * as layerActions from '@app/map/store/actions/layer.actions';
 import * as baseLayerActions from '@app/map/store/actions/base-layer.actions';
 import * as popupActions from '@app/map/store/actions/popup.actions';
 import {environment} from '@env/environment';
@@ -23,6 +25,7 @@ import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
+import { ActivatedRoute } from '@angular/router';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -50,7 +53,8 @@ export class MapComponent implements OnInit {
   mapClickTitle: string;
 
   constructor(private httpClient: HttpClient, private translateService: TranslateService,
-              private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService) {
+              private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService,
+              private location: Location, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -61,6 +65,22 @@ export class MapComponent implements OnInit {
     if (this.applicationUsesDefaultTopic()) {
       // this.initializeTopic();
     }
+    // Check the URL for parameters and initialize layers as necessary
+    this.route.queryParams.subscribe((params) => {
+      if ('layers' in params) {
+        const layers = params.layers.split(',');
+        for (const layer of layers) {
+          this.store.dispatch(new layerActions.FetchLayer({layerId: layer, uniqueId: layer.toString()}));
+        }
+      }
+    });
+    // Listen for newly added layers and add them to the URL
+    this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
+      const layerIds = state.layers.map(layer => layer.id);
+      if (layerIds.length > 0) {
+        this.location.go('', 'layers=' + layerIds.toString());
+      }
+    });
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {

@@ -9,6 +9,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import {environment} from '@env/environment.prod';
 import {AppRoutingModule} from './app-routing.module';
@@ -36,7 +37,7 @@ import {MapModule} from './map/map.module';
     }),
     AppRoutingModule
   ],
-  providers: [UrlBehaviorService],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}, UrlBehaviorService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
