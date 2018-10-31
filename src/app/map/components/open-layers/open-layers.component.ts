@@ -91,7 +91,7 @@ export class OpenLayersComponent implements AfterViewInit {
       this.router.navigate([], {
         queryParams: {'mapextent': mapExtent.toString()},
         queryParamsHandling: 'merge',
-      })
+      });
     });
   }
 
