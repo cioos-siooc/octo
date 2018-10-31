@@ -66,7 +66,8 @@ export class OpenLayersComponent implements AfterViewInit {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       if ('mapextent' in params) {
         // If position is stored in the url use that
-        const mapextent = params.mapextent.split(',');
+        const mapextent = params.mapextent.split(',').map(x => +x);
+        console.log(mapextent);
         mapview = new View({
           center: mapextent.slice(0, 2),
           zoom: mapextent[2]
@@ -88,9 +89,9 @@ export class OpenLayersComponent implements AfterViewInit {
     this.map.on('moveend', (event) => {
       // Add the location to the url any time the user moves thes map
       const mapExtent = this.map.getView().getCenter().concat(this.map.getView().getZoom());
+      console.log(this.map.getView().getCenter());
       this.router.navigate([], {
         queryParams: {'mapextent': mapExtent.toString()},
-        queryParamsHandling: 'merge',
       });
     });
   }

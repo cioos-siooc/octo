@@ -73,6 +73,15 @@ export class MapComponent implements OnInit {
         for (const layer of layers) {
           this.store.dispatch(new layerActions.FetchLayer({layerId: layer, uniqueId: layer.toString()}));
         }
+        this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
+          const layerIds = state.layers.map(layer => layer.id);
+          if (layerIds.length > 0) {
+            this.router.navigate([], {
+              queryParams: {'layers': layerIds.toString()},
+              queryParamsHandling: 'merge',
+            });
+          }
+        });
       }
     });
     // Listen for newly added layers and add them to the URL
