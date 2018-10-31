@@ -25,7 +25,7 @@ import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -54,7 +54,8 @@ export class MapComponent implements OnInit {
 
   constructor(private httpClient: HttpClient, private translateService: TranslateService,
               private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService,
-              private location: Location, private route: ActivatedRoute) {
+              private location: Location, private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -66,7 +67,7 @@ export class MapComponent implements OnInit {
       // this.initializeTopic();
     }
     // Check the URL for parameters and initialize layers as necessary
-    this.route.queryParams.subscribe((params) => {
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
       if ('layers' in params) {
         const layers = params.layers.split(',');
         for (const layer of layers) {
@@ -78,7 +79,15 @@ export class MapComponent implements OnInit {
     this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
       const layerIds = state.layers.map(layer => layer.id);
       if (layerIds.length > 0) {
-        this.location.go('', 'layers=' + layerIds.toString());
+        this.router.navigate([], {
+          queryParams: {'layers': layerIds.toString()},
+          queryParamsHandling: 'merge',
+        });
+      } else {
+        this.router.navigate([], {
+          queryParams: {'layers': null},
+          queryParamsHandling: 'merge',
+        });
       }
     });
   }
