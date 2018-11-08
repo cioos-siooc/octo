@@ -92,6 +92,7 @@ export class OpenLayersComponent implements AfterViewInit {
       console.log(this.map.getView().getCenter());
       this.router.navigate([], {
         queryParams: {'mapextent': mapExtent.toString()},
+        queryParamsHandling: 'merge',
       });
     });
   }
