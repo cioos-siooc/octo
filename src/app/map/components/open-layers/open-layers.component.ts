@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -6,6 +7,8 @@
 
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
+import {Location} from '@angular/common';
+import {Router, ActivatedRoute} from '@angular/router';
 import {forkJoin} from 'rxjs';
 import View from 'ol/view';
 import Feature from 'ol/feature';
@@ -43,7 +46,9 @@ export class OpenLayersComponent implements AfterViewInit {
   baseOLLayer: OLLayer = null;
   private layers: Layer[];
 
-  constructor(private httpClient: HttpClient, private store: Store<MapState>) {
+  constructor(private httpClient: HttpClient, private store: Store<MapState>,
+              private location: Location, private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngAfterViewInit(): void {
@@ -54,13 +59,41 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private initMap() {
-    const mapview = new View({
-      center: Proj.transform([-66.0, 51.0], 'EPSG:4326', 'EPSG:3857'),
-      zoom: 5,
+    // Initialize the map
+
+    // Setup the position
+    let mapview = null;
+    this.route.queryParams.pipe(take(1)).subscribe((params) => {
+      if ('mapextent' in params) {
+        // If position is stored in the url use that
+        const mapextent = params.mapextent.split(',').map(x => +x);
+        console.log(mapextent);
+        mapview = new View({
+          center: mapextent.slice(0, 2),
+          zoom: mapextent[2]
+        });
+      } else {
+        // Go to a default position if it is not stored in the url
+        mapview = new View({
+          center: Proj.transform([-66.0, 51.0], 'EPSG:4326', 'EPSG:3857'),
+          zoom: 5,
+        });
+      }
     });
     this.map = new OLMap({
       target: 'map',
       view: mapview,
+    });
+
+    // Register event listeners to update the URL with map location
+    this.map.on('moveend', (event) => {
+      // Add the location to the url any time the user moves thes map
+      const mapExtent = this.map.getView().getCenter().concat(this.map.getView().getZoom());
+      console.log(this.map.getView().getCenter());
+      this.router.navigate([], {
+        queryParams: {'mapextent': mapExtent.toString()},
+        queryParamsHandling: 'merge',
+      });
     });
   }
 
