@@ -12,5 +12,6 @@
   "appearance": "Appearance",
   "switch-language-code": "FR",
   "now": "NOW",
-  "active-layers-help-message": "Select a layer using the \"Catalog\" dialogue"
+  "active-layers-help-message": "Select a layer using the \"Catalog\" dialogue",
+  "add-layer-button": "Add a Layer"
 }

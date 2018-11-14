@@ -32,6 +32,7 @@ a {
 .full-sized {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .absolute {
@@ -70,12 +71,12 @@ a {
   color: #6A7480
 }
 
-.foreground-light-gray {
+.foregroud-gray {
   color: #a5b9cc
 }
 
 .background-light-gray {
-  background-color: #a5b9cc
+  background-color: #5A5A5A;
 }
 
 .background-teal {

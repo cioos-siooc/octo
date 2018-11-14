@@ -1,0 +1,19 @@
+.container {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation {
+    height: 3em;
+}
+
+.layer-list {
+    flex: 1;
+}
+
+.add-layer-button {
+    height: 3em;
+}
