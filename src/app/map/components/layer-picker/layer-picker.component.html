@@ -1,0 +1,21 @@
+<ng-template #layerPicker let-modal>
+    <div class="modal-header background-dark-blue">
+        <h4 class="modal-title">
+            {{ 'add-layer-modal-search-heading' | translate }}
+        </h4>
+    </div>
+    <div class="modal-body searchbox">
+        <input type="text" placeholder="{{ 'add-layer-modal-search-example' | translate }}">
+    </div>
+
+    <div class="modal-header background-dark-blue">
+        <h4 class="modal-title">
+            {{ 'add-layer-modal-theme-heading' | translate }}
+        </h4>
+    </div>
+    <div class="modal-body" id="topic-picker">
+        <app-topic-picker></app-topic-picker>
+    </div>
+</ng-template>
+
+<button (click)="open(layerPicker)">{{ 'add-layer-button' | translate}}</button>

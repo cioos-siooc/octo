@@ -1,0 +1,19 @@
+.modal-header {
+    color: white;
+    border-radius: 0px;
+}
+
+/* Searchbox related stuff */
+.searchbox {
+    padding: 0;
+}
+
+.searchbox input {
+    height: 3em;
+    width: 100%;
+}
+
+/* Topic picker related stuff */
+#topic-picker {
+    padding: 0;
+}

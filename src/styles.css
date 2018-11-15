@@ -79,6 +79,14 @@ a {
   background-color: #5A5A5A;
 }
 
+.background-lighter-gray {
+  background-color: #D6DADD;
+}
+
+.background-off-white {
+  background-color: #F3F3F3;
+}
+
 .background-teal {
   background-color: #1BC98E;
 }
@@ -121,7 +129,7 @@ a {
 }
 
 .background-dark-blue {
-  background-color: #142A30;
+  background-color: #041117;
 }
 
 .foreground-dark-blue {

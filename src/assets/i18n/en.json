@@ -13,5 +13,8 @@
   "switch-language-code": "FR",
   "now": "NOW",
   "active-layers-help-message": "Select a layer using the \"Catalog\" dialogue",
-  "add-layer-button": "Add a Layer"
+  "add-layer-button": "Add a Layer",
+  "add-layer-modal-search-heading": "Search by keyword",
+  "add-layer-modal-search-example": "ex. Environment",
+  "add-layer-modal-theme-heading": "Browse by theme"
 }

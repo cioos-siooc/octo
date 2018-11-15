@@ -4,12 +4,12 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
-<ul class="list-group">
-  <li class="list-group-item topic topick-picker-topic"
-      *ngFor="let topic of (topics | async); let i = index" (click)="onClickTopic(i, topic)"
-      [ngStyle]="{'background-image': 'url(' + topic.imageUrl + ')'}"
-      [ngClass]="{'not-expanded': !topic.expanded}">
-
-    <div style="background-color: #ffffff; margin-top: -45px; opacity: 0.7;"><h5>{{ topic.label }}</h5></div>
-  </li>
-</ul>
+<div id="topic-container">
+  <div class="topic background-off-white"
+        *ngFor="let topic of (topics | async); let i = index">
+    <div class="topic-image">
+      <img src="{{ topic.imageUrl }}">
+    </div>
+    <div class="topic-label">{{ topic.label }}</div>
+  </div>
+</div>
