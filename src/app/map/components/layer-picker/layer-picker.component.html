@@ -8,14 +8,20 @@
         <input type="text" placeholder="{{ 'add-layer-modal-search-example' | translate }}">
     </div>
 
-    <div class="modal-header background-dark-blue">
-        <h4 class="modal-title">
-            {{ 'add-layer-modal-theme-heading' | translate }}
-        </h4>
-    </div>
-    <div class="modal-body" id="topic-picker">
-        <app-topic-picker></app-topic-picker>
-    </div>
+    <span *ngIf="selectedTopic === null">
+        <div class="modal-header background-dark-blue">
+            <h4 class="modal-title">
+                {{ 'add-layer-modal-theme-heading' | translate }}
+            </h4>
+        </div>
+        <div class="modal-body" id="topic-picker">
+            <app-topic-picker></app-topic-picker>
+        </div>
+    </span>
+
+    <span *ngIf="selectedTopic !== null">
+        {{ selectedTopic.label }}
+    </span>
 </ng-template>
 
 <button (click)="open(layerPicker)">{{ 'add-layer-button' | translate}}</button>

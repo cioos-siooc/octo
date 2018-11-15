@@ -6,7 +6,8 @@
 
 <div id="topic-container">
   <div class="topic background-off-white"
-        *ngFor="let topic of (topics | async); let i = index">
+        *ngFor="let topic of (topics | async); let i = index"
+        (click)="onClickTopic(topic)">
     <div class="topic-image">
       <img src="{{ topic.imageUrl }}">
     </div>

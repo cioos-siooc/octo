@@ -31,6 +31,7 @@ export class TopicPickerComponent implements OnInit {
 
   ngOnInit() {
     this.topics = this.store.select(selectAllTopics);
+
     this.store.select(selectRootCategoryIds).subscribe(rootCategoryIds => this.rootCategoryIds = rootCategoryIds);
 
     this.translateService.get('language').subscribe((lang) => {
@@ -38,10 +39,8 @@ export class TopicPickerComponent implements OnInit {
     });
   }
 
-  onClickTopic(id: number, topic: Topic) {
-    if (this.categoriesLoaded(topic.root)) {
-      this.store.dispatch(new categoryActions.RemoveCategoryTree(topic.root));
-    } else {
+  onClickTopic(topic: Topic) {
+    if (!this.categoriesLoaded(topic.root)) {
       this.store.dispatch(new categoryActions.FetchCategoriesForTopic(topic.id));
     }
 
@@ -50,6 +49,7 @@ export class TopicPickerComponent implements OnInit {
       expanded: !topic.expanded
     };
     this.store.dispatch(new topicActions.UpdateTopic({id: updatedTopic.id, changes: updatedTopic}));
+    this.store.dispatch(new topicActions.SetSelectedTopic(topic));
   }
 
   private categoriesLoaded(id: number) {

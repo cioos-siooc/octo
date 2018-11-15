@@ -6,6 +6,7 @@ import { Update } from '@ngrx/entity';
 export enum TopicActionTypes {
     FETCH_TOPIC_GROUP = '[Topic] Fetch Topic Group',
     SET_TOPIC_GROUP = '[Topic] Set Topic Group',
+    SET_SELECTED_TOPIC = '[Topic] Set Selected Topic',
     FETCH_TOPIC = '[Topic] Fetch Topic',
     APPEND_TOPIC = '[Topic] Append Topic',
     UPDATE_TOPIC = '[Topic] Update Topic',
@@ -46,6 +47,25 @@ export class SetTopicGroup implements Action {
    * @memberof SetTopicGroup
    */
   constructor(public payload: TopicGroup) {
+  }
+}
+
+/**
+ * Set the currently selected topic
+ *
+ * @export
+ * @class SetSelectedTopic
+ * @implements {Action}
+ */
+export class SetSelectedTopic implements Action {
+  readonly type = TopicActionTypes.SET_SELECTED_TOPIC;
+
+  /**
+   *Creates an instance of SetSelectedTopic.
+   * @param {Topic} payload - The currently selected topic of type Topic
+   * @memberof SetSelectedTopic
+   */
+  constructor(public payload: Topic) {
   }
 }
 
@@ -97,6 +117,7 @@ export class UpdateTopic implements Action {
 export type TopicActionsUnion =
     FetchTopicGroup |
     SetTopicGroup |
+    SetSelectedTopic |
     FetchTopic |
     AppendTopic |
     UpdateTopic;
