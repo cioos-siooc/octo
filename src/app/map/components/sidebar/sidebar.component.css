@@ -23,6 +23,7 @@
 
 .layer-list {
     flex: 1;
+    overflow-y: scroll;
 }
 
 .add-layer-button {

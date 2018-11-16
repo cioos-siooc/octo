@@ -1,38 +1,21 @@
-<!--
-  ~ This Source Code Form is subject to the terms of the Mozilla Public
-  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
-  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
-  -->
-
-<div id="layer-manager" class="hover-opacity">
-  <div *ngIf="layerIds.length < 1 " class="text-center">{{ 'active-layers-help-message' | translate}}</div>
-  <ul class="p-1">
-    <li *ngFor="let uniqueId of layerIds.slice().reverse()" class="no-list-style pt-1 pb-1 pl-2">
-      <a><i class="fa fa-times-circle foreground-red"
-            (click)="onRemoveClick(uniqueId)"></i></a>
-      <span class="pl-1">{{(getLayerTitle(uniqueId) | async)}}</span>
-      <a class="px-1"><i class="glyphicon fa fa-info-circle foreground-teal"
-            (click)="onShowLayerInfoClick(uniqueId)"></i></a>
-      <button class="btn foreground-white background-gray smaller-font text-uppercase btn-legend-padding"
-              (click)="onShowLayerPresentation(uniqueId)">{{ 'legend' | translate}}
-      </button>
-      <a class="pl-1"><i class="glyphicon fa fa-cog foreground-gray"
-            (click)="onExpandSettingsClick(uniqueId)"></i></a>
-      <div *ngIf="isSettingsExpanded(uniqueId)" class="settings pt-1">
-        <a><i class="glyphicon fas fa-arrow-alt-up foreground-white"
-              (click)="onMoveUpLayerClick(uniqueId)"></i></a>
-        <a><i class="glyphicon fas fa-arrow-alt-down foreground-white"
-              (click)="onMoveDownLayerClick(uniqueId)"></i></a>
-        <div class="url-behavior py-1" *ngFor="let behavior of (getUrlBehaviors(uniqueId)| async)">
-          <app-time-behavior *ngIf="behavior.handler === 'time'"
-                             [behaviorUniqueId]=behavior.uniqueId>
-          </app-time-behavior>
-          <app-enum-behavior *ngIf="behavior.handler === 'enum'"
-                              [behaviorUniqueId]=behavior.uniqueId>
-          </app-enum-behavior>
+<div class="layer-card background-white"
+     *ngFor="let layer of layers">
+    <div class="layer-card-body-container">
+        <div class="heading background-lighter-gray">
+            {{ layer.title }}
+        </div> 
+        <div class="attribution">
+            Attribution will go here
         </div>
-      </div>
-    </li>
-  </ul>
+        <div class="legend">
+            Legend will go here
+        </div>
+        <div class="description">
+            Description
+        </div>
+    </div>
+    <div class="remove background-lighter-gray foreground-red"
+         (click)="removeLayer(layer.id)">
+        Remove layer
+    </div>
 </div>
-

@@ -100,7 +100,8 @@ a {
 }
 
 .foreground-red {
-  color: #E64759
+  /* color: #E64759 */
+  color: #8A1010;
 }
 
 .background-purple {

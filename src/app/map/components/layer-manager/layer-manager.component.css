@@ -4,21 +4,24 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#layer-manager ul li {
-  border-bottom: solid 1px #aaa;
-}
-#layer-manager ul li:last-child {
-  border-bottom: none;
+.layer-card {
+  margin-bottom: 1.65em;
 }
 
-.url-behavior {
-  border-top: solid 1px rgba(170,170,170,0.8);
+.layer-card-body-container {
+  padding: 0.8em;
 }
 
-.settings {
-  border-top: dotted 1px rgba(170,170,170,0.8);
+.layer-card .heading {
+  font-size: 1.2em;
+  font-weight: bold;
 }
 
-.btn-legend-padding {
-  padding: 1px 2px;
+.layer-card .remove {
+  text-align: center;
+
+  font-weight: bold;
+
+  cursor: pointer;
+  user-select: none;
 }
