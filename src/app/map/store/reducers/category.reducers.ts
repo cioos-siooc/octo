@@ -35,6 +35,8 @@ export function categoryReducer(state: CategoryState = initialState, action: Cat
       return adapter.updateOne(action.payload, state);
     case CategoryActionTypes.REMOVE_CATEGORY_TREE:
       return removeCategoryTree(action.payload, state);
+    case CategoryActionTypes.REMOVE_ALL_CATEGORIES:
+      return adapter.removeAll({ ...state, rootCategoryIds: [], layerCategoryIds: []});
     default:
       return state;
   }

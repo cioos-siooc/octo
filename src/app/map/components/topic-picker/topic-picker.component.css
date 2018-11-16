@@ -19,6 +19,7 @@
   padding: 0.3em;
 
   cursor: pointer;
+  user-select: none;
 }
 
 .topic:hover {

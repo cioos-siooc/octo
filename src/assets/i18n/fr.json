@@ -16,5 +16,6 @@
   "add-layer-button": "Ajouter une couche",
   "add-layer-modal-search-heading": "Recherche par mots-clés",
   "add-layer-modal-search-example": "ex. Environnement",
-  "add-layer-modal-theme-heading": "Recherche par thémes"
+  "add-layer-modal-theme-heading": "Recherche par thémes",
+  "themes-label": "Thémes"
 }

@@ -17,3 +17,32 @@
 #topic-picker {
     padding: 0;
 }
+
+/* Catelog related stuff */
+.theme-title {
+    padding: 0;
+}
+.theme-title-container {
+    height: calc(1.5em + 2rem);
+    line-height: 1.5em;
+    font-size: 1.5rem;
+}
+
+.theme-title-container>div {
+    display: inline-block;
+    padding: 1rem;
+}
+
+.back-to-themes-button {
+    cursor: pointer;
+    user-select: none;
+}
+
+.arrow-right {
+    height: 100%;
+    width: auto;
+
+    vertical-align: bottom;
+
+    fill: #041117;
+}

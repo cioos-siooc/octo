@@ -4,7 +4,9 @@ import {Store} from '@ngrx/store';
 
 import {Topic} from '@app/shared/models';
 import {MapState} from '../../store';
+import {SetSelectedTopic} from '@app/map/store/actions/topic.actions';
 import {selectTopicState} from '@app/map/store/selectors/topic.selectors';
+import {RemoveAllCategories} from '@app/map/store/actions/category.actions';
 
 
 @Component({
@@ -24,7 +26,20 @@ export class LayerPickerComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content);
+    this.modalService.open(content).result.then(
+      (result) => {
+        // Called when the modal is closed with the modal.close() function
+
+      }, (reason) => {
+        // Called when the modal is closed any other way
+        this.store.dispatch(new SetSelectedTopic(null));
+        this.store.dispatch(new RemoveAllCategories());
+      }
+    );
   }
 
+  backToThemes() {
+    this.store.dispatch(new SetSelectedTopic(null));
+    this.store.dispatch(new RemoveAllCategories());
+  }
 }

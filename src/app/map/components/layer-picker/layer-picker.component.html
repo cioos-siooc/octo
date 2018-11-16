@@ -20,7 +20,29 @@
     </span>
 
     <span *ngIf="selectedTopic !== null">
-        {{ selectedTopic.label }}
+        <div class="modal-header background-blue theme-title">
+            <!-- <h4 class="modal-title"> -->
+            <div class="theme-title-container">
+                <div class="background-dark-blue back-to-themes-button"
+                     (click)="backToThemes()">
+                    <i class="fas fa-home"></i> {{ 'themes-label' | translate }}
+                </div>
+                <!-- <i class="arrow right"></i> -->
+                <svg version = "1.1"
+                    baseProfile="full"
+                    width="40" height="100"
+                    viewBox="0 0 40 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="arrow-right">
+                    <polygon points="0,0 40,50, 0,100" class="triangle" />
+                </svg>
+                <div>{{ selectedTopic.label }}</div>
+            <!-- </h4> -->
+            </div>
+        </div>
+        <div class="modal-body">
+            <app-catalog></app-catalog>
+        </div>
     </span>
 </ng-template>
 
