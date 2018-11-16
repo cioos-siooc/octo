@@ -7,7 +7,18 @@
 }
 
 .navigation {
-    height: 3em;
+    padding-top: 0.5em;
+
+    font-size: 2.2em;
+
+    text-align: right;
+
+    color: white;
+}
+
+.navigation>.button-hide-sidebar {
+    cursor: pointer;
+    user-select: none;
 }
 
 .layer-list {
@@ -15,5 +26,5 @@
 }
 
 .add-layer-button {
-    height: 3em;
+    margin-bottom: 15px;
 }
