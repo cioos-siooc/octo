@@ -13,7 +13,6 @@
     </div> -->
     <div *ngFor="let rootCategoryId of (rootCategoryIds | async); let i = index">
       <div *ngIf="(categories | async)[rootCategoryId]; let rootCategory">
-        <h5 class="background-blue border-bottom-black pl-2">{{ rootCategory.label }}</h5>
         <div *ngFor="let categoryId of rootCategory.categories; let i = index">
           <span *ngIf="(categories | async)[categoryId]; let category">
             <app-category [category]="category"></app-category>

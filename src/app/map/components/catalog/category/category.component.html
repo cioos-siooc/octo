@@ -22,7 +22,7 @@
 </ng-container>
 
 <ul *ngIf="category.isExpanded" class="list-group">
-  <li class="list-group-item background-dark" *ngFor="let catId of category.categories; let i = index">
+  <li class="list-group-item background-white" *ngFor="let catId of category.categories; let i = index">
     <span *ngIf="(categories | async)[catId]; let cat">
       <ng-container *ngIf="cat.type === 'layer'">
           <span class="selectable pr-1" (click)="onClickLayer(cat)" *ngIf="!cat.isExpanded">
