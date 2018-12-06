@@ -18,6 +18,14 @@
   font-weight: bold;
 }
 
+.layer-card .attribution {
+  text-align: center;
+}
+
+.layer-card .legendLabel {
+  text-align: center;
+}
+
 .layer-card .collapsed-description {
   max-height: 7em;
   overflow:hidden;

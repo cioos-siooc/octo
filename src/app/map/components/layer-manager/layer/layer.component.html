@@ -7,7 +7,11 @@
             Attribution will go here
         </div>
         <div class="legend">
-            Legend will go here
+            <img src="{{ layer.currentClientPresentation.legendUrl }}">
+            <!-- Legend will go here -->
+        </div>
+        <div class="legendLabel">
+            {{ layer.currentClientPresentation.legendLabel }}
         </div>
         <div *ngIf="layer.description" class="description collapsed-description" 
             [ngClass]="{'collapsed-description': !descriptionExpanded}"
