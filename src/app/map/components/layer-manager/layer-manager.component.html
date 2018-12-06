@@ -1,21 +1,3 @@
-<div class="layer-card background-white"
-     *ngFor="let layer of layers">
-    <div class="layer-card-body-container">
-        <div class="heading background-lighter-gray">
-            {{ layer.title }}
-        </div> 
-        <div class="attribution">
-            Attribution will go here
-        </div>
-        <div class="legend">
-            Legend will go here
-        </div>
-        <div class="description">
-            Description
-        </div>
-    </div>
-    <div class="remove background-lighter-gray foreground-red"
-         (click)="removeLayer(layer.id)">
-        Remove layer
-    </div>
-</div>
+<span *ngFor="let layer of layers">
+    <app-layer [layer]="layer"></app-layer>
+</span>

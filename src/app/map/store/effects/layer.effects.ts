@@ -1,3 +1,4 @@
+import { SetLayerDescription, AddLayer } from './../actions/layer.actions';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,6 +12,7 @@ import {catchError, map, mergeMap} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Layer} from '@app/shared/models';
+import {LayerDescription} from '@app/shared/models/layer-description.model';
 import {environment} from '@env/environment';
 import {ClientPresentation} from '@app/shared/models';
 import {ClickStrategy} from '@app/shared/models';
@@ -23,6 +25,7 @@ import {
   FetchClickStrategy,
   FetchClientPresentations,
   FetchLayer,
+  FetchLayerDescription,
   LayerActionTypes
 } from '../actions/layer.actions';
 
@@ -45,14 +48,14 @@ export class LayerEffects {
           return layer;
         }
       ));
-    }), map(
+    }), mergeMap(
       (layer) => {
-        return {
-          type: LayerActionTypes.FETCH_CLICK_STRATEGY,
-          payload: layer
-        };
+        return [
+          new FetchClickStrategy(layer)
+        ];
       }
     ));
+
 
   @Effect()
   clickStrategyFetch = this.actions$
@@ -100,6 +103,7 @@ export class LayerEffects {
           };
         }
       ));
+
   @Effect()
   clientPresentationsFetch = this.actions$
     .ofType<FetchClientPresentations>(LayerActionTypes.FETCH_CLIENT_PRESENTATIONS)
@@ -118,13 +122,27 @@ export class LayerEffects {
         ));
       })
       , map(
-        (layer) => {
-          return {
-            type: LayerActionTypes.ADD_LAYER,
-            payload: layer
-          };
-        }
+        (layer) => new FetchLayerDescription(layer)
       ));
+
+  @Effect()
+  layerDescriptionFetch = this.actions$
+      .ofType<FetchLayerDescription>(LayerActionTypes.FETCH_LAYER_DESCRIPTION)
+      .pipe(mergeMap((action: FetchLayerDescription) => {
+        return this.httpClient.get<LayerDescription>
+        (`${environment.mapapiUrl}/layers/${action.payload.id}/layer-descriptions`).pipe(
+          map(
+            (layerDescription) => {
+              const newPayload = {...action.payload};
+              newPayload.description = layerDescription;
+              return newPayload;
+            }
+          ), catchError((err: HttpErrorResponse) => {
+            return of(action.payload);
+          }),
+          map((layer: Layer) => new AddLayer(layer))
+        );
+      }));
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient) {

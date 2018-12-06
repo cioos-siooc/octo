@@ -53,6 +53,19 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
         clState.layers[layerId - 1] = temp;
       }
       return clState;
+    case LayerActionTypes.SET_LAYER_DESCRIPTION:
+      console.log("allo");
+      const layer: Layer = {
+        ...state.layers[action.payload.layerId],
+        description: action.payload.layerDescription
+      };
+      console.log(layer);
+      const layers: Layer[] = [...state.layers];
+      layers[action.payload.layerId] = layer;
+      return {
+        ...state,
+        layers: layers
+      };
     case LayerActionTypes.SET_CLIENT_PRESENTATION:
       const newState = cloneDeep(state);
       const layerInd = newState.layers.findIndex((l) => l.uniqueId === (<any>action.payload).uniqueId);

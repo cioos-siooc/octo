@@ -1,0 +1,47 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+.layer-card {
+  margin-bottom: 1.65em;
+}
+
+.layer-card-body-container {
+  padding: 0.8em;
+  overflow: hidden;
+}
+
+.layer-card .heading {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.layer-card .collapsed-description {
+  max-height: 7em;
+  overflow:hidden;
+}
+
+.layer-card .toggle-description {
+  /* padding-right: 0.5em; */
+  float: right;
+}
+
+.toggle-description a {
+  color: #13B2EF;
+  user-select: none;
+}
+
+.toggle-description a:hover {
+  color: #004a66;
+}
+
+.layer-card .remove {
+  text-align: center;
+
+  font-weight: bold;
+
+  cursor: pointer;
+  user-select: none;
+}
