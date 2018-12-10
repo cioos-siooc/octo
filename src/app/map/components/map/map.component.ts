@@ -61,8 +61,6 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
-    this.initPopups();
-    this.initMapClickTitle();
     if (this.applicationUsesDefaultTopic()) {
       // this.initializeTopic();
     }
@@ -146,21 +144,6 @@ export class MapComponent implements OnInit {
     }
   }
 
-  private initMapClickTitle() {
-    this.store.select(selectMapClickState).subscribe((mapClickState: fromMapClick.MapClickState) => {
-      const mapClickClonedState = cloneDeep(mapClickState);
-      if (mapClickClonedState.mapClickLayerUniqueId != null) {
-        this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState: fromLayer.LayerState) => {
-          const clickResultLayer = layerState.layers
-            .find(l => l.uniqueId === mapClickClonedState.mapClickLayerUniqueId);
-          if (clickResultLayer != null) {
-            this.mapClickTitle = clickResultLayer.title;
-          }
-        });
-      }
-    });
-  }
-
   private applicationUsesDefaultTopic() {
     return !this.environment.isTopicPickerActive;
   }
@@ -174,33 +157,4 @@ export class MapComponent implements OnInit {
     });
   }
 
-  private initPopups() {
-    this.store.dispatch(new popupActions.AddPopup({id: this.CATALOG_POPUP_ID, isOpen: true}));
-    this.store.dispatch(new popupActions.AddPopup({id: this.TOPIC_PICKER_POPUP_ID, isOpen: true}));
-    this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_MANAGER_POPUP_ID, isOpen: true}));
-    this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_INFORMATION_POPUP_ID, isOpen: false}));
-    this.store.dispatch(new popupActions.AddPopup({id: this.LAYER_PRESENTATION_POPUP_ID, isOpen: false}));
-    this.store.dispatch(new popupActions.AddPopup({id: this.MAP_CLICK_POPUP_ID, isOpen: false}));
-  }
-
-  /**
-   * If there is no current topic, initialize the current topic
-   */
-  /* private initializeTopic() {
-    this.store.select(selectCatalogState).pipe(take(1)).subscribe((currentState) => {
-      if (currentState.topics.length === 0) {
-        this.translateService.get('language').subscribe((lang) => {
-          this.store.dispatch(new catalogActions.FetchTopicForCode({
-            languageCode: lang,
-            code: environment.defaultTopic
-          }));
-          this.store.select(selectCatalogState).pipe(filter((state) => {
-            return state.topics.length > 0;
-          }), take(1)).subscribe(() => {
-            this.store.dispatch(new catalogActions.SetTopicExpanded({topicIndex: 0, expanded: true}));
-          });
-        });
-      }
-    });
-  } */
 }

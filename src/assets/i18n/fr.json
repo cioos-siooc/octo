@@ -9,6 +9,7 @@
   "infosl-title": "INFO SAINT-LAURENT",
   "legend": "légende",
   "layer-presentation-title": "Légende",
+  "click-information-label": "Votre sélection",
   "no-layer-description-message": "Aucune description disponible pour cette couche",
   "expand-description-button": "En savoir plus",
   "collapse-description-button": "moins",

@@ -9,6 +9,7 @@
   "infosl-title": "ST. LAWRENCE INFO",
   "legend": "legend",
   "layer-presentation-title": "Legend",
+  "click-information-label": "Your selection",
   "no-layer-description-message": "No description available for this layer",
   "expand-description-button": "Show more",
   "collapse-description-button": "Show less",
