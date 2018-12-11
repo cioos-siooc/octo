@@ -4,86 +4,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#toggle-topic-picker {
-  position: absolute;
-  left: 10px;
-  bottom: 100px;
+.map-container {
+  display: flex;
+  height: 100%;
 }
 
-.above-ol {
-  z-index: 100;
-}
-
-#toggle-catalog {
-  position: absolute;
-  left: 10px;
-  bottom: 70px;
-}
-
-#toggle-layer-manager {
-  position: absolute;
-  left: 10px;
-  bottom: 40px;
-}
-
-.toggle-button {
-  opacity: 0.8;
-  padding: 0;
-}
-
-.toggle-button:hover {
-  opacity: 1;
-}
-
-.button-border {
-  border: solid 1px darkgray;
-  border-radius: 20px;
-}
-
-.layer-manager-popup {
-  left: 10px;
-  top: calc(100% - (350px + 140px + 40px));
-  z-index: 100;
-}
-
-.map-click-popup {
-  top: calc(100% - (350px + 50px + 40px));
-  right: 5px;
-}
-
-.center-popup {
-  top: 42px;
-  left: calc((100% / 2) - 500px / 2);
-  z-index: 105;
-}
-
-.topic-picker-popup {
-  top: 42px;
-  right: 5px;
-  z-index: 102;
-}
-
-.catalog-popup {
-  top: 42px;
-  left: 10px;
-  z-index: 101;
-}
-
-.map-select-style {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  letter-spacing: 1px;
-  color: #000;
-  text-align: left;
-  padding: 3px 3px 0 3px;
-}
-
-.popup-bounds {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.sidebar {
+  width: 30em;
   height: 100%;
 }

@@ -5,7 +5,8 @@
   -->
 
 <div *ngIf="mapClickInfo" id="map-click-html"  class="foreground-black background-white" [innerHTML]="mapClickInfo.html | keepHtml"></div>
-<div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2">
+<div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2 background-off-white clickInformationContainer">
+    <!-- <div class="clickInformationLabel">{{ 'click-information-label' | translate }}:</div> -->
     <div *ngFor="let field of mapClickInfo.fields">
       <app-text-field *ngIf="field.type == 'text'" [field]="field" [result]="mapClickInfo.result"></app-text-field>
       <app-url-field *ngIf="field.type == 'url'" [field]="field" [result]="mapClickInfo.result"></app-url-field>

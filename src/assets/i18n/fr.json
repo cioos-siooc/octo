@@ -9,8 +9,17 @@
   "infosl-title": "INFO SAINT-LAURENT",
   "legend": "légende",
   "layer-presentation-title": "Légende",
+  "click-information-label": "Votre sélection",
+  "no-layer-description-message": "Aucune description disponible pour cette couche",
+  "expand-description-button": "En savoir plus",
+  "collapse-description-button": "moins",
   "appearance": "Apparence",
   "switch-language-code": "EN",
   "now": "À JOUR",
-  "active-layers-help-message": "Sélectionner une couche à l'aide de la fenêtre \"Catalogue\""
+  "active-layers-help-message": "Sélectionner une couche à l'aide de la fenêtre \"Catalogue\"",
+  "add-layer-button": "Ajouter une couche",
+  "add-layer-modal-search-heading": "Recherche par mots-clés",
+  "add-layer-modal-search-example": "ex. Environnement",
+  "add-layer-modal-theme-heading": "Recherche par thémes",
+  "themes-label": "Thémes"
 }

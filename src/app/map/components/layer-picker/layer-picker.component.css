@@ -1,0 +1,67 @@
+.modal-header {
+    color: white;
+    border-radius: 0px;
+}
+
+/* Searchbox related stuff */
+.searchbox {
+    padding: 0;
+}
+
+.searchbox input {
+    height: 3em;
+    width: 100%;
+}
+
+/* Topic picker related stuff */
+#topic-picker {
+    padding: 0;
+}
+
+/* Catelog related stuff */
+.theme-title {
+    padding: 0;
+}
+.theme-title-container {
+    height: calc(1.5em + 2rem);
+    line-height: 1.5em;
+    font-size: 1.5rem;
+}
+
+.theme-title-container>div {
+    display: inline-block;
+    padding: 1rem;
+}
+
+.back-to-themes-button {
+    cursor: pointer;
+    user-select: none;
+}
+
+.arrow-right {
+    height: 100%;
+    width: auto;
+
+    vertical-align: bottom;
+
+    fill: #041117;
+}
+
+button {
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+
+    font-size: 0.8em;
+
+    color: white;
+
+    cursor: pointer;
+}
+button>i {
+    font-size: 2em;
+}

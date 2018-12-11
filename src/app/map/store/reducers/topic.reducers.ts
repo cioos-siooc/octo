@@ -5,6 +5,7 @@ import { Topic } from '@app/shared/models/topic.model';
 
 export interface TopicState extends EntityState<Topic> {
     topicGroup: TopicGroup;
+    selectedTopic: Topic;
 }
 
 export const adapter: EntityAdapter<Topic> = createEntityAdapter<Topic>({
@@ -14,6 +15,7 @@ export const adapter: EntityAdapter<Topic> = createEntityAdapter<Topic>({
 
 export const initialState: TopicState = adapter.getInitialState({
     topicGroup: null,
+    selectedTopic: null
 });
 
 export function topicReducer(state: TopicState = initialState, action: TopicActionsUnion): TopicState {
@@ -22,6 +24,11 @@ export function topicReducer(state: TopicState = initialState, action: TopicActi
             return {
                 ...state,
                 topicGroup: action.payload
+            };
+        case TopicActionTypes.SET_SELECTED_TOPIC:
+            return {
+                ...state,
+                selectedTopic: action.payload
             };
         case TopicActionTypes.APPEND_TOPIC:
             return adapter.addOne(action.payload, state);

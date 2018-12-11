@@ -1,0 +1,31 @@
+.container {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation {
+    padding-top: 0.5em;
+
+    font-size: 2.2em;
+
+    text-align: right;
+
+    color: white;
+}
+
+.navigation>.button-hide-sidebar {
+    cursor: pointer;
+    user-select: none;
+}
+
+.layer-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.add-layer-button {
+    margin-bottom: 15px;
+}

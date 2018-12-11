@@ -7,6 +7,7 @@
 import {ClientPresentation} from './client-presentation.model';
 import {ClickStrategy} from './click-strategy.model';
 import {ClickFormatterInfo} from './click-formatter-info.model';
+import { LayerDescription } from '@app/shared/models/layer-description.model';
 
 export abstract class Layer {
   public id: number;
@@ -14,6 +15,7 @@ export abstract class Layer {
   public zIndex: number;
   public opacity: number;
   public title: string;
+  public description?: LayerDescription;
   public isVisible: boolean;
   public defaultCrs: string;
   public url: string;

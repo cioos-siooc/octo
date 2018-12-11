@@ -1,0 +1,37 @@
+<div class="layer-card background-white">
+    <div class="layer-card-body-container">
+        <div class="heading background-lighter-gray">
+            {{ layer.title }}
+        </div> 
+        <div class="attribution">
+            Attribution will go here
+        </div>
+        <app-map-click></app-map-click>
+        <div class="legend">
+            <img src="{{ layer.currentClientPresentation.legendUrl }}">
+        </div>
+        <div class="legendLabel">
+            {{ layer.currentClientPresentation.legendLabel }}
+        </div>
+        <div *ngIf="layer.description" class="description collapsed-description" 
+            [ngClass]="{'collapsed-description': !descriptionExpanded}"
+            [innerHTML]="layer.description.description">
+        </div>
+        <div class="toggle-description"
+                (click)="toggleExpandDescription($event)">
+            <a *ngIf="!descriptionExpanded">
+                {{ 'expand-description-button' | translate}}
+            </a>
+            <a *ngIf="descriptionExpanded">
+                {{ 'collapse-description-button' | translate}}
+            </a>
+        </div>
+        <div *ngIf="!layer.description" class="description">
+            {{ 'no-layer-description-message' | translate }}
+        </div>
+    </div>
+    <div class="remove background-lighter-gray foreground-red"
+         (click)="removeLayer(layer.id)">
+        Remove layer
+    </div>
+</div>

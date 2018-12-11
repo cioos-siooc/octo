@@ -18,6 +18,9 @@ import {TopicEffects} from './store/effects/topic.effects';
 import {LayerEffects} from './store/effects/layer.effects';
 import * as fromComponents from './components';
 import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/enum-behavior.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
+import { LayerComponent } from './components/layer-manager/layer/layer.component';
 
 @NgModule({
   imports: [
@@ -28,7 +31,7 @@ import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/
     StoreModule.forFeature('map', mapReducers),
     EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
   ],
-  declarations: [...fromComponents.components, EnumBehaviorComponent]
+  declarations: [...fromComponents.components, EnumBehaviorComponent, SidebarComponent, LayerPickerComponent, LayerComponent]
 })
 
 export class MapModule {
