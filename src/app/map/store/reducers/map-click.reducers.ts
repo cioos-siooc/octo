@@ -9,25 +9,31 @@ import {cloneDeep} from 'lodash';
 import {MapClickActionsUnion, MapClickActionTypes} from '../actions/map-click.actions';
 
 export interface MapClickState {
-  mapClickInfo: MapClickInfo;
-  mapClickLayerUniqueId: string;
+  mapClickInfo: MapClickInfo[];
 }
 
 export const initialState: MapClickState = {
-  mapClickInfo: null,
-  mapClickLayerUniqueId: null
+  mapClickInfo: []
 };
 
 export function mapClickReducer(state = initialState, action: MapClickActionsUnion): MapClickState {
   switch (action.type) {
-    case MapClickActionTypes.SET_MAP_CLICK_INFO:
-      const clonedState = cloneDeep(state);
-      clonedState.mapClickInfo = cloneDeep(action.payload);
-      return clonedState;
-    case MapClickActionTypes.SET_MAP_CLICK_LAYER_UNIQUE_ID:
-      const cloneState = cloneDeep(state);
-      cloneState.mapClickLayerUniqueId = cloneDeep(action.payload);
-      return cloneState;
+    case MapClickActionTypes.SET_MAP_CLICK_INFO: {
+      const mapClickInfo = [...state.mapClickInfo];
+      mapClickInfo[action.payload.layerId] = action.payload.mapClickInfo;
+      return {
+        ...state,
+        mapClickInfo: mapClickInfo
+      };
+    }
+    case MapClickActionTypes.CLEAR_MAP_CLICK_INFO: {
+      const mapClickInfo = [...state.mapClickInfo];
+      mapClickInfo[action.payload] = null;
+      return {
+        ...state,
+        mapClickInfo: mapClickInfo
+      };
+    }
     default:
       return state;
   }

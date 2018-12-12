@@ -246,9 +246,10 @@ export class OpenLayersComponent implements AfterViewInit {
               mapClickInfo = new MapClickInfo();
               mapClickInfo.html = currentResult;
             }
-            this.store.dispatch(new mapClickActions.SetMapClickInfo(mapClickInfo));
-            this.store.dispatch(new mapClickActions.SetMapClickLayerUniqueId(currentLayer.uniqueId));
-            this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
+            this.store.dispatch(new mapClickActions.SetMapClickInfo({
+              layerId: currentLayer.id,
+              mapClickInfo: mapClickInfo
+            }));
             break;
           }
         }
