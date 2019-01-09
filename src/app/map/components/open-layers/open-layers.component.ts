@@ -180,11 +180,6 @@ export class OpenLayersComponent implements AfterViewInit {
 // TODO: To refactor into proper setup with appropriate classes and not hardcoded
   private initMapClick() {
     this.map.on('singleclick', (evt: ol.MapBrowserEvent) => {
-      // this.map.forEachFeatureAtPixel(evt.pixel, (feature, l) => {
-      //   console.log(feature);
-      //   console.log(l);
-      // });
-
       const resultObservables = [];
       const layerUniqueIdToObsIndex = new Map<string, number>();
 
@@ -218,7 +213,6 @@ export class OpenLayersComponent implements AfterViewInit {
   private retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
     this.map.forEachFeatureAtPixel(evt.pixel,
       (feature: Feature, olLayer) => {
-        console.log('yolo');
         const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
         if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
           const length = resultObservables.push(of(feature.getProperties()));
