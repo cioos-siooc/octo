@@ -25,16 +25,10 @@ export class SetMapClickInfo implements Action {
 
   /**
    *Creates an instance of SetMapClickInfo.
-   * @param {{
-   *     layerId: number - The ID of the target layer
-   *     mapClickInfo: MapClickInfo - The MapClickInfo to be set
-   *   }} payload
+   * @param {MapClickInfo} payload
    * @memberof SetMapClickInfo
    */
-  constructor(public payload: {
-    layerId: number,
-    mapClickInfo: MapClickInfo
-  }) {}
+  constructor(public payload: MapClickInfo) {}
 }
 
 /**

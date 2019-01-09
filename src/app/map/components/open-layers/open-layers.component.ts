@@ -1,4 +1,3 @@
-import { take } from 'rxjs/operators';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -35,6 +34,7 @@ import {ClickFormatterFactory} from '@app/map/utils';
 import {MapState} from '@app/map/store';
 import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-open-layers',
@@ -67,7 +67,6 @@ export class OpenLayersComponent implements AfterViewInit {
       if ('mapextent' in params) {
         // If position is stored in the url use that
         const mapextent = params.mapextent.split(',').map(x => +x);
-        console.log(mapextent);
         mapview = new View({
           center: mapextent.slice(0, 2),
           zoom: mapextent[2]
@@ -89,7 +88,6 @@ export class OpenLayersComponent implements AfterViewInit {
     this.map.on('moveend', (event) => {
       // Add the location to the url any time the user moves thes map
       const mapExtent = this.map.getView().getCenter().concat(this.map.getView().getZoom());
-      console.log(this.map.getView().getCenter());
       this.router.navigate([], {
         queryParams: {'mapextent': mapExtent.toString()},
         queryParamsHandling: 'merge',
@@ -182,6 +180,11 @@ export class OpenLayersComponent implements AfterViewInit {
 // TODO: To refactor into proper setup with appropriate classes and not hardcoded
   private initMapClick() {
     this.map.on('singleclick', (evt: ol.MapBrowserEvent) => {
+      // this.map.forEachFeatureAtPixel(evt.pixel, (feature, l) => {
+      //   console.log(feature);
+      //   console.log(l);
+      // });
+
       const resultObservables = [];
       const layerUniqueIdToObsIndex = new Map<string, number>();
 
@@ -215,6 +218,7 @@ export class OpenLayersComponent implements AfterViewInit {
   private retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
     this.map.forEachFeatureAtPixel(evt.pixel,
       (feature: Feature, olLayer) => {
+        console.log('yolo');
         const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
         if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
           const length = resultObservables.push(of(feature.getProperties()));
@@ -246,10 +250,8 @@ export class OpenLayersComponent implements AfterViewInit {
               mapClickInfo = new MapClickInfo();
               mapClickInfo.html = currentResult;
             }
-            this.store.dispatch(new mapClickActions.SetMapClickInfo({
-              layerId: currentLayer.id,
-              mapClickInfo: mapClickInfo
-            }));
+            mapClickInfo.layerId = currentLayer.id;
+            this.store.dispatch(new mapClickActions.SetMapClickInfo(mapClickInfo));
             break;
           }
         }

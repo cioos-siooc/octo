@@ -6,8 +6,40 @@
 
 import {createSelector} from '@ngrx/store';
 import {selectMapState} from '../reducers';
+import * as fromMapClick from '../reducers/map-click.reducers';
 
 export const selectMapClickState = createSelector(
   selectMapState,
   state => state.mapClick,
+);
+
+export const selectAllMapClickResults = createSelector(
+  selectMapClickState,
+  fromMapClick.selectAllMapClicks,
+);
+
+export const selectMapClickIds = createSelector(
+  selectMapClickState,
+  fromMapClick.selectMapClickIds
+);
+
+export const selectMapClickEntities = createSelector(
+  selectMapClickState,
+  fromMapClick.selectMapClickEntities
+);
+
+export const selectMapClickTotal = createSelector(
+  selectMapClickState,
+  fromMapClick.selectMapClickTotal
+);
+
+export const selectMapClickByLayerId = createSelector(
+  selectMapClickEntities,
+  (mapClicks, props) => {
+    if (mapClicks) {
+      return mapClicks[props.id];
+    } else {
+      return {};
+    }
+  }
 );
