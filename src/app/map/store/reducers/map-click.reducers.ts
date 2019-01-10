@@ -19,8 +19,8 @@ export const adapter: EntityAdapter<MapClickInfo> = createEntityAdapter<MapClick
 export function mapClickReducer(state = adapter.getInitialState(), action: MapClickActionsUnion): MapClickState {
   switch (action.type) {
     case MapClickActionTypes.SET_MAP_CLICK_INFO:
-      const id = action.payload.layerId;
-      if (id in state.ids) {
+      const id: number = action.payload.layerId;
+      if (state.ids.includes(id)) {
         state = adapter.removeOne(id, state);
       }
       return adapter.addOne(action.payload, state);
