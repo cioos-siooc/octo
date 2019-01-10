@@ -20,7 +20,8 @@ export function mapClickReducer(state = adapter.getInitialState(), action: MapCl
   switch (action.type) {
     case MapClickActionTypes.SET_MAP_CLICK_INFO:
       const id: number = action.payload.layerId;
-      if (state.ids.includes(id)) {
+      const ids: number[] = state.ids as Array<number>;
+      if (ids.includes(id)) {
         state = adapter.removeOne(id, state);
       }
       return adapter.addOne(action.payload, state);
