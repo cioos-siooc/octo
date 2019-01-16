@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,8 +31,15 @@ import { LayerComponent } from './components/layer-manager/layer/layer.component
     AngularDraggableModule,
     StoreModule.forFeature('map', mapReducers),
     EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
+    NgbModule.forRoot(),
   ],
-  declarations: [...fromComponents.components, EnumBehaviorComponent, SidebarComponent, LayerPickerComponent, LayerComponent]
+  declarations: [
+    ...fromComponents.components,
+    EnumBehaviorComponent,
+    SidebarComponent,
+    LayerPickerComponent,
+    LayerComponent,
+  ]
 })
 
 export class MapModule {

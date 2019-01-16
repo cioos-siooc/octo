@@ -1,17 +1,15 @@
-import { MapClickInfo } from './../../../shared/models/map-click-info.model';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
-import {Component, OnInit, Input} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {cloneDeep} from 'lodash';
-import {MapState} from '@app/map/store';
+import { Component, Input, OnInit } from '@angular/core';
+import { MapState } from '@app/map/store';
 import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
-import {selectMapClickState, selectMapClickByLayerId} from '@app/map/store/selectors/map-click.selectors';
+import { selectMapClickState } from '@app/map/store/selectors/map-click.selectors';
 import { Layer } from '@app/shared/models';
+import { Store } from '@ngrx/store';
+import { MapClickInfo } from './../../../shared/models/map-click-info.model';
 
 @Component({
   selector: 'app-map-click',
@@ -28,8 +26,10 @@ export class MapClickComponent implements OnInit {
   ngOnInit() {
     this.store.select(selectMapClickState).subscribe(
       (mapClickState: fromMapClick.MapClickState) => {
-        if (this.layer.id in mapClickState.entities) {
-          this.mapClickInfo = mapClickState.entities[this.layer.id];
+        if (this.layer) {
+          if (this.layer.id in mapClickState.entities) {
+            this.mapClickInfo = mapClickState.entities[this.layer.id];
+          }
         }
       }
     );

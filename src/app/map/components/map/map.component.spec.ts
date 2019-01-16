@@ -3,34 +3,40 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+// import { ActivatedRoute } from '@angular/router';
+import { routes } from '@app/app-routing.module';
+import { EnumBehaviorComponent } from '@app/map/components/layer-manager/enum-behavior/enum-behavior.component';
+import { LayerComponent } from '@app/map/components/layer-manager/layer/layer.component';
+import { LayerPickerComponent } from '@app/map/components/layer-picker/layer-picker.component';
+import { SidebarComponent } from '@app/map/components/sidebar/sidebar.component';
+import { UrlBehaviorService } from '@app/map/services';
+import { mapReducers } from '@app/map/store';
+import { KeepHtmlPipe } from '@app/shared/pipes';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { StoreModule } from '@ngrx/store';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CalendarModule } from 'primeng/calendar';
+import { HttpLoaderFactory } from '../../../shared/shared.module';
+import { CatalogComponent } from '../catalog/catalog.component';
+import { CategoryComponent } from '../catalog/category/category.component';
+import { LayerInformationComponent } from '../layer-information/layer-information.component';
+import { LayerManagerComponent } from '../layer-manager/layer-manager.component';
+import { TimeBehaviorComponent } from '../layer-manager/time-behavior/time-behavior.component';
+import { LayerPresentationComponent } from '../layer-presentation/layer-presentation.component';
+import { DateFieldComponent } from '../map-click/click-formatter/field/date-field/date-field.component';
+import { ImageFieldComponent } from '../map-click/click-formatter/field/image-field/image-field.component';
+import { TextFieldComponent } from '../map-click/click-formatter/field/text-field/text-field.component';
+import { UrlFieldComponent } from '../map-click/click-formatter/field/url-field/url-field.component';
+import { MapClickComponent } from '../map-click/map-click.component';
+import { OpenLayersComponent } from '../open-layers/open-layers.component';
+import { PopupComponent } from '../popup/popup.component';
+import { TopicPickerComponent } from '../topic-picker/topic-picker.component';
+import { MapComponent } from './map.component';
 
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-
-import {MapComponent} from './map.component';
-import {OpenLayersComponent} from '../open-layers/open-layers.component';
-import {PopupComponent} from '../popup/popup.component';
-import {CatalogComponent} from '../catalog/catalog.component';
-import {TopicPickerComponent} from '../topic-picker/topic-picker.component';
-import {LayerManagerComponent} from '../layer-manager/layer-manager.component';
-import {StoreModule} from '@ngrx/store';
-import {FormsModule} from '@angular/forms';
-import {CategoryComponent} from '../catalog/category/category.component';
-import {HttpLoaderFactory} from '../../../shared/shared.module';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {LayerInformationComponent} from '../layer-information/layer-information.component';
-import {LayerPresentationComponent} from '../layer-presentation/layer-presentation.component';
-import {MapClickComponent} from '../map-click/map-click.component';
-import {KeepHtmlPipe} from '@app/shared/pipes';
-import {TextFieldComponent} from '../map-click/click-formatter/field/text-field/text-field.component';
-import {UrlFieldComponent} from '../map-click/click-formatter/field/url-field/url-field.component';
-import {DateFieldComponent} from '../map-click/click-formatter/field/date-field/date-field.component';
-import {ImageFieldComponent} from '../map-click/click-formatter/field/image-field/image-field.component';
-import {TimeBehaviorComponent} from '../layer-manager/time-behavior/time-behavior.component';
-import {UrlBehaviorService} from '@app/map/services';
-import {CalendarModule} from 'primeng/calendar';
-import {mapReducers} from '@app/map/store';
-import {EnumBehaviorComponent} from '@app/map/components/layer-manager/enum-behavior/enum-behavior.component';
 
 describe('MapComponent', () => {
   let component: MapComponent;
@@ -38,18 +44,24 @@ describe('MapComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [
+        // { provide: TranslateService, useClass: TranslateServiceStub },
+        UrlBehaviorService
+      ],
       declarations: [
         MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
         TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent,
-        EnumBehaviorComponent
+        EnumBehaviorComponent, SidebarComponent, LayerComponent, LayerPickerComponent
       ],
       imports: [
         StoreModule.forRoot({}),
         StoreModule.forFeature('map', mapReducers),
         FormsModule,
+        NgbModalModule.forRoot(),
         CalendarModule,
         HttpClientModule,
+        RouterTestingModule.withRoutes(routes),
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
@@ -58,12 +70,14 @@ describe('MapComponent', () => {
           }
         }),
       ],
-      providers: [UrlBehaviorService]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
+    const translateService = TestBed.get(TranslateService);
+    translateService.use('en');
+
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

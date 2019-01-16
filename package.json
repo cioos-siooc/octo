@@ -9,7 +9,7 @@
     "build:prod": "ng build --configuration prod --aot --base-href /maponion/",
     "start": "ng serve --aot",
     "test:local": "ng test --browsers=\"Chrome\" --watch",
-    "test:ci": "ng test --browsers=\"ChromeCustom\" --single-run",
+    "test:ci": "ng test --browsers=\"ChromeCustom\" --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e --aot"
   },
@@ -68,6 +68,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "2.7.2"
+    "typescript": "^2.9.2"
   }
 }

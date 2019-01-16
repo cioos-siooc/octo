@@ -4,10 +4,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+import { SetMapClickInfo } from '@app/map/store';
 import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
-import {mapClickReducer} from '@app/map/store/reducers/map-click.reducers';
-import {MapClickInfo} from '@app/shared/models';
-import {SetMapClickInfo} from '@app/map/store';
+import { mapClickReducer } from '@app/map/store/reducers/map-click.reducers';
+import { MapClickInfo } from '@app/shared/models';
 
 describe('MapClickReducer', () => {
 
@@ -16,10 +16,12 @@ describe('MapClickReducer', () => {
   });
 
   it('should have immutable payload', () => {
-    const mapClickInfo = new MapClickInfo();
-    mapClickInfo.html = '<html></html>';
-    mapClickInfo.result = 5;
-    mapClickInfo.layerId = 0;
+    const mapClickInfo: MapClickInfo = {
+      'html': '<html></html>',
+      'fields': [],
+      'result': 5,
+      'layerId': 0
+    };
     const action = new SetMapClickInfo(mapClickInfo);
     const finalState = mapClickReducer(fromMapClick.adapter.getInitialState(), action);
     mapClickInfo.result = 6;
@@ -27,10 +29,12 @@ describe('MapClickReducer', () => {
   });
 
   it('should set state.mapClickInfo', () => {
-    const mapClickInfo = new MapClickInfo();
-    mapClickInfo.html = '<html></html>';
-    mapClickInfo.result = 5;
-    mapClickInfo.layerId = 0;
+    const mapClickInfo: MapClickInfo = {
+      'html': '<html></html>',
+      'fields': [],
+      'result': 5,
+      'layerId': 0
+    };
     const action = new SetMapClickInfo(mapClickInfo);
     const finalState = mapClickReducer(fromMapClick.adapter.getInitialState(), action);
     expect(finalState.entities[0]).toEqual(mapClickInfo);

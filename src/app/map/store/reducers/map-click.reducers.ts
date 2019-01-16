@@ -4,10 +4,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {MapClickInfo} from '@app/shared/models';
-import {cloneDeep} from 'lodash';
-import {MapClickActionsUnion, MapClickActionTypes} from '../actions/map-click.actions';
-import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
+import { MapClickInfo } from '@app/shared/models';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { MapClickActionsUnion, MapClickActionTypes } from '../actions/map-click.actions';
 
 export interface MapClickState extends EntityState<MapClickInfo> { }
 
@@ -24,7 +23,7 @@ export function mapClickReducer(state = adapter.getInitialState(), action: MapCl
       if (ids.includes(id)) {
         state = adapter.removeOne(id, state);
       }
-      return adapter.addOne(action.payload, state);
+      return adapter.addOne({ ...action.payload }, state);
     case MapClickActionTypes.CLEAR_MAP_CLICK_INFO:
       return adapter.removeOne(action.payload, state);
     default:
