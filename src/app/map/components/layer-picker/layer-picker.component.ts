@@ -26,7 +26,7 @@ export class LayerPickerComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content).result.then(
+    this.modalService.open(content, { windowClass: 'layer-picker-modal'}).result.then(
       (result) => {
         // Called when the modal is closed with the modal.close() function
 
