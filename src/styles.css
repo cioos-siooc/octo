@@ -189,16 +189,17 @@ div#layer-information table tr:last-child {
 }
 
 .field-label {
-  width: 20%;
-  display: inline-block;
+  display: block;
+
+  font-weight: bold;
 }
 
 .field-value {
-  padding-left: 10px;
+  display: block;
 }
 
 .fields-container {
-  border-bottom: dashed 1px #A5B9CC;
+  margin-bottom: 0.5em;
 }
 
 .badge-pill {

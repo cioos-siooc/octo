@@ -6,11 +6,23 @@
 
 <div class="clickInformationLabel">{{ 'click-information-label' | translate }}:</div>
 <div *ngIf="mapClickInfo" id="map-click-html"  class="foreground-black background-white" [innerHTML]="mapClickInfo.html | keepHtml"></div>
-<div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="p-2 background-off-white clickInformationContainer">
-    <div *ngFor="let field of mapClickInfo.fields">
-      <app-text-field *ngIf="field.type == 'text'" [field]="field" [result]="mapClickInfo.result"></app-text-field>
-      <app-url-field *ngIf="field.type == 'url'" [field]="field" [result]="mapClickInfo.result"></app-url-field>
-      <app-date-field *ngIf="field.type == 'date'" [field]="field" [result]="mapClickInfo.result"></app-date-field>
-      <app-image-field *ngIf="field.type == 'image'" [field]="field" [result]="mapClickInfo.result"></app-image-field>
+<div *ngIf="mapClickInfo && mapClickInfo.fields" id="map-click-fields" class="background-off-white clickInformationContainer">
+  <ng-container *ngIf="!isMinimized">
+    <div (click)="toggleMapClick()" class="minimizeClickInformation">
+      <i class="fas fa-angle-down"></i>
     </div>
+    <div class="clickInformationFields">
+      <div *ngFor="let field of mapClickInfo.fields">
+        <app-text-field *ngIf="field.type == 'text'" [field]="field" [result]="mapClickInfo.result"></app-text-field>
+        <app-url-field *ngIf="field.type == 'url'" [field]="field" [result]="mapClickInfo.result"></app-url-field>
+        <app-date-field *ngIf="field.type == 'date'" [field]="field" [result]="mapClickInfo.result"></app-date-field>
+        <app-image-field *ngIf="field.type == 'image'" [field]="field" [result]="mapClickInfo.result"></app-image-field>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isMinimized">
+    <div (click)="toggleMapClick()" class="minimizedClickInformationContainer">
+      <i class="fas fa-angle-right"></i>
+    </div>
+  </ng-container>
 </div>

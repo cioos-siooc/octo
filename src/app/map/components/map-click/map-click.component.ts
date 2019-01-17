@@ -19,11 +19,14 @@ import { MapClickInfo } from './../../../shared/models/map-click-info.model';
 export class MapClickComponent implements OnInit {
   @Input() layer: Layer;
   mapClickInfo: MapClickInfo;
+  isMinimized: boolean;
 
   constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
+    this.isMinimized = false;
+
     this.store.select(selectMapClickState).subscribe(
       (mapClickState: fromMapClick.MapClickState) => {
         if (this.layer) {
@@ -35,4 +38,11 @@ export class MapClickComponent implements OnInit {
     );
   }
 
+  toggleMapClick() {
+    if (this.isMinimized) {
+      this.isMinimized = false;
+    } else {
+      this.isMinimized = true;
+    }
+  }
 }
