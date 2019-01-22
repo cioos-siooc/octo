@@ -1,4 +1,3 @@
-import { take } from 'rxjs/operators';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -35,6 +34,7 @@ import {ClickFormatterFactory} from '@app/map/utils';
 import {MapState} from '@app/map/store';
 import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-open-layers',
@@ -67,7 +67,6 @@ export class OpenLayersComponent implements AfterViewInit {
       if ('mapextent' in params) {
         // If position is stored in the url use that
         const mapextent = params.mapextent.split(',').map(x => +x);
-        console.log(mapextent);
         mapview = new View({
           center: mapextent.slice(0, 2),
           zoom: mapextent[2]
@@ -89,7 +88,6 @@ export class OpenLayersComponent implements AfterViewInit {
     this.map.on('moveend', (event) => {
       // Add the location to the url any time the user moves thes map
       const mapExtent = this.map.getView().getCenter().concat(this.map.getView().getZoom());
-      console.log(this.map.getView().getCenter());
       this.router.navigate([], {
         queryParams: {'mapextent': mapExtent.toString()},
         queryParamsHandling: 'merge',
@@ -246,9 +244,8 @@ export class OpenLayersComponent implements AfterViewInit {
               mapClickInfo = new MapClickInfo();
               mapClickInfo.html = currentResult;
             }
+            mapClickInfo.layerId = currentLayer.id;
             this.store.dispatch(new mapClickActions.SetMapClickInfo(mapClickInfo));
-            this.store.dispatch(new mapClickActions.SetMapClickLayerUniqueId(currentLayer.uniqueId));
-            this.store.dispatch(new popupActions.SetIsOpen({popupId: MAP_CLICK_POPUP_ID, isOpen: true}));
             break;
           }
         }

@@ -4,31 +4,36 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {MapClickInfo} from '@app/shared/models';
-import {cloneDeep} from 'lodash';
-import {MapClickActionsUnion, MapClickActionTypes} from '../actions/map-click.actions';
+import { MapClickInfo } from '@app/shared/models';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { MapClickActionsUnion, MapClickActionTypes } from '../actions/map-click.actions';
 
-export interface MapClickState {
-  mapClickInfo: MapClickInfo;
-  mapClickLayerUniqueId: string;
-}
+export interface MapClickState extends EntityState<MapClickInfo> { }
 
-export const initialState: MapClickState = {
-  mapClickInfo: null,
-  mapClickLayerUniqueId: null
-};
+export const adapter: EntityAdapter<MapClickInfo> = createEntityAdapter<MapClickInfo>({
+  selectId: (mapClickInfo: MapClickInfo) => mapClickInfo.layerId,
+  sortComparer: false
+});
 
-export function mapClickReducer(state = initialState, action: MapClickActionsUnion): MapClickState {
+export function mapClickReducer(state = adapter.getInitialState(), action: MapClickActionsUnion): MapClickState {
   switch (action.type) {
     case MapClickActionTypes.SET_MAP_CLICK_INFO:
-      const clonedState = cloneDeep(state);
-      clonedState.mapClickInfo = cloneDeep(action.payload);
-      return clonedState;
-    case MapClickActionTypes.SET_MAP_CLICK_LAYER_UNIQUE_ID:
-      const cloneState = cloneDeep(state);
-      cloneState.mapClickLayerUniqueId = cloneDeep(action.payload);
-      return cloneState;
+      const id: number = action.payload.layerId;
+      const ids: number[] = state.ids as Array<number>;
+      if (ids.includes(id)) {
+        state = adapter.removeOne(id, state);
+      }
+      return adapter.addOne({ ...action.payload }, state);
+    case MapClickActionTypes.CLEAR_MAP_CLICK_INFO:
+      return adapter.removeOne(action.payload, state);
     default:
       return state;
   }
 }
+
+export const {
+  selectIds: selectMapClickIds,
+  selectEntities: selectMapClickEntities,
+  selectAll: selectAllMapClicks,
+  selectTotal: selectMapClickTotal,
+} = adapter.getSelectors();

@@ -5,28 +5,50 @@
  */
 
 import {Action} from '@ngrx/store';
-import {Layer} from '@app/shared/models';
+import { Layer, MapClickInfo } from '@app/shared/models';
 
 export enum MapClickActionTypes {
   SET_MAP_CLICK_INFO = '[Map click] Set info',
-  SET_MAP_CLICK_LAYER_UNIQUE_ID = '[Map click] Set layer unique id',
+  CLEAR_MAP_CLICK_INFO = '[Map click] Clear info'
 }
 
 
+/**
+ *Set the current clickInfo for a particular layer
+ *
+ * @export
+ * @class SetMapClickInfo
+ * @implements {Action}
+ */
 export class SetMapClickInfo implements Action {
   readonly type = MapClickActionTypes.SET_MAP_CLICK_INFO;
 
-  constructor(public payload: any) {
-  }
+  /**
+   *Creates an instance of SetMapClickInfo.
+   * @param {MapClickInfo} payload
+   * @memberof SetMapClickInfo
+   */
+  constructor(public payload: MapClickInfo) {}
 }
 
-export class SetMapClickLayerUniqueId implements Action {
-  readonly type = MapClickActionTypes.SET_MAP_CLICK_LAYER_UNIQUE_ID;
+/**
+ *Removes the current clickInfo for a particular layer
+ *
+ * @export
+ * @class ClearMapClickInfo
+ * @implements {Action}
+ */
+export class ClearMapClickInfo implements Action {
+  readonly type = MapClickActionTypes.CLEAR_MAP_CLICK_INFO;
 
-  constructor(public payload: string) {
-  }
+  /**
+   *Creates an instance of ClearMapClickInfo.
+   * @param {number} payload - The ID of the target layer
+   * @memberof ClearMapClickInfo
+   */
+  constructor(public payload: number) {}
 }
 
 export type MapClickActionsUnion =
   SetMapClickInfo |
-  SetMapClickLayerUniqueId;
+  ClearMapClickInfo;

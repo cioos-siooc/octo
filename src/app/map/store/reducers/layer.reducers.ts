@@ -54,12 +54,10 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       }
       return clState;
     case LayerActionTypes.SET_LAYER_DESCRIPTION:
-      console.log("allo");
       const layer: Layer = {
         ...state.layers[action.payload.layerId],
         description: action.payload.layerDescription
       };
-      console.log(layer);
       const layers: Layer[] = [...state.layers];
       layers[action.payload.layerId] = layer;
       return {

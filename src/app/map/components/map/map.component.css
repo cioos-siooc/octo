@@ -11,5 +11,7 @@
 
 .sidebar {
   width: 30em;
+  max-width: 30em;
+  overflow: hidden;
   height: 100%;
 }

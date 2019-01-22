@@ -4,15 +4,42 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
- .clickInformationContainer {
-     display: flex;
-     width: 100%;
- }
+.clickInformationContainer {
+    display: flex;
+    
+    width: 100%;
+}
 
- .clickInformationLabel {
-     /* font-size: 1.2em; */
-     font-weight: bold;
- }
+.minimizeClickInformation {
+    background-color: #00ACEE;
+    color: white;
 
+    width: 1.5em;
 
+    text-align: center;
 
+    cursor: pointer;
+}
+
+.clickInformationFields {
+    padding-top: 3em;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+.clickInformationLabel {
+    font-weight: bold;
+}
+
+.minimizedClickInformationContainer {
+    background-color: #00ACEE;
+    color: white;
+
+    width: 100%;
+
+    cursor: pointer;
+}
+
+.minimizedClickInformationContainer i {
+    padding-left: 0.3em;
+}
