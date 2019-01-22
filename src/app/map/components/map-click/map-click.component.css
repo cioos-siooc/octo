@@ -5,11 +5,9 @@
  */
 
 .clickInformationContainer {
-    /* display: flex; */
     display: flex;
     
     width: 100%;
-    /* padding-left: 2em; */
 }
 
 .minimizeClickInformation {
@@ -24,7 +22,9 @@
 }
 
 .clickInformationFields {
-    padding: 3em;
+    padding-top: 3em;
+    padding-left: 3em;
+    padding-right: 3em;
 }
 
 .clickInformationLabel {
@@ -36,6 +36,8 @@
     color: white;
 
     width: 100%;
+
+    cursor: pointer;
 }
 
 .minimizedClickInformationContainer i {
