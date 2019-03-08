@@ -1,12 +1,12 @@
 {
-  "name": "maponion",
+  "name": "octo",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "build:dev": "ng build --configuration dev --aot --base-href /maponion/",
-    "build:test": "ng build --configuration test --aot --base-href /maponion/",
-    "build:prod": "ng build --configuration prod --aot --base-href /maponion/",
+    "build:dev": "ng build --configuration dev --aot --base-href /octo/",
+    "build:test": "ng build --configuration test --aot --base-href /octo/",
+    "build:prod": "ng build --configuration prod --aot --base-href /octo/",
     "start": "ng serve --aot",
     "test:local": "ng test --browsers=\"Chrome\" --watch",
     "test:ci": "ng test --browsers=\"ChromeCustom\" --watch=false",
