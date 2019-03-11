@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "maponion": {
+    "octo": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -82,21 +82,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "maponion:build"
+            "browserTarget": "octo:build"
           },
           "configurations": {
             "test": {
-              "browserTarget": "maponion:build:test"
+              "browserTarget": "octo:build:test"
             },
             "production": {
-              "browserTarget": "maponion:build:production"
+              "browserTarget": "octo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "maponion:build"
+            "browserTarget": "octo:build"
           }
         },
         "test": {
@@ -136,7 +136,7 @@
         }
       }
     },
-    "maponion-e2e": {
+    "octo-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -145,7 +145,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "maponion:serve"
+            "devServerTarget": "octo:serve"
           }
         },
         "lint": {
@@ -162,7 +162,7 @@
       }
     }
   },
-  "defaultProject": "maponion",
+  "defaultProject": "octo",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

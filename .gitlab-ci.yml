@@ -74,10 +74,10 @@ run-deploy-dev:
       - echo "$SSH_PRIVATE_KEY_DEV" |  tr -d '\r' > /root/.ssh/id_rsa
       - chmod 600 /root/.ssh/id_rsa
       - chmod 700 /root/.ssh
-      - scp -P 3031 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* admin@132.215.33.56:/var/www/html/maponion
+      - scp -P 3031 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* admin@132.215.33.56:/var/www/html/octo
     environment:
       name: dev
-      url: http://$devHost:$devHttpPort/maponion
+      url: http://$devHost:$devHttpPort/octo
     dependencies:
     -  run-package-dev
     only:
@@ -90,10 +90,10 @@ run-deploy-test:
       - echo "$SSH_PRIVATE_KEY_TEST" |  tr -d '\r' > /root/.ssh/id_rsa
       - chmod 600 /root/.ssh/id_rsa
       - chmod 700 /root/.ssh
-      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogslt@srogslwebt01.uqar.ca:/var/www/html/test-www/app/maponion
+      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogslt@srogslwebt01.uqar.ca:/var/www/html/test-www/app/octo
     environment:
       name: test
-      url: http://$testHost/maponion
+      url: http://$testHost/octo
     dependencies:
     -  run-package-test
     only:
@@ -106,10 +106,10 @@ run-deploy-prod:
       - echo "$SSH_PRIVATE_KEY_PROD" |  tr -d '\r' > /root/.ssh/id_rsa
       - chmod 600 /root/.ssh/id_rsa
       - chmod 700 /root/.ssh
-      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogsl@srogslweb01.uqar.ca:/var/www/html/www/app/maponion
+      - scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* webogsl@srogslweb01.uqar.ca:/var/www/html/www/app/octo
     environment:
       name: prod
-      url: http://$prodHost/maponion
+      url: http://$prodHost/octo
     when: manual
     dependencies:
     -  run-package-prod

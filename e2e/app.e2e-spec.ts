@@ -6,7 +6,7 @@
 
 import { AppPage } from './app.po';
 
-describe('maponion App', () => {
+describe('octo App', () => {
   let page: AppPage;
 
   beforeEach(() => {
