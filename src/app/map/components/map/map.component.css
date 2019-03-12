@@ -10,8 +10,9 @@
 }
 
 .sidebar {
-  width: 30em;
-  max-width: 30em;
   overflow: hidden;
-  height: 100%;
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  bottom: 0;
 }

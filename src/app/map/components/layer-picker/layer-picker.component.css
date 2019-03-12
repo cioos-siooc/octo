@@ -72,20 +72,20 @@
 
 button {
     width: 100%;
-    height: 100%;
-
+    height: 32px;
     border: none;
-    
     padding-top: 0.2em;
     padding-bottom: 0.2em;
-
     font-size: 0.8em;
-
     color: white;
-
     cursor: pointer;
+    display: flex;
+    justify-content: center
 }
 button>i {
-    font-size: 2em;
+    font-size: 2.2em;
 }
 
+.erase-label {
+    display: none;
+}
