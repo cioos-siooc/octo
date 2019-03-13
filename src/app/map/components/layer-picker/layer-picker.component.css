@@ -79,8 +79,9 @@ button {
     font-size: 0.8em;
     color: white;
     cursor: pointer;
-    display: flex;
-    justify-content: center
+    justify-content: center;
+    transition: width 2s;
+    overflow: hidden;
 }
 button>i {
     font-size: 2.2em;
@@ -88,4 +89,12 @@ button>i {
 
 .erase-label {
     display: none;
+    width: 0%;
 }
+
+label {
+    padding-left: 15px;
+    font-size: 1.5rem;
+    display: inline;
+    cursor: pointer;
+  }
