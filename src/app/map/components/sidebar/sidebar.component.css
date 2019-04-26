@@ -1,6 +1,6 @@
 .container {
     height: 100%;
-    max-width: 30em;
+    /* max-width: 30em; */
     display: flex;
     flex-direction: column;
     transition: width 0.3s ease-in;
@@ -9,7 +9,7 @@
 /*** Width of the collapsing sidebar ***/
 
 .big-sidebar{
-    width: 30em;
+    width: 25em;
 }
 
 .little-sidebar{
@@ -26,10 +26,6 @@
 .navigation>.button-hide-sidebar {
     cursor: pointer;
     user-select: none;
-}
-
-.toggle-sidebar {
-    width: 50px
 }
 
 .layer-list {

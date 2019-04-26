@@ -16,7 +16,7 @@
 .layer-card .heading {
   font-size: 1.2em;
   font-weight: bold;
-  padding-left: 10px;
+  padding-left: 0.5em;
   cursor: pointer;
 }
 
