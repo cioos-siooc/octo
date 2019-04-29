@@ -13,6 +13,7 @@ import { DeleteLayer } from '@app/map/store/actions/layer.actions';
 export class LayerComponent implements OnInit {
   @Input() layer: Layer;
   descriptionExpanded: Boolean;
+  isCollapsed = false;
 
   constructor(private store: Store<MapState>) {
   }
@@ -33,6 +34,10 @@ export class LayerComponent implements OnInit {
 
   removeLayer(layerId: number) {
       this.store.dispatch(new DeleteLayer(layerId.toString()));
+  }
+
+  collapseInfo() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
 }

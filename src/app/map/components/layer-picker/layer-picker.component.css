@@ -72,20 +72,33 @@
 
 button {
     width: 100%;
-    height: 100%;
-
+    height: 2.2em;
     border: none;
-    
     padding-top: 0.2em;
     padding-bottom: 0.2em;
-
-    font-size: 0.8em;
-
     color: white;
-
     cursor: pointer;
-}
-button>i {
-    font-size: 2em;
+    white-space: nowrap;
 }
 
+button>i {
+    font-size: 1.4em;
+    float: left;
+}
+
+.erase-label {
+    display: none;
+    width: 0%;
+}
+
+.fa-plus:before {
+    vertical-align: middle;
+}
+
+label {
+    font-size: 1.4rem;
+    display: inline;
+    cursor: pointer;
+    overflow: hidden;
+    line-height: normal;
+  }

@@ -7,6 +7,7 @@ import {MapState} from '../../store';
 import {SetSelectedTopic} from '@app/map/store/actions/topic.actions';
 import {selectTopicState} from '@app/map/store/selectors/topic.selectors';
 import {RemoveAllCategories} from '@app/map/store/actions/category.actions';
+import { SidebarService } from '@app/map/services';
 
 
 @Component({
@@ -16,13 +17,18 @@ import {RemoveAllCategories} from '@app/map/store/actions/category.actions';
 })
 export class LayerPickerComponent implements OnInit {
   selectedTopic: Topic;
+  isCollapsed: boolean;
 
-  constructor(private store: Store<MapState>, private modalService: NgbModal) { }
+  constructor(private store: Store<MapState>, private modalService: NgbModal, private sidebarService: SidebarService) { }
 
   ngOnInit() {
     this.store.select(selectTopicState).subscribe(
       state => this.selectedTopic = state.selectedTopic
     );
+
+    this.sidebarService.getSidebarStatus().subscribe(res => {
+      this.isCollapsed = res;
+    });
   }
 
   open(content) {

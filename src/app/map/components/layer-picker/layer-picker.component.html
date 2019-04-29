@@ -21,13 +21,11 @@
 
     <span *ngIf="selectedTopic !== null">
         <div class="modal-header background-blue theme-title">
-            <!-- <h4 class="modal-title"> -->
             <div class="theme-title-container">
                 <div class="background-dark-blue back-to-themes-button"
                      (click)="backToThemes()">
                     <i class="fas fa-home"></i> {{ 'themes-label' | translate }}
                 </div>
-                <!-- <i class="arrow right"></i> -->
                 <svg version = "1.1"
                     baseProfile="full"
                     width="40" height="100"
@@ -37,7 +35,6 @@
                     <polygon points="0,0 40,50, 0,100" class="triangle" />
                 </svg>
                 <div class="selectedTopic">{{ selectedTopic.label }}</div>
-            <!-- </h4> -->
             </div>
         </div>
         <div class="modal-body">
@@ -47,6 +44,6 @@
 </ng-template>
 
 <button class="background-dark-blue" (click)="open(layerPicker)">
-    {{ 'add-layer-button' | translate}}<br>
     <i class="fas fa-plus"></i>
+    <label [ngClass]="{'erase-label': isCollapsed}">{{'browse-data-button' | translate}}</label>
 </button>

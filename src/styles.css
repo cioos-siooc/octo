@@ -159,6 +159,11 @@ a {
   z-index: 98;
 }
 
+.ol-zoom {
+  left: unset;
+  right: 1em;
+}
+
 div#layer-information h4 {
   font-size: 18px;
 }

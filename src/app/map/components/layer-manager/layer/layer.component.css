@@ -16,6 +16,8 @@
 .layer-card .heading {
   font-size: 1.2em;
   font-weight: bold;
+  padding-left: 0.5em;
+  cursor: pointer;
 }
 
 .layer-card .attribution {
@@ -52,4 +54,8 @@
 
   cursor: pointer;
   user-select: none;
+}
+
+.info-closed {
+  display: none;
 }

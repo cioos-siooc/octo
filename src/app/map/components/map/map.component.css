@@ -10,7 +10,9 @@
 }
 
 .sidebar {
-  height: 100%;
-  z-index: 2;
-  box-shadow: 6px -1px 20px;
+  overflow: hidden;
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  bottom: 0;
 }

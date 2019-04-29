@@ -1,9 +1,11 @@
-<div class="container">
+<div class="container" [ngClass]="{'big-sidebar': !isCollapsed,
+                                   'little-sidebar': isCollapsed}">
   <div class="navigation">
-    <i class="fas fa-chevron-circle-left button-hide-sidebar"></i>
+    <i class="button-hide-sidebar fas" [ngClass]="{'fa-chevron-circle-left': !isCollapsed,
+                                                  'fa-chevron-circle-right': isCollapsed}" (click)="sidebarCollapse()"></i>
   </div>
   <div class="layer-list">
-    <app-layer-manager></app-layer-manager>
+    <app-layer-manager *ngIf="!isCollapsed"></app-layer-manager>
   </div>
   <div class="add-layer-button">
     <app-layer-picker></app-layer-picker>
