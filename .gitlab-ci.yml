@@ -74,7 +74,7 @@ run-deploy-dev:
       - echo "$SSH_PRIVATE_KEY_DEV" |  tr -d '\r' > /root/.ssh/id_rsa
       - chmod 600 /root/.ssh/id_rsa
       - chmod 700 /root/.ssh
-      - scp -P 3031 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* admin@132.215.33.56:/var/www/html/octo
+      - scp -P 3031 -i /home/gitlab-runner/.ssh/id_rsa_dev -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/* admin@132.215.33.56:/var/www/html/octo
     environment:
       name: dev
       url: http://$devHost:$devHttpPort/octo
