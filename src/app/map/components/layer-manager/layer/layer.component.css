@@ -59,3 +59,14 @@
 .info-closed {
   display: none;
 }
+
+/* Stand out the selected layer */
+
+.selected-draggable-div {
+  transition: box-shadow 0.6s linear;
+  margin: 0.5em
+}
+
+.selected-draggable-div:hover {
+  box-shadow: 0px 0px 10px 2px ;
+}
