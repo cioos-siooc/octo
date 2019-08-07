@@ -22,6 +22,7 @@ import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
 import { LayerComponent } from './components/layer-manager/layer/layer.component';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { LayerComponent } from './components/layer-manager/layer/layer.component
     BrowserAnimationsModule,
     CalendarModule,
     AngularDraggableModule,
+    NgDragDropModule.forRoot(),
     StoreModule.forFeature('map', mapReducers),
     EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
     NgbModule.forRoot(),
