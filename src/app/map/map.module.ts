@@ -9,7 +9,6 @@ import {NgModule} from '@angular/core';
 import {SharedModule} from '../shared/shared.module';
 import {CalendarModule} from 'primeng/primeng';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AngularDraggableModule} from 'angular2-draggable';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {mapReducers} from './store';
@@ -28,7 +27,6 @@ import { LayerComponent } from './components/layer-manager/layer/layer.component
     SharedModule,
     BrowserAnimationsModule,
     CalendarModule,
-    AngularDraggableModule,
     StoreModule.forFeature('map', mapReducers),
     EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
     NgbModule.forRoot(),
