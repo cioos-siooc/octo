@@ -29,6 +29,7 @@ run-package-dev:
   stage: package
   image: jemag/node-chrome:latest
   script:
+    - npm cache clean --force
     - npm install
     - npm run test:ci
     - npm run build:dev
