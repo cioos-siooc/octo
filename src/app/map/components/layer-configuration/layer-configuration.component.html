@@ -1,0 +1,19 @@
+<div>
+  <div class="modal-header background-dark-blue">
+    <h4 class="modal-title">{{ 'config-label-header' | translate }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-content" *ngFor="let b of behaviors;">
+    <app-time-behavior *ngIf="b.handler === 'time'" [behaviorUniqueId]='b.uniqueId'></app-time-behavior>
+    <app-enum-behavior *ngIf="b.handler === 'enum'" [behaviorUniqueId]='b.uniqueId'></app-enum-behavior>
+  </div>
+  <p *ngIf="behaviors.length == 0">{{ 'no-config-available' | translate }}</p>
+  <div class="modal-footer">
+    <button class="btn btn-primary">{{ 'save-btn-label' | translate }}</button>
+    <button class="btn btn-primary" (click)="modal.close()">{{ 'cancel-btn-label' | translate }}</button>    
+  </div>
+</div>
+
+

@@ -3,9 +3,15 @@
   ~ License, v. 2.0. If a copy of the MPL was not distributed with this
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
-
 <div *ngIf="behavior">
-  <a>
+  <div>
+    <label for="date">{{ 'date-label' | translate }}</label>
+    <div class="input-group">
+      <input class="border-dark-blue" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary border-dark-blue" (click)="d.toggle()" type="button"><i class="far fa-calendar-alt"></i></button>
+      </div>
+    </div>
     <span class="btn background-gray smaller-font font-weight-bold"
           *ngIf="behavior.options.isNowSupported"
           [ngClass]="{
@@ -15,14 +21,23 @@
           (click)="onNowClick()">
       {{'now' | translate }}
     </span>
-  </a>
-  <div>
-    <p-calendar
+  </div>
+  <!-- <a>
+    <span class="btn background-gray smaller-font font-weight-bold"
+          *ngIf="behavior.options.isNowSupported"
+          [ngClass]="{
+          'foreground-yellow': behavior.isNowEnabled,
+          'foreground-white': !behavior.isNowEnabled
+          }"
+          (click)="onNowClick()">
+      {{'now' | translate }}
+    </span>
+  </a> -->
+    <!-- <p-calendar
           [(ngModel)]="currentDate"
           [showTime]="behavior.calendarShowTime != null ? behavior.calendarShowTime: true"
           [hourFormat]="behavior.calendarHourFormat ? behavior.calendarHourFormat : 24"
           [dateFormat]="behavior.calendarDateFormat ? behavior.calendarDateFormat: 'yy-mm-dd'"
           readonlyInput="true"
           (onClose)="onCloseDatetimePicker()"></p-calendar>
-  </div>
-</div>
+  </div> -->

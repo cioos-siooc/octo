@@ -20,6 +20,7 @@ import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {MapModule} from './map/map.module';
 
+import { LayerConfigurationComponent } from '@app/map/components/layer-configuration/layer-configuration.component';
 
 @NgModule({
   declarations: [],
@@ -38,7 +39,8 @@ import {MapModule} from './map/map.module';
     AppRoutingModule
   ],
   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}, UrlBehaviorService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LayerConfigurationComponent]
 })
 export class AppModule {
 }

@@ -18,10 +18,10 @@ import {CategoryEffects} from './store/effects/category.effects';
 import {TopicEffects} from './store/effects/topic.effects';
 import {LayerEffects} from './store/effects/layer.effects';
 import * as fromComponents from './components';
-import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/enum-behavior.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
 import { LayerComponent } from './components/layer-manager/layer/layer.component';
+import {LayerConfigurationComponent} from '@app/map/components/layer-configuration/layer-configuration.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 
 @NgModule({
@@ -37,10 +37,10 @@ import { NgDragDropModule } from 'ng-drag-drop';
   ],
   declarations: [
     ...fromComponents.components,
-    EnumBehaviorComponent,
     SidebarComponent,
     LayerPickerComponent,
     LayerComponent,
+    LayerConfigurationComponent,
   ]
 })
 

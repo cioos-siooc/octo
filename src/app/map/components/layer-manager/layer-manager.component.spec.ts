@@ -6,7 +6,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { EnumBehaviorComponent } from '@app/map/components/layer-manager/enum-behavior/enum-behavior.component';
+import { EnumBehaviorComponent } from '@app/map/components/enum-behavior/enum-behavior.component';
 import { LayerComponent } from '@app/map/components/layer-manager/layer/layer.component';
 import { DateFieldComponent } from '@app/map/components/map-click/click-formatter/field/date-field/date-field.component';
 import { ImageFieldComponent } from '@app/map/components/map-click/click-formatter/field/image-field/image-field.component';
@@ -20,7 +20,7 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { LayerManagerComponent } from './layer-manager.component';
-import { TimeBehaviorComponent } from './time-behavior/time-behavior.component';
+import { TimeBehaviorComponent } from '../time-behavior/time-behavior.component';
 
 
 describe('LayerManagerComponent', () => {

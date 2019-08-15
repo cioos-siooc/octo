@@ -1,3 +1,5 @@
+import { LayerConfigurationComponent } from '@app/map/components/layer-configuration/layer-configuration.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Layer } from '@app/shared/models';
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -15,7 +17,7 @@ export class LayerComponent implements OnInit {
   descriptionExpanded: Boolean;
   isCollapsed = false;
 
-  constructor(private store: Store<MapState>) {
+  constructor(public modal: NgbModal, private store: Store<MapState>) {
   }
 
   ngOnInit() {
@@ -38,6 +40,11 @@ export class LayerComponent implements OnInit {
 
   collapseInfo() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  open() {
+    const modalref = this.modal.open(LayerConfigurationComponent, { centered: true});
+    modalref.componentInstance.layer = this.layer;
   }
 
 }

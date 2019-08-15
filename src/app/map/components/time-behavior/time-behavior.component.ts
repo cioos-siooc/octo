@@ -9,7 +9,6 @@ import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
 import {BehaviorHandlerFactory} from '@app/map/utils';
 import {TimeHandler} from '@app/map/utils';
-import {cloneDeep} from 'lodash';
 import {MapState} from '@app/map/store';
 import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
 
@@ -35,11 +34,11 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   set behaviorUniqueId(id: string) {
     this._behaviorUniqueId = id;
     this.store.select(selectBehaviorState).subscribe((behaviorState) => {
-      const behaviorStateCopy = cloneDeep(behaviorState);
-      this.behavior = behaviorStateCopy.behaviors.find(b => b.uniqueId === this._behaviorUniqueId);
+      this.behavior = behaviorState.behaviors.find(b => b.uniqueId === id);
       if (this.behavior != null) {
         this.currentDate = this.behavior.currentDate;
       }
+      console.log(behaviorState);
     });
   }
 
