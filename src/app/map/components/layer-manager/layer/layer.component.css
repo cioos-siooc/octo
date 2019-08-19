@@ -11,12 +11,19 @@
 .layer-card-body-container {
   padding: 0.8em;
   overflow: hidden;
+  cursor: grab;
+}
+
+.layer-card-body-container:active {
+  cursor: grabbing;
 }
 
 .layer-card .heading {
   font-size: 1.2em;
   font-weight: bold;
   padding-left: 0.5em;
+  display: flex;
+  justify-content: space-between;
 }
 
 .layer-card .attribution {
@@ -48,9 +55,7 @@
 
 .layer-card .remove {
   text-align: center;
-
   font-weight: bold;
-
   cursor: pointer;
   user-select: none;
 }
@@ -62,10 +67,19 @@
 /* Stand out the selected layer */
 
 .selected-draggable-div {
-  transition: box-shadow 0.6s linear;
+  transition: outline 0.3s linear;
   margin: 0.5em
 }
 
 .selected-draggable-div:hover {
-  box-shadow: 0px 0px 10px 2px ;
+  outline: 5px #D6DADD solid
+}
+
+.icon-container {
+  display: flex;
+}
+
+i {
+  padding-right: 0.3em;
+  cursor: pointer;
 }

@@ -1,10 +1,12 @@
 <div class="layer-card background-white selected-draggable-div">
     <div class="layer-card-body-container">
         <div class="heading background-lighter-gray">
-            {{ layer.title }}
-            <div id="settings" (click)="open()"><i class="fas fa-cog"></i></div>
-            <div><i class="fas fa-chevron-up" (click)="collapseInfo()"></i></div>
-             <!--  change for chevron-down if collapsed -->
+            <div>{{ layer.title }}</div>
+            <div class="icon-container">
+                <div id="settings" (click)="open()"><i class="fas fa-cog"></i></div>
+                <div><i class="fas" [ngClass]="{'fa-chevron-up' : !isCollapsed, 
+                                                'fa-chevron-down' : isCollapsed}" (click)="collapseInfo()"></i></div>
+            </div>
         </div> 
         <!-- <div class="attribution">
             Attribution will go here

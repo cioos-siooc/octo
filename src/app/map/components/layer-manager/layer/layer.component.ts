@@ -43,7 +43,7 @@ export class LayerComponent implements OnInit {
   }
 
   open() {
-    const modalref = this.modal.open(LayerConfigurationComponent, { centered: true});
+    const modalref = this.modal.open(LayerConfigurationComponent, { centered: true, size: 'sm'});
     modalref.componentInstance.layer = this.layer;
   }
 

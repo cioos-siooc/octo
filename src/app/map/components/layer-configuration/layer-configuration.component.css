@@ -1,0 +1,68 @@
+#settings{
+    cursor: pointer;
+    color: white;
+    font-size: 1em;
+}
+
+/******** Modal header **********/
+
+.modal-header{
+    background-color: #041117;
+    color: white;
+}
+
+.close{
+    color: white;
+    text-shadow: none;
+
+}
+
+.close:active, .close:hover{
+    color: white;
+}
+
+.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover {
+    color: white!important;
+    outline: none;
+}
+
+.modal-title {
+    width: 100%;
+    text-align: center;
+}
+
+/********************************/
+
+/******** Modal content *********/
+
+.modal-content {
+    padding-left: 0.5em;
+}
+
+/********************************/
+
+
+
+/******* Buttons modifications *******/
+
+.btn-primary {
+    background-color: #041117;
+    border-color: #041117;
+}
+
+.btn-primary:hover, .btn-primary:focus{
+    background-color: #041117;
+    border-color: #041117;
+    box-shadow: none;
+}
+
+.btn-primary:active {
+    background-color: #343a40!important;
+    border-color: #343a40!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus{
+    box-shadow: none;
+}
+
+/************************************/
