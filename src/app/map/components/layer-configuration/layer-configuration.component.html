@@ -11,9 +11,6 @@
   </div>
   <p *ngIf="behaviors.length == 0">{{ 'no-config-available' | translate }}</p>
   <div class="modal-footer">
-    <button class="btn btn-primary">{{ 'save-btn-label' | translate }}</button>
-    <button class="btn btn-primary" (click)="modal.close()">{{ 'cancel-btn-label' | translate }}</button>    
+    <button class="btn btn-primary" (click)="modal.close()">{{ 'close-btn-label' | translate }}</button>    
   </div>
 </div>
-
-
