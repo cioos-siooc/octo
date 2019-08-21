@@ -53,9 +53,18 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   updateDateToNow(behavior, layer) {
-    const newDate = moment(new Date()).format(behavior.options.format);
-    layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName, newDate);
+    const newDate = moment(new Date());
+    layer.urlParameters = UrlParametersUtil.addUrlParameter(
+      layer.urlParameters,
+      behavior.parameterName,
+      newDate.format(behavior.options.format)
+    );
     this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
+    const updatedBehavior = {
+      ...behavior,
+      currentDate: {year: newDate.year(), month: newDate.month() + 1, day: newDate.date()}
+    };
+    this.store.dispatch(new fromBehaviorActions.UpdateBehavior(updatedBehavior));
   }
 
   toggleNow(behavior) {
@@ -91,11 +100,17 @@ export class TimeHandler implements BehaviorHandler {
     this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
   }
 
-  updateDateTime(behavior) {
+  updateBehaviorDateTime(behavior) {
+    this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
+  }
+
+  updateLayerDateTime(behavior) {
     this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = cloneDeep(layerState);
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
-      const date = moment(behavior.currentDate).format(behavior.options.format);
+      const tempDate = {...behavior.currentDate};
+      tempDate.month -= 1;
+      const date = moment(tempDate).format(behavior.options.format);
       layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName, date);
       this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     });

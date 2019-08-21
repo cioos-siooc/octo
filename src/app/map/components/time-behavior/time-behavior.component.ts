@@ -38,7 +38,6 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
       if (this.behavior != null) {
         this.currentDate = this.behavior.currentDate;
       }
-      console.log(behaviorState);
     });
   }
 
@@ -48,10 +47,14 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   }
 
   onCloseDatetimePicker() {
-    this.behavior.currentDate = this.currentDate;
     const bH = <TimeHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
-    bH.setNowOff(this.behavior);
-    bH.updateDateTime(this.behavior);
+    const updatedBehavior = {
+      ...this.behavior,
+      currentDate: this.currentDate
+    };
+    bH.setNowOff(updatedBehavior);
+    bH.updateBehaviorDateTime(updatedBehavior);
+    bH.updateLayerDateTime(updatedBehavior);
   }
 
   ngOnInit() {
