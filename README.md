@@ -1,6 +1,4 @@
 # Octo
-[![pipeline status](https://gitlab.uqar.ca/OGSL/octo/badges/28-click-information-display-should-be-tidied-up-in-new-interface/pipeline.svg)](https://gitlab.uqar.ca/OGSL/octo/commits/28-click-information-display-should-be-tidied-up-in-new-interface)
-
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 
 ## Development server
