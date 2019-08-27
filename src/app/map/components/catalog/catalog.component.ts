@@ -1,10 +1,10 @@
-import { selectCategoryEntities, selectRootCategoryIds } from './../../store/selectors/category.selectors';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+import { selectCategoryEntities, selectRootCategoryIds } from './../../store/selectors/category.selectors';
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
