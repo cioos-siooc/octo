@@ -95,6 +95,10 @@ export class OpenLayersComponent implements AfterViewInit {
     });
   }
 
+  mapResized() {
+    this.map.updateSize();
+  }
+
   private initBaseLayerSubscription() {
     this.store.select(selectBaseLayerState)
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)

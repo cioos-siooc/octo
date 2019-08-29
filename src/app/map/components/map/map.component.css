@@ -4,15 +4,44 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+.viewport-container {
+  display: flex;
+  flex-direction: row;
+
+  height:100%;
+  width: 100%;
+}
+
 .map-container {
   display: flex;
+  flex-direction: column;
+
   height: 100%;
+  width: 100%;
+}
+
+.map-timeslider {
+  flex-shrink: 1;
+  flex-grow: 1;
+
+  height: 1px;
+  width: 100%;
+}
+
+app-time-slider {
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: 3em;
+
+  background-color: purple;
 }
 
 .sidebar {
+  flex-shrink: 0;
+
   overflow: hidden;
-  position: absolute;
+  /* position: absolute; */
   z-index: 10;
-  top: 50px;
-  bottom: 0;
+  /* top: 50px; */
+  /* bottom: 0; */
 }

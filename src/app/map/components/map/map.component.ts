@@ -26,6 +26,7 @@ import {HttpClient} from '@angular/common/http';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
+import { displayMode } from './map.types';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -51,6 +52,7 @@ export class MapComponent implements OnInit {
   MAP_CLICK_POPUP_ID = MAP_CLICK_POPUP_ID;
   environment = environment;
   mapClickTitle: string;
+  displayMode: displayMode;
 
   constructor(private httpClient: HttpClient, private translateService: TranslateService,
               private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService,
@@ -59,6 +61,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.displayMode = displayMode.timeslider;
     this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
     if (this.applicationUsesDefaultTopic()) {

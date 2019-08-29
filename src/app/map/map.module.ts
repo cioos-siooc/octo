@@ -21,6 +21,8 @@ import { EnumBehaviorComponent } from './components/layer-manager/enum-behavior/
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
 import { LayerComponent } from './components/layer-manager/layer/layer.component';
+import { TimeSliderComponent } from './components/time-slider/time-slider.component';
+import { AngularResizedEventModule } from 'angular-resize-event';
 
 @NgModule({
   imports: [
@@ -30,6 +32,7 @@ import { LayerComponent } from './components/layer-manager/layer/layer.component
     StoreModule.forFeature('map', mapReducers),
     EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
     NgbModule.forRoot(),
+    AngularResizedEventModule,
   ],
   declarations: [
     ...fromComponents.components,
