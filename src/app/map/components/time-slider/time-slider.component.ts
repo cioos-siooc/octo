@@ -105,7 +105,7 @@ export class TimeSliderComponent implements OnInit {
       const parentWidth = this.nib.nativeElement.parentElement.getBoundingClientRect().width;
       if (diff < (0 + (this.leftPad - (this.nibSize / 2)))) {
         diff = 0 + (this.leftPad - (this.nibSize / 2));
-      } else if (diff > (parentWidth - (this.rightPad + (this.nibSize / 2))) {
+      } else if (diff > (parentWidth - (this.rightPad + (this.nibSize / 2)))) {
         diff = parentWidth - (this.rightPad + (this.nibSize / 2));
       }
       this.nib.nativeElement.style.left = diff + 'px';
