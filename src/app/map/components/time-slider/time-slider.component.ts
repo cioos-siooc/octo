@@ -20,6 +20,10 @@ export class TimeSliderComponent implements OnInit {
   dragActive: boolean;
   start: number;
 
+  leftPad: number;
+  rightPad: number;
+  nibSize: number;
+
 
   constructor() { }
 
@@ -31,7 +35,12 @@ export class TimeSliderComponent implements OnInit {
       'end': new Date(2019, 1, 1)
     };
     this.dragActive = false;
+
+    this.leftPad = 25;
+    this.rightPad = 25;
+    this.nibSize = this.nib.nativeElement.getBoundingClientRect().width;
     this.initTimeSlider(this.containerSelector, this.dateRange);
+    this.nib.nativeElement.style.left = (this.leftPad - (this.nibSize / 2)).toString() + 'px';
   }
 
   resize() {
@@ -51,13 +60,23 @@ export class TimeSliderComponent implements OnInit {
 
     this.scale = scaleTime()
       .domain([dateRange.start, dateRange.end])
-      .range([15, width - 15]);
+      .range([this.leftPad, width - this.rightPad]);
 
-    this.axis = axisBottom(this.scale);
+    this.axis = axisBottom(this.scale)
+      .tickSizeInner(14)
+      .tickSizeOuter(18);
       // .tickFormat(timeFormat('%Y-%m-%d'));
 
     this.svg.append('g')
       .call(this.axis);
+  }
+
+  calculateNibPosition() {
+    const parentRect = this.nib.nativeElement.parentElement.getBoundingClientRect();
+    const nibPos = this.nib.nativeElement.style.left;
+
+    console.log(nibPos);
+    console.log(parentRect);
   }
 
   activateNibDrag() {
@@ -84,12 +103,13 @@ export class TimeSliderComponent implements OnInit {
       }
       let diff = end - this.start;
       const parentWidth = this.nib.nativeElement.parentElement.getBoundingClientRect().width;
-      if (diff < 0) {
-        diff = 0;
-      } else if (diff > parentWidth) {
-        diff = parentWidth;
+      if (diff < (0 + (this.leftPad - (this.nibSize / 2)))) {
+        diff = 0 + (this.leftPad - (this.nibSize / 2));
+      } else if (diff > (parentWidth - (this.rightPad + (this.nibSize / 2))) {
+        diff = parentWidth - (this.rightPad + (this.nibSize / 2));
       }
       this.nib.nativeElement.style.left = diff + 'px';
+      this.calculateNibPosition();
     }
   }
 }
