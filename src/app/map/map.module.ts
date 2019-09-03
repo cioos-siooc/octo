@@ -13,10 +13,8 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {mapReducers} from './store';
-import {LayerInformationEffects} from './store/effects/layer-information.effects';
-import {CategoryEffects} from './store/effects/category.effects';
-import {TopicEffects} from './store/effects/topic.effects';
-import {LayerEffects} from './store/effects/layer.effects';
+import { BehaviorEffects, CategoryEffects,
+         TopicEffects, LayerEffects, LayerInformationEffects } from '@app/map/store/effects';
 import * as fromComponents from './components';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
@@ -33,7 +31,7 @@ import { LayerOpacityComponent } from './components/layer-opacity/layer-opacity.
     AngularDraggableModule,
     NgDragDropModule.forRoot(),
     StoreModule.forFeature('map', mapReducers),
-    EffectsModule.forFeature([LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
+    EffectsModule.forFeature([BehaviorEffects, LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
     NgbModule.forRoot(),
   ],
   declarations: [

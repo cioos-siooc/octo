@@ -53,17 +53,11 @@ export class TimeHandler implements BehaviorHandler {
 
   updateDateToNow(behavior, layer) {
     const newDate = moment(new Date());
-    layer.urlParameters = UrlParametersUtil.addUrlParameter(
-      layer.urlParameters,
-      behavior.parameterName,
-      newDate.format(behavior.options.format)
-    );
-    this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     const updatedBehavior = {
       ...behavior,
       currentDate: {year: newDate.year(), month: newDate.month() + 1, day: newDate.date()}
     };
-    this.updateBehaviorDateTime(behavior);
+    this.updateBehaviorDateTime(updatedBehavior);
   }
 
   toggleNow(behavior) {
@@ -101,17 +95,5 @@ export class TimeHandler implements BehaviorHandler {
 
   updateBehaviorDateTime(behavior) {
     this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-  }
-
-  updateLayerDateTime(behavior) {
-    this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
-      const layerStateCopy = {...layerState};
-      const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
-      const tempDate = {...behavior.currentDate};
-      tempDate.month -= 1;
-      const date = moment(tempDate).format(behavior.options.format);
-      layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName, date);
-      this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
-    });
   }
 }

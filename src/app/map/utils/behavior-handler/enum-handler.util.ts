@@ -35,7 +35,7 @@ export class EnumHandler implements BehaviorHandler {
       layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName,
         behavior.currentValue);
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-      this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
+      // this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     });
   }
 }

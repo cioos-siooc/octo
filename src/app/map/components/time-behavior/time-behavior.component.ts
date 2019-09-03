@@ -54,7 +54,7 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
     };
     bH.setNowOff(updatedBehavior);
     bH.updateBehaviorDateTime(updatedBehavior);
-    bH.updateLayerDateTime(updatedBehavior);
+    // bH.updateLayerDateTime(updatedBehavior);
   }
 
   ngOnInit() {
