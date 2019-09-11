@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { MapState, selectBehaviorState } from '@app/map/store';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import * as fromLayerActions from '@app/map/store';
 
 @Component({
   selector: 'app-layer-configuration',
@@ -24,7 +25,15 @@ export class LayerConfigurationComponent implements OnInit {
   ngOnInit() {
     this.store.select(selectBehaviorState).subscribe((behaviorState) => {
       this.behaviors = behaviorState.behaviors.filter(b => b.layerUniqueId === this.layer.uniqueId);
-      console.log(this.behaviors);
     });
+  }
+
+  sendOpacity(e: any) {
+    const sliderValue = e.target.valueAsNumber;
+    const newLayer: Layer = {
+      ...this.layer,
+      opacity: sliderValue
+      };
+    this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
   }
 }
