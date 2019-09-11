@@ -21,7 +21,6 @@ import { LayerPickerComponent } from './components/layer-picker/layer-picker.com
 import { LayerComponent } from './components/layer-manager/layer/layer.component';
 import {LayerConfigurationComponent} from '@app/map/components/layer-configuration/layer-configuration.component';
 import { NgDragDropModule } from 'ng-drag-drop';
-import { LayerOpacityComponent } from './components/layer-opacity/layer-opacity.component';
 
 @NgModule({
   imports: [
@@ -40,7 +39,6 @@ import { LayerOpacityComponent } from './components/layer-opacity/layer-opacity.
     LayerPickerComponent,
     LayerComponent,
     LayerConfigurationComponent,
-    LayerOpacityComponent,
   ]
 })
 

@@ -9,7 +9,6 @@ import {Store} from '@ngrx/store';
 import {MapState, selectLayerState} from '@app/map/store';
 import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
 import {take} from 'rxjs/operators';
-import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
 export class EnumHandler implements BehaviorHandler {
@@ -35,7 +34,6 @@ export class EnumHandler implements BehaviorHandler {
       layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName,
         behavior.currentValue);
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-      // this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     });
   }
 }

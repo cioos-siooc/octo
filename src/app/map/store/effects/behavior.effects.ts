@@ -6,7 +6,7 @@ import { StoreState } from './../reducers/index';
  */
 import { Store } from '@ngrx/store';
 import { BehaviorActionTypes } from './../actions/behavior.actions';
-import { UpdateBehavior, MapState } from '@app/map/store';
+import { UpdateBehavior} from '@app/map/store';
 import { Injectable } from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import { map, withLatestFrom } from 'rxjs/operators';
