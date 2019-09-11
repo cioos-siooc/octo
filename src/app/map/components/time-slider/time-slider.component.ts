@@ -74,13 +74,8 @@ export class TimeSliderComponent implements OnInit {
   calculateNibPosition() {
     const parentRect = this.nib.nativeElement.parentElement.getBoundingClientRect();
     const parentXAdjusted = parentRect.x + this.leftPad;
-    // const nibPos = this.nib.nativeElement.style.left;
     const nibRect = this.nib.nativeElement.getBoundingClientRect();
-    const nibPos = ( nibRect.x - parentXAdjusted );
-
-    console.log(nibPos);
-    console.log(nibRect);
-    console.log(parentRect);
+    const nibPos = ( nibRect.x - parentXAdjusted ) + ( this.nibSize / 2 );
   }
 
   activateNibDrag() {
