@@ -71,11 +71,11 @@ export class TimeSliderComponent implements OnInit {
       .call(this.axis);
   }
 
-  calculateNibPosition() {
-    const parentRect = this.nib.nativeElement.parentElement.getBoundingClientRect();
+  calculateNibPosition(parentRect) {
     const parentXAdjusted = parentRect.x + this.leftPad;
     const nibRect = this.nib.nativeElement.getBoundingClientRect();
     const nibPos = ( nibRect.x - parentXAdjusted ) + ( this.nibSize / 2 );
+    return nibPos;
   }
 
   activateNibDrag() {
@@ -108,7 +108,19 @@ export class TimeSliderComponent implements OnInit {
         diff = parentWidth - (this.rightPad + (this.nibSize / 2));
       }
       this.nib.nativeElement.style.left = diff + 'px';
-      this.calculateNibPosition();
+      this.calculateDateByNibPosition();
     }
+  }
+
+  calculateDateByNibPosition() {
+    const parentRect = this.nib.nativeElement.parentElement.getBoundingClientRect();
+    const positionNib = this.calculateNibPosition(parentRect);
+    // Transforming dates in Unix Timestamp is better for manipulating dates
+    const startUnixTimestamp = Math.round(this.dateRange['start'].getTime() / 1000);
+    const endUnixTimestamp = Math.round(this.dateRange['end'].getTime() / 1000);
+    // The ratio is needed to calculate the date according to where the nib is on the slider
+    const nibRatio = positionNib / (parentRect.width - this.leftPad - this.rightPad);
+    // Convert everything back to a date format after calculating the date with the ratio in Unix Timestamp
+    const chosenDate = new Date((((endUnixTimestamp - startUnixTimestamp) * nibRatio) + startUnixTimestamp) * 1000);
   }
 }
