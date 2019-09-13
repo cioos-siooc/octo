@@ -1,0 +1,116 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+#settings{
+    cursor: pointer;
+    color: white;
+    font-size: 1em;
+}
+
+/******** Modal header **********/
+
+.modal-header{
+    background-color: #041117;
+    color: white;
+}
+
+.close{
+    color: white;
+    text-shadow: none;
+
+}
+
+.close:active, .close:hover{
+    color: white;
+}
+
+.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover {
+    color: white!important;
+    outline: none;
+}
+
+.modal-title {
+    width: 100%;
+    text-align: center;
+}
+
+/********************************/
+
+/******** Modal content *********/
+
+.modal-content {
+    padding-left: 0.5em;
+}
+
+/********************************/
+
+
+
+/******* Buttons modifications *******/
+
+.btn-primary {
+    background-color: #041117;
+    border-color: #041117;
+}
+
+.btn-primary:hover, .btn-primary:focus{
+    background-color: #041117;
+    border-color: #041117;
+    box-shadow: none;
+}
+
+.btn-primary:active {
+    background-color: #343a40!important;
+    border-color: #343a40!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus{
+    box-shadow: none;
+}
+
+/************************************/
+
+.slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+/* The slider itself */
+.slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    width: 100%; /* Full-width */
+    height: 15px; /* Specified height */
+    border-radius: 5px;
+    background: #d3d3d3; /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 1; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 50%;
+    background: #33acec; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    border-radius: 50%;
+    background: #33acec;
+    cursor: pointer; /* Cursor on hover */
+  }

@@ -1,7 +1,17 @@
-<div class="layer-card background-white">
+<!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  -->
+<div class="layer-card background-white selected-draggable-div">
     <div class="layer-card-body-container">
-        <div class="heading background-lighter-gray" (click)="collapseInfo()">
-            {{ layer.title }}
+        <div class="heading background-lighter-gray">
+            <div>{{ layer.title }}</div>
+            <div class="icon-container">
+                <div id="settings" (click)="open()"><i class="fas fa-cog"></i></div>
+                <div><i class="fas" [ngClass]="{'fa-chevron-up' : !isCollapsed, 
+                                                'fa-chevron-down' : isCollapsed}" (click)="collapseInfo()"></i></div>
+            </div>
         </div> 
         <!-- <div class="attribution">
             Attribution will go here
@@ -34,6 +44,6 @@
     </div>
     <div class="remove background-lighter-gray foreground-red"
          (click)="removeLayer(layer.id)">
-        Remove layer
+        {{'Remove-layer-label' | translate}}
     </div>
 </div>

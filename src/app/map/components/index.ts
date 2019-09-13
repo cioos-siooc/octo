@@ -4,17 +4,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/*
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-
 import {CatalogComponent} from '@app/map/components/catalog/catalog.component';
 import {CategoryComponent} from '@app/map/components/catalog/category/category.component';
+import {EnumBehaviorComponent} from '@app/map/components/enum-behavior/enum-behavior.component';
 import {LayerInformationComponent} from '@app/map/components/layer-information/layer-information.component';
 import {LayerManagerComponent} from '@app/map/components/layer-manager/layer-manager.component';
-import {TimeBehaviorComponent} from '@app/map/components/layer-manager/time-behavior/time-behavior.component';
+import {TimeBehaviorComponent} from '@app/map/components/time-behavior/time-behavior.component';
 import {LayerPresentationComponent} from '@app/map/components/layer-presentation/layer-presentation.component';
 import {MapComponent} from '@app/map/components/map/map.component';
 import {MapClickComponent} from '@app/map/components/map-click/map-click.component';
@@ -29,6 +24,7 @@ import {TopicPickerComponent} from '@app/map/components/topic-picker/topic-picke
 export const components: any[] = [
   CatalogComponent,
   CategoryComponent,
+  EnumBehaviorComponent,
   LayerInformationComponent,
   LayerManagerComponent,
   TimeBehaviorComponent,
@@ -46,9 +42,10 @@ export const components: any[] = [
 
 export * from './catalog/catalog.component';
 export * from './catalog/category/category.component';
+export * from './enum-behavior/enum-behavior.component';
 export * from './layer-information/layer-information.component';
 export * from './layer-manager/layer-manager.component';
-export * from './layer-manager/time-behavior/time-behavior.component';
+export * from './time-behavior/time-behavior.component';
 export * from './layer-presentation/layer-presentation.component';
 export * from './map/map.component';
 export * from './map-click/map-click.component';
