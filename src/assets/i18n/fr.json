@@ -21,5 +21,10 @@
   "add-layer-modal-search-heading": "Recherche par mots-clés",
   "add-layer-modal-search-example": "ex. Environnement",
   "add-layer-modal-theme-heading": "Recherche par thèmes",
-  "themes-label": "Thèmes"
+  "themes-label": "Thèmes",
+  "config-label-header": "Configuration de la couche",
+  "opacity-label": "Transparence",
+  "close-btn-label": "Fermer",
+  "date-label": "Date",
+  "Remove-layer-label": "Retirer la couche"
 }

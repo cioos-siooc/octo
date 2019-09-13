@@ -21,5 +21,10 @@
   "add-layer-modal-search-heading": "Search by keyword",
   "add-layer-modal-search-example": "ex. Environment",
   "add-layer-modal-theme-heading": "Browse by theme",
-  "themes-label": "Themes"
+  "themes-label": "Themes",
+  "config-label-header": "Layer configuration",
+  "opacity-label": "Opacity",
+  "close-btn-label": "Close",
+  "date-label": "Date",
+  "Remove-layer-label": "Remove layer"
 }
