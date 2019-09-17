@@ -9,7 +9,7 @@
 }
 
 .layer-card-body-container {
-  padding: 0.8em;
+  padding: 0.5em;
   overflow: hidden;
   cursor: grab;
 }
@@ -19,7 +19,7 @@
 }
 
 .layer-card .heading {
-  font-size: 1.2em;
+  font-size: 1.05em;
   font-weight: bold;
   padding-left: 0.5em;
   display: flex;
