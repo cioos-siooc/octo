@@ -18,7 +18,11 @@
             <h4 class="modal-title">
                 {{ 'add-layer-modal-theme-heading' | translate }}
             </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+
         <div class="modal-body" id="topic-picker">
             <app-topic-picker></app-topic-picker>
         </div>
@@ -46,6 +50,9 @@
             <app-catalog></app-catalog>
         </div>
     </span>
+    <div class="modal-footer">
+        <button class="btn btn-primary btn-close" (click)="modal.close()">{{ 'close-btn-label' | translate }}</button>    
+    </div>
 </ng-template>
 
 <button class="background-dark-blue" (click)="open(layerPicker)">

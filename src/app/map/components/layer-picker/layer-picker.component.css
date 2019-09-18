@@ -25,6 +25,47 @@
     font-weight: 650;
 }
 
+ .close{
+    color: white;
+    text-shadow: none;
+    width: auto;
+}
+
+.close:active, .close:hover{
+    color: white;
+}
+
+.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover {
+    color: white!important;
+    outline: none;
+}
+
+/******* Buttons modifications *******/
+
+.btn-primary {
+    background-color: #041117;
+    border-color: #041117;
+}
+
+.btn-primary:hover, .btn-primary:focus{
+    background-color: #041117;
+    border-color: #041117;
+    box-shadow: none;
+}
+
+.btn-primary:active {
+    background-color: #343a40!important;
+    border-color: #343a40!important;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active:focus{
+    box-shadow: none;
+}
+
+.btn-close {
+    width: auto;
+}
+
 /* Searchbox related stuff */
 .searchbox {
     padding: 0;
