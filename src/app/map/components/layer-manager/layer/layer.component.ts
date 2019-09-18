@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 
 import { MapState } from '@app/map/store';
 import { DeleteLayer } from '@app/map/store/actions/layer.actions';
+import * as fromLayerActions from '@app/map/store';
 
 @Component({
   selector: 'app-layer',
@@ -51,6 +52,18 @@ export class LayerComponent implements OnInit {
   open() {
     const modalref = this.modal.open(LayerConfigurationComponent, { centered: true, size: 'sm'});
     modalref.componentInstance.layer = this.layer;
+  }
+
+  displayLayer(e) {
+    // console.log(e);
+    console.log(this.layer);
+    const isVisible = e.target.checked;
+    const newLayer: Layer = {
+      ...this.layer,
+      isVisible: isVisible
+      };
+    this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
+    console.log(newLayer);
   }
 
 }
