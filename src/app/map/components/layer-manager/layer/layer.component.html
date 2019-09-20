@@ -5,13 +5,18 @@
   -->
 <div class="layer-card background-white selected-draggable-div">
     <div class="layer-card-body-container">
-        <div class="heading background-lighter-gray">
-            <input type="checkbox" (input)="displayLayer($event)" [(ngModel)]="layer.isVisible">
-            <div>{{ layer.title }}</div>
-            <div class="icon-container">
-                <div id="settings" (click)="open()"><i class="fas fa-cog"></i></div>
-                <div><i class="fas" [ngClass]="{'fa-chevron-up' : !isCollapsed, 
-                                                'fa-chevron-down' : isCollapsed}" (click)="collapseInfo()"></i></div>
+        <div class="card-header-container">
+            <label class="b-contain">
+                <input type="checkbox" (input)="displayLayer($event)" [(ngModel)]="layer.isVisible">
+                <div class="b-input"></div>
+            </label>
+            <div class="title background-lighter-gray">
+                <div>{{ layer.title }}</div>
+                <div class="icon-container">
+                    <div (click)="open()"><i class="layer-icon fas fa-cog"></i></div>
+                    <div><i class="layer-icon fas" [ngClass]="{'fa-chevron-up' : !isCollapsed, 
+                                                    'fa-chevron-down' : isCollapsed}" (click)="collapseInfo()"></i></div>
+                </div>
             </div>
         </div> 
         <!-- <div class="attribution">
