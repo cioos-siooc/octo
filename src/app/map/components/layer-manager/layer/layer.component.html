@@ -18,12 +18,14 @@
         </div> -->
         <div [ngClass]="{'info-closed': isCollapsed}">
             <app-map-click [layer]="layer"></app-map-click>
-            <div class="legend">
-                <img src="{{ layer.currentClientPresentation.legendUrl }}">
-            </div>
+            <label class="layer-card-label">{{ 'legend-label' | translate}}</label>
             <div class="legendLabel">
                 {{ layer.currentClientPresentation.legendLabel }}
             </div>
+            <div class="legend">
+                <img src="{{ layer.currentClientPresentation.legendUrl }}">
+            </div>
+            <label class="layer-card-label">{{ 'layer-description-label' | translate }}</label>
             <div *ngIf="layer.description" class="description collapsed-description" 
                 [ngClass]="{'collapsed-description': !descriptionExpanded}"
                 [innerHTML]="layer.description.description">

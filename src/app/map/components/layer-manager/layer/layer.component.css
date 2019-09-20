@@ -60,6 +60,11 @@
   user-select: none;
 }
 
+.layer-card-label {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
 .info-closed {
   display: none;
 }

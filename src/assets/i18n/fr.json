@@ -26,5 +26,7 @@
   "opacity-label": "Transparence",
   "close-btn-label": "Fermer",
   "date-label": "Date",
-  "Remove-layer-label": "Retirer la couche"
+  "Remove-layer-label": "Retirer la couche",
+  "legend-label": "Légende",
+  "layer-description-label": "Informations sur la couche"
 }
