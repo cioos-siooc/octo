@@ -105,6 +105,7 @@
 .back-to-themes-button {
     cursor: pointer;
     user-select: none;
+    height: 100%;
 
 }
 
