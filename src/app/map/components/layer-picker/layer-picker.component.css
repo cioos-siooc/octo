@@ -85,9 +85,9 @@
     padding: 0;
 }
 
-/* Catelog related stuff */
+/* Catalog related stuff */
 .theme-title {
-    padding: 0;
+    padding: 0rem 0.5rem 0rem 0rem;
 }
 .theme-title-container {
     height: calc(1.5em + 2rem);

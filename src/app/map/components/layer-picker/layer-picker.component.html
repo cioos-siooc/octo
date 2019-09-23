@@ -45,6 +45,9 @@
                 </svg>
                 <div class="selectedTopic">{{ selectedTopic.label }}</div>
             </div>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
             <app-catalog></app-catalog>
