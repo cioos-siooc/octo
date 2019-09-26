@@ -117,7 +117,8 @@ describe('LayerComponent', () => {
         currentClientPresentation: clientPresentation,
         clickStrategy: clickStrategy,
         clickFormatterInfo: clickFormatterInfo,
-        urlBehaviors: ''
+        urlBehaviors: '',
+        isCollapsed: false
       };
     }
   }

@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Layer } from '@app/shared/models';
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-
+import * as fromLayerActions from '@app/map/store';
 import { MapState } from '@app/map/store';
 import { DeleteLayer } from '@app/map/store/actions/layer.actions';
 
@@ -21,7 +21,6 @@ import { DeleteLayer } from '@app/map/store/actions/layer.actions';
 export class LayerComponent implements OnInit {
   @Input() layer: Layer;
   descriptionExpanded: Boolean;
-  isCollapsed = false;
 
   constructor(public modal: NgbModal, private store: Store<MapState>) {
   }
@@ -45,7 +44,12 @@ export class LayerComponent implements OnInit {
   }
 
   collapseInfo() {
-    this.isCollapsed = !this.isCollapsed;
+    this.layer.isCollapsed = !this.layer.isCollapsed;
+    const newLayer: Layer = {
+      ...this.layer,
+      isCollapsed: this.layer.isCollapsed
+      };
+    this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
   }
 
   open() {

@@ -9,14 +9,14 @@
             <div>{{ layer.title }}</div>
             <div class="icon-container">
                 <div id="settings" (click)="open()"><i class="fas fa-cog"></i></div>
-                <div><i class="fas" [ngClass]="{'fa-chevron-up' : !isCollapsed, 
-                                                'fa-chevron-down' : isCollapsed}" (click)="collapseInfo()"></i></div>
+                <div><i class="fas" [ngClass]="{'fa-chevron-up' : !layer.isCollapsed, 
+                                                'fa-chevron-down' : layer.isCollapsed}" (click)="collapseInfo()"></i></div>
             </div>
         </div> 
         <!-- <div class="attribution">
             Attribution will go here
         </div> -->
-        <div [ngClass]="{'info-closed': isCollapsed}">
+        <div [ngClass]="{'info-closed': layer.isCollapsed}">
             <app-map-click [layer]="layer"></app-map-click>
             <div class="legend">
                 <img src="{{ layer.currentClientPresentation.legendUrl }}">

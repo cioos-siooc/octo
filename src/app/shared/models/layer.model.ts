@@ -28,4 +28,5 @@ export abstract class Layer {
   public clickStrategy: ClickStrategy;
   public clickFormatterInfo: ClickFormatterInfo;
   public urlBehaviors: any;
+  public isCollapsed: boolean;
 }
