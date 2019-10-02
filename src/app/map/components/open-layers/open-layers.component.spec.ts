@@ -28,6 +28,8 @@ import { HttpLoaderFactory } from '@app/shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { OpenLayersComponent } from './open-layers.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { FormsModule } from '@angular/forms';
 
 
 describe('OpenLayersComponent', () => {
@@ -68,6 +70,8 @@ describe('OpenLayersComponent', () => {
             deps: [HttpClient]
           }
         }),
+        NgDragDropModule.forRoot(),
+        FormsModule,
       ],
     })
       .compileComponents();

@@ -13,6 +13,7 @@ import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {HttpLoaderFactory} from '@app/shared/shared.module';
 import {CalendarModule} from 'primeng/calendar';
 import {mapReducers} from '@app/map/store';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('TimeBehaviorComponent', () => {
   let component: TimeBehaviorComponent;
@@ -34,6 +35,7 @@ describe('TimeBehaviorComponent', () => {
             deps: [HttpClient]
           }
         }),
+        NgbModule.forRoot(),
       ]
     })
       .compileComponents();

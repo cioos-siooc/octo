@@ -16,7 +16,7 @@ import { SidebarComponent } from '@app/map/components/sidebar/sidebar.component'
 import { UrlBehaviorService } from '@app/map/services';
 import { mapReducers } from '@app/map/store';
 import { KeepHtmlPipe } from '@app/shared/pipes';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
@@ -36,6 +36,7 @@ import { OpenLayersComponent } from '../open-layers/open-layers.component';
 import { PopupComponent } from '../popup/popup.component';
 import { TopicPickerComponent } from '../topic-picker/topic-picker.component';
 import { MapComponent } from './map.component';
+import { NgDragDropModule } from 'ng-drag-drop';
 
 
 describe('MapComponent', () => {
@@ -69,6 +70,8 @@ describe('MapComponent', () => {
             deps: [HttpClient]
           }
         }),
+        NgbModule.forRoot(),
+        NgDragDropModule.forRoot(),
       ],
     })
       .compileComponents();

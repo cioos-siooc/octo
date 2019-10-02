@@ -20,6 +20,7 @@ import { HttpLoaderFactory } from '@app/shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { LayerComponent } from './layer.component';
+import { FormsModule } from '@angular/forms';
 
 
 describe('LayerComponent', () => {
@@ -49,6 +50,7 @@ describe('LayerComponent', () => {
             deps: [HttpClient]
           }
         }),
+        FormsModule,
       ]
     })
     .compileComponents();
