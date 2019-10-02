@@ -38,6 +38,7 @@ export class OLLayerFactory {
     olLayer.set('code', layer.code);
     olLayer.set('uniqueId', layer.uniqueId);
     olLayer.set('opacity', layer.opacity);
+    olLayer.set('visible', layer.isVisible);
   }
 
   private static generateVectorLayer(layer: Layer) {

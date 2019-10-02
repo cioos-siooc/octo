@@ -57,4 +57,16 @@ export class LayerComponent implements OnInit {
     modalref.componentInstance.layer = this.layer;
   }
 
+  displayLayer(e) {
+    // console.log(e);
+    console.log(this.layer);
+    const isVisible = e.target.checked;
+    const newLayer: Layer = {
+      ...this.layer,
+      isVisible: isVisible
+      };
+    this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
+    console.log(newLayer);
+  }
+
 }
