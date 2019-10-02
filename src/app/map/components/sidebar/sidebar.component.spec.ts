@@ -24,6 +24,8 @@ import { StoreModule } from '@ngrx/store';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CategoryComponent } from './../catalog/category/category.component';
 import { SidebarComponent } from './sidebar.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { FormsModule } from '@angular/forms';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -58,6 +60,8 @@ describe('SidebarComponent', () => {
             deps: [HttpClient]
           }
         }),
+        NgDragDropModule.forRoot(),
+        FormsModule,
       ]
     })
     .compileComponents();

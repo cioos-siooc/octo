@@ -21,6 +21,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { LayerManagerComponent } from './layer-manager.component';
 import { TimeBehaviorComponent } from '../time-behavior/time-behavior.component';
+import { NgDragDropModule } from 'ng-drag-drop';
+import { NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 describe('LayerManagerComponent', () => {
@@ -54,6 +56,8 @@ describe('LayerManagerComponent', () => {
             deps: [HttpClient]
           }
         }),
+        NgDragDropModule.forRoot(),
+        NgbModule.forRoot(),
       ],
       providers: []
     })
