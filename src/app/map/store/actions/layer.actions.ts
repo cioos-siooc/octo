@@ -20,6 +20,7 @@ export enum LayerActionTypes {
   MOVE_DOWN_LAYER = '[Layer] Move down',
   SET_LAYER_DESCRIPTION = '[Layer] Set layer description',
   SET_CLIENT_PRESENTATION = '[Layer] Set client presentation',
+  SET_LAYER_POSITION = '[Layer] Set new position',
   FETCH_CLICK_STRATEGY = '[Layer] Fetch click strategy',
   FETCH_CLICK_FORMATTER = '[Layer] Fetch click formatter',
 }
@@ -82,6 +83,12 @@ export class SetClientPresentation implements Action {
   }
 }
 
+export class SetLayerPosition implements Action {
+  readonly type = LayerActionTypes.SET_LAYER_POSITION;
+
+  constructor (public payload: {layerId: string, newLayerPosition: number}) {}
+}
+
 export class FetchClickStrategy implements Action {
   readonly type = LayerActionTypes.FETCH_CLICK_STRATEGY;
 
@@ -118,6 +125,7 @@ export type LayerActionsUnion =
   FetchClickFormatter |
   SetLayerDescription |
   SetClientPresentation |
+  SetLayerPosition |
   MoveUpLayer |
   MoveDownLayer |
   UpdateLayer;

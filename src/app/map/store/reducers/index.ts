@@ -30,6 +30,10 @@ export interface MapState {
   category: fromCategory.CategoryState;
 }
 
+export interface StoreState {
+  map: MapState;
+}
+
 export const mapReducers: ActionReducerMap<MapState> = {
   layer: fromLayer.layerReducer,
   baseLayer: fromBaseLayer.baseLayerReducer,

@@ -9,8 +9,6 @@ import {Store} from '@ngrx/store';
 import {MapState, selectLayerState} from '@app/map/store';
 import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
 import {take} from 'rxjs/operators';
-import {cloneDeep} from 'lodash';
-import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
 export class EnumHandler implements BehaviorHandler {
@@ -31,12 +29,11 @@ export class EnumHandler implements BehaviorHandler {
 
   updateParameter(behavior) {
     this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
-      const layerStateCopy = cloneDeep(layerState);
+      const layerStateCopy = {...layerState};
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
       layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName,
         behavior.currentValue);
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-      this.store.dispatch(new fromLayerActions.UpdateLayer(layer));
     });
   }
 }

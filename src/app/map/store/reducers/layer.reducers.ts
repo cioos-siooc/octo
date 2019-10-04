@@ -71,6 +71,17 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
         newState.layers[layerInd].currentClientPresentation = (cloneDeep(action.payload)).clientPresentation;
       }
       return newState;
+    case LayerActionTypes.SET_LAYER_POSITION:
+      const originalIndex = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
+      const layerToMove = state.layers[originalIndex];
+
+      const newLayers = [...state.layers];
+      newLayers.splice(action.payload.newLayerPosition, 0, layerToMove);
+      newLayers.splice(originalIndex, 1);
+      return {
+        ...state,
+        layers: newLayers
+      };
     default:
       return state;
   }

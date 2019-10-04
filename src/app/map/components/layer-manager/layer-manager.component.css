@@ -3,3 +3,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+.drop-area{
+    background-color: rgba(0,0,0,.3);
+    background-image: url('../../../../assets/images/OctoDrag.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 50px;
+    transition: background-color 0.5s ease-in;
+ }
