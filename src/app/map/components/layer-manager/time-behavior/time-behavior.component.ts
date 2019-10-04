@@ -55,6 +55,14 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
     bH.updateDateTime(this.behavior);
   }
 
+  onSyncClick(e: any) {
+    console.log(e);
+    // this.behavior.mode = 'sync';
+    // const bh = <TimeHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
+    // bh.toggleSync(this.behavior);
+    // bh.updateDateTime(this.behavior);
+  }
+
   ngOnInit() {
   }
 

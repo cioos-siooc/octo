@@ -25,4 +25,10 @@
           readonlyInput="true"
           (onClose)="onCloseDatetimePicker()"></p-calendar>
   </div>
+  <div>
+    <span class="btn background-gray smaller-font font-weight-bold"
+    *ngIf="behavior.mode"
+    (click)="onSyncClick($event)">
+    {{ 'sync-button-label' | translate}}</span>
+  </div>
 </div>

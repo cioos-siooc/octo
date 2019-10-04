@@ -16,6 +16,11 @@ import {selectBehaviorState} from '@app/map/store';
 import {selectLayerState} from '@app/map/store';
 import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
+enum Mode {
+  sync = 'sync',
+  custom = 'custom',
+  now = 'now'
+}
 export class TimeHandler implements BehaviorHandler {
   type = 'time';
 
@@ -27,8 +32,12 @@ export class TimeHandler implements BehaviorHandler {
       const layerStateCopy = cloneDeep(layerState);
       const options = behavior.options;
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+      // behavior.mode = 'custom';
+      behavior.mode = Mode.custom;
       if (options.isNowSupported) {
-        behavior.isNowEnabled = true;
+        // behavior.mode = 'now';
+        behavior.mode = Mode.now;
+        // behavior.isNowEnabled = true;
         behavior.interval = this.setNowInterval(behavior);
         this.updateDateToNow(behavior, layer);
         this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
@@ -59,13 +68,17 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   toggleNow(behavior) {
-    if (behavior.isNowEnabled && behavior.interval != null) {
+    // if (behavior.isNowEnabled && behavior.interval != null) {
+    if (behavior.mode === Mode.now) {
+      behavior.mode = Mode.custom;
+    } else {
+      behavior.mode = Mode.now;
+    }
+    if (behavior.interval != null) {
       clearInterval(behavior.interval);
       behavior.interval = null;
-      behavior.isNowEnabled = !behavior.isNowEnabled;
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
     } else {
-      behavior.isNowEnabled = !behavior.isNowEnabled;
       this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
         const layerStateCopy = cloneDeep(layerState);
         const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
@@ -75,6 +88,29 @@ export class TimeHandler implements BehaviorHandler {
         this.updateDateToNow(behavior, layer);
       });
     }
+
+    // if (behavior.mode === Mode.now && behavior.interval != null) {
+    //   clearInterval(behavior.interval);
+    //   behavior.interval = null;
+    //   // behavior.isNowEnabled = !behavior.isNowEnabled;
+    //   behavior.mode = Mode.custom;
+    //   this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
+    // } else {
+    //   // behavior.isNowEnabled = !behavior.isNowEnabled;
+    //   behavior.mode = Mode.now;
+      // this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
+      //   const layerStateCopy = cloneDeep(layerState);
+      //   const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+      //   behavior.interval = this.setNowInterval(behavior);
+      //   behavior.currentDate = null;
+      //   this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
+      //   this.updateDateToNow(behavior, layer);
+      // });
+    // }
+  }
+
+  toggleSync(behavior) {
+
   }
 
   clean(behavior: any) {
@@ -87,7 +123,8 @@ export class TimeHandler implements BehaviorHandler {
       clearInterval(behavior.interval);
       behavior.interval = null;
     }
-    behavior.isNowEnabled = false;
+    // behavior.isNowEnabled = false;
+    behavior.mode = Mode.custom;
     this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
   }
 
