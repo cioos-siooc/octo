@@ -13,7 +13,7 @@ import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {mapReducers} from './store';
 import { BehaviorEffects, CategoryEffects,
-         TopicEffects, LayerEffects, LayerInformationEffects } from '@app/map/store/effects';
+         TopicEffects, LayerEffects, LayerInformationEffects, TimeEffects } from '@app/map/store/effects';
 import * as fromComponents from './components';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
@@ -29,7 +29,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
     CalendarModule,
     NgDragDropModule.forRoot(),
     StoreModule.forFeature('map', mapReducers),
-    EffectsModule.forFeature([BehaviorEffects, LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects]),
+    EffectsModule.forFeature([BehaviorEffects, LayerEffects, CategoryEffects, TopicEffects, LayerInformationEffects, TimeEffects]),
     NgbModule.forRoot(),
     AngularResizedEventModule,
   ],
