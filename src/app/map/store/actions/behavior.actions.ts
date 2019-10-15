@@ -5,10 +5,12 @@
  */
 
 import {Action} from '@ngrx/store';
+import { Mode } from '@app/map/utils';
 
 export enum BehaviorActionTypes {
   ADD_BEHAVIOR = '[Behavior] Add',
   UPDATE_BEHAVIOR = '[Behavior] Update',
+  UPDATE_MODE = '[Behavior] Update mode for time',
   DELETE_BEHAVIOR = '[Behavior] Delete',
 }
 
@@ -26,6 +28,16 @@ export class UpdateBehavior implements Action {
   }
 }
 
+export class UpdateMode implements Action {
+  readonly type = BehaviorActionTypes.UPDATE_MODE;
+
+  constructor(public payload: {
+    uniqueId: String,
+    mode: Mode
+  }) {
+  }
+}
+
 export class DeleteBehavior implements Action {
   readonly type = BehaviorActionTypes.DELETE_BEHAVIOR;
 
@@ -36,4 +48,5 @@ export class DeleteBehavior implements Action {
 export type BehaviorActionsUnion =
   AddBehavior |
   UpdateBehavior |
+  UpdateMode |
   DeleteBehavior;

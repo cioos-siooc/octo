@@ -26,5 +26,6 @@
   "opacity-label": "Opacity",
   "close-btn-label": "Close",
   "date-label": "Date",
-  "Remove-layer-label": "Remove layer"
+  "Remove-layer-label": "Remove layer",
+  "sync-button-label": "Synchronize time"
 }

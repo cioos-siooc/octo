@@ -1,3 +1,4 @@
+import { uniqueId } from 'lodash';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,14 +9,12 @@ import {BehaviorHandler} from './behavior-handler.util';
 import {Store} from '@ngrx/store';
 import * as moment from 'moment';
 import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
-import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 import {take} from 'rxjs/operators';
 import {MapState} from '@app/map/store';
 import {selectBehaviorState} from '@app/map/store';
 import {selectLayerState} from '@app/map/store';
-import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
-enum Mode {
+export enum Mode {
   sync = 'sync',
   custom = 'custom',
   now = 'now'
@@ -31,14 +30,11 @@ export class TimeHandler implements BehaviorHandler {
       const layerStateCopy = {...layerState};
       const options = behavior.options;
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
-      // behavior.mode = 'custom';
       behavior.mode = Mode.custom;
       if (options.isNowSupported) {
-        // behavior.mode = 'now';
         behavior.mode = Mode.now;
-        // behavior.isNowEnabled = true;
         behavior.interval = this.setNowInterval(behavior);
-        this.updateDateToNow(behavior, layer);
+        this.updateDateToNow(behavior);
         this.updateBehaviorDateTime(behavior);
       }
     });
@@ -53,14 +49,14 @@ export class TimeHandler implements BehaviorHandler {
           // Use the latest values of layer and behavior
           const beh = behaviorStateCopy.behaviors.find(b => b.uniqueId === behavior.uniqueId);
           const lay = layerStateCopy.layers.find(l => l.uniqueId === beh.layerUniqueId);
-          this.updateDateToNow(beh, lay);
+          this.updateDateToNow(beh);
         });
       });
     }, behavior.options.nowDelay * 60 * 1000);
     return interval;
   }
 
-  updateDateToNow(behavior, layer) {
+  updateDateToNow(behavior) {
     const newDate = moment(new Date());
     const updatedBehavior = {
       ...behavior,
@@ -70,7 +66,6 @@ export class TimeHandler implements BehaviorHandler {
   }
 
   toggleNow(behavior) {
-    // if (behavior.isNowEnabled && behavior.interval != null) {
     if (behavior.mode === Mode.now) {
       behavior.mode = Mode.custom;
     } else {
@@ -88,32 +83,16 @@ export class TimeHandler implements BehaviorHandler {
         behavior.interval = this.setNowInterval(behavior);
         behavior.currentDate = null;
         this.updateBehaviorDateTime(behavior);
-        this.updateDateToNow(behavior, layer);
+        this.updateDateToNow(behavior);
       });
     }
-
-    // if (behavior.mode === Mode.now && behavior.interval != null) {
-    //   clearInterval(behavior.interval);
-    //   behavior.interval = null;
-    //   // behavior.isNowEnabled = !behavior.isNowEnabled;
-    //   behavior.mode = Mode.custom;
-    //   this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-    // } else {
-    //   // behavior.isNowEnabled = !behavior.isNowEnabled;
-    //   behavior.mode = Mode.now;
-      // this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
-      //   const layerStateCopy = cloneDeep(layerState);
-      //   const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
-      //   behavior.interval = this.setNowInterval(behavior);
-      //   behavior.currentDate = null;
-      //   this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
-      //   this.updateDateToNow(behavior, layer);
-      // });
-    // }
   }
 
-  toggleSync(behavior) {
-
+  toggleSync(behavior, sync: boolean) {
+    this.store.dispatch(new fromBehaviorActions.UpdateMode({
+      uniqueId: behavior.uniqueId,
+      mode: sync ? Mode.sync : Mode.now
+    }));
   }
 
   clean(behavior: any) {
