@@ -1,9 +1,14 @@
-import { take, filter } from 'rxjs/operators';
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 import { Store } from '@ngrx/store';
 import { DateRange } from '@app/shared/models/date-range.model';
 import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { select, scaleTime, axisBottom } from 'd3';
 import { MapState } from '@app/map/store';
+import * as fromTimeActions from '@app/map/store/actions/time.actions';
 
 @Component({
   selector: 'app-time-slider',
@@ -68,7 +73,6 @@ export class TimeSliderComponent implements OnInit {
     this.axis = axisBottom(this.scale)
       .tickSizeInner(14)
       .tickSizeOuter(18);
-      // .tickFormat(timeFormat('%Y-%m-%d'));
 
     this.svg.append('g')
       .call(this.axis);
@@ -125,18 +129,12 @@ export class TimeSliderComponent implements OnInit {
     const nibRatio = positionNib / (parentRect.width - this.leftPad - this.rightPad);
     // Convert everything back to a date format after calculating the date with the ratio in Unix Timestamp
     const chosenDate = new Date((((endUnixTimestamp - startUnixTimestamp) * nibRatio) + startUnixTimestamp) * 1000);
-    this.updateDate(chosenDate);
+    const chosenDateFormatted = {year: chosenDate.getFullYear(), month: chosenDate.getMonth() + 1, day: chosenDate.getDate(),
+                                hour: chosenDate.getHours(), minute: chosenDate.getMinutes(), second: chosenDate.getSeconds()};
+    this.updateDate(chosenDateFormatted);
   }
 
   updateDate(chosenDate) {
-    // Subscribe to last value
-    this.store.pipe(take(1)).subscribe((l: any) => {
-      const newLayer = l.map.behavior.behaviors.filter(function(behavior) {
-        return behavior.handler === 'time' && behavior.mode === 'sync';
-      });
-      newLayer.currentDate = chosenDate;
-      // this.store.dispatch();
-      // Dispatch les nouvelles infos
-    });
+    this.store.dispatch(new fromTimeActions.UpdateTime(chosenDate));
   }
 }
