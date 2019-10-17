@@ -9,6 +9,7 @@ import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef, HostListen
 import { select, scaleTime, axisBottom } from 'd3';
 import { MapState } from '@app/map/store';
 import * as fromTimeActions from '@app/map/store/actions/time.actions';
+import { debounce } from 'lodash';
 
 @Component({
   selector: 'app-time-slider',
@@ -32,10 +33,14 @@ export class TimeSliderComponent implements OnInit {
   rightPad: number;
   nibSize: number;
 
+  debouncedOnMouseMove: any;
 
   constructor(private store: Store<MapState>) { }
 
   ngOnInit() {
+    /* debounce is used to put un timeout between two refreshes when the nib is getting moved by the user */
+    /* Store the debounced function in a variable */
+    this.debouncedOnMouseMove = debounce(this.mouseMoveHandler, 15);
     this.start = 0;
     this.containerSelector = '#slider';
     this.dateRange = {
@@ -100,6 +105,11 @@ export class TimeSliderComponent implements OnInit {
 
   @HostListener( 'document:mousemove', ['$event'] )
   onmousemove(e) {
+    /* Calls the debounced function */
+    this.debouncedOnMouseMove(e);
+  }
+
+  mouseMoveHandler(e) {
     if ( this.dragActive ) {
       let end = 0;
       if ( e.pageX ) {
