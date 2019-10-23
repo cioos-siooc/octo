@@ -1,3 +1,6 @@
+import { selectBehaviorMode } from './../../store/selectors/behavior.selectors';
+import { BehaviorState } from './../../store/reducers/behavior.reducers';
+import { UpdateMode } from './../../store/actions/behavior.actions';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,7 +26,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {UrlBehaviorService} from '@app/map/services';
 import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
+import {MapState, selectLayerState, selectMapClickState, selectBehaviorState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { displayMode } from './map.types';
@@ -61,7 +64,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.displayMode = displayMode.timeslider;
+    this.displayMode = displayMode.full;
     this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
     if (this.applicationUsesDefaultTopic()) {
@@ -98,6 +101,13 @@ export class MapComponent implements OnInit {
           queryParams: {'layers': null},
           queryParamsHandling: 'merge',
         });
+      }
+    });
+    this.store.select(selectBehaviorMode).subscribe((isSync: boolean) => {
+      if (isSync) {
+        this.displayMode = displayMode.timeslider;
+      } else {
+        this.displayMode = displayMode.full;
       }
     });
   }
