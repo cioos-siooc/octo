@@ -40,6 +40,9 @@ export class LayerEffects {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
           layer.uniqueId = action.payload.uniqueId;
+          if (action.payload.layerGroupId) {
+            layer.layerGroupId = action.payload.layerGroupId;
+          }
           if (layer.urlBehaviors != null) {
             layer.urlBehaviors.forEach((behavior) => {
               behavior.uniqueId = uniqueId();
