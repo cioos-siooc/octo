@@ -9,7 +9,7 @@
 }
 
 .layer-card-body-container {
-  padding: 0.8em;
+  padding: 0.5em;
   overflow: hidden;
   cursor: grab;
 }
@@ -19,7 +19,7 @@
 }
 
 .layer-card .title {
-  font-size: 1.2em;
+  font-size: 1.05em;
   font-weight: bold;
   padding-left: 0.5em;
   display: flex;
@@ -58,6 +58,11 @@
   font-weight: bold;
   cursor: pointer;
   user-select: none;
+}
+
+.layer-card-label {
+  font-weight: bold;
+  margin-bottom: 0;
 }
 
 .info-closed {

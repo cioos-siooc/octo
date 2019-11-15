@@ -42,7 +42,8 @@
 /******** Modal content *********/
 
 .modal-content {
-    padding-left: 0.5em;
+    padding: 0.5em 0em 0.5em 0.2em;
+    border: none;
 }
 
 /********************************/
@@ -75,14 +76,15 @@
 
 .slidecontainer {
     width: 100%; /* Width of the outside container */
-  }
+    padding: 0em 0.5em;
+}
   
 /* The slider itself */
 .slider {
     -webkit-appearance: none;  /* Override default CSS styles */
     appearance: none;
     width: 100%; /* Full-width */
-    height: 15px; /* Specified height */
+    height: 9px; /* Specified height */
     border-radius: 5px;
     background: #d3d3d3; /* Grey background */
     outline: none; /* Remove outline */

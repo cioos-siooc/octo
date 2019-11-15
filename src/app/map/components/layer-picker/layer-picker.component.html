@@ -4,21 +4,25 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 <ng-template #layerPicker let-modal>
-    <div class="modal-header background-dark-blue">
+    <!-- <div class="modal-header background-dark-blue">
         <h4 class="modal-title">
             {{ 'add-layer-modal-search-heading' | translate }}
         </h4>
-    </div>
-    <div class="modal-body searchbox">
+    </div> -->
+    <!-- <div class="modal-body searchbox">
         <input type="text" placeholder="{{ 'add-layer-modal-search-example' | translate }}">
-    </div>
+    </div> -->
 
     <span *ngIf="selectedTopic === null">
         <div class="modal-header background-dark-blue">
             <h4 class="modal-title">
                 {{ 'add-layer-modal-theme-heading' | translate }}
             </h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+
         <div class="modal-body" id="topic-picker">
             <app-topic-picker></app-topic-picker>
         </div>
@@ -41,11 +45,17 @@
                 </svg>
                 <div class="selectedTopic">{{ selectedTopic.label }}</div>
             </div>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <div class="modal-body">
             <app-catalog></app-catalog>
         </div>
     </span>
+    <div class="modal-footer">
+        <button class="btn btn-primary btn-close" (click)="modal.close()">{{ 'close-btn-label' | translate }}</button>    
+    </div>
 </ng-template>
 
 <button class="background-dark-blue" (click)="open(layerPicker)">
