@@ -35,7 +35,7 @@
                 [innerHTML]="layer.description.description">
             </div>
             <div class="toggle-description"
-                    (click)="toggleExpandDescription($event)">
+                    (click)="toggleExpandDescription()">
                 <a *ngIf="!descriptionExpanded">
                     {{ 'expand-description-button' | translate}}
                 </a>

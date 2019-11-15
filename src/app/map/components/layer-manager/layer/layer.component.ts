@@ -29,14 +29,12 @@ export class LayerComponent implements OnInit {
     this.descriptionExpanded = false;
   }
 
-  toggleExpandDescription(event) {
-      const toggleClassName = 'collapsed-description';
-
-      if (this.descriptionExpanded) {
-        this.descriptionExpanded = false;
-      } else {
-        this.descriptionExpanded = true;
-      }
+  toggleExpandDescription() {
+    if (this.descriptionExpanded) {
+      this.descriptionExpanded = false;
+    } else {
+      this.descriptionExpanded = true;
+    }
   }
 
   removeLayer(layerId: number) {
@@ -58,15 +56,12 @@ export class LayerComponent implements OnInit {
   }
 
   displayLayer(e) {
-    // console.log(e);
-    console.log(this.layer);
     const isVisible = e.target.checked;
     const newLayer: Layer = {
       ...this.layer,
       isVisible: isVisible
       };
     this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
-    console.log(newLayer);
   }
 
 }
