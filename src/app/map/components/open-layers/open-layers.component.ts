@@ -119,6 +119,7 @@ export class OpenLayersComponent implements AfterViewInit {
       .subscribe((layerState: fromLayer.LayerState) => {
         const layerList = layerState.layers.filter(layer => layer.type !== 'layerGroup');
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
+        // Remove and then recreate existing layers(to handle updates)
         currentOLLayers.forEach((layer: OLLayer) => {
           const updatedOgslLayer = layerList.find((l) => {
             return l.uniqueId === layer.get('uniqueId');
@@ -141,7 +142,7 @@ export class OpenLayersComponent implements AfterViewInit {
             this.map.removeLayer(layer);
           }
         });
-        // Add remaining layers
+        // Add remaining layers(these ones should be new layers)
         layerList.forEach((newLayer: Layer) => {
           if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
             this.map.addLayer(OLLayerFactory.generateLayer(newLayer));

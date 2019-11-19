@@ -71,20 +71,19 @@ export class MapComponent implements OnInit {
         for (const layer of layers) {
           this.store.dispatch(new layerActions.FetchLayer({layerId: layer, uniqueId: layer.toString()}));
         }
-        this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
-          const layerIds = state.layers.map(layer => layer.id);
-          if (layerIds.length > 0) {
-            this.router.navigate([], {
-              queryParams: {'layers': layerIds.toString()},
-              queryParamsHandling: 'merge',
-            });
-          }
-        });
       }
     });
     // Listen for newly added layers and add them to the URL
     this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
-      const layerIds = state.layers.map(layer => layer.id);
+      const layerIds = state.layers.filter(
+        // Filter layer list to make sure layerGroup members aren't added to the URL
+        layer => typeof(layer.layerGroupId) === 'undefined'
+      ).map(
+        // Extract a list of layerIds to add to URL
+        // Makes shareable links
+        layer => layer.id
+      );
+
       if (layerIds.length > 0) {
         this.router.navigate([], {
           queryParams: {'layers': layerIds.toString()},
