@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { MapState } from '@app/map/store';
 import { selectLayerState } from '@app/map/store/selectors/layer.selectors';
 import { Layer } from '@app/shared/models';
+import { sortlayerPriorityAescending } from '@app/shared/utils';
 
 @Component({
     selector: 'app-layer-manager',
@@ -24,14 +25,21 @@ export class LayerManagerComponent implements OnInit {
 
     ngOnInit() {
         this.store.select(selectLayerState).subscribe(
-            layerState => this.layers = layerState.layers.slice().reverse()
+            layerState => this.layers = layerState.layers.filter(
+                layer => layer.layerGroupId == null
+            ).sort(sortlayerPriorityAescending)
         );
     }
 
-    dropItem(newIndex, e, layersCount: number) {
-        const inversedNewIndex = layersCount - newIndex;
+    dropItem(newIndex, e) {
+        console.log(newIndex);
         this.store.dispatch(new SetLayerPosition({
             layerId: JSON.stringify(e.dragData['id']),
-            newLayerPosition: inversedNewIndex}));
+            newLayerPosition: newIndex}));
+        // sort
+    }
+
+    sortByPriority() {
+        this.layers.sort(sortlayerPriorityAescending);
     }
 }

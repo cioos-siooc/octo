@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { SetLayerDescription, AddLayer } from './../actions/layer.actions';
+import { AddLayer, SetLayerPosition } from './../actions/layer.actions';
 
 import {Actions, Effect} from '@ngrx/effects';
 
@@ -40,6 +40,16 @@ export class LayerEffects {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
           layer.uniqueId = action.payload.uniqueId;
+
+          // Do some layer priority stuff
+          if (typeof(action.payload.priority) === 'undefined') {
+            layer.defaultPriority = 1;
+          } else {
+            layer.defaultPriority = action.payload.priority;
+          }
+          layer.priority = -1;
+
+          // Do some layer group stuff
           if (action.payload.layerGroupId) {
             layer.layerGroupId = action.payload.layerGroupId;
           }
@@ -146,6 +156,15 @@ export class LayerEffects {
           }),
           map((layer: Layer) => new AddLayer(layer))
         );
+      }));
+
+  @Effect()
+  layerPosition = this.actions$
+      .ofType<AddLayer>(LayerActionTypes.ADD_LAYER)
+      .pipe(map((action: AddLayer) => {
+        if (action.payload.priority === -1) {
+          return new SetLayerPosition({layerId: action.payload.uniqueId, newLayerPosition: 0});
+        }
       }));
 
   constructor(private actions$: Actions,

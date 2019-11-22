@@ -73,11 +73,44 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       return newState;
     case LayerActionTypes.SET_LAYER_POSITION:
       const originalIndex = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
-      const layerToMove = state.layers[originalIndex];
+      const layerPriority = state.layers[originalIndex].priority;
 
-      const newLayers = [...state.layers];
-      newLayers.splice(action.payload.newLayerPosition, 0, layerToMove);
-      newLayers.splice(originalIndex, 1);
+      const newLayers = state.layers.map((l) => {
+        // If the layer currently being inspected is the layer to be moved, set the ID and return
+        if (l.uniqueId === action.payload.layerId) {
+          return {
+            ...l,
+            priority: action.payload.newLayerPosition
+          };
+        }
+
+        // If the layer being moved is coming from outside of the valid priority range(this is the case for new layers)
+        // Increment all of the other layer priorities by 1
+        if (layerPriority < 0) {
+          return {
+            ...l,
+            priority: l.priority + 1
+          };
+        }
+
+        // Otherwise we may have to move the layer
+        if (action.payload.newLayerPosition < layerPriority) {
+          if ((l.priority < layerPriority) && (l.priority >= action.payload.newLayerPosition)) {
+            return {
+              ...l,
+              priority: l.priority + 1
+            };
+          }
+        } else if (action.payload.newLayerPosition > layerPriority) {
+          if ((l.priority > layerPriority) && (l.priority <= action.payload.newLayerPosition)) {
+            return {
+              ...l,
+              priority: l.priority - 1
+            };
+          }
+        }
+        return l;
+      });
       return {
         ...state,
         layers: newLayers

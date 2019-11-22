@@ -28,8 +28,12 @@ export enum LayerActionTypes {
 export class FetchLayer implements Action {
   readonly type = LayerActionTypes.FETCH_LAYER;
 
-  constructor(public payload: { layerId: number, uniqueId: string, layerGroupId?: number }) {
-  }
+  constructor(public payload: {
+    layerId: number,
+    uniqueId: string,
+    priority?: number,
+    layerGroupId?: number,
+  }) { }
 }
 
 export class FetchLayerDescription implements Action {

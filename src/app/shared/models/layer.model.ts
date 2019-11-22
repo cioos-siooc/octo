@@ -30,5 +30,6 @@ export abstract class Layer {
   public urlBehaviors: any;
   public isCollapsed: boolean;
   public priority: number;
+  public defaultPriority?: number;
   public layerGroupId?: number;
 }

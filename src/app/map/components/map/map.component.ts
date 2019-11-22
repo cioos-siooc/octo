@@ -1,3 +1,4 @@
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,6 +24,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {UrlBehaviorService} from '@app/map/services';
 import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import { sortlayerPriorityAescending } from '@app/shared/utils';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -75,7 +77,7 @@ export class MapComponent implements OnInit {
     });
     // Listen for newly added layers and add them to the URL
     this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
-      const layerIds = state.layers.filter(
+      const layerIds = state.layers.sort(sortlayerPriorityAescending).filter(
         // Filter layer list to make sure layerGroup members aren't added to the URL
         layer => typeof(layer.layerGroupId) === 'undefined'
       ).map(
