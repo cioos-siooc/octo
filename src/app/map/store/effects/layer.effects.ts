@@ -1,15 +1,16 @@
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { AddLayer, SetLayerPosition } from './../actions/layer.actions';
+import { AddLayer, SetLayerPosition, InitLayerPosition } from './../actions/layer.actions';
 
 import {Actions, Effect} from '@ngrx/effects';
 
 
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Layer} from '@app/shared/models';
@@ -21,6 +22,8 @@ import {ClickFormatterInfo} from '@app/shared/models';
 import {uniqueId} from 'lodash';
 import {of} from 'rxjs/internal/observable/of';
 import {cloneDeep} from 'lodash';
+import { StoreState } from './../reducers/index';
+import { Store } from '@ngrx/store';
 import {
   FetchClickFormatter,
   FetchClickStrategy,
@@ -163,11 +166,27 @@ export class LayerEffects {
       .ofType<AddLayer>(LayerActionTypes.ADD_LAYER)
       .pipe(map((action: AddLayer) => {
         if (action.payload.priority === -1) {
-          return new SetLayerPosition({layerId: action.payload.uniqueId, newLayerPosition: 0});
+          return new InitLayerPosition({layerId: action.payload.uniqueId});
         }
       }));
 
+  @Effect()
+  initLayerPosition = this.actions$
+      .ofType<InitLayerPosition>(LayerActionTypes.INIT_LAYER_POSITION)
+      .pipe(
+        withLatestFrom(this.store$),
+        map(([action, store]) => {
+          const layer = store.map.layer.layers.filter((l: Layer) => l.uniqueId === action.payload.layerId)[0];
+          if (typeof(layer.defaultPriority) !== 'undefined') {
+            return new SetLayerPosition({
+              layerId: action.payload.layerId,
+              newLayerPosition: layer.defaultPriority
+            });
+          }
+      }));
+
   constructor(private actions$: Actions,
-              private httpClient: HttpClient) {
+              private httpClient: HttpClient,
+              private store$: Store<StoreState>) {
   }
 }

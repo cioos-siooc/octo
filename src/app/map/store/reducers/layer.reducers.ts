@@ -71,6 +71,31 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
         newState.layers[layerInd].currentClientPresentation = (cloneDeep(action.payload)).clientPresentation;
       }
       return newState;
+    case LayerActionTypes.INIT_LAYER_POSITION:
+      const originalIndx = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
+      const layerPriorty = state.layers[originalIndx].priority;
+      // If the layer being moved is coming from outside of the valid priority range(this is the case for new layers)
+      // Increment all of the other layer priorities by 1
+      const newLayrs = state.layers.map((l) => {
+        // If the layer currently being inspected is the layer to be moved, set the ID and return
+        if (l.uniqueId === action.payload.layerId) {
+          return {
+            ...l,
+            priority: 0
+          };
+        }
+
+        if (layerPriorty < 0) {
+          return {
+            ...l,
+            priority: l.priority + 1
+          };
+        }
+      });
+      return {
+        ...state,
+        layers: newLayrs
+      };
     case LayerActionTypes.SET_LAYER_POSITION:
       const originalIndex = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
       const layerPriority = state.layers[originalIndex].priority;
@@ -81,15 +106,6 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
           return {
             ...l,
             priority: action.payload.newLayerPosition
-          };
-        }
-
-        // If the layer being moved is coming from outside of the valid priority range(this is the case for new layers)
-        // Increment all of the other layer priorities by 1
-        if (layerPriority < 0) {
-          return {
-            ...l,
-            priority: l.priority + 1
           };
         }
 
