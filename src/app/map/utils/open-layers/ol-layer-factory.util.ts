@@ -22,7 +22,7 @@ export class OLLayerFactory {
     } else if (layer.type === 'geojson' || layer.type === 'wfs') {
       olLayer = this.generateVectorLayer(layer);
     }
-    olLayer.setZIndex(layer.zIndex);
+    olLayer.setZIndex(layer.priority);
     return olLayer;
   }
 
@@ -61,4 +61,3 @@ export class OLLayerFactory {
     }
   }
 }
-

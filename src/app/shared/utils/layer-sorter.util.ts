@@ -4,6 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
- export function sortlayerPriorityAescending(a, b) {
-    return a.priority - b.priority;
+ export function sortlayerPriorityDescending(a, b) {
+    return b.priority - a.priority;
 }

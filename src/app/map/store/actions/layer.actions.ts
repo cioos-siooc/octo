@@ -97,7 +97,7 @@ export class InitLayerPosition implements Action {
 export class SetLayerPosition implements Action {
   readonly type = LayerActionTypes.SET_LAYER_POSITION;
 
-  constructor (public payload: {layerId: string, newLayerPosition: number}) {}
+  constructor (public payload: {layerId: string, newLayerPosition?: number}) {}
 }
 
 export class FetchClickStrategy implements Action {

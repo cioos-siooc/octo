@@ -73,30 +73,27 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       return newState;
     case LayerActionTypes.INIT_LAYER_POSITION:
       const originalIndx = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
-      const layerPriorty = state.layers[originalIndx].priority;
-      // If the layer being moved is coming from outside of the valid priority range(this is the case for new layers)
-      // Increment all of the other layer priorities by 1
-      const newLayrs = state.layers.map((l) => {
-        // If the layer currently being inspected is the layer to be moved, set the ID and return
-        if (l.uniqueId === action.payload.layerId) {
-          return {
-            ...l,
-            priority: 0
-          };
-        }
-
-        if (layerPriorty < 0) {
-          return {
-            ...l,
-            priority: l.priority + 1
-          };
-        }
-      });
+      const newLayer = {...state.layers[originalIndx]};
+      if (state.layers.length < 2) {
+        newLayer.priority = 0;
+      } else {
+        const layerMaxPriority = state.layers.reduce(function(a, b) {
+          return (a.priority >= b.priority) ? a : b;
+        });
+        newLayer.priority = layerMaxPriority.priority + 1;
+      }
+      const newLayerList = [
+        ...state.layers
+      ];
+      newLayerList[originalIndx] = newLayer;
       return {
         ...state,
-        layers: newLayrs
+        layers: newLayerList
       };
     case LayerActionTypes.SET_LAYER_POSITION:
+      if ( typeof(action.payload.newLayerPosition) === 'undefined' ) {
+        return state;
+      }
       const originalIndex = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
       const layerPriority = state.layers[originalIndex].priority;
 
@@ -114,14 +111,14 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
           if ((l.priority < layerPriority) && (l.priority >= action.payload.newLayerPosition)) {
             return {
               ...l,
-              priority: l.priority + 1
+              priority: l.priority + 1 // maybe reversing symbols -> tbd
             };
           }
         } else if (action.payload.newLayerPosition > layerPriority) {
           if ((l.priority > layerPriority) && (l.priority <= action.payload.newLayerPosition)) {
             return {
               ...l,
-              priority: l.priority - 1
+              priority: l.priority - 1 // maybe reversing symbols -> tbd
             };
           }
         }

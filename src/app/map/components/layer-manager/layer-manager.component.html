@@ -4,9 +4,17 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 <span *ngFor="let layer of layers; let i=index">
-    <div droppable (onDrop)="dropItem(i, $event)" dragHintClass="drop-area"></div>
-    <div draggable [dragData]='layer'>
+  <ng-container *ngIf="currentDraggedLayer !== undefined">
+      <div 
+        *ngIf="(layer.priority !== currentDraggedLayer.priority)"
+        droppable
+        (onDrop)="dropItem(layer.priority, $event)"
+        [ngClass]="{'drop-area': isBeingDragged,
+                    '': !isBeingDragged}"
+      ></div>
+    </ng-container>
+    <div draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
         <app-layer [layer]="layer"></app-layer>
     </div>
-    <div *ngIf="(layers.length - 1) === i" droppable (onDrop)="dropItem(i, $event)" dragHintClass="drop-area"></div>
-</span>
+    <!-- <div *ngIf="(layers.length - 1) === i" droppable (onDrop)="dropItem(layer.priority - 1, $event)" dragHintClass="drop-area"></div> -->
+</span> 

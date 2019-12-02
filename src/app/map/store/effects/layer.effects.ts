@@ -43,13 +43,7 @@ export class LayerEffects {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
           layer.uniqueId = action.payload.uniqueId;
-
-          // Do some layer priority stuff
-          if (typeof(action.payload.priority) === 'undefined') {
-            layer.defaultPriority = 1;
-          } else {
-            layer.defaultPriority = action.payload.priority;
-          }
+          layer.defaultPriority = action.payload.priority;
           layer.priority = -1;
 
           // Do some layer group stuff
@@ -177,12 +171,10 @@ export class LayerEffects {
         withLatestFrom(this.store$),
         map(([action, store]) => {
           const layer = store.map.layer.layers.filter((l: Layer) => l.uniqueId === action.payload.layerId)[0];
-          if (typeof(layer.defaultPriority) !== 'undefined') {
-            return new SetLayerPosition({
-              layerId: action.payload.layerId,
-              newLayerPosition: layer.defaultPriority
-            });
-          }
+          return new SetLayerPosition({
+            layerId: action.payload.layerId,
+            newLayerPosition: layer.defaultPriority
+          });
       }));
 
   constructor(private actions$: Actions,
