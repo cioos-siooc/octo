@@ -13,6 +13,7 @@ import TileLayer from 'ol/layer/tile';
 import VectorLayer from 'ol/layer/vector';
 import VectorSource from 'ol/source/vector';
 import {StylesFromLiterals} from '../styles-from-literals.util';
+import { stylers } from './stylers';
 
 export class OLLayerFactory {
   public static generateLayer(layer: Layer): OLLayer {
@@ -45,19 +46,13 @@ export class OLLayerFactory {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new VectorLayer({source: <VectorSource>source});
     this.setOLLayerProperties(olLayer, layer);
-    this.setOLVectorLayerStyle(layer, olLayer);
-    return olLayer;
-  }
 
-  private static setOLVectorLayerStyle(layer: Layer, olLayer) {
-    if (layer.currentClientPresentation != null) {
-      const styleDef = layer.currentClientPresentation.styleDef;
-      if (styleDef != null) {
-        const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
-        (<VectorLayer>olLayer).setStyle(function (feature, resolution) {
-          return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
-        });
-      }
+    let styler = new stylers['slgo-mapbox']();
+    if (typeof(layer.currentClientPresentation.styler) !== 'undefined') {
+      styler = new stylers[layer.currentClientPresentation.styler]();
     }
+    styler.setOLVectorLayerStyle(layer, olLayer);
+
+    return olLayer;
   }
 }

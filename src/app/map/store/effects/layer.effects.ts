@@ -124,6 +124,15 @@ export class LayerEffects {
           (clientPresentations) => {
             // Add clientPresentations to the layer and set the default as the current one
             const newPayload = {...action.payload};
+
+            // default to slgo-mapbox if the styler is undefined
+            clientPresentations = clientPresentations.map((cp) => {
+              if (typeof(cp.styler) === 'undefined' ) {
+                cp.styler = 'slgo-mapbox'
+              }
+              return cp;
+            });
+
             newPayload.currentClientPresentation = clientPresentations.find((cp: ClientPresentation) => {
               return cp.isDefault;
             });

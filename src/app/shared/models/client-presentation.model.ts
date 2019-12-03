@@ -6,6 +6,7 @@
 
 export class ClientPresentation {
   id: number;
+  styler?: string;
   styleDef: any;
   namedStyle: string;
   legendUrl?: string;
