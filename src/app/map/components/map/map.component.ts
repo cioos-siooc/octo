@@ -70,13 +70,12 @@ export class MapComponent implements OnInit {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       if ('layers' in params) {
         const layers = params.layers.split(',');
-        // for (const layer of layers) {
         for (let i = 0; i < layers.length; i++) {
           const layer = layers[i];
           this.store.dispatch(new layerActions.FetchLayer({
             layerId: layer,
             uniqueId: layer.toString(),
-            priority: i
+            priority: layers.length - i
           }));
         }
       }
