@@ -18,6 +18,7 @@ import * as fromComponents from './components';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { LayerPickerComponent } from './components/layer-picker/layer-picker.component';
 import { LayerComponent } from './components/layer-manager/layer/layer.component';
+import { LayerGroupComponent } from './components/layer-manager/layer-group/layer-group.component';
 import {LayerConfigurationComponent} from '@app/map/components/layer-configuration/layer-configuration.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 
@@ -36,6 +37,7 @@ import { NgDragDropModule } from 'ng-drag-drop';
     SidebarComponent,
     LayerPickerComponent,
     LayerComponent,
+    LayerGroupComponent,
     LayerConfigurationComponent,
   ]
 })
