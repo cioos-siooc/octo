@@ -16,5 +16,5 @@
     <div draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
         <app-layer [layer]="layer"></app-layer>
     </div>
-    <!-- <div *ngIf="(layers.length - 1) === i" droppable (onDrop)="dropItem(layer.priority - 1, $event)" dragHintClass="drop-area"></div> -->
+    <div *ngIf="(layers.length - 1) === i" droppable (onDrop)="dropItem(layer.priority - 1, $event)" dragHintClass="drop-area"></div>
 </span> 
