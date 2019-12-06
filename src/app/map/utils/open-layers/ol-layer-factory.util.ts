@@ -4,6 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+import { Injectable } from '@angular/core';
+
 import {Layer} from '@app/shared/models';
 import {OLSourceFactory} from './ol-source-factory.util';
 import OLLayer from 'ol/layer/layer';
@@ -14,9 +16,13 @@ import VectorLayer from 'ol/layer/vector';
 import VectorSource from 'ol/source/vector';
 import {StylesFromLiterals} from '../styles-from-literals.util';
 import { stylers } from './stylers';
+import { StylerService } from './styler.service';
 
+@Injectable()
 export class OLLayerFactory {
-  public static generateLayer(layer: Layer): OLLayer {
+  constructor(private stylerService: StylerService) {}
+
+  public generateLayer(layer: Layer): OLLayer {
     let olLayer: OLLayer;
     if (layer.type === 'bing' || layer.type === 'wms') {
       olLayer = this.generateTileLayer(layer);
@@ -27,14 +33,14 @@ export class OLLayerFactory {
     return olLayer;
   }
 
-  private static generateTileLayer(layer: Layer): OLLayer {
+  private generateTileLayer(layer: Layer): OLLayer {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new TileLayer({source: <TileSource>source});
     this.setOLLayerProperties(olLayer, layer);
     return olLayer;
   }
 
-  private static setOLLayerProperties(olLayer: OLLayer, layer: Layer) {
+  private setOLLayerProperties(olLayer: OLLayer, layer: Layer) {
     olLayer.set('id', layer.id);
     olLayer.set('code', layer.code);
     olLayer.set('uniqueId', layer.uniqueId);
@@ -42,14 +48,16 @@ export class OLLayerFactory {
     olLayer.set('visible', layer.isVisible);
   }
 
-  private static generateVectorLayer(layer: Layer) {
+  private generateVectorLayer(layer: Layer) {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new VectorLayer({source: <VectorSource>source});
     this.setOLLayerProperties(olLayer, layer);
 
-    let styler = new stylers['slgo-mapbox']();
+    let styler = undefined;
     if (typeof(layer.currentClientPresentation.styler) !== 'undefined') {
-      styler = new stylers[layer.currentClientPresentation.styler]();
+      styler = this.stylerService.getStyler(layer.currentClientPresentation.styler);
+    } else {
+      styler = this.stylerService.getStyler('slgo-mapbox');
     }
     styler.setOLVectorLayerStyle(layer, olLayer);
 

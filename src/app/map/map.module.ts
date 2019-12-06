@@ -20,6 +20,9 @@ import { LayerPickerComponent } from './components/layer-picker/layer-picker.com
 import { LayerComponent } from './components/layer-manager/layer/layer.component';
 import {LayerConfigurationComponent} from '@app/map/components/layer-configuration/layer-configuration.component';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { StylerService } from './utils/open-layers/styler.service';
+import { OLLayerFactory } from './utils';
+import { MapService } from '@app/map/utils/open-layers';
 
 @NgModule({
   imports: [
@@ -37,6 +40,11 @@ import { NgDragDropModule } from 'ng-drag-drop';
     LayerPickerComponent,
     LayerComponent,
     LayerConfigurationComponent,
+  ],
+  providers: [
+    StylerService,
+    OLLayerFactory,
+    MapService
   ]
 })
 

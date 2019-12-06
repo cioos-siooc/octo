@@ -7,3 +7,4 @@
 export * from './ol-layer-factory.util';
 export * from './ol-source-factory.util';
 export * from './stylers';
+export * from './map.service';

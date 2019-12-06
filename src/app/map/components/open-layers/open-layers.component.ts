@@ -32,6 +32,7 @@ import {MapState} from '@app/map/store';
 import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
 import { take } from 'rxjs/operators';
+import { MapService } from '../../utils/open-layers/map.service';
 
 @Component({
   selector: 'app-open-layers',
@@ -44,8 +45,8 @@ export class OpenLayersComponent implements AfterViewInit {
   private layers: Layer[];
 
   constructor(private httpClient: HttpClient, private store: Store<MapState>,
-              private router: Router,
-              private route: ActivatedRoute) {
+              private router: Router, private olLayerFactory: OLLayerFactory,
+              private route: ActivatedRoute, private mapService: MapService) {
   }
 
   ngAfterViewInit(): void {
@@ -81,6 +82,8 @@ export class OpenLayersComponent implements AfterViewInit {
       view: mapview,
     });
 
+    this.mapService.setMap(this.map);
+
     // Register event listeners to update the URL with map location
     this.map.on('moveend', () => {
       // Add the location to the url any time the user moves thes map
@@ -101,7 +104,7 @@ export class OpenLayersComponent implements AfterViewInit {
         if (this.baseOLLayer != null) {
           this.map.removeLayer(this.baseOLLayer);
         }
-        const newLayer = OLLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
+        const newLayer = this.olLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
         this.map.addLayer(newLayer);
         this.baseOLLayer = newLayer;
       }
@@ -130,7 +133,7 @@ export class OpenLayersComponent implements AfterViewInit {
             });
             if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
               // Only update the old layer if the new one is different
-              const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);
+              const newOlLayer = this.olLayerFactory.generateLayer(updatedOgslLayer);
               const index = this.map.getLayers().getArray().findIndex((l) => {
                 return l.get('uniqueId') === layer.get('uniqueId');
               });
@@ -145,7 +148,7 @@ export class OpenLayersComponent implements AfterViewInit {
         // Add remaining layers(these ones should be new layers)
         layerList.forEach((newLayer: Layer) => {
           if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
-            this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
+            this.map.addLayer(this.olLayerFactory.generateLayer(newLayer));
           }
         });
         this.layers = layerList;
@@ -214,7 +217,10 @@ export class OpenLayersComponent implements AfterViewInit {
       (feature: Feature, olLayer) => {
         const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
         if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
-          const length = resultObservables.push(of(feature.getProperties()));
+          const length = resultObservables.push(of({
+            ...feature.getProperties(),
+            featureId: feature.getId()
+          }));
           layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
           return feature;
         }
