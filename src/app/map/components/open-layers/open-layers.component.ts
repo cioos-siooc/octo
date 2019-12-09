@@ -185,12 +185,31 @@ export class OpenLayersComponent implements AfterViewInit {
       const resultObservables = [];
       const layerUniqueIdToObsIndex = new Map<string, number>();
 
+      // Request click information from the server
       this.retrieveFeatureInfos(evt, resultObservables, layerUniqueIdToObsIndex);
       this.retrieveWmsInfos(evt, resultObservables, layerUniqueIdToObsIndex);
+
+      // Format the click information for display in the sidebar
       this.setClickInformation(resultObservables, layerUniqueIdToObsIndex);
     });
   }
 
+  /**
+   * Sets up a getFeatureInfo URL using openlayers, then fetches click information from the server
+   * The click information is added to resultObservables to be added to the mapClick reducer in the proper format
+   *
+   * The format requested from the server is dictated by clickStrategy.format as configured for the layer in OctoPi
+   * This is a freetext field, anything supported by the server can be used
+   *
+   * @private
+   * @param {ol.MapBrowserEvent} evt The openlayers click event which gives the user's mouse position
+   *                                 used to identify which feature was clicked
+   * @param {any[]} resultObservables The observable which is used to communicate the click information received asyncronously
+   *                                  from httpclient
+   * @param {Map<string, number>} layerUniqueIdToObsIndex The mapping between click information for a specific feature
+   *                                                      and the identifier for the layer the information came from
+   * @memberof OpenLayersComponent
+   */
   private retrieveWmsInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
     const view: View = this.map.getView();
     this.layers.forEach((l) => {
@@ -204,8 +223,16 @@ export class OpenLayersComponent implements AfterViewInit {
             INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
             FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
           });
-          const length = resultObservables.push(this.httpClient.get(getFeatureUrl,
-            {responseType: 'text'}));
+
+          let length = null;
+          if ((<WmsStrategy>l.clickStrategy).format.includes('json')) {
+            length = resultObservables.push(this.httpClient.get(getFeatureUrl,
+              {responseType: 'json'}));
+          } else {
+            length = resultObservables.push(this.httpClient.get(getFeatureUrl,
+              {responseType: 'text'}));
+          }
+          console.log(resultObservables);
           layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
         }
       }
@@ -227,29 +254,54 @@ export class OpenLayersComponent implements AfterViewInit {
       });
   }
 
-  // TODO: Possibility to set layer here and return result payload for it to be formatted?
-  // TODO: Formatter method/class would check mapclicklayer.ClickLayer and format the result according to that layer formatter?
-  // TODO: subscribe + filter layer not null?
+  /**
+   *
+   *
+   * @private
+   * @param {any[]} resultObservables
+   * @param {Map<string, number>} layerUniqueIdToObsIndex
+   * @memberof OpenLayersComponent
+   */
   private setClickInformation(resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
+    // Subscribe to the resultObservables
+    // This contains http responses from httpclient which are asynchronous
+    // so an observable becomes necessary
     forkJoin(resultObservables).subscribe((result) => {
       for (let i = this.layers.length - 1; i >= 0; i--) {
         const currentLayer = this.layers[i];
         if (currentLayer.clickStrategy != null) {
           let mapClickInfo;
+          // Use the layerUniqueIdToObsIndex to fetch the observation/feature identifier
+          // Based on the mapping observation/feature identifier fetch the relevant http response from the resultObservables
           const currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
+
+          // Get the emptyValidator
+          // This is used to validate whether the clickInformation response from the server is valid or not
           const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
+          // Check if the result is valid
           if ((emptyValidator == null || !emptyValidator.isPayloadEmpty(currentResult)) && currentResult != null) {
+            // If a clickFormatterInfo entry is defined in octoPi, use it to format the result
+            // This is used for formatting JSON responses
             if (currentLayer.clickFormatterInfo != null) {
               const type = currentLayer.clickFormatterInfo.type;
               const formatterDef = currentLayer.clickFormatterInfo.formatterDef;
+              // Request the correct click formatter from the ClickFormatterFactory based on formatter type
+              // formatterDef is passaed to the click formatter, this defines how the JSON will be formatted
               const clickFormatter = ClickFormatterFactory.getClickFormatter(type, formatterDef);
-              mapClickInfo = clickFormatter.getMapClickInfo(currentResult);
 
+              // Use the clickFormatter to format the result, returns a MapClickInfo object to be inserted into
+              // the MapClickReducer
+              mapClickInfo = clickFormatter.getMapClickInfo(currentResult);
             } else {
+              // If there is no clickFormatterInfo defined it is assumed that the result is HTML
+              // Initialize an empty MapClickInfo
               mapClickInfo = new MapClickInfo();
+              // Insert the html received from the server into the MapClickInfo object
               mapClickInfo.html = currentResult;
             }
+
             mapClickInfo.layerId = currentLayer.id;
+            // Dispatch an action to add the newly created MapClickInfo to the MapClickReducer
             this.store.dispatch(new mapClickActions.SetMapClickInfo(mapClickInfo));
             break;
           }
