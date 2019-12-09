@@ -232,7 +232,6 @@ export class OpenLayersComponent implements AfterViewInit {
             length = resultObservables.push(this.httpClient.get(getFeatureUrl,
               {responseType: 'text'}));
           }
-          console.log(resultObservables);
           layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
         }
       }
