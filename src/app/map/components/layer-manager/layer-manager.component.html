@@ -13,8 +13,13 @@
                     '': !isBeingDragged}"
       ></div>
     </ng-container>
-    <div draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
-        <app-layer [layer]="layer"></app-layer>
+    <div *ngIf="layer.type === 'layerGroup'; else layerCard" draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
+        <app-layer-group ></app-layer-group>
     </div>
+    <ng-template #layerCard>
+      <div draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
+          <app-layer [layer]="layer"></app-layer>
+      </div>
+    </ng-template>
     <div *ngIf="(layers.length - 1) === i" droppable (onDrop)="dropItem(layer.priority - 1, $event)" dragHintClass="drop-area"></div>
 </span> 
