@@ -13,32 +13,20 @@ import * as fromLayerActions from '@app/map/store';
 })
 export class LayerGroupComponent implements OnInit {
   @Input() layer: Layer;
-  childrenLayers: Layer[];
   descriptionExpanded: Boolean;
 
   constructor(private store: Store<MapState>) { }
 
   ngOnInit() {
-    // this.childrenLayers = this.store.subscribe();
-
-  }
-
-  open() {
-    // TODO: Will it work? Technically needs to affect all children layers but need to handle this in LayerConfig
-
-    // const modalref = this.modal.open(LayerConfigurationComponent, { centered: true, size: 'sm'});
-    // modalref.componentInstance.layer = this.layer;
   }
 
   displayLayer(e) {
-    // TODO: Need to trigger the display false of each child
-
-    // const isVisible = e.target.checked;
-    // const newLayer: Layer = {
-    //   ...this.layer,
-    //   isVisible: isVisible
-    //   };
-    // this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
+    const isVisible = e.target.checked;
+    const newLayer: Layer = {
+      ...this.layer,
+      isVisible: isVisible
+      };
+    this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
   }
 
   collapseInfo() {

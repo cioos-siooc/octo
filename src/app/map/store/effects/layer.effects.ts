@@ -5,10 +5,7 @@
  */
 
 import { AddLayer, SetLayerPosition, InitLayerPosition } from './../actions/layer.actions';
-
 import {Actions, Effect} from '@ngrx/effects';
-
-
 import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
@@ -29,6 +26,7 @@ import {
   FetchClientPresentations,
   FetchLayer,
   FetchLayerDescription,
+  UpdateLayer,
   DeleteLayer,
   LayerActionTypes
 } from '../actions/layer.actions';
@@ -194,11 +192,41 @@ export class LayerEffects {
         mergeMap(([action, store]) => {
           // Make a list of children layers that we need to remove related to the deleted parent
           const layersListToRemove = store.map.layer.layers.filter((l: Layer) => {
-            return action.payload === l.layerGroupId.toString();
+            if (l.layerGroupId) {
+              return action.payload === l.layerGroupId.toString();
+            } else {
+              return false;
+            }
           });
           const actions = [];
           for (const layer of layersListToRemove) {
             actions.push(new DeleteLayer(layer.uniqueId));
+          }
+          return actions;
+        })
+      );
+
+  @Effect()
+  affectedChildren = this.actions$
+      .ofType<UpdateLayer>(LayerActionTypes.UPDATE_LAYER)
+      .pipe(
+        withLatestFrom(this.store$),
+        mergeMap(([action, store]) => {
+          // Make a list of children layers that we need to modify related to the modified parent
+          const layersListToModify = store.map.layer.layers.filter((l: Layer) => {
+            if (l.layerGroupId) {
+              return action.payload.uniqueId === l.layerGroupId.toString();
+            } else {
+              return false;
+            }
+          });
+          const actions = [];
+          for (const layer of layersListToModify) {
+            const updatedLayer: Layer = {
+              ...layer,
+              isVisible: action.payload.isVisible
+            };
+            actions.push(new UpdateLayer(updatedLayer));
           }
           return actions;
         })
