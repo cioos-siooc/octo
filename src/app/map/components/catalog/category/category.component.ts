@@ -79,7 +79,7 @@ export class CategoryComponent implements OnInit {
           this.store.dispatch(new layerActions.FetchLayer({
             layerId: c.layerId,
             uniqueId: c.layerId.toString(),
-            layerGroupId: category.id,
+            layerGroupId: category.layerId,
           }));
         });
       }
