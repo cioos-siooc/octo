@@ -13,7 +13,6 @@
               <div class="title background-lighter-gray">
                   <div>{{ layer.title }}</div>
                   <div class="icon-container">
-                      <div (click)="open()"><i class="layer-icon fas fa-cog"></i></div>
                       <div><i class="fas" [ngClass]="{'fa-chevron-up' : !layer.isCollapsed, 
                                                       'fa-chevron-down' : layer.isCollapsed}" (click)="collapseInfo()"></i></div>
                   </div>

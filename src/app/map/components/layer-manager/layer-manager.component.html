@@ -14,7 +14,7 @@
       ></div>
     </ng-container>
     <div *ngIf="layer.type === 'layerGroup'; else layerCard" draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
-        <app-layer-group ></app-layer-group>
+        <app-layer-group [layer]="layer" ></app-layer-group>
     </div>
     <ng-template #layerCard>
       <div draggable (onDragStart)="onDragStart(layer, $event)" (onDragEnd)='onDragEnd()' [dragData]='layer'>
