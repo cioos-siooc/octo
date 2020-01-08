@@ -1,4 +1,3 @@
-
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,6 +29,7 @@ import {
   FetchClientPresentations,
   FetchLayer,
   FetchLayerDescription,
+  DeleteLayer,
   LayerActionTypes
 } from '../actions/layer.actions';
 
@@ -185,6 +185,24 @@ export class LayerEffects {
             newLayerPosition: layer.defaultPriority
           });
       }));
+
+  @Effect()
+  deleteChildren = this.actions$
+      .ofType<DeleteLayer>(LayerActionTypes.DELETE_LAYER)
+      .pipe(
+        withLatestFrom(this.store$),
+        mergeMap(([action, store]) => {
+          // Make a list of children layers that we need to remove related to the deleted parent
+          const layersListToRemove = store.map.layer.layers.filter((l: Layer) => {
+            return action.payload === l.layerGroupId.toString();
+          });
+          const actions = [];
+          for (const layer of layersListToRemove) {
+            actions.push(new DeleteLayer(layer.uniqueId));
+          }
+          return actions;
+        })
+      );
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
