@@ -40,7 +40,7 @@ export class DynamicEnumHandler extends EnumHandler {
         if ( properties.includes(behavior.parameterName) ) {
             OLSource.getFeatures().forEach((feature, index) => {
                 const propertyValue = feature.getProperties()[behavior.parameterName];
-                if ( !(propertyValue in possibleValues) ) {
+                if ( !(possibleValues.includes(propertyValue)) ) {
                     possibleValues.push(propertyValue);
                 }
             });

@@ -20,17 +20,22 @@ export class DynamicEnumBehaviorComponent implements OnInit {
   constructor(private store: Store<MapState>, private dynamicEnumHandler: DynamicEnumHandler, private mapService: MapService) { }
 
   onSelectPossibility() {
-    this.behavior.currentValue = this.currentPossibility;
+    if (this.currentPossibility !== 'Any') {
+      this.behavior.currentValue = this.currentPossibility;
+    } else {
+      this.behavior.currentValue = undefined;
+    }
     this.dynamicEnumHandler.updateParameter(this.behavior);
   }
 
   clearSelection() {
-    this.currentPossibility = undefined;
+    this.currentPossibility = 'Any';
     this.behavior.currentValue = undefined;
     this.dynamicEnumHandler.updateParameter(this.behavior);
   }
 
   ngOnInit() {
+    this.currentPossibility = 'Any';
     // Setup a subscription to update possibilities if the behaviors change(ie. when another behavior is modified)
     this.store.select(selectBehaviorState).subscribe((behaviorState) => {
       this.behavior = behaviorState.behaviors.find(b => b.uniqueId === this.behaviorUniqueId);
