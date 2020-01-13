@@ -21,7 +21,12 @@ export class DynamicEnumBehaviorComponent implements OnInit {
 
   onSelectPossibility() {
     this.behavior.currentValue = this.currentPossibility;
-    // const bH = <DynamicEnumHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
+    this.dynamicEnumHandler.updateParameter(this.behavior);
+  }
+
+  clearSelection() {
+    this.currentPossibility = undefined;
+    this.behavior.currentValue = undefined;
     this.dynamicEnumHandler.updateParameter(this.behavior);
   }
 
@@ -34,6 +39,9 @@ export class DynamicEnumBehaviorComponent implements OnInit {
           this.possibilities = possibilities;
         }
       });
+      if (typeof(this.behavior.currentValue) !== 'undefined') {
+        this.currentPossibility = this.behavior.currentValue;
+      }
     });
   }
 

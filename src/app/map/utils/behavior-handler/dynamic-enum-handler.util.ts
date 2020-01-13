@@ -24,7 +24,6 @@ export class DynamicEnumHandler extends EnumHandler {
             if (OLSource.getFeatures().length < 1) {
                 OLSource.once('change', (event) => {
                     if (OLSource.getState() === 'ready') {
-                        console.log(this._getPossibilities(behavior, OLSource));
                         resolve(this._getPossibilities(behavior, OLSource));
                     }
                 });
@@ -50,6 +49,4 @@ export class DynamicEnumHandler extends EnumHandler {
         }
         return possibleValues;
     }
-
-    clean(behavior: any) {}
 }

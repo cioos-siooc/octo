@@ -46,8 +46,13 @@ export class EnumHandler implements BehaviorHandler {
       if (behavior.valueInQuotes) {
         currentValue = "'" + currentValue + "'";
       }
-      const urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, parameterName,
-        currentValue);
+      let urlParameters = layer.urlParameters;
+      if (typeof(behavior.currentValue) !== 'undefined') {
+        urlParameters = UrlParametersUtil.addUrlParameter(urlParameters, parameterName,
+          currentValue);
+      } else {
+        urlParameters = UrlParametersUtil.removeUrlParameter(urlParameters, parameterName);
+      }
       const updatedLayer = {
         ...layer,
         urlParameters: urlParameters

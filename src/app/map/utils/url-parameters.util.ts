@@ -19,4 +19,13 @@ export class UrlParametersUtil {
     urlParameters.push(urlParameter);
     return urlParameters;
   }
+
+  public static removeUrlParameter(urlParameters, paramName) {
+    const paramIndex = urlParameters.findIndex((param) => paramName in param);
+    const newUrlParameters = [...urlParameters];
+    if (paramIndex >= 0) {
+      newUrlParameters.splice(paramIndex, 1);
+    }
+    return newUrlParameters;
+  }
 }
