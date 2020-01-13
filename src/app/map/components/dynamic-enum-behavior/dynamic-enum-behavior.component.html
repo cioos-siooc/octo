@@ -1,0 +1,9 @@
+<div *ngIf="behavior">
+  <h5>{{ behavior.label }}</h5>
+  <select [(ngModel)]="currentPossibility"
+          (change)="onSelectPossibility()">
+    <option *ngFor="let possibility of possibilities" [ngValue]="possibility">
+      {{ possibility }}
+    </option>
+  </select>
+</div>

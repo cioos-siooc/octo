@@ -24,6 +24,8 @@ import { NgDragDropModule } from 'ng-drag-drop';
 import { StylerService } from './utils/open-layers/styler.service';
 import { OLLayerFactory } from './utils';
 import { MapService } from '@app/map/utils/open-layers';
+import { DynamicEnumBehaviorComponent } from './components/dynamic-enum-behavior/dynamic-enum-behavior.component';
+import { BehaviorHandlerFactory } from '@app/map/utils';
 
 @NgModule({
   imports: [
@@ -42,10 +44,12 @@ import { MapService } from '@app/map/utils/open-layers';
     LayerComponent,
     LayerGroupComponent,
     LayerConfigurationComponent,
+    DynamicEnumBehaviorComponent,
   ],
   providers: [
     StylerService,
     OLLayerFactory,
+    BehaviorHandlerFactory,
     MapService
   ]
 })

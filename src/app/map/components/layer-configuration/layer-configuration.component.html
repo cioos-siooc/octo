@@ -13,6 +13,7 @@
   <div class="modal-content" *ngFor="let b of behaviors;">
     <app-time-behavior *ngIf="b.handler === 'time'" [behaviorUniqueId]='b.uniqueId'></app-time-behavior>
     <app-enum-behavior *ngIf="b.handler === 'enum'" [behaviorUniqueId]='b.uniqueId'></app-enum-behavior>
+    <app-dynamic-enum-behavior *ngIf="b.handler === 'dynamic-enum'" [behaviorUniqueId]='b.uniqueId'></app-dynamic-enum-behavior>
   </div>
   <h5>{{'opacity-label' | translate}}</h5>
   <div class="slidecontainer">

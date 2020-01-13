@@ -8,13 +8,14 @@ import {BehaviorHandler} from '@app/map/utils';
 import {Store} from '@ngrx/store';
 import {MapState, selectLayerState} from '@app/map/store';
 import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
+import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 import {take} from 'rxjs/operators';
 import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
 export class EnumHandler implements BehaviorHandler {
   type = 'enum';
 
-  constructor(private store: Store<MapState>) {
+  constructor(protected store: Store<MapState>) {
   }
 
   init(behavior: any) {
@@ -31,8 +32,27 @@ export class EnumHandler implements BehaviorHandler {
     this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = {...layerState};
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
-      layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName,
-        behavior.currentValue);
+
+      // Handles the case where a behavior has a different parameterName in the URL than it does in the data(ie CQL filters)
+      let parameterName = undefined;
+      if (!(typeof(behavior.urlParameterName) === 'undefined')) {
+        parameterName = behavior.urlParameterName;
+      } else {
+        parameterName = behavior.parameterName;
+      }
+
+      // Handles the case where the value needs to be in quotes(ie CQL filters on string parameters)
+      let currentValue = behavior.currentValue;
+      if (behavior.valueInQuotes) {
+        currentValue = "'" + currentValue + "'";
+      }
+      const urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, parameterName,
+        currentValue);
+      const updatedLayer = {
+        ...layer,
+        urlParameters: urlParameters
+      };
+      this.store.dispatch(new fromLayerActions.UpdateLayer(updatedLayer));
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
     });
   }

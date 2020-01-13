@@ -13,4 +13,10 @@ export class MapService {
     getMap(): OLMap {
         return this.map;
     }
+
+    getOLLayerForLayerId(layerId: Number) {
+        return this.map.getLayers().getArray().find((l) => {
+            return l.get('id') === layerId;
+        });
+    }
 }
