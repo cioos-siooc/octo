@@ -6,8 +6,17 @@
 
 import {createSelector} from '@ngrx/store';
 import {selectMapState} from '../reducers';
+import { Layer } from '@app/shared/models';
 
 export const selectLayerState = createSelector(
   selectMapState,
   state => state.layer,
+);
+
+export const selectChildrenLayers = (id) => createSelector(
+  selectLayerState,
+  (layers) => {
+    const childrenLayers = layers.layers.filter((l: Layer) => l.layerGroupId === id);
+    return childrenLayers;
+  }
 );
