@@ -28,6 +28,8 @@ import { sortlayerPriorityDescending } from '@app/shared/utils';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
+import { parentLayer, childLayer1, childLayer2 } from './test-layer-group.test';
+import { hasLayerId } from './map.util';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -69,6 +71,7 @@ export class MapComponent implements OnInit {
     // Check the URL for parameters and initialize layers as necessary
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       if ('layers' in params) {
+        console.log(params.layers);
         const layers = params.layers.split(',');
         for (let i = 0; i < layers.length; i++) {
           const layer = layers[i];
@@ -82,25 +85,42 @@ export class MapComponent implements OnInit {
     });
     // Listen for newly added layers and add them to the URL
     this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
+      // Layers need to be sorted first!!!!!!!!!!!!!!!!!!!
       const layers = state.layers.slice();
-      const layersDict = new Object();
+      const layerIds = [];
       for (const layer of layers) {
-        if (!(layer.id in layersDict)) {
-          layersDict[layer.id] = [];
-        }
-        if (layer.layerGroupId) {
-          if (!(layer.layerGroupId in layersDict)) {
-            layersDict[layer.layerGroupId] = [];
+        if (typeof(layer.layerGroupId) === 'undefined') {
+          if (!hasLayerId(layerIds, layer.id)) {
+            layerIds.push({
+              id: layer.id,
+              children: []
+            });
           }
-          layersDict[layer.layerGroupId].push(layer.id);
+        } else {
+          if (!hasLayerId(layerIds, layer.layerGroupId)) {
+            layerIds.push({
+              id: layer.layerGroupId,
+              children: []
+            });
+          }
+          const parentId = layerIds.findIndex((l: any) => l.id === layer.layerGroupId);
+          layerIds[parentId].children.push(layer.id);
         }
       }
-      console.log(layersDict);
-      const layerIds = '';
 
-
-
-
+      let urlString = '';
+      for (const l of layerIds) {
+        if (l.children.length < 1) {
+          // Do something else if it doesn't
+          urlString += l.id + ',';
+        } else {
+          // Do something if it has children
+          urlString += l.id + '[';
+          urlString += l.children.join();
+          urlString += '],';
+        }
+      }
+      urlString = urlString.slice(0, -1);
 
       // const layerIds = layers.sort(sortlayerPriorityDescending).filter(
       //   // Filter layer list to make sure layerGroup members aren't added to the URL
@@ -113,7 +133,7 @@ export class MapComponent implements OnInit {
 
       if (layerIds.length > 0) {
         this.router.navigate([], {
-          queryParams: {'layers': layerIds.toString()},
+          queryParams: {'layers': urlString},
           queryParamsHandling: 'merge',
         });
       } else {
@@ -123,6 +143,12 @@ export class MapComponent implements OnInit {
         });
       }
     });
+
+    // setTimeout(() => {
+    //   this.store.dispatch(parentLayer);
+    //   this.store.dispatch(childLayer1);
+    //   this.store.dispatch(childLayer2);
+    // }, 5000);
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
