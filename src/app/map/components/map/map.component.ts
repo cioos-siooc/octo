@@ -28,7 +28,6 @@ import { sortlayerPriorityDescending } from '@app/shared/utils';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { parentLayer, childLayer1, childLayer2 } from './test-layer-group.test';
 import { hasLayerId } from './map.util';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
@@ -71,15 +70,30 @@ export class MapComponent implements OnInit {
     // Check the URL for parameters and initialize layers as necessary
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       if ('layers' in params) {
-        console.log(params.layers);
-        const layers = params.layers.split(',');
-        for (let i = 0; i < layers.length; i++) {
-          const layer = layers[i];
+        const re = /(?:([0-9]+)(\[(?:[0-9]+,?)+\])?,?)/g;
+        const parentCount = params.layers.match(re).length;
+
+        let match;
+        let i = 1;
+        while (match = re.exec(params.layers)) {
           this.store.dispatch(new layerActions.FetchLayer({
-            layerId: layer,
-            uniqueId: layer.toString(),
-            priority: layers.length - i
+            layerId: match[1],
+            uniqueId: match[1].toString(),
+            priority: parentCount - i
           }));
+          if (typeof(match[2]) !== 'undefined') {
+            // we must have children
+            const childIds = match[2].slice(1, -1).split(',');
+            for (const childId of childIds) {
+              this.store.dispatch(new layerActions.FetchLayer({
+                layerId: childId,
+                uniqueId: childId.toString(),
+                priority: parentCount - i,
+                layerGroupId: match[1]
+              }));
+            }
+          }
+          i += 1;
         }
       }
     });
@@ -111,7 +125,7 @@ export class MapComponent implements OnInit {
       let urlString = '';
       for (const l of layerIds) {
         if (l.children.length < 1) {
-          // Do something else if it doesn't
+          // Do something if it doesn't have children
           urlString += l.id + ',';
         } else {
           // Do something if it has children
@@ -143,12 +157,6 @@ export class MapComponent implements OnInit {
         });
       }
     });
-
-    // setTimeout(() => {
-    //   this.store.dispatch(parentLayer);
-    //   this.store.dispatch(childLayer1);
-    //   this.store.dispatch(childLayer2);
-    // }, 5000);
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
