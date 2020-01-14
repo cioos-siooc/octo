@@ -33,19 +33,10 @@ export class EnumHandler implements BehaviorHandler {
       const layerStateCopy = {...layerState};
       const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
 
-      // Handles the case where a behavior has a different parameterName in the URL than it does in the data(ie CQL filters)
-      let parameterName = undefined;
-      if (!(typeof(behavior.urlParameterName) === 'undefined')) {
-        parameterName = behavior.urlParameterName;
-      } else {
-        parameterName = behavior.parameterName;
-      }
+      const parameterName = this._getParameterName(behavior);
 
-      // Handles the case where the value needs to be in quotes(ie CQL filters on string parameters)
-      let currentValue = behavior.currentValue;
-      if (behavior.valueInQuotes) {
-        currentValue = "'" + currentValue + "'";
-      }
+      const currentValue = this._getParameterValue(behavior);
+
       let urlParameters = layer.urlParameters;
       if (typeof(behavior.currentValue) !== 'undefined') {
         urlParameters = UrlParametersUtil.addUrlParameter(urlParameters, parameterName,
@@ -60,5 +51,27 @@ export class EnumHandler implements BehaviorHandler {
       this.store.dispatch(new fromLayerActions.UpdateLayer(updatedLayer));
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
     });
+  }
+
+  _getParameterName(behavior: any) {
+    // Handles the case where a behavior has a different parameterName in the URL than it does in the data(ie CQL filters)
+    let parameterName = undefined;
+    if (!(typeof(behavior.urlParameterName) === 'undefined')) {
+      parameterName = behavior.urlParameterName;
+    } else {
+      parameterName = behavior.parameterName;
+    }
+    return parameterName;
+  }
+
+  _getParameterValue(behavior: any) {
+    // Handles the case where the value needs to be in quotes(ie CQL filters on string parameters)
+    let currentValue = behavior.currentValue;
+    if (typeof(currentValue) === 'undefined') {
+      return undefined;
+    } else if (behavior.valueInQuotes) {
+      currentValue = "'" + currentValue + "'";
+    }
+    return currentValue;
   }
 }

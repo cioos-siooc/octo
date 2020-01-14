@@ -20,6 +20,15 @@ export class UrlParametersUtil {
     return urlParameters;
   }
 
+  public static getUrlParameter(urlParameters, paramName) {
+    const paramIndex = urlParameters.findIndex((param) => paramName in param);
+    if (paramIndex >= 0) {
+      return urlParameters[paramIndex][paramName];
+    } else {
+      return undefined;
+    }
+  }
+
   public static removeUrlParameter(urlParameters, paramName) {
     const paramIndex = urlParameters.findIndex((param) => paramName in param);
     const newUrlParameters = [...urlParameters];
