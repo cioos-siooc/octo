@@ -99,8 +99,7 @@ export class MapComponent implements OnInit {
     });
     // Listen for newly added layers and add them to the URL
     this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
-      // Layers need to be sorted first!!!!!!!!!!!!!!!!!!!
-      const layers = state.layers.slice();
+      const layers = state.layers.slice().sort(sortlayerPriorityDescending);
       const layerIds = [];
       for (const layer of layers) {
         if (typeof(layer.layerGroupId) === 'undefined') {
@@ -135,15 +134,6 @@ export class MapComponent implements OnInit {
         }
       }
       urlString = urlString.slice(0, -1);
-
-      // const layerIds = layers.sort(sortlayerPriorityDescending).filter(
-      //   // Filter layer list to make sure layerGroup members aren't added to the URL
-      //   layer => typeof(layer.layerGroupId) === 'undefined'
-      // ).map(
-      //   // Extract a list of layerIds to add to URL
-      //   // Makes shareable links
-      //   layer => layer.id
-      // );
 
       if (layerIds.length > 0) {
         this.router.navigate([], {

@@ -35,7 +35,7 @@ export class LayerManagerComponent implements OnInit {
         );
     }
 
-    onDragStart(layer: Layer, e) {
+    onDragStart(layer: Layer) {
         this.currentDraggedLayer = layer;
         this.isBeingDragged = true;
     }

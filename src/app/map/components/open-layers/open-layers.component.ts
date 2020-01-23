@@ -168,7 +168,6 @@ export class OpenLayersComponent implements AfterViewInit {
       const bLayerIndex = this.layers.findIndex((l) => {
         return l.uniqueId === b.get('uniqueId');
       });
-      // return aLayerIndex - bLayerIndex;
       return bLayerIndex - aLayerIndex;
     });
     this.map.render();
