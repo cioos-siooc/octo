@@ -6,7 +6,7 @@
 
 import { AddLayer, SetLayerPosition, InitLayerPosition } from './../actions/layer.actions';
 import {Actions, Effect} from '@ngrx/effects';
-import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
+import {catchError, map, mergeMap, withLatestFrom, filter} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Layer} from '@app/shared/models';
@@ -182,6 +182,47 @@ export class LayerEffects {
             layerId: action.payload.layerId,
             newLayerPosition: layer.defaultPriority
           });
+      }));
+
+  @Effect()
+  initLayerGroupPosition = this.actions$
+    .ofType<SetLayerPosition>(LayerActionTypes.SET_LAYER_POSITION)
+    .pipe(
+      withLatestFrom(this.store$),
+      // filter if there's a child/no parent or parent/no child
+      filter(([action, store]) => {
+        const currentLayer = store.map.layer.layers.filter((l: Layer) => l.uniqueId === action.payload.layerId);
+        let connectedLayers = [];
+        // Check if current layer is a parent or a child
+        if (currentLayer[0].type === 'layerGroup') {
+          // Check if there are children in layerlist, if yes return true
+          connectedLayers = store.map.layer.layers.filter((l: Layer) => l.layerGroupId === currentLayer[0].id);
+        } else if (currentLayer[0].layerGroupId)  {
+          // Check if the parent is in the layerList, if yes return true
+          connectedLayers = store.map.layer.layers.filter((l: Layer) => currentLayer[0].layerGroupId === l.id);
+          connectedLayers.push(currentLayer[0]);
+        }
+        return connectedLayers.length !== 0;
+      }),
+      mergeMap(([action, store]) => {
+        const actions = [];
+        const currentLayer = store.map.layer.layers.filter((l: Layer) => l.uniqueId === action.payload.layerId);
+        let connectedLayers = [];
+        if (currentLayer[0].type === 'layerGroup') {
+          connectedLayers = store.map.layer.layers.filter((l: Layer) => l.layerGroupId === currentLayer[0].id);
+          for (const layer of connectedLayers) {
+            const updatedLayer: Layer = {
+              ...layer,
+              priority: currentLayer[0].priority
+            };
+            actions.push(new UpdateLayer(updatedLayer));
+          }
+        }
+
+        // } else if (currentLayer[0].layerGroupId) {
+        //   connectedLayers = store.map.layer.layers.filter((l: Layer) => currentLayer[0].layerGroupId === l.id);
+        // }
+        return actions;
       }));
 
   @Effect()
