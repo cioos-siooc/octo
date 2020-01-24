@@ -22,9 +22,9 @@
               Attribution will go here
           </div> -->
           <div [ngClass]="{'info-closed': layer.isCollapsed}">
-
-            <!-- TODO: looping here throught children to display number of map click according to children -->
+            <div *ngFor='let layer of childrenLayers'>
               <app-map-click [layer]="layer"></app-map-click>
+            </div>
               <ng-container *ngIf="layer.currentClientPresentation !== undefined">
                   <div *ngIf="layer.currentClientPresentation.legendUrl !== undefined" class="legend">
                       <img src="{{ layer.currentClientPresentation.legendUrl }}">
