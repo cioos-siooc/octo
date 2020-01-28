@@ -1,4 +1,3 @@
-
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,9 +11,7 @@ import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {Location} from '@angular/common';
 
-
 import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
-import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
 import * as fromLayer from '@app/map/store/reducers/layer.reducers';
 import * as layerActions from '@app/map/store/actions/layer.actions';
 import * as baseLayerActions from '@app/map/store/actions/base-layer.actions';
@@ -89,7 +86,7 @@ export class MapComponent implements OnInit {
                 layerId: childId,
                 uniqueId: childId.toString(),
                 priority: parentCount - i,
-                layerGroupId: match[1]
+                layerGroupId: Number(match[1])
               }));
             }
           }
