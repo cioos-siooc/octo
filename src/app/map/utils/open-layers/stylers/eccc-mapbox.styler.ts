@@ -2,16 +2,14 @@ import OLLayer from 'ol/layer/vector';
 import OLFeature from 'ol/feature';
 import Style from 'ol/style/style';
 
-
-import { Layer } from "@app/shared/models";
-import { BaseStyler } from "./base.styler";
+import { Layer } from '@app/shared/models';
+import { BaseStyler } from './base.styler';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MapState, selectMapClickByLayerId } from '@app/map/store';
 import { StylesFromLiterals } from '../../styles-from-literals.util';
 import { MapClickInfo } from '../../../../shared/models/map-click-info.model';
 import { MapService } from '../map.service';
-import LayerBase from 'ol/layer/base';
 import VectorLayer from 'ol/layer/vector';
 import Circle from 'ol/style/circle';
 import Fill from 'ol/style/fill';
@@ -23,18 +21,23 @@ export class ECCCMapboxStyler extends BaseStyler {
     private pointLayer: Layer;
     private polygonLayer: Layer;
 
-    constructor(private store: Store<MapState>, private mapService: MapService) { super() }
+    constructor(private store: Store<MapState>, private mapService: MapService) { super(); }
 
     setOLVectorLayerStyle(layer: Layer, olLayer: OLLayer) {
         const styleDef = layer.currentClientPresentation.styleDef;
         if (styleDef != null) {
             const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
             if ( !( layer.id in this.layers ) ) {
-                this.initPointLayerSubscription(layer, olLayer);
+                // needs a if to choose if it's a point or a polygon
+                if (styleDef.type === 'unique') {
+                this.initPointLayerSubscription(layer, olLayer);    // MAYBE NEED TO MODIFY THE CONDITIONAL BUT WILL WORK FOR NOW
+                } else if (styleDef.type === 'single') {
+                this.initPolygonLayerSubscription(layer, olLayer);
+                }
             }
-            olLayer.setStyle((feature: OLFeature, resolution) => {
-                return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
-            });
+            // olLayer.setStyle((feature: OLFeature, resolution) => {
+            //     return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
+            // });
         }
     }
 
@@ -67,7 +70,37 @@ export class ECCCMapboxStyler extends BaseStyler {
                         });
                     }
                 }
-            )
+            );
         }
     }
+    initPolygonLayerSubscription(layer: Layer, olLayer: OLLayer) {
+        if ( !( layer.id in this.layers ) ) {
+            const styleDef = layer.currentClientPresentation.styleDef;
+            const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
+            const map = this.mapService.getMap();
+            const newOlLayer = map.getLayers().getArray().find((l) => {
+                return l.get('id') === layer.id;
+            });
+            this.layers[layer.id] = this.store.select();
+            // if (newOlLayer) {
+            //     (<VectorLayer>newOlLayer).setStyle((feature: OLFeature, resolution) => {
+            //         console.log('dans le setstyle');
+            //         // if (feature.getId() === mapClick.result.featureId) {
+            //             return new Style({
+            //                 stroke: new Stroke ({
+            //                     color: '#F7FE2E',
+            //                 }),
+            //                 fill: new Fill ({
+            //                     color: '#FFFFFF'
+            //                 })
+            //             });
+            //         // } else {
+            //         //     return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
+            //         // }
+            //     });
+            //     console.log(newOlLayer);
+            // }
+        }
+    }
+    // The polygon function will be almost de the same as the initPointLayerSubscription (subscribe at leat must be different)
 }

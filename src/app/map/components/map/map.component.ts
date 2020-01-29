@@ -26,6 +26,7 @@ import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { hasLayerId } from './map.util';
+import { parentLayer, childLayer1, childLayer2 } from './test-layer-group.test';
 
 export const CATALOG_POPUP_ID = 'CATALOG';
 export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
@@ -144,6 +145,12 @@ export class MapComponent implements OnInit {
         });
       }
     });
+
+    setTimeout(() => {
+      this.store.dispatch(parentLayer);
+      this.store.dispatch(childLayer1);
+      this.store.dispatch(childLayer2);
+    }, 5000);
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
