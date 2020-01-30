@@ -1,7 +1,6 @@
 import OLLayer from 'ol/layer/vector';
 import OLFeature from 'ol/feature';
 import Style from 'ol/style/style';
-
 import { Layer } from '@app/shared/models';
 import { BaseStyler } from './base.styler';
 import { Injectable } from '@angular/core';
@@ -77,30 +76,6 @@ export class ECCCMapboxStyler extends BaseStyler {
         if ( !( layer.id in this.layers ) ) {
             const styleDef = layer.currentClientPresentation.styleDef;
             const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
-            const map = this.mapService.getMap();
-            const newOlLayer = map.getLayers().getArray().find((l) => {
-                return l.get('id') === layer.id;
-            });
-            this.layers[layer.id] = this.store.select();
-            // if (newOlLayer) {
-            //     (<VectorLayer>newOlLayer).setStyle((feature: OLFeature, resolution) => {
-            //         console.log('dans le setstyle');
-            //         // if (feature.getId() === mapClick.result.featureId) {
-            //             return new Style({
-            //                 stroke: new Stroke ({
-            //                     color: '#F7FE2E',
-            //                 }),
-            //                 fill: new Fill ({
-            //                     color: '#FFFFFF'
-            //                 })
-            //             });
-            //         // } else {
-            //         //     return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
-            //         // }
-            //     });
-            //     console.log(newOlLayer);
-            // }
         }
     }
-    // The polygon function will be almost de the same as the initPointLayerSubscription (subscribe at leat must be different)
 }
