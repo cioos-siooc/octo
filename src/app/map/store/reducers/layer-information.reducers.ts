@@ -5,30 +5,31 @@
  */
 
 import {LayerInformationActionsUnion, LayerInformationActionTypes} from '../actions/layer-information.actions';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { LayerInformation } from '@app/shared/models';
 
-export interface LayerInformationState {
-  informationHtml: string;
-  selectedLayerId: number;
-}
+export interface LayerInformationState extends EntityState<LayerInformation> { }
 
-export const initialState: LayerInformationState = {
-  informationHtml: null,
-  selectedLayerId: null
-};
+export const adapter: EntityAdapter<LayerInformation> = createEntityAdapter<LayerInformation>({
+  selectId: (layerInformation: LayerInformation) => layerInformation.layerId,
+  sortComparer: false 
+});
 
-export function layerInformationReducer(state = initialState, action: LayerInformationActionsUnion): LayerInformationState {
+export function layerInformationReducer(state = adapter.getInitialState(), action: LayerInformationActionsUnion): LayerInformationState {
   switch (action.type) {
     case LayerInformationActionTypes.SET_LAYER_INFORMATION:
-      return <LayerInformationState>{
-        ...state,
-        informationHtml: action.payload
-      };
-    case LayerInformationActionTypes.SET_SELECTED_LAYER_ID:
-      return <LayerInformationState>{
-        ...state,
-        selectedLayerId: action.payload
-      };
-    default:
-      return state;
+      const id: number = action.payload.layerId;
+      const ids: number[] = state.ids as Array<number>;
+      if (ids.includes(id)) {
+        state = adapter.removeOne(id, state);
+      }
+      return adapter.addOne({ ...action.payload }, state);
   }
 }
+
+export const {
+  selectIds: selectLayerInformationIds,
+  selectEntities: selectLayerInformationEntities,
+  selectAll: selectAllLayerInformation,
+  selectTotal: selectLayerInformationTotal
+} = adapter.getSelectors();

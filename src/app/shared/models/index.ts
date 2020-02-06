@@ -20,3 +20,4 @@ export * from './wfs-layer.model';
 export * from './wms-layer.model';
 export * from './wms-strategy.model';
 export * from './layer.model';
+export * from './layer-information.model';
