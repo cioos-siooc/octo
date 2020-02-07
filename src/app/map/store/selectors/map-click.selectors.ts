@@ -46,5 +46,13 @@ export const selectMapClickByLayerId = (layerId) => createSelector(
 );
 
 export const selectSiblingMapClick = (layer) => createSelector(
-  selectSiblingLayer(layer.layerGroup)
+  selectSiblingLayer(layer),
+  selectMapClickEntities,
+  (siblingLayer, mapClickEntities) => {
+    if (mapClickEntities) {
+      return mapClickEntities[siblingLayer.id];
+    } else {
+      return {};
+    }
+  }
 );

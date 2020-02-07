@@ -5,7 +5,7 @@ import { Layer } from '@app/shared/models';
 import { BaseStyler } from './base.styler';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MapState, selectMapClickByLayerId } from '@app/map/store';
+import { MapState, selectMapClickByLayerId, selectSiblingMapClick } from '@app/map/store';
 import { StylesFromLiterals } from '../../styles-from-literals.util';
 import { MapClickInfo } from '../../../../shared/models/map-click-info.model';
 import { MapService } from '../map.service';
@@ -34,9 +34,6 @@ export class ECCCMapboxStyler extends BaseStyler {
                 this.initPolygonLayerSubscription(layer, olLayer);
                 }
             }
-            // olLayer.setStyle((feature: OLFeature, resolution) => {
-            //     return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
-            // });
         }
     }
 
@@ -76,6 +73,32 @@ export class ECCCMapboxStyler extends BaseStyler {
         if ( !( layer.id in this.layers ) ) {
             const styleDef = layer.currentClientPresentation.styleDef;
             const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
+            this.store.select(selectSiblingMapClick(layer)).subscribe(
+                (mapClick: MapClickInfo) => {
+                    const map = this.mapService.getMap();
+                    const newOlLayer = map.getLayers().getArray().find((l) => {
+                        return l.get('id') === layer.id;
+                    });
+                    if (newOlLayer) {
+                        (<VectorLayer>newOlLayer).setStyle((feature: OLFeature, resolution) => {
+                            if (feature.getProperties()['mus_co_des'] === 'M'){
+                            // if (feature.getId() === mapClick.result.featureId) {
+                                // if (feature.)
+                                return new Style({
+                                    fill: new Fill({color: '#654321'}),
+                                    stroke: new Stroke({
+                                        color: '#123456',
+                                        width: 1
+                                    }),
+                                });
+                            // } else {
+                            //     return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
+                            // }
+                        }
+                        });
+                    }
+                }
+            );
         }
     }
 }

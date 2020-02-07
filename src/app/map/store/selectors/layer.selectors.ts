@@ -21,10 +21,10 @@ export const selectChildrenLayers = (id) => createSelector(
   }
 );
 
-export const selectSiblingLayer = (layerGroupId) => createSelector(
+export const selectSiblingLayer = (layer) => createSelector(
   selectLayerState,
   (layers) => {
-    const siblingLayer = layers.layers.filter((l: Layer) => l.layerGroupId === layerGroupId);
+    const siblingLayer = layers.layers.find((l: Layer) => layer.id !== l.id && l.layerGroupId === layer.layerGroupId);
     return siblingLayer;
   }
 );

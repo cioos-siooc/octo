@@ -145,12 +145,6 @@ export class MapComponent implements OnInit {
         });
       }
     });
-
-    setTimeout(() => {
-      this.store.dispatch(parentLayer);
-      this.store.dispatch(childLayer1);
-      this.store.dispatch(childLayer2);
-    }, 5000);
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
