@@ -28,5 +28,6 @@
   "date-label": "Date",
   "Remove-layer-label": "Remove layer",
   "legend-label": "Legend",
-  "layer-description-label": "Layer's informations"
+  "layer-information-label": "Information",
+  "layer-description-label": "Layer's information"
 }

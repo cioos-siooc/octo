@@ -13,6 +13,7 @@ import {map, switchMap, flatMap} from 'rxjs/operators';
 import {LayerInformationActionTypes, FetchLayerInformation} from '../actions/layer-information.actions';
 import {environment} from '@env/environment';
 import { Observable, of } from 'rxjs';
+import { LayerInformationUrl } from '@app/shared/models/layer-information-url.model';
 
 @Injectable()
 export class LayerInformationEffects {
@@ -20,12 +21,11 @@ export class LayerInformationEffects {
   fetchLayerInformation = this.actions$
     .ofType<FetchLayerInformation>(LayerInformationActionTypes.FETCH_LAYER_INFORMATION)
     .pipe(switchMap((action: FetchLayerInformation) => {
-      return this.httpClient.get(`${environment.mapapiUrl}/layers/${action.payload}/getLayerInformation`,
-        {responseType: 'text'}
-      ).pipe(map((html) => {
+      return this.httpClient.get<LayerInformationUrl[]>(`${environment.mapapiUrl}/layers/${action.payload}/layer-info`
+      ).pipe(map((layerInformationUrls) => {
         return new LayerInformationActions.SetLayerInformation({
           layerId: action.payload,
-          html: html
+          urls: layerInformationUrls
         });
       }));
     }));

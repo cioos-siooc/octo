@@ -4,13 +4,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {Observable} from 'rxjs';
 
 import * as fromLayerInformation from '@app/map/store/reducers/layer-information.reducers';
 import {Store} from '@ngrx/store';
-import {MapState} from '@app/map/store';
+import {MapState, selectLayerInformationByLayerId} from '@app/map/store';
 import {selectLayerInformationState} from '@app/map/store';
+import { LayerInformation } from '@app/shared/models';
 
 @Component({
   selector: 'app-layer-information',
@@ -18,15 +19,16 @@ import {selectLayerInformationState} from '@app/map/store';
   styleUrls: ['./layer-information.component.css']
 })
 export class LayerInformationComponent implements OnInit {
-  layerInformationState: Observable<fromLayerInformation.LayerInformationState>;
-  layerInformationHtml: string;
+  @Input() layerId: Number;
+  layerInformation?: LayerInformation;
 
   constructor(private store: Store<MapState>) {
   }
 
   ngOnInit() {
-    this.layerInformationState = this.store.select(selectLayerInformationState);
-    // this.layerInformationState.subscribe((state) => this.layerInformationHtml = state.informationHtml);
+    this.store.select(selectLayerInformationByLayerId(this.layerId)).subscribe((layerInformation) => {
+      this.layerInformation = layerInformation;
+    })
   }
 
 }

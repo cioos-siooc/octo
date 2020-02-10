@@ -33,13 +33,13 @@ export const selectLayerInformationTotal = createSelector(
   fromLayerInformation.selectLayerInformationTotal
 );
 
-export const selectLayerInformationByLayerId = createSelector(
+export const selectLayerInformationByLayerId = (id) => createSelector(
   selectLayerInformationEntities,
-  (layerInformation, props) => {
+  (layerInformation) => {
     if (layerInformation) {
-      return layerInformation[props.id]
+      return layerInformation[id];
     } else {
-      return {};
+      return null;
     }
   }
 )

@@ -36,6 +36,7 @@
                 [ngClass]="{'collapsed-description': !descriptionExpanded}"
                 [innerHTML]="layer.description.description">
             </div>
+            <app-layer-information [layerId]="layer.id"></app-layer-information>
             <div class="toggle-description"
                     (click)="toggleExpandDescription($event)">
                 <a *ngIf="!descriptionExpanded">

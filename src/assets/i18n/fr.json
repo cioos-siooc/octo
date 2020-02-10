@@ -28,5 +28,6 @@
   "date-label": "Date",
   "Remove-layer-label": "Retirer la couche",
   "legend-label": "Légende",
+  "layer-information-label": "Informations",
   "layer-description-label": "Informations sur la couche"
 }
