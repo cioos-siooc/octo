@@ -4,7 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-export * from './ol-layer-factory.util';
-export * from './ol-source-factory.util';
-export * from './stylers';
-export * from './map.service';
+ export function sortlayerPriorityDescending(a, b) {
+    return b.priority - a.priority;
+}

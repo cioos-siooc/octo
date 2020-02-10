@@ -9,14 +9,22 @@ import {BehaviorHandler} from './behavior-handler.util';
 import {Store} from '@ngrx/store';
 import {MapState} from '../../store';
 import {EnumHandler} from '@app/map/utils/behavior-handler/enum-handler.util';
+import { DynamicEnumHandler } from '@app/map/utils/behavior-handler/dynamic-enum-handler.util';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class BehaviorHandlerFactory {
-  public static getBehaviorHandler(type: string, store: Store<MapState>): BehaviorHandler {
+  
+  constructor(private store: Store<MapState>, private dynamicEnumHandler: DynamicEnumHandler) { }
+
+  public getBehaviorHandler(type: string): BehaviorHandler {
     switch (type) {
       case 'time':
-        return new TimeHandler(store);
+        return new TimeHandler(this.store);
+      case 'dynamic-enum':
+        return this.dynamicEnumHandler;
       default:
-        return new EnumHandler(store);
+        return new EnumHandler(this.store);
     }
   }
 }

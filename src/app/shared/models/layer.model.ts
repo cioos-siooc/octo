@@ -29,4 +29,7 @@ export abstract class Layer {
   public clickFormatterInfo: ClickFormatterInfo;
   public urlBehaviors: any;
   public isCollapsed: boolean;
+  public priority: number;
+  public defaultPriority?: number;
+  public layerGroupId?: number;
 }

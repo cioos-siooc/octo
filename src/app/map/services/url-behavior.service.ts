@@ -13,10 +13,11 @@ import {filter, take} from 'rxjs/operators';
 import {cloneDeep} from 'lodash';
 import {MapState} from '@app/map/store';
 import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
+import { MapService } from '@app/map/utils/open-layers';
 
 @Injectable()
 export class UrlBehaviorService {
-  constructor(private store: Store<MapState>, private actionsSubject: ActionsSubject) {
+  constructor(private store: Store<MapState>, private actionsSubject: ActionsSubject, private behaviorHandlerFactory: BehaviorHandlerFactory) {
     this.onLayerAddInitBehaviors();
     this.onLayerDeleteCleanBehaviors();
   }
@@ -31,7 +32,7 @@ export class UrlBehaviorService {
         layer.urlBehaviors.forEach((behavior) => {
           this.store.select(selectBehaviorState).pipe(take(1)).subscribe((state) => {
             if (!state.behaviors.some(b => b.uniqueId === behavior.uniqueId)) {
-              const bH = BehaviorHandlerFactory.getBehaviorHandler(behavior.handler, this.store);
+              const bH = this.behaviorHandlerFactory.getBehaviorHandler(behavior.handler);
               this.store.dispatch(new fromBehaviorActions.AddBehavior(behavior));
               bH.init(cloneDeep(behavior));
             }
@@ -50,7 +51,7 @@ export class UrlBehaviorService {
       this.store.select(selectBehaviorState).pipe(take(1)).subscribe((behaviorState) => {
         behaviorState.behaviors.forEach((behavior) => {
           if (behavior.layerUniqueId === layerUniqueId) {
-            const bH = BehaviorHandlerFactory.getBehaviorHandler(behavior.handler, this.store);
+            const bH = this.behaviorHandlerFactory.getBehaviorHandler(behavior.handler);
             bH.clean(behavior);
           }
         });

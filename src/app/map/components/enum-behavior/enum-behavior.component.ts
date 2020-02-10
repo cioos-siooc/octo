@@ -10,6 +10,7 @@ import {Store} from '@ngrx/store';
 import {cloneDeep} from 'lodash';
 import {BehaviorHandlerFactory} from '@app/map/utils';
 import {EnumHandler} from '@app/map/utils/behavior-handler/enum-handler.util';
+import { MapService } from '@app/map/utils/open-layers';
 
 @Component({
   selector: 'app-enum-behavior',
@@ -21,7 +22,7 @@ export class EnumBehaviorComponent implements OnInit {
   behavior: any;
   currentPossibility: Possibility;
 
-  constructor(private store: Store<MapState>) {
+  constructor(private store: Store<MapState>, private behaviorHandlerFactory: BehaviorHandlerFactory) {
   }
 
   private _behaviorUniqueId: string;
@@ -41,7 +42,7 @@ export class EnumBehaviorComponent implements OnInit {
 
   onSelectPossibility() {
     this.behavior.currentValue = this.currentPossibility.value;
-    const bH = <EnumHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
+    const bH = <EnumHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
     bH.updateParameter(this.behavior);
   }
 

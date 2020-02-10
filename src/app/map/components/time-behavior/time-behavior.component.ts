@@ -11,6 +11,7 @@ import {BehaviorHandlerFactory} from '@app/map/utils';
 import {TimeHandler} from '@app/map/utils';
 import {MapState} from '@app/map/store';
 import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
+import { MapService } from '@app/map/utils/open-layers';
 
 @Component({
   selector: 'app-time-behavior',
@@ -21,7 +22,7 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   behavior: any;
   currentDate: Date;
 
-  constructor(private store: Store<MapState>, private translateService: TranslateService) {
+  constructor(private store: Store<MapState>, private translateService: TranslateService, private behaviorHandlerFactory: BehaviorHandlerFactory) {
   }
 
   private _behaviorUniqueId: string;
@@ -42,19 +43,18 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   }
 
   onNowClick() {
-    const bH = <TimeHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
+    const bH = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
     bH.toggleNow(this.behavior);
   }
 
   onCloseDatetimePicker() {
-    const bH = <TimeHandler>BehaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
+    const bH = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
     const updatedBehavior = {
       ...this.behavior,
       currentDate: this.currentDate
     };
     bH.setNowOff(updatedBehavior);
     bH.updateBehaviorDateTime(updatedBehavior);
-    // bH.updateLayerDateTime(updatedBehavior);
   }
 
   ngOnInit() {
