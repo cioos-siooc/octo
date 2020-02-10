@@ -1,0 +1,1444 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>octo documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">octo documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>OpenLayersComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/map/components/open-layers/open-layers.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/AfterViewInit" target="_blank" >AfterViewInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-open-layers</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./open-layers.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./open-layers.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#baseOLLayer">baseOLLayer</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#layers">layers</a>
+                            </li>
+                            <li>
+                                <a href="#map">map</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkLayerPriority">checkLayerPriority</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getOLLayerFromId">getOLLayerFromId</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initBaseLayerSubscription">initBaseLayerSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initLayerSubscription">initLayerSubscription</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initMap">initMap</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#initMapClick">initMapClick</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isBackgroundLayer">isBackgroundLayer</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit">ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#retrieveFeatureInfos">retrieveFeatureInfos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#retrieveWmsInfos">retrieveWmsInfos</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setClickInformation">setClickInformation</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(httpClient: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>, store: <a href="../interfaces/MapState.html">Store<MapState></a>, location: <a href="https://angular.io/api/common/Location" target="_blank">Location</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>httpClient</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>store</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../interfaces/MapState.html" target="_self" >Store&lt;MapState&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>location</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/Location" target="_blank" >Location</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkLayerPriority"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            checkLayerPriority
+                        </b>
+                        <a href="#checkLayerPriority"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkLayerPriority()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:158</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOLLayerFromId"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            getOLLayerFromId
+                        </b>
+                        <a href="#getOLLayerFromId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOLLayerFromId(id)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="114"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:114</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Layer.html" target="_self" >LayerBase</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initBaseLayerSubscription"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initBaseLayerSubscription
+                        </b>
+                        <a href="#initBaseLayerSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initBaseLayerSubscription()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:98</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initLayerSubscription"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initLayerSubscription
+                        </b>
+                        <a href="#initLayerSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initLayerSubscription()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="120"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:120</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initMap"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initMap
+                        </b>
+                        <a href="#initMap"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initMap()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initMapClick"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            initMapClick
+                        </b>
+                        <a href="#initMapClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initMapClick()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="181"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:181</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isBackgroundLayer"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            isBackgroundLayer
+                        </b>
+                        <a href="#isBackgroundLayer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isBackgroundLayer(layer)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="175"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:175</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>layer</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <b>
+                            ngAfterViewInit
+                        </b>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="54"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:54</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="retrieveFeatureInfos"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            retrieveFeatureInfos
+                        </b>
+                        <a href="#retrieveFeatureInfos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string | number>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="213"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:213</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>evt</td>
+                                    <td>
+                                            <code>ol.MapBrowserEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>resultObservables</td>
+                                    <td>
+                                            <code>any[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>layerUniqueIdToObsIndex</td>
+                                    <td>
+                                            <code>Map&lt;string | number&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="retrieveWmsInfos"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            retrieveWmsInfos
+                        </b>
+                        <a href="#retrieveWmsInfos"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>retrieveWmsInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string | number>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="192"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:192</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>evt</td>
+                                    <td>
+                                            <code>ol.MapBrowserEvent</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>resultObservables</td>
+                                    <td>
+                                            <code>any[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>layerUniqueIdToObsIndex</td>
+                                    <td>
+                                            <code>Map&lt;string | number&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setClickInformation"></a>
+                    <span class="name">
+                        <b>
+                            <span class="modifier">Private</span>
+                            setClickInformation
+                        </b>
+                        <a href="#setClickInformation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setClickInformation(resultObservables: any[], layerUniqueIdToObsIndex: Map<string | number>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="228"
+                            class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:228</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>resultObservables</td>
+                                    <td>
+                                            <code>any[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>layerUniqueIdToObsIndex</td>
+                                    <td>
+                                            <code>Map&lt;string | number&gt;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="baseOLLayer"></a>
+                        <span class="name">
+                            <b>
+                            baseOLLayer</b>
+                            <a href="#baseOLLayer"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Layer.html" target="_self" >OLLayer</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="layers"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Private</span>
+                            layers</b>
+                            <a href="#layers"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../classes/Layer.html" target="_self" >Layer[]</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="map"></a>
+                        <span class="name">
+                            <b>
+                            map</b>
+                            <a href="#map"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>OLMap</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/map/components/open-layers/open-layers.component.ts:45</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {AfterViewInit, Component} from &#x27;@angular/core&#x27;;
+import {Store} from &#x27;@ngrx/store&#x27;;
+import {Location} from &#x27;@angular/common&#x27;;
+import {Router, ActivatedRoute} from &#x27;@angular/router&#x27;;
+import {forkJoin} from &#x27;rxjs&#x27;;
+import View from &#x27;ol/view&#x27;;
+import Feature from &#x27;ol/feature&#x27;;
+import OLMap from &#x27;ol/map&#x27;;
+import Proj from &#x27;ol/proj&#x27;;
+import OLLayer from &#x27;ol/layer/layer&#x27;;
+import LayerBase from &#x27;ol/layer/base&#x27;;
+import TileWMS from &#x27;ol/source/tilewms&#x27;;
+import * as fromBaseLayer from &#x27;@app/map/store/reducers/base-layer.reducers&#x27;;
+import {OLLayerFactory} from &#x27;@app/map/utils&#x27;;
+import * as fromLayer from &#x27;@app/map/store/reducers/layer.reducers&#x27;;
+import {clone, cloneDeep, isEqual} from &#x27;lodash&#x27;;
+import {Layer} from &#x27;@app/shared/models&#x27;;
+import {WmsStrategy} from &#x27;@app/shared/models&#x27;;
+import {HttpClient} from &#x27;@angular/common/http&#x27;;
+import {MAP_CLICK_POPUP_ID} from &#x27;../map/map.component&#x27;;
+import * as popupActions from &#x27;@app/map/store/actions/popup.actions&#x27;;
+import * as mapClickActions from &#x27;@app/map/store/actions/map-click.actions&#x27;;
+import {EmptyValidatorFactory} from &#x27;@app/shared/utils&#x27;;
+import {MapClickInfo} from &#x27;@app/shared/models&#x27;;
+import {filter} from &#x27;rxjs/operators&#x27;;
+import {of} from &#x27;rxjs/internal/observable/of&#x27;;
+import {ClickFormatterFactory} from &#x27;@app/map/utils&#x27;;
+import {MapState} from &#x27;@app/map/store&#x27;;
+import {selectBaseLayerState} from &#x27;@app/map/store/selectors/base-layer.selectors&#x27;;
+import {selectLayerState} from &#x27;@app/map/store/selectors/layer.selectors&#x27;;
+import { take } from &#x27;rxjs/operators&#x27;;
+
+@Component({
+  selector: &#x27;app-open-layers&#x27;,
+  templateUrl: &#x27;./open-layers.component.html&#x27;,
+  styleUrls: [&#x27;./open-layers.component.css&#x27;]
+})
+export class OpenLayersComponent implements AfterViewInit {
+  map: OLMap;
+  baseOLLayer: OLLayer &#x3D; null;
+  private layers: Layer[];
+
+  constructor(private httpClient: HttpClient, private store: Store&lt;MapState&gt;,
+              private location: Location, private router: Router,
+              private route: ActivatedRoute) {
+  }
+
+  ngAfterViewInit(): void {
+    this.initMap();
+    this.initBaseLayerSubscription();
+    this.initLayerSubscription();
+    this.initMapClick();
+  }
+
+  private initMap() {
+    // Initialize the map
+
+    // Setup the position
+    let mapview &#x3D; null;
+    this.route.queryParams.pipe(take(1)).subscribe((params) &#x3D;&gt; {
+      if (&#x27;mapextent&#x27; in params) {
+        // If position is stored in the url use that
+        const mapextent &#x3D; params.mapextent.split(&#x27;,&#x27;).map(x &#x3D;&gt; +x);
+        mapview &#x3D; new View({
+          center: mapextent.slice(0, 2),
+          zoom: mapextent[2]
+        });
+      } else {
+        // Go to a default position if it is not stored in the url
+        mapview &#x3D; new View({
+          center: Proj.transform([-66.0, 51.0], &#x27;EPSG:4326&#x27;, &#x27;EPSG:3857&#x27;),
+          zoom: 5,
+        });
+      }
+    });
+    this.map &#x3D; new OLMap({
+      target: &#x27;map&#x27;,
+      view: mapview,
+    });
+
+    // Register event listeners to update the URL with map location
+    this.map.on(&#x27;moveend&#x27;, (event) &#x3D;&gt; {
+      // Add the location to the url any time the user moves thes map
+      const mapExtent &#x3D; this.map.getView().getCenter().concat(this.map.getView().getZoom());
+      this.router.navigate([], {
+        queryParams: {&#x27;mapextent&#x27;: mapExtent.toString()},
+        queryParamsHandling: &#x27;merge&#x27;,
+      });
+    });
+  }
+
+  private initBaseLayerSubscription() {
+    this.store.select(selectBaseLayerState)
+      .pipe(filter(baseLayerState &#x3D;&gt; baseLayerState.currentBaseLayer !&#x3D; null)
+      ).subscribe((baseLayerState: fromBaseLayer.BaseLayerState) &#x3D;&gt; {
+      const clonedBaseLayerState &#x3D; cloneDeep(baseLayerState);
+      if (this.getOLLayerFromId(clonedBaseLayerState.currentBaseLayer.id) &#x3D;&#x3D; null) {
+        if (this.baseOLLayer !&#x3D; null) {
+          this.map.removeLayer(this.baseOLLayer);
+        }
+        const newLayer &#x3D; OLLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
+        this.map.addLayer(newLayer);
+        this.baseOLLayer &#x3D; newLayer;
+      }
+    });
+  }
+
+  private getOLLayerFromId(id): LayerBase {
+    return this.map.getLayers().getArray().find((layer: LayerBase) &#x3D;&gt; {
+      return layer.get(&#x27;id&#x27;) &#x3D;&#x3D;&#x3D; id;
+    });
+  }
+
+  private initLayerSubscription() {
+    this.store.select(selectLayerState)
+      .subscribe((layerState: fromLayer.LayerState) &#x3D;&gt; {
+        const clonedLayerState &#x3D; cloneDeep(layerState);
+        const currentOLLayers: Array&lt;ol.layer.Base&gt; &#x3D; clone(this.map.getLayers().getArray());
+        currentOLLayers.forEach((layer: OLLayer) &#x3D;&gt; {
+          const updatedOgslLayer &#x3D; clonedLayerState.layers.find((l) &#x3D;&gt; {
+            return l.uniqueId &#x3D;&#x3D;&#x3D; layer.get(&#x27;uniqueId&#x27;);
+          });
+          if (updatedOgslLayer !&#x3D; null) {
+            const oldOgslLayer &#x3D; this.layers.find((l) &#x3D;&gt; {
+              return l.uniqueId &#x3D;&#x3D;&#x3D; layer.get(&#x27;uniqueId&#x27;);
+            });
+            if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
+              // Only update the old layer if the new one is different
+              const newOlLayer &#x3D; OLLayerFactory.generateLayer(updatedOgslLayer);
+              const index &#x3D; this.map.getLayers().getArray().findIndex((l) &#x3D;&gt; {
+                return l.get(&#x27;uniqueId&#x27;) &#x3D;&#x3D;&#x3D; layer.get(&#x27;uniqueId&#x27;);
+              });
+              this.map.getLayers().removeAt(index);
+              this.map.getLayers().insertAt(index, newOlLayer);
+            }
+          } else if (!this.isBackgroundLayer(layer)) {
+            // If old layer is not part of the new layers and isn&#x27;t a background layer, remove it
+            this.map.removeLayer(layer);
+          }
+        });
+        // Add remaining layers
+        clonedLayerState.layers.forEach((newLayer: Layer) &#x3D;&gt; {
+          if (!currentOLLayers.some((cL) &#x3D;&gt; (cL.get(&#x27;uniqueId&#x27;) &#x3D;&#x3D;&#x3D; newLayer.uniqueId))) {
+            this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
+          }
+        });
+        this.layers &#x3D; clonedLayerState.layers;
+        this.checkLayerPriority();
+      });
+  }
+
+  private checkLayerPriority() {
+    this.map.getLayers().getArray().sort((a, b) &#x3D;&gt; {
+      // Consider background layers to be equal to other layers
+      if (this.isBackgroundLayer(a) || this.isBackgroundLayer(b)) {
+        return 0;
+      }
+      const aLayerIndex &#x3D; this.layers.findIndex((l) &#x3D;&gt; {
+        return l.uniqueId &#x3D;&#x3D;&#x3D; a.get(&#x27;uniqueId&#x27;);
+      });
+      const bLayerIndex &#x3D; this.layers.findIndex((l) &#x3D;&gt; {
+        return l.uniqueId &#x3D;&#x3D;&#x3D; b.get(&#x27;uniqueId&#x27;);
+      });
+      return aLayerIndex - bLayerIndex;
+    });
+    this.map.render();
+  }
+
+  private isBackgroundLayer(layer) {
+    // Background layers do not have a uniqueId, since they cannot be duplicated
+    return layer.get(&#x27;uniqueId&#x27;) &#x3D;&#x3D; null;
+  }
+
+// TODO: To refactor into proper setup with appropriate classes and not hardcoded
+  private initMapClick() {
+    this.map.on(&#x27;singleclick&#x27;, (evt: ol.MapBrowserEvent) &#x3D;&gt; {
+      const resultObservables &#x3D; [];
+      const layerUniqueIdToObsIndex &#x3D; new Map&lt;string, number&gt;();
+
+      this.retrieveFeatureInfos(evt, resultObservables, layerUniqueIdToObsIndex);
+      this.retrieveWmsInfos(evt, resultObservables, layerUniqueIdToObsIndex);
+      this.setClickInformation(resultObservables, layerUniqueIdToObsIndex);
+    });
+  }
+
+  private retrieveWmsInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map&lt;string, number&gt;) {
+    const view: View &#x3D; this.map.getView();
+    this.layers.forEach((l) &#x3D;&gt; {
+      if (l.clickStrategy !&#x3D; null) {
+        if (l.clickStrategy.type &#x3D;&#x3D;&#x3D; &#x27;wms&#x27;) {
+          const olLayer: OLLayer &#x3D; &lt;OLLayer&gt; this.map.getLayers().getArray().find((olL) &#x3D;&gt; {
+            return olL.get(&#x27;uniqueId&#x27;) &#x3D;&#x3D;&#x3D; l.uniqueId;
+          });
+          const source: TileWMS &#x3D; &lt;TileWMS&gt; olLayer.getSource();
+          const getFeatureUrl &#x3D; source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), &lt;any&gt;{
+            INFO_FORMAT: (&lt;WmsStrategy&gt;l.clickStrategy).format,
+            FEATURE_COUNT: (&lt;WmsStrategy&gt;l.clickStrategy).featureCount
+          });
+          const length &#x3D; resultObservables.push(this.httpClient.get(getFeatureUrl,
+            {responseType: &#x27;text&#x27;}));
+          layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
+        }
+      }
+    });
+  }
+
+  private retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map&lt;string, number&gt;) {
+    this.map.forEachFeatureAtPixel(evt.pixel,
+      (feature: Feature, olLayer) &#x3D;&gt; {
+        const layer &#x3D; this.layers.filter((l: Layer) &#x3D;&gt; l.uniqueId &#x3D;&#x3D;&#x3D; olLayer.get(&#x27;uniqueId&#x27;))[0];
+        if (layer.clickStrategy !&#x3D; null &amp;&amp; layer.clickStrategy.type &#x3D;&#x3D;&#x3D; &#x27;json-included&#x27;) {
+          const length &#x3D; resultObservables.push(of(feature.getProperties()));
+          layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
+          return feature;
+        }
+      });
+  }
+
+  // TODO: Possibility to set layer here and return result payload for it to be formatted?
+  // TODO: Formatter method/class would check mapclicklayer.ClickLayer and format the result according to that layer formatter?
+  // TODO: subscribe + filter layer not null?
+  private setClickInformation(resultObservables: any[], layerUniqueIdToObsIndex: Map&lt;string, number&gt;) {
+    forkJoin(resultObservables).subscribe((result) &#x3D;&gt; {
+      for (let i &#x3D; this.layers.length - 1; i &gt;&#x3D; 0; i--) {
+        const currentLayer &#x3D; this.layers[i];
+        if (currentLayer.clickStrategy !&#x3D; null) {
+          let mapClickInfo;
+          const currentResult &#x3D; result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
+          const emptyValidator &#x3D; EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
+          if ((emptyValidator &#x3D;&#x3D; null || !emptyValidator.isPayloadEmpty(currentResult)) &amp;&amp; currentResult !&#x3D; null) {
+            if (currentLayer.clickFormatterInfo !&#x3D; null) {
+              const type &#x3D; currentLayer.clickFormatterInfo.type;
+              const formatterDef &#x3D; currentLayer.clickFormatterInfo.formatterDef;
+              const clickFormatter &#x3D; ClickFormatterFactory.getClickFormatter(type, formatterDef);
+              mapClickInfo &#x3D; clickFormatter.getMapClickInfo(currentResult);
+
+            } else {
+              mapClickInfo &#x3D; new MapClickInfo();
+              mapClickInfo.html &#x3D; currentResult;
+            }
+            mapClickInfo.layerId &#x3D; currentLayer.id;
+            this.store.dispatch(new mapClickActions.SetMapClickInfo(mapClickInfo));
+            break;
+          }
+        }
+      }
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!--
+  ~ This Source Code Form is subject to the terms of the Mozilla Public
+  ~ License, v. 2.0. If a copy of the MPL was not distributed with this
+  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
+  --&gt;
+
+&lt;div id&#x3D;&quot;map&quot; class&#x3D;&quot;map&quot;&gt;&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./open-layers.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+.map{
+  height: 100%;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!--  ~ This Source Code Form is subject to the terms of the Mozilla Public  ~ License, v. 2.0. If a copy of the MPL was not distributed with this  ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.  --><div id="map" class="map"></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CatalogComponent', 'selector': 'app-catalog'},{'name': 'CategoryComponent', 'selector': 'app-category'},{'name': 'DateFieldComponent', 'selector': 'app-date-field'},{'name': 'EnumBehaviorComponent', 'selector': 'app-enum-behavior'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'ImageFieldComponent', 'selector': 'app-image-field'},{'name': 'LayerComponent', 'selector': 'app-layer'},{'name': 'LayerConfigurationComponent', 'selector': 'app-layer-configuration'},{'name': 'LayerInformationComponent', 'selector': 'app-layer-information'},{'name': 'LayerManagerComponent', 'selector': 'app-layer-manager'},{'name': 'LayerPickerComponent', 'selector': 'app-layer-picker'},{'name': 'LayerPresentationComponent', 'selector': 'app-layer-presentation'},{'name': 'MapClickComponent', 'selector': 'app-map-click'},{'name': 'MapComponent', 'selector': 'app-map'},{'name': 'OpenLayersComponent', 'selector': 'app-open-layers'},{'name': 'PopupComponent', 'selector': 'app-popup'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TextFieldComponent', 'selector': 'app-text-field'},{'name': 'TimeBehaviorComponent', 'selector': 'app-time-behavior'},{'name': 'TopicPickerComponent', 'selector': 'app-topic-picker'},{'name': 'UrlFieldComponent', 'selector': 'app-url-field'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'OpenLayersComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'OpenLayersComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

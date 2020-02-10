@@ -204,8 +204,14 @@ export class OpenLayersComponent implements AfterViewInit {
             INFO_FORMAT: (<WmsStrategy>l.clickStrategy).format,
             FEATURE_COUNT: (<WmsStrategy>l.clickStrategy).featureCount
           });
-          const length = resultObservables.push(this.httpClient.get(getFeatureUrl,
-            {responseType: 'text'}));
+          let length = null;
+          if ((<WmsStrategy>l.clickStrategy).format.includes('json')) {
+            length = resultObservables.push(this.httpClient.get(getFeatureUrl,
+              {responseType: 'json'}));
+          } else {
+            length = resultObservables.push(this.httpClient.get(getFeatureUrl,
+              {responseType: 'text'}));
+          }
           layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
         }
       }
