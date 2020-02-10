@@ -11,19 +11,21 @@ import { LayerInformation } from '@app/shared/models';
 export interface LayerInformationState extends EntityState<LayerInformation> { }
 
 export const adapter: EntityAdapter<LayerInformation> = createEntityAdapter<LayerInformation>({
-  selectId: (layerInformation: LayerInformation) => layerInformation.layerId,
+  selectId: (layerInformation: LayerInformation) => layerInformation.layerId.toString(),
   sortComparer: false 
 });
 
 export function layerInformationReducer(state = adapter.getInitialState(), action: LayerInformationActionsUnion): LayerInformationState {
   switch (action.type) {
     case LayerInformationActionTypes.SET_LAYER_INFORMATION:
-      const id: number = action.payload.layerId;
-      const ids: number[] = state.ids as Array<number>;
+      const id: Number = action.payload.layerId;
+      const ids: Number[] = state.ids as Array<number>;
       if (ids.includes(id)) {
-        state = adapter.removeOne(id, state);
+        state = adapter.removeOne(id.toString(), state);
       }
       return adapter.addOne({ ...action.payload }, state);
+    default:
+      return state;
   }
 }
 

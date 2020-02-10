@@ -9,20 +9,24 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 
 import * as LayerInformationActions from '../actions/layer-information.actions';
-import {map, switchMap} from 'rxjs/operators';
-import {LayerInformationActionTypes, SetSelectedLayerId} from '../actions/layer-information.actions';
+import {map, switchMap, flatMap} from 'rxjs/operators';
+import {LayerInformationActionTypes, FetchLayerInformation} from '../actions/layer-information.actions';
 import {environment} from '@env/environment';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class LayerInformationEffects {
   @Effect()
   fetchLayerInformation = this.actions$
-    .ofType<SetSelectedLayerId>(LayerInformationActionTypes.SET_SELECTED_LAYER_ID)
-    .pipe(switchMap((action: LayerInformationActions.SetSelectedLayerId) => {
+    .ofType<FetchLayerInformation>(LayerInformationActionTypes.FETCH_LAYER_INFORMATION)
+    .pipe(switchMap((action: FetchLayerInformation) => {
       return this.httpClient.get(`${environment.mapapiUrl}/layers/${action.payload}/getLayerInformation`,
         {responseType: 'text'}
-      ).pipe(map(layerInformation => {
-        return new LayerInformationActions.SetLayerInformation(layerInformation);
+      ).pipe(map((html) => {
+        return new LayerInformationActions.SetLayerInformation({
+          layerId: action.payload,
+          html: html
+        });
       }));
     }));
 

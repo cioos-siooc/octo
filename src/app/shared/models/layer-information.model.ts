@@ -1,4 +1,4 @@
 export abstract class LayerInformation {
-    public layerId: number;
+    public layerId: Number;
     public html: string;
 } 

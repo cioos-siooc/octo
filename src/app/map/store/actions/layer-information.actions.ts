@@ -8,8 +8,16 @@ import {Action} from '@ngrx/store';
 import { LayerInformation } from '@app/shared/models';
 
 export enum LayerInformationActionTypes {
+  FETCH_LAYER_INFORMATION = '[Layer information] Fetch layer information',
   SET_LAYER_INFORMATION = '[Layer information] Set layer information',
-  SET_SELECTED_LAYER_ID = '[Layer information] Set selected layer id',
+}
+
+export class FetchLayerInformation implements Action {
+  readonly type = LayerInformationActionTypes.FETCH_LAYER_INFORMATION;
+
+  // payload is layerId
+  constructor(public payload: Number) {
+  }
 }
 
 export class SetLayerInformation implements Action {

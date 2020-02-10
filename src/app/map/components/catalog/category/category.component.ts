@@ -66,7 +66,7 @@ export class CategoryComponent implements OnInit {
   }
 
   onShowLayerInfoClick(layerId) {
-    this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layerId));
+    // this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layerId));
     this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
   }
 

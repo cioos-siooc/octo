@@ -26,7 +26,7 @@ export class LayerInformationComponent implements OnInit {
 
   ngOnInit() {
     this.layerInformationState = this.store.select(selectLayerInformationState);
-    this.layerInformationState.subscribe((state) => this.layerInformationHtml = state.informationHtml);
+    // this.layerInformationState.subscribe((state) => this.layerInformationHtml = state.informationHtml);
   }
 
 }
