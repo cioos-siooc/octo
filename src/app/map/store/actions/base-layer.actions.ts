@@ -14,7 +14,7 @@ export enum BaseLayerActionTypes {
 
 /**
  * Creates an instance of AddBaseLayer which can be dispatched to the store
- * AddBaseLayer appends the given layer to the BaseLayer reducer
+ *  AddBaseLayer appends the given Layer to the base-layer reducer
  *
  * @export
  * @class AddBaseLayer
@@ -34,8 +34,10 @@ export class AddBaseLayer implements Action {
 
 /**
  * Creates an instance of SetCurrentBaseLayer which can be dispatched to the store
- * SetCurrentBaseLayer sets the currentBaseLayer parameter in the reducer to the given layer
- * This layer should already be included in the reducer before it is set to the currentBaseLayer
+ *  SetCurrentBaseLayer sets the currentBaseLayer parameter in the base-layer reducer 
+ *  to the given layer
+ *  
+ * Note: This layer should already be included in the reducer before it is set to the currentBaseLayer
  *
  * @export
  * @class SetCurrentBaseLayer
