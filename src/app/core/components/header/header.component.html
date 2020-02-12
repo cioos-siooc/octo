@@ -13,6 +13,7 @@
       <h4 class="navbar-text offset-2 col-4 d-none d-md-block text-center align-middle header foreground-white header-title">{{titleKey | translate}}</h4>
       <div class="offset-4 offset-md-2 col-4 col-md-2">
         <div ngbDropdown class="float-right">
+          <button class="btn btn-outline-secondary space-between-buttons" (click)="onPdfExportClick()">{{ 'export-pdf' | translate}}</button>
           <button class="btn btn-outline-secondary" id="help" ngbDropdownToggle>?</button>
           <div ngbDropdownMenu aria-labelledby="help" class="background-dark foreground-white">
             <button class="dropdown-item background-dark foreground-white"
