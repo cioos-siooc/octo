@@ -73,7 +73,3 @@ export class CategoryEffects {
     constructor(private actions$: Actions, private store$: Store<MapState>, private httpClient: HttpClient) {
     }
 }
-
-function appendCategories(topicHierarchy) {
-
-}

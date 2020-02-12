@@ -13,8 +13,19 @@ import {map, switchMap} from 'rxjs/operators';
 import {LayerInformationActionTypes, SetSelectedLayerId} from '../actions/layer-information.actions';
 import {environment} from '@env/environment';
 
+/**
+ * Side effects for teh LayerInformation reducer
+ *
+ * @export
+ * @class LayerInformationEffects
+ */
 @Injectable()
 export class LayerInformationEffects {
+  /**
+   * Fetches LayerInformation from OctoPi based on the layerId given in the payload
+   *
+   * @memberof LayerInformationEffects
+   */
   @Effect()
   fetchLayerInformation = this.actions$
     .ofType<SetSelectedLayerId>(LayerInformationActionTypes.SET_SELECTED_LAYER_ID)
