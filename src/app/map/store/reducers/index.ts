@@ -12,7 +12,6 @@ import * as fromLayerInformation from './/layer-information.reducers';
 import * as fromBaseLayer from './base-layer.reducers';
 import * as fromLayer from './layer.reducers';
 import * as fromPopup from './popup.reducers';
-import * as fromLayerPresentation from './layer-presentation.reducers';
 import * as fromMapClick from './map-click.reducers';
 import * as fromBehavior from './behavior.reducers';
 import * as fromTopic from './topic.reducers';
@@ -23,7 +22,6 @@ export interface MapState {
   baseLayer: fromBaseLayer.BaseLayerState;
   layerInformation: fromLayerInformation.LayerInformationState;
   popup: fromPopup.PopupState;
-  layerPresentation: fromLayerPresentation.LayerPresentationState;
   mapClick: fromMapClick.MapClickState;
   behavior: fromBehavior.BehaviorState;
   topic: fromTopic.TopicState;
@@ -39,7 +37,6 @@ export const mapReducers: ActionReducerMap<MapState> = {
   baseLayer: fromBaseLayer.baseLayerReducer,
   layerInformation: fromLayerInformation.layerInformationReducer,
   popup: fromPopup.popupReducer,
-  layerPresentation: fromLayerPresentation.layerPresentationReducer,
   mapClick: fromMapClick.mapClickReducer,
   behavior: fromBehavior.behaviorReducer,
   topic: fromTopic.topicReducer,
