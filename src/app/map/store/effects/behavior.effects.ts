@@ -14,6 +14,17 @@ import { UrlParametersUtil } from '@app/map/utils/url-parameters.util';
 import * as moment from 'moment';
 import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 
+/**
+ * Reducer side effect which synchronizes changes between the behavior reducer
+ *  and their corresponding urlParamters in the layer reducer
+ * 
+ *  ex: a layer has a time behavior which is controlled by a UI element.
+ *      This effect ensures that changes to the behavior are added to the corresponding
+ *      layer's urlParameters so that they are included in the URL
+ *
+ * @export
+ * @class BehaviorEffects
+ */
 @Injectable()
 export class BehaviorEffects {
     @Effect()
