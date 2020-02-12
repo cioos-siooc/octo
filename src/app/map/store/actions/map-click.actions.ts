@@ -14,7 +14,8 @@ export enum MapClickActionTypes {
 
 
 /**
- *Set the current clickInfo for a particular layer
+ * Creates an instance of SetMapClickInfo which can be dispatched to the store
+ *  SetMapClickInfo sets the current clickInfo for a particular layer
  *
  * @export
  * @class SetMapClickInfo
@@ -25,14 +26,15 @@ export class SetMapClickInfo implements Action {
 
   /**
    *Creates an instance of SetMapClickInfo.
-   * @param {MapClickInfo} payload
+   * @param {MapClickInfo} payload - The MapClickInfo which will be set
    * @memberof SetMapClickInfo
    */
   constructor(public payload: MapClickInfo) {}
 }
 
 /**
- *Removes the current clickInfo for a particular layer
+ * Creates an instance of ClearMapClickInfo which can be dispatched to the store
+ *  ClearMapClickInfo removes the current clickInfo for a particular layer
  *
  * @export
  * @class ClearMapClickInfo
