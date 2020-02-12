@@ -14,7 +14,7 @@ import {LayerInformationActionTypes, SetSelectedLayerId} from '../actions/layer-
 import {environment} from '@env/environment';
 
 /**
- * Side effects for teh LayerInformation reducer
+ * Side effects for the LayerInformation reducer
  *
  * @export
  * @class LayerInformationEffects

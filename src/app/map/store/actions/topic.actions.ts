@@ -30,8 +30,11 @@ export class FetchTopicGroup implements Action {
   readonly type = TopicActionTypes.FETCH_TOPIC_GROUP;
 
   /**
-   * Creates an instance of FetchTopicGroup.
-   * @param {number} payload - The id of the topic group in mapapi
+   *Creates an instance of FetchTopicGroup.
+   * @param {{
+   *  languageCode: string, - The language code currently in use: ie 'en'. Should correspond to a languageCode in OctoPi
+   *  code: string - The code identifying which topic group to fetch.
+   * }} payload
    * @memberof FetchTopicGroup
    */
   constructor(public payload: { languageCode: string, code: string }) {

@@ -201,7 +201,7 @@ export class SetClientPresentation implements Action {
 
 /**
  * Creates an instance of SetLayerPosition which can be dispatched to the store
- *  SetLayerPosition sets the layer's position in the layer list in teh layer reducer
+ *  SetLayerPosition sets the layer's position in the layer list in the layer reducer
  *
  * @export
  * @class SetLayerPosition
