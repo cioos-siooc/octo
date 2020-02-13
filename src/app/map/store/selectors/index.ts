@@ -10,7 +10,6 @@ export * from './layer.selectors';
 export * from './layer-information.selectors';
 export * from './layer-presentation.selectors';
 export * from './map-click.selectors';
-export * from './popup.selectors';
 export * from './topic.selectors';
 export * from './category.selectors';
 

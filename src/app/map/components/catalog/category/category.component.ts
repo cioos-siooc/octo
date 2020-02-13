@@ -13,10 +13,8 @@ import { MapState, selectCategoryEntities, selectLayerState } from '@app/map/sto
 import { NormalizedCategory, Layer } from '@app/shared/models';
 import * as layerInformationActions from '@app/map/store/actions/layer-information.actions';
 import * as categoryActions from '@app/map/store/actions/category.actions';
-import * as popupActions from '@app/map/store/actions/popup.actions';
 import * as layerActions from '@app/map/store/actions/layer.actions';
 import * as fromLayer from '@app/map/store/reducers/layer.reducers';
-import { LAYER_INFORMATION_POPUP_ID } from '../../map/map.component';
 import { take } from 'rxjs/operators';
 import { selectCategoryById } from './../../../store/selectors/category.selectors';
 
@@ -65,11 +63,6 @@ export class CategoryComponent implements OnInit {
     } else {
       this.addLayer(category);
     }
-  }
-
-  onShowLayerInfoClick(layerId) {
-    this.store.dispatch(new layerInformationActions.SetSelectedLayerId(layerId));
-    this.store.dispatch(new popupActions.SetIsOpen({popupId: LAYER_INFORMATION_POPUP_ID, isOpen: true}));
   }
 
   private addLayer(category: NormalizedCategory) {
