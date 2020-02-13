@@ -1,3 +1,4 @@
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -23,6 +24,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {UrlBehaviorService} from '@app/map/services';
 import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import { sortlayerPriorityDescending } from '@app/shared/utils';
 import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -68,23 +70,28 @@ export class MapComponent implements OnInit {
     this.route.queryParams.pipe(take(1)).subscribe((params) => {
       if ('layers' in params) {
         const layers = params.layers.split(',');
-        for (const layer of layers) {
-          this.store.dispatch(new layerActions.FetchLayer({layerId: layer, uniqueId: layer.toString()}));
+        for (let i = 0; i < layers.length; i++) {
+          const layer = layers[i];
+          this.store.dispatch(new layerActions.FetchLayer({
+            layerId: layer,
+            uniqueId: layer.toString(),
+            priority: layers.length - i
+          }));
         }
-        this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
-          const layerIds = state.layers.map(layer => layer.id);
-          if (layerIds.length > 0) {
-            this.router.navigate([], {
-              queryParams: {'layers': layerIds.toString()},
-              queryParamsHandling: 'merge',
-            });
-          }
-        });
       }
     });
     // Listen for newly added layers and add them to the URL
     this.store.select(selectLayerState).subscribe((state: fromLayer.LayerState) => {
-      const layerIds = state.layers.map(layer => layer.id);
+      const layers = state.layers.slice();
+      const layerIds = layers.sort(sortlayerPriorityDescending).filter(
+        // Filter layer list to make sure layerGroup members aren't added to the URL
+        layer => typeof(layer.layerGroupId) === 'undefined'
+      ).map(
+        // Extract a list of layerIds to add to URL
+        // Makes shareable links
+        layer => layer.id
+      );
+
       if (layerIds.length > 0) {
         this.router.navigate([], {
           queryParams: {'layers': layerIds.toString()},

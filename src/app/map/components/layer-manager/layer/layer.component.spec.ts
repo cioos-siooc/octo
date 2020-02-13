@@ -120,7 +120,8 @@ describe('LayerComponent', () => {
         clickStrategy: clickStrategy,
         clickFormatterInfo: clickFormatterInfo,
         urlBehaviors: '',
-        isCollapsed: false
+        isCollapsed: false,
+        priority: 1
       };
     }
   }

@@ -29,5 +29,6 @@
   "Remove-layer-label": "Retirer la couche",
   "legend-label": "Légende",
   "layer-information-label": "Informations",
-  "layer-description-label": "Informations sur la couche"
+  "layer-description-label": "Informations sur la couche",
+  "export-pdf": "Exporter en PDF"
 }

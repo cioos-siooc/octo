@@ -17,6 +17,8 @@ import * as popupActions from '@app/map/store/actions/popup.actions';
 import * as layerActions from '@app/map/store/actions/layer.actions';
 import * as fromLayer from '@app/map/store/reducers/layer.reducers';
 import { LAYER_INFORMATION_POPUP_ID } from '../../map/map.component';
+import { take } from 'rxjs/operators';
+import { selectCategoryById } from './../../../store/selectors/category.selectors';
 
 @Component({
   selector: 'app-category',
@@ -71,9 +73,20 @@ export class CategoryComponent implements OnInit {
   }
 
   private addLayer(category: NormalizedCategory) {
+    if (category.type === 'layerGroup') {
+      for (const category_id of category.categories) {
+        this.store.select(selectCategoryById(category_id)).pipe(take(1)).subscribe((c: NormalizedCategory) => {
+          this.store.dispatch(new layerActions.FetchLayer({
+            layerId: c.layerId,
+            uniqueId: c.layerId.toString(),
+            layerGroupId: category.id,
+          }));
+        });
+      }
+    }
     this.store.dispatch(new layerActions.FetchLayer({
       layerId: category.layerId,
-      uniqueId: category.layerId.toString()
+      uniqueId: category.layerId.toString(),
     }));
   }
 

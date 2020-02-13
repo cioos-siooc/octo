@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import { MapState } from '@app/map/store';
 import { selectLayerState } from '@app/map/store/selectors/layer.selectors';
 import { Layer } from '@app/shared/models';
+import { sortlayerPriorityDescending } from '@app/shared/utils';
 
 @Component({
     selector: 'app-layer-manager',
@@ -18,20 +19,40 @@ import { Layer } from '@app/shared/models';
 })
 export class LayerManagerComponent implements OnInit {
     layers: Layer[];
+    currentDraggedLayer: Layer;
+    isBeingDragged: boolean;
 
     constructor(private store: Store<MapState>) {
     }
 
     ngOnInit() {
         this.store.select(selectLayerState).subscribe(
-            layerState => this.layers = layerState.layers.slice().reverse()
+            layerState => {
+                this.layers = layerState.layers.filter(
+                    layer => layer.layerGroupId == null
+                ).sort(sortlayerPriorityDescending);
+            }
         );
     }
 
-    dropItem(newIndex, e, layersCount: number) {
-        const inversedNewIndex = layersCount - newIndex;
+    onDragStart(layer: Layer, e) {
+        this.currentDraggedLayer = layer;
+        this.isBeingDragged = true;
+        console.log(this.isBeingDragged);
+    }
+
+    onDragEnd() {
+        this.isBeingDragged = false;
+    }
+
+    dropItem(newPriority, e) {
+        if (newPriority < e.dragData['priority']) {
+            newPriority -= 1;
+        }
+        this.isBeingDragged = false;
         this.store.dispatch(new SetLayerPosition({
             layerId: JSON.stringify(e.dragData['id']),
-            newLayerPosition: inversedNewIndex}));
+            newLayerPosition: newPriority}));
+            console.log(this.isBeingDragged);
     }
 }

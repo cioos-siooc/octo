@@ -5,5 +5,6 @@
  */
 
 export * from './behavior-handler.util';
-export * from './behavior-handler-factory.util';
+export * from './behavior-handler-factory.service';
 export * from './time-handler.util';
+export * from './dynamic-enum-handler.util';

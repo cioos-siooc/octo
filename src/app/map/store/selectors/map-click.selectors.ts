@@ -33,11 +33,11 @@ export const selectMapClickTotal = createSelector(
   fromMapClick.selectMapClickTotal
 );
 
-export const selectMapClickByLayerId = createSelector(
+export const selectMapClickByLayerId = (layerId) => createSelector(
   selectMapClickEntities,
-  (mapClicks, props) => {
+  (mapClicks) => {
     if (mapClicks) {
-      return mapClicks[props.id];
+      return mapClicks[layerId];
     } else {
       return {};
     }

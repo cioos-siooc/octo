@@ -4,6 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+import { Injectable } from '@angular/core';
+
 import {Layer} from '@app/shared/models';
 import {OLSourceFactory} from './ol-source-factory.util';
 import OLLayer from 'ol/layer/layer';
@@ -13,27 +15,32 @@ import TileLayer from 'ol/layer/tile';
 import VectorLayer from 'ol/layer/vector';
 import VectorSource from 'ol/source/vector';
 import {StylesFromLiterals} from '../styles-from-literals.util';
+import { stylers } from './stylers';
+import { StylerService } from './styler.service';
 
+@Injectable()
 export class OLLayerFactory {
-  public static generateLayer(layer: Layer): OLLayer {
+  constructor(private stylerService: StylerService) {}
+
+  public generateLayer(layer: Layer): OLLayer {
     let olLayer: OLLayer;
     if (layer.type === 'bing' || layer.type === 'wms') {
       olLayer = this.generateTileLayer(layer);
     } else if (layer.type === 'geojson' || layer.type === 'wfs') {
       olLayer = this.generateVectorLayer(layer);
     }
-    olLayer.setZIndex(layer.zIndex);
+    olLayer.setZIndex(layer.priority);
     return olLayer;
   }
 
-  private static generateTileLayer(layer: Layer): OLLayer {
+  private generateTileLayer(layer: Layer): OLLayer {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new TileLayer({source: <TileSource>source});
     this.setOLLayerProperties(olLayer, layer);
     return olLayer;
   }
 
-  private static setOLLayerProperties(olLayer: OLLayer, layer: Layer) {
+  private setOLLayerProperties(olLayer: OLLayer, layer: Layer) {
     olLayer.set('id', layer.id);
     olLayer.set('code', layer.code);
     olLayer.set('uniqueId', layer.uniqueId);
@@ -41,24 +48,19 @@ export class OLLayerFactory {
     olLayer.set('visible', layer.isVisible);
   }
 
-  private static generateVectorLayer(layer: Layer) {
+  private generateVectorLayer(layer: Layer) {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new VectorLayer({source: <VectorSource>source});
     this.setOLLayerProperties(olLayer, layer);
-    this.setOLVectorLayerStyle(layer, olLayer);
+
+    let styler = undefined;
+    if (typeof(layer.currentClientPresentation.styler) !== 'undefined') {
+      styler = this.stylerService.getStyler(layer.currentClientPresentation.styler);
+    } else {
+      styler = this.stylerService.getStyler('slgo-mapbox');
+    }
+    styler.setOLVectorLayerStyle(layer, olLayer);
+
     return olLayer;
   }
-
-  private static setOLVectorLayerStyle(layer: Layer, olLayer) {
-    if (layer.currentClientPresentation != null) {
-      const styleDef = layer.currentClientPresentation.styleDef;
-      if (styleDef != null) {
-        const stylesFromLiteralsService = new StylesFromLiterals(styleDef);
-        (<VectorLayer>olLayer).setStyle(function (feature, resolution) {
-          return [stylesFromLiteralsService.getFeatureStyle(feature, resolution)];
-        });
-      }
-    }
-  }
 }
-

@@ -1,15 +1,16 @@
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { SetLayerDescription, AddLayer } from './../actions/layer.actions';
+import { AddLayer, SetLayerPosition, InitLayerPosition } from './../actions/layer.actions';
 
 import {Actions, Effect} from '@ngrx/effects';
 
 
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Layer} from '@app/shared/models';
@@ -21,6 +22,8 @@ import {ClickFormatterInfo} from '@app/shared/models';
 import {uniqueId} from 'lodash';
 import {of} from 'rxjs/internal/observable/of';
 import {cloneDeep} from 'lodash';
+import { StoreState } from './../reducers/index';
+import { Store } from '@ngrx/store';
 import {
   FetchClickFormatter,
   FetchClickStrategy,
@@ -41,6 +44,13 @@ export class LayerEffects {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
           layer.uniqueId = action.payload.uniqueId;
+          layer.defaultPriority = action.payload.priority;
+          layer.priority = -1;
+
+          // Do some layer group stuff
+          if (action.payload.layerGroupId) {
+            layer.layerGroupId = action.payload.layerGroupId;
+          }
           if (layer.urlBehaviors != null) {
             layer.urlBehaviors.forEach((behavior) => {
               behavior.uniqueId = uniqueId();
@@ -116,6 +126,15 @@ export class LayerEffects {
           (clientPresentations) => {
             // Add clientPresentations to the layer and set the default as the current one
             const newPayload = {...action.payload};
+
+            // default to slgo-mapbox if the styler is undefined
+            clientPresentations = clientPresentations.map((cp) => {
+              if (typeof(cp.styler) === 'undefined' ) {
+                cp.styler = 'slgo-mapbox'
+              }
+              return cp;
+            });
+
             newPayload.currentClientPresentation = clientPresentations.find((cp: ClientPresentation) => {
               return cp.isDefault;
             });
@@ -147,7 +166,30 @@ export class LayerEffects {
         );
       }));
 
+  @Effect()
+  layerPosition = this.actions$
+      .ofType<AddLayer>(LayerActionTypes.ADD_LAYER)
+      .pipe(map((action: AddLayer) => {
+        if (action.payload.priority === -1) {
+          return new InitLayerPosition({layerId: action.payload.uniqueId});
+        }
+      }));
+
+  @Effect()
+  initLayerPosition = this.actions$
+      .ofType<InitLayerPosition>(LayerActionTypes.INIT_LAYER_POSITION)
+      .pipe(
+        withLatestFrom(this.store$),
+        map(([action, store]) => {
+          const layer = store.map.layer.layers.filter((l: Layer) => l.uniqueId === action.payload.layerId)[0];
+          return new SetLayerPosition({
+            layerId: action.payload.layerId,
+            newLayerPosition: layer.defaultPriority
+          });
+      }));
+
   constructor(private actions$: Actions,
-              private httpClient: HttpClient) {
+              private httpClient: HttpClient,
+              private store$: Store<StoreState>) {
   }
 }
