@@ -34,9 +34,21 @@ import {
 } from '../actions/layer.actions';
 import { FetchLayerInformation } from '../actions';
 
+/**
+ * Side effects for the layer reducer
+ *
+ * @export
+ * @class LayerEffects
+ */
 @Injectable()
 export class LayerEffects {
 
+  /**
+   * Fetches a layer from OctoPi based on the layerId given in the payload
+   *  Calls FetchClickStrategy for the layer once it is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   layerFetch = this.actions$
     .ofType<FetchLayer>(LayerActionTypes.FETCH_LAYER)
@@ -70,6 +82,12 @@ export class LayerEffects {
     ));
 
 
+  /**
+   * Fetches the ClickStrategy for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls FetchClickFormatter once the result is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   clickStrategyFetch = this.actions$
     .ofType<FetchClickStrategy>(LayerActionTypes.FETCH_CLICK_STRATEGY)
@@ -93,6 +111,13 @@ export class LayerEffects {
           };
         }
       ));
+
+  /**
+   * Fetches the ClickFormatter for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls FetchClientPresentations once the result is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   clickFormatterFetch = this.actions$
     .ofType<FetchClickFormatter>(LayerActionTypes.FETCH_CLICK_FORMATTER)
@@ -117,6 +142,12 @@ export class LayerEffects {
         }
       ));
 
+  /**
+   * Fetches the ClientPresentations for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls FetchLayerDescription once the result is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   clientPresentationsFetch = this.actions$
     .ofType<FetchClientPresentations>(LayerActionTypes.FETCH_CLIENT_PRESENTATIONS)
@@ -147,6 +178,12 @@ export class LayerEffects {
         (layer) => new FetchLayerDescription(layer)
       ));
 
+  /**
+   * Fetches the LayerDescription for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls AddLayer to put the layer into the reducer
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   layerDescriptionFetch = this.actions$
       .ofType<FetchLayerDescription>(LayerActionTypes.FETCH_LAYER_DESCRIPTION)

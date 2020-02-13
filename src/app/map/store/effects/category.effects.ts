@@ -16,8 +16,21 @@ import { schema, normalize } from 'normalizr';
 import { FetchCategoriesForTopic, AppendCategories, AppendRootCategoryIds,
     CategoryActionTypes, AppendLayerCategoryIds } from './../actions/category.actions';
 
+/**
+ * Side effects for the category reducer
+ *
+ * @export
+ * @class CategoryEffects
+ */
 @Injectable()
 export class CategoryEffects {
+    /**
+     * Side effect which fetches the category tree for a given topic.
+     *  Upon receiving the results the effect flattens them into an array which
+     *  can be easily passed to an EntityAdaptor reducer(saves on tree traversals and makes access way more efficient)
+     *
+     * @memberof CategoryEffects
+     */
     @Effect()
     fetchCategoriesForTopic = this.actions$
     .ofType<FetchCategoriesForTopic>(CategoryActionTypes.FETCH_CATEGORIES_FOR_TOPIC)
@@ -59,8 +72,4 @@ export class CategoryEffects {
 
     constructor(private actions$: Actions, private store$: Store<MapState>, private httpClient: HttpClient) {
     }
-}
-
-function appendCategories(topicHierarchy) {
-
 }

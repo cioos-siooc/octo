@@ -8,6 +8,14 @@ import {PopupActionsUnion, PopupActionTypes, PopupStatus} from '../actions/popup
 import {cloneDeep} from 'lodash';
 
 
+/**
+ * Stores a list of Popup status'
+ * 
+ * Note: no longer used
+ *
+ * @export
+ * @interface PopupState
+ */
 export interface PopupState {
   popupStatuses: PopupStatus[];
 }

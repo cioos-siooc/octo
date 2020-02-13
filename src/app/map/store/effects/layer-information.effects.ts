@@ -15,8 +15,19 @@ import {environment} from '@env/environment';
 import { Observable, of } from 'rxjs';
 import { LayerInformationUrl } from '@app/shared/models/layer-information-url.model';
 
+/**
+ * Side effects for the LayerInformation reducer
+ *
+ * @export
+ * @class LayerInformationEffects
+ */
 @Injectable()
 export class LayerInformationEffects {
+  /**
+   * Fetches LayerInformation from OctoPi based on the layerId given in the payload
+   *
+   * @memberof LayerInformationEffects
+   */
   @Effect()
   fetchLayerInformation = this.actions$
     .ofType<FetchLayerInformation>(LayerInformationActionTypes.FETCH_LAYER_INFORMATION)

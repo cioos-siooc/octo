@@ -20,12 +20,26 @@ export class FetchLayerInformation implements Action {
   }
 }
 
+/**
+ * Creates an instance of SetLayerInformation which can be dispatched to the store
+ *  SetLayerInformation sets the informationHtml property in the layer-information reducer
+ *
+ * @export
+ * @class SetLayerInformation
+ * @implements {Action}
+ */
 export class SetLayerInformation implements Action {
   readonly type = LayerInformationActionTypes.SET_LAYER_INFORMATION;
 
+  /**
+   *Creates an instance of SetLayerInformation.
+   * @param {LayerInformation} payload - An object containing the layer information
+   * @memberof SetLayerInformation
+   */
   constructor(public payload: LayerInformation) {
   }
 }
 
 export type LayerInformationActionsUnion =
-  SetLayerInformation; 
+  SetLayerInformation |
+  FetchLayerInformation;

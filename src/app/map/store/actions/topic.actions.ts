@@ -19,7 +19,8 @@ export enum TopicActionTypes {
 }
 
 /**
- * Trigger an effect to fetch a topic group
+ * Creates an instance of FetchTopicGroup which can be dispatched to the store
+ *  FetchTopicGroup triggers an effect which fetches a topic group from OctoPi
  *
  * @export
  * @class FetchTopicGroupcatalog reducer
@@ -29,8 +30,11 @@ export class FetchTopicGroup implements Action {
   readonly type = TopicActionTypes.FETCH_TOPIC_GROUP;
 
   /**
-   * Creates an instance of FetchTopicGroup.
-   * @param {number} payload - The id of the topic group in mapapi
+   *Creates an instance of FetchTopicGroup.
+   * @param {{
+   *  languageCode: string, - The language code currently in use: ie 'en'. Should correspond to a languageCode in OctoPi
+   *  code: string - The code identifying which topic group to fetch.
+   * }} payload
    * @memberof FetchTopicGroup
    */
   constructor(public payload: { languageCode: string, code: string }) {
@@ -38,7 +42,8 @@ export class FetchTopicGroup implements Action {
 }
 
 /**
- * Set the currently loaded topic group
+ * Creates an instance of SetTopicGroup which can be dispatched to the store
+ *  SetTopicGroup sets the currently loaded topic group in the topicGroup attribute of the topic reducer
  *
  * @export
  * @class SetTopicGroup
@@ -49,7 +54,7 @@ export class SetTopicGroup implements Action {
 
   /**
    *Creates an instance of SetTopicGroup.
-   * @param {TopicGroup} payload - The TopicGroup result from mapapi
+   * @param {TopicGroup} payload - The TopicGroup to be set
    * @memberof SetTopicGroup
    */
   constructor(public payload: TopicGroup) {
@@ -57,7 +62,8 @@ export class SetTopicGroup implements Action {
 }
 
 /**
- * Set the currently selected topic
+ * Creates an instance of SetSelectedTopic which can be dispatched to the store
+ *  SetSelectedTopic sets the currently selected topic in the selectedTopic attribute of the topic reducer
  *
  * @export
  * @class SetSelectedTopic
@@ -76,7 +82,9 @@ export class SetSelectedTopic implements Action {
 }
 
 /**
- * Trigger an effect to fetch a topic using its id, then append it to the list of topics
+ * Creates an instance of FetchTopic which can be dispatched to the store
+ *  FetchTopic triggers an effect which fetches a topic from OctoPi based on its id,
+ *  then append it to the list of topics
  *
  * @export
  * @class FetchTopic
@@ -95,7 +103,8 @@ export class FetchTopic implements Action {
 }
 
 /**
- * Append the result of FetchTopic to the reducer
+ * Creates an instance of Appendtopic which can be dispatched to the store
+ *  AppendTopic appends the result of FetchTopic to the topic reducer
  *
  * @export
  * @class AppendTopic
@@ -113,9 +122,22 @@ export class AppendTopic implements Action {
   }
 }
 
+/**
+ * Creates an instance of UpdateTopic which can be dispatched to the store
+ *  UpdateTopic updates a topic in the topic reducer based on its id
+ *
+ * @export
+ * @class UpdateTopic
+ * @implements {Action}
+ */
 export class UpdateTopic implements Action {
   readonly type = TopicActionTypes.UPDATE_TOPIC;
 
+  /**
+   *Creates an instance of UpdateTopic.
+   * @param {Update<Topic>} payload - The new version of the topic to be updated
+   * @memberof UpdateTopic
+   */
   constructor(public payload: Update<Topic>) {
   }
 }

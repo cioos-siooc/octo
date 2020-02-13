@@ -9,10 +9,16 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { LayerInformation } from '@app/shared/models';
 
 export interface LayerInformationState extends EntityState<LayerInformation> { }
+/**
+ * Stores the HTML layerInformation for the currently selected layer
+ *
+ * @export
+ * @interface LayerInformationState
+ */
 
 export const adapter: EntityAdapter<LayerInformation> = createEntityAdapter<LayerInformation>({
   selectId: (layerInformation: LayerInformation) => layerInformation.layerId.toString(),
-  sortComparer: false 
+  sortComparer: false
 });
 
 export function layerInformationReducer(state = adapter.getInitialState(), action: LayerInformationActionsUnion): LayerInformationState {

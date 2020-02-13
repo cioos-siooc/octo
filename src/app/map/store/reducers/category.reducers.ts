@@ -8,6 +8,14 @@ import { CategoryActionsUnion, CategoryActionTypes } from './../actions/category
 import { NormalizedCategory } from '@app/shared/models';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
+/**
+ * Stores a list of key:value pairs representing Categories
+ *  Also stores a list of root category IDs and a list of layer Category IDs
+ *
+ * @export
+ * @interface CategoryState
+ * @extends {EntityState<NormalizedCategory>}
+ */
 export interface CategoryState extends EntityState<NormalizedCategory> {
   rootCategoryIds: Number[];
   layerCategoryIds: Number[];

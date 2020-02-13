@@ -12,16 +12,45 @@ export enum BaseLayerActionTypes {
   SET_CURRENT_BASE_LAYER = '[Base layer] Set current',
 }
 
+/**
+ * Creates an instance of AddBaseLayer which can be dispatched to the store
+ *  AddBaseLayer appends the given Layer to the base-layer reducer
+ *
+ * @export
+ * @class AddBaseLayer
+ * @implements {Action}
+ */
 export class AddBaseLayer implements Action {
   readonly type = BaseLayerActionTypes.ADD_BASE_LAYER;
 
+  /**
+   *Creates an instance of AddBaseLayer.
+   * @param {Layer} payload - The Layer to be added to the reducer
+   * @memberof AddBaseLayer
+   */
   constructor(public payload: Layer) {
   }
 }
 
+/**
+ * Creates an instance of SetCurrentBaseLayer which can be dispatched to the store
+ *  SetCurrentBaseLayer sets the currentBaseLayer parameter in the base-layer reducer 
+ *  to the given layer
+ *  
+ * Note: This layer should already be included in the reducer before it is set to the currentBaseLayer
+ *
+ * @export
+ * @class SetCurrentBaseLayer
+ * @implements {Action}
+ */
 export class SetCurrentBaseLayer implements Action {
   readonly type = BaseLayerActionTypes.SET_CURRENT_BASE_LAYER;
 
+  /**
+   *Creates an instance of SetCurrentBaseLayer.
+   * @param {Layer} payload - The layer to be set as the currentBaseLayer
+   * @memberof SetCurrentBaseLayer
+   */
   constructor(public payload: Layer) {
   }
 }

@@ -8,6 +8,14 @@ import { MapClickInfo } from '@app/shared/models';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { MapClickActionsUnion, MapClickActionTypes } from '../actions/map-click.actions';
 
+/**
+ * Stores a set of key:value pairs representing MapClick data for layers in the application
+ *  Uses an EntityState reducer 
+ *
+ * @export
+ * @interface MapClickState
+ * @extends {EntityState<MapClickInfo>}
+ */
 export interface MapClickState extends EntityState<MapClickInfo> { }
 
 export const adapter: EntityAdapter<MapClickInfo> = createEntityAdapter<MapClickInfo>({
