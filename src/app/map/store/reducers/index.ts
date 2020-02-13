@@ -8,7 +8,7 @@ import {ActionReducerMap, createFeatureSelector, MetaReducer} from '@ngrx/store'
 import {environment} from '../../../../environments/environment';
 import {storeFreeze} from 'ngrx-store-freeze';
 
-import * as fromLayerInformation from './/layer-information.reducers';
+import * as fromLayerInformation from './layer-information.reducers';
 import * as fromBaseLayer from './base-layer.reducers';
 import * as fromLayer from './layer.reducers';
 import * as fromPopup from './popup.reducers';

@@ -32,6 +32,7 @@ import {
   FetchLayerDescription,
   LayerActionTypes
 } from '../actions/layer.actions';
+import { FetchLayerInformation } from '../actions';
 
 @Injectable()
 export class LayerEffects {
@@ -62,7 +63,8 @@ export class LayerEffects {
     }), mergeMap(
       (layer) => {
         return [
-          new FetchClickStrategy(layer)
+          new FetchClickStrategy(layer),
+          new FetchLayerInformation(layer.id)
         ];
       }
     ));
