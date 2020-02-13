@@ -78,7 +78,6 @@ export class CategoryComponent implements OnInit {
         this.store.select(selectCategoryById(category_id)).pipe(take(1)).subscribe((c: NormalizedCategory) => {
           this.store.dispatch(new layerActions.FetchLayer({
             layerId: c.layerId,
-            uniqueId: c.layerId.toString(),
             layerGroupId: category.id,
           }));
         });
@@ -86,12 +85,11 @@ export class CategoryComponent implements OnInit {
     }
     this.store.dispatch(new layerActions.FetchLayer({
       layerId: category.layerId,
-      uniqueId: category.layerId.toString(),
     }));
   }
 
   private removeLayer(category: NormalizedCategory) {
-    this.store.dispatch(new layerActions.DeleteLayer(category.layerId.toString()));
+    this.store.dispatch(new layerActions.DeleteLayer(category.layerId));
   }
 
   layerIsAdded(category: NormalizedCategory) {

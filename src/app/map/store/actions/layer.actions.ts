@@ -31,7 +31,6 @@ export class FetchLayer implements Action {
 
   constructor(public payload: {
     layerId: number,
-    uniqueId: string,
     priority?: number,
     layerGroupId?: number,
   }) { }
@@ -61,7 +60,7 @@ export class AddLayer implements Action {
 export class DeleteLayer implements Action {
   readonly type = LayerActionTypes.DELETE_LAYER;
 
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 
@@ -84,20 +83,20 @@ export class SetLayerDescription implements Action {
 export class SetClientPresentation implements Action {
   readonly type = LayerActionTypes.SET_CLIENT_PRESENTATION;
 
-  constructor(public payload: { uniqueId: string, clientPresentation: ClientPresentation }) {
+  constructor(public payload: { layerId: number, clientPresentation: ClientPresentation }) {
   }
 }
 
 export class InitLayerPosition implements Action {
   readonly type = LayerActionTypes.INIT_LAYER_POSITION;
 
-  constructor (public payload: {layerId: string}) {}
+  constructor (public payload: {layerId: number}) {}
 }
 
 export class SetLayerPosition implements Action {
   readonly type = LayerActionTypes.SET_LAYER_POSITION;
 
-  constructor (public payload: {layerId: string, newLayerPosition?: number}) {}
+  constructor (public payload: {layerId: number, newLayerPosition?: number}) {}
 }
 
 export class FetchClickStrategy implements Action {
@@ -109,13 +108,13 @@ export class FetchClickStrategy implements Action {
 export class MoveUpLayer implements Action {
   readonly type = LayerActionTypes.MOVE_UP_LAYER;
 
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 export class MoveDownLayer implements Action {
   readonly type = LayerActionTypes.MOVE_DOWN_LAYER;
 
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 export class FetchClickFormatter implements Action {

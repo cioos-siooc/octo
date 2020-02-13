@@ -29,20 +29,20 @@ export class LayerPresentationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.layerPresentationState = this.store.select(selectLayerPresentationState);
-    this.store.select(selectLayerPresentationState).subscribe((state) => {
-      const clonedState = cloneDeep(state);
-      this.currentClientPresentation = clonedState.currentClientPresentation;
-      this.currentUniqueId = clonedState.layerUniqueId;
-    });
+    // this.layerPresentationState = this.store.select(selectLayerPresentationState);
+    // this.store.select(selectLayerPresentationState).subscribe((state) => {
+    //   const clonedState = cloneDeep(state);
+    //   this.currentClientPresentation = clonedState.currentClientPresentation;
+    //   this.currentUniqueId = clonedState.layerUniqueId;
+    // });
   }
 
   onSelectClientPresentation() {
-    this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(this.currentClientPresentation));
-    this.store.dispatch(new layerActions.SetClientPresentation({
-      uniqueId: this.currentUniqueId,
-      clientPresentation: this.currentClientPresentation
-    }));
+    // this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(this.currentClientPresentation));
+    // this.store.dispatch(new layerActions.SetClientPresentation({
+    //   uniqueId: this.currentUniqueId,
+    //   clientPresentation: this.currentClientPresentation
+    // }));
   }
 
   compareClientPresentations(cp1: ClientPresentation, cp2: ClientPresentation) {

@@ -74,7 +74,6 @@ export class MapComponent implements OnInit {
           const layer = layers[i];
           this.store.dispatch(new layerActions.FetchLayer({
             layerId: layer,
-            uniqueId: layer.toString(),
             priority: layers.length - i
           }));
         }
