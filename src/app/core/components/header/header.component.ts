@@ -8,6 +8,9 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '@env/environment';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
+import {MapService} from '@app/map/utils/open-layers/map.service';
+import {toJpeg} from 'html-to-image';
+import * as jsPDF  from 'jspdf';
 
 @Component({
   selector: 'app-header',
@@ -18,8 +21,28 @@ import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 export class HeaderComponent implements OnInit {
   titleKey: string;
 
-  constructor(private translateService: TranslateService, private config: NgbDropdownConfig) {
+  constructor(private translateService: TranslateService, private config: NgbDropdownConfig, private mapService: MapService) {
     config.placement = 'bottom-right';
+  }
+
+  onPdfExportClick() {
+
+    var exportOptions = {
+      filter: function(element) {
+        return element.className.indexOf('ol-control') === -1;
+      }
+    };
+
+    const map = this.mapService.getMap();
+    toJpeg(<HTMLElement>map.getViewport(),exportOptions).then(
+        (result) => {
+          var pdf = new jsPDF("landscape",undefined,"A4");
+          var width = pdf.internal.pageSize.getWidth();
+          var height = pdf.internal.pageSize.getHeight() * 0.8;
+          pdf.addImage(result, 'JPEG', 0, 20, width, height);
+          pdf.save('carte.pdf')
+      }
+    );
   }
 
   onChangeLanguageClick() {
