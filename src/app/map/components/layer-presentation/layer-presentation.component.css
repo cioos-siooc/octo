@@ -4,9 +4,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#layer-presentation {
+/* #layer-presentation {
   padding: 0 0 5px 10px;
-}
+} */
 #current-legend {
   padding-top: 5px;
+}
+
+.form-group {
+  padding-left: 0.7em;
+  padding-right: 0.8em;
 }

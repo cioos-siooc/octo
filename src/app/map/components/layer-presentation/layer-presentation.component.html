@@ -4,19 +4,26 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
-<div id="layer-presentation" class="hover-opacity">
-  <h6 class="px-2 pt-2">{{'appearance' | translate}}: </h6>
-  <select
-    [(ngModel)]="currentClientPresentation"
-    (change)="onSelectClientPresentation()"
-    class="ml-3 legend-select"
-    [compareWith]="compareClientPresentations">
-    <!-- <option *ngFor="let clientPresentation of (layerPresentationState | async).clientPresentations"
-            [ngValue]="clientPresentation">
-      {{clientPresentation.legendLabel}} -->
-    <!-- </option> -->
-  </select>
+<ng-container>
+  <h5>{{'appearance' | translate}}: </h5>
+  <div class="form-group">
+    <select
+      [(ngModel)]="currentClientPresentation"
+      (change)="onSelectClientPresentation()"
+      class="form-control"
+      [compareWith]="compareClientPresentations">
+    <!-- <select
+      [(ngModel)]="currentClientPresentation"
+      (change)="onSelectClientPresentation()"
+      class="ml-3 legend-select"
+      [compareWith]="compareClientPresentations"> -->
+      <option *ngFor="let clientPresentation of clientPresentations"
+              [ngValue]="clientPresentation">
+        {{clientPresentation.legendLabel}}
+      </option>
+    </select>
+  </div>
   <div id="current-legend">
     <img *ngIf="currentClientPresentation != null" [src]="currentClientPresentation.legendUrl">
   </div>
-</div>
+</ng-container>

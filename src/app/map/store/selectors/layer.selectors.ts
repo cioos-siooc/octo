@@ -11,3 +11,15 @@ export const selectLayerState = createSelector(
   selectMapState,
   state => state.layer,
 );
+
+export const selectLayerById = (id) => createSelector(
+  selectLayerState,
+  layerState => {
+    const matchingLayers = layerState.layers.filter(l => l.id === id);
+    if (matchingLayers.length > 0) {
+      return matchingLayers[0];
+    } else {
+      return null;
+    }
+  }
+)

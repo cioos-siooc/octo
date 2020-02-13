@@ -38,7 +38,6 @@ export class LayerManagerComponent implements OnInit {
     onDragStart(layer: Layer, e) {
         this.currentDraggedLayer = layer;
         this.isBeingDragged = true;
-        console.log(this.isBeingDragged);
     }
 
     onDragEnd() {
@@ -53,6 +52,5 @@ export class LayerManagerComponent implements OnInit {
         this.store.dispatch(new SetLayerPosition({
             layerId: JSON.stringify(e.dragData['id']),
             newLayerPosition: newPriority}));
-            console.log(this.isBeingDragged);
     }
 }
