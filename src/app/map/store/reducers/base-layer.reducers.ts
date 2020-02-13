@@ -9,6 +9,14 @@ import {cloneDeep} from 'lodash';
 import {BaseLayerActionsUnion, BaseLayerActionTypes} from '../actions/base-layer.actions';
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
+/**
+ * Stores a list of key:value paires representing BaseLayers in an EntityState reducer
+ *  Also stores the currentBaseLayer(the currently selected BaseLayer)
+ *
+ * @export
+ * @interface BaseLayerState
+ * @extends {EntityState<Layer>}
+ */
 export interface BaseLayerState extends EntityState<Layer> {
   currentBaseLayer: Layer;
 }

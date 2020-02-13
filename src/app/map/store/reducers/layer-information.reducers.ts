@@ -6,6 +6,12 @@
 
 import {LayerInformationActionsUnion, LayerInformationActionTypes} from '../actions/layer-information.actions';
 
+/**
+ * Stores the HTML layerInformation for the currently selected layer
+ *
+ * @export
+ * @interface LayerInformationState
+ */
 export interface LayerInformationState {
   informationHtml: string;
   selectedLayerId: number;

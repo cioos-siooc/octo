@@ -7,6 +7,12 @@
 import {BehaviorActionsUnion, BehaviorActionTypes} from '../actions/behavior.actions';
 import {cloneDeep} from 'lodash';
 
+/**
+ * Stores a list of Behaviors with their associated state.
+ *
+ * @export
+ * @interface BehaviorState
+ */
 export interface BehaviorState {
   behaviors: any[];
 }

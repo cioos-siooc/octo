@@ -8,6 +8,12 @@ import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {LayerActionsUnion, LayerActionTypes} from '../actions/layer.actions';
 
+/**
+ * Stores a list of layers
+ *
+ * @export
+ * @interface LayerState
+ */
 export interface LayerState {
   layers: Layer[];
 }

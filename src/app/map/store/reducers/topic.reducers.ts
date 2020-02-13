@@ -9,6 +9,14 @@ import { TopicActionsUnion, TopicActionTypes } from './../actions/topic.actions'
 import { TopicGroup } from '@app/shared/models';
 import { Topic } from '@app/shared/models/topic.model';
 
+/**
+ * Stores a list of topics as key:value pairs in an EntityState reducer
+ *  Also includes the currently selected topicGroup and the currently selectedTopic
+ *
+ * @export
+ * @interface TopicState
+ * @extends {EntityState<Topic>}
+ */
 export interface TopicState extends EntityState<Topic> {
     topicGroup: TopicGroup;
     selectedTopic: Topic;
