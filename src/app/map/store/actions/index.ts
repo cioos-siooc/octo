@@ -8,7 +8,6 @@ export * from './base-layer.actions';
 export * from './behavior.actions';
 export * from './layer.actions';
 export * from './layer-information.actions';
-export * from './layer-presentation.actions';
 export * from './map-click.actions';
 export * from './topic.actions';
 export * from './category.actions';

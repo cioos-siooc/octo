@@ -11,7 +11,6 @@ import {storeFreeze} from 'ngrx-store-freeze';
 import * as fromLayerInformation from './/layer-information.reducers';
 import * as fromBaseLayer from './base-layer.reducers';
 import * as fromLayer from './layer.reducers';
-import * as fromLayerPresentation from './layer-presentation.reducers';
 import * as fromMapClick from './map-click.reducers';
 import * as fromBehavior from './behavior.reducers';
 import * as fromTopic from './topic.reducers';
@@ -21,7 +20,6 @@ export interface MapState {
   layer: fromLayer.LayerState;
   baseLayer: fromBaseLayer.BaseLayerState;
   layerInformation: fromLayerInformation.LayerInformationState;
-  layerPresentation: fromLayerPresentation.LayerPresentationState;
   mapClick: fromMapClick.MapClickState;
   behavior: fromBehavior.BehaviorState;
   topic: fromTopic.TopicState;
@@ -36,7 +34,6 @@ export const mapReducers: ActionReducerMap<MapState> = {
   layer: fromLayer.layerReducer,
   baseLayer: fromBaseLayer.baseLayerReducer,
   layerInformation: fromLayerInformation.layerInformationReducer,
-  layerPresentation: fromLayerPresentation.layerPresentationReducer,
   mapClick: fromMapClick.mapClickReducer,
   behavior: fromBehavior.behaviorReducer,
   topic: fromTopic.topicReducer,

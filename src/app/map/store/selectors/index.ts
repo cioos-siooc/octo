@@ -8,7 +8,6 @@ export * from './base-layer.selectors';
 export * from './behavior.selectors';
 export * from './layer.selectors';
 export * from './layer-information.selectors';
-export * from './layer-presentation.selectors';
 export * from './map-click.selectors';
 export * from './topic.selectors';
 export * from './category.selectors';
