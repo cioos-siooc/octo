@@ -25,7 +25,7 @@ export class TimeHandler implements BehaviorHandler {
     this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = {...layerState};
       const options = behavior.options;
-      const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+      const layer = layerStateCopy.layers.find(l => l.id === behavior.layerId);
       if (options.isNowSupported) {
         behavior.isNowEnabled = true;
         behavior.interval = this.setNowInterval(behavior);
@@ -43,7 +43,7 @@ export class TimeHandler implements BehaviorHandler {
           const behaviorStateCopy = {...behaviorState};
           // Use the latest values of layer and behavior
           const beh = behaviorStateCopy.behaviors.find(b => b.uniqueId === behavior.uniqueId);
-          const lay = layerStateCopy.layers.find(l => l.uniqueId === beh.layerUniqueId);
+          const lay = layerStateCopy.layers.find(l => l.id === beh.layerId);
           this.updateDateToNow(beh, lay);
         });
       });
@@ -70,7 +70,7 @@ export class TimeHandler implements BehaviorHandler {
       behavior.isNowEnabled = !behavior.isNowEnabled;
       this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
         const layerStateCopy = {...layerState};
-        const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+        const layer = layerStateCopy.layers.find(l => l.id === behavior.uniqueId);
         behavior.interval = this.setNowInterval(behavior);
         behavior.currentDate = null;
         this.updateBehaviorDateTime(behavior);

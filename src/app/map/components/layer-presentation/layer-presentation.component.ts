@@ -35,8 +35,6 @@ export class LayerPresentationComponent implements OnInit {
   }
 
   onSelectClientPresentation() {
-    // NOTE: this needs to be changed over to work based on the layer reducer before it can be re-added to the UI
-
     // this.store.dispatch(new layerPresentationActions.SetCurrentClientPresentation(this.currentClientPresentation));
     // this.store.dispatch(new layerActions.SetClientPresentation({
     //   uniqueId: this.currentUniqueId,

@@ -25,7 +25,7 @@ export class LayerConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(selectBehaviorState).pipe(take(1)).subscribe((behaviorState) => {
-      this.behaviors = behaviorState.behaviors.filter(b => b.layerUniqueId === this.layer.uniqueId);
+      this.behaviors = behaviorState.behaviors.filter(b => b.layerId === this.layer.id);
     });
   }
 

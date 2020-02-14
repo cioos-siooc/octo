@@ -13,7 +13,6 @@ export default class ActivateLayer {
     const genUniqueId: string = uniqueId();
     store.dispatch(new layerActions.FetchLayer({
       layerId: layerId,
-      uniqueId: genUniqueId
     }));
     return genUniqueId;
   }

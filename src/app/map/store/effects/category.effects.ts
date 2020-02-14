@@ -14,7 +14,7 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import { schema, normalize } from 'normalizr';
 import { FetchCategoriesForTopic, AppendCategories, AppendRootCategoryIds,
-    CategoryActionTypes, AppendLayerCategoryIds } from './../actions/category.actions';
+    CategoryActionTypes } from './../actions/category.actions';
 
 /**
  * Side effects for the category reducer
@@ -50,22 +50,17 @@ export class CategoryEffects {
             const categories: Category = topicHierarchy.root;
             // Use the normalizr schema to flatten the hierarchy
             const normalized = normalize(categories, categoryEntity);
-            const layerIds = [];
+
             // Convert the flattened hierarchy to an array for EntityAdapter
             const normalizedCategories: NormalizedCategory[] = Object.entries(normalized.entities.category).map(
                 c => {
-                    const category = <NormalizedCategory>c[1];
-                    if ( category.type === 'layer' ) {
-                        layerIds.push(category.id);
-                    }
-                    return category;
+                    return <NormalizedCategory>c[1];
                 }
             );
 
             return [
                 new AppendCategories(normalizedCategories),
-                new AppendRootCategoryIds([ normalized.result ]),
-                new AppendLayerCategoryIds(layerIds),
+                new AppendRootCategoryIds([ normalized.result ])
             ];
         })
     );

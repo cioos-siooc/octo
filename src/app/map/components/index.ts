@@ -18,7 +18,6 @@ import {DateFieldComponent} from '@app/map/components/map-click/click-formatter/
 import {TextFieldComponent} from '@app/map/components/map-click/click-formatter/field/text-field/text-field.component';
 import {UrlFieldComponent} from '@app/map/components/map-click/click-formatter/field/url-field/url-field.component';
 import {OpenLayersComponent} from '@app/map/components/open-layers/open-layers.component';
-import {PopupComponent} from '@app/map/components/popup/popup.component';
 import {TopicPickerComponent} from '@app/map/components/topic-picker/topic-picker.component';
 
 export const components: any[] = [
@@ -36,7 +35,6 @@ export const components: any[] = [
   TextFieldComponent,
   UrlFieldComponent,
   OpenLayersComponent,
-  PopupComponent,
   TopicPickerComponent,
 ];
 
@@ -54,5 +52,4 @@ export * from './map-click/click-formatter/field/date-field/date-field.component
 export * from './map-click/click-formatter/field/text-field/text-field.component';
 export * from './map-click/click-formatter/field/url-field/url-field.component';
 export * from './open-layers/open-layers.component';
-export * from './popup/popup.component';
 export * from './topic-picker/topic-picker.component';

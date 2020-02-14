@@ -12,7 +12,6 @@ export enum CategoryActionTypes {
   FETCH_CATEGORIES_FOR_TOPIC = '[Category] Fetch Categories For Topic',
   APPEND_CATEGORIES = '[Category] Append Categories',
   APPEND_ROOT_CATEGORY_IDS = '[Category] Append Root Category IDs',
-  APPEND_LAYER_CATEGORY_IDS = '[Category] Append Layer Category IDs',
   UPDATE_CATEGORY = '[Category] Update Category',
   REMOVE_CATEGORY_TREE = '[Category] Remove Category Tree',
   REMOVE_ALL_CATEGORIES = '[Category] Remove All Categories'
@@ -81,38 +80,6 @@ export class AppendRootCategoryIds implements Action {
   }
 }
 
-/**
- * Creates an instance of AppendLayerCategoryIds which can be dispatched to the store
- *  AppendLayerCategoryIds adds a list of layer category IDs to the layerCategoryIds list in the
- *  category reducer
- * 
- * Note: no longer used
- *
- * @export
- * @class AppendLayerCategoryIds
- * @implements {Action}
- */
-export class AppendLayerCategoryIds implements Action {
-  readonly type = CategoryActionTypes.APPEND_LAYER_CATEGORY_IDS;
-
-  /**
-   *Creates an instance of AppendLayerCategoryIds.
-   * @param {Number[]} payload - A list of category IDs to be appended
-   * @memberof AppendLayerCategoryIds
-   */
-  constructor(public payload: Number[]) {
-  }
-}
-
-/**
- * Creates an instance of UpdateCategory which can be dispatched to the store
- *  UpdateCategory updates the given category in the store to match that in the payload
- *  The existing category is found based on the category id
- *
- * @export
- * @class UpdateCategory
- * @implements {Action}
- */
 export class UpdateCategory implements Action {
   readonly type = CategoryActionTypes.UPDATE_CATEGORY;
 
@@ -164,7 +131,6 @@ export type CategoryActionsUnion =
   FetchCategoriesForTopic |
   AppendCategories |
   AppendRootCategoryIds |
-  AppendLayerCategoryIds |
   UpdateCategory |
   RemoveCategoryTree |
   RemoveAllCategories;

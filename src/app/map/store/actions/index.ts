@@ -9,6 +9,5 @@ export * from './behavior.actions';
 export * from './layer.actions';
 export * from './layer-information.actions';
 export * from './map-click.actions';
-export * from './popup.actions';
 export * from './topic.actions';
 export * from './category.actions';

@@ -18,7 +18,6 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
  */
 export interface CategoryState extends EntityState<NormalizedCategory> {
   rootCategoryIds: Number[];
-  layerCategoryIds: Number[];
 }
 
 export const adapter: EntityAdapter<NormalizedCategory> = createEntityAdapter<NormalizedCategory>({
@@ -27,8 +26,7 @@ export const adapter: EntityAdapter<NormalizedCategory> = createEntityAdapter<No
 });
 
 export const initialState: CategoryState = adapter.getInitialState({
-  rootCategoryIds: [],
-  layerCategoryIds: []
+  rootCategoryIds: []
 });
 
 export function categoryReducer(state: CategoryState = initialState, action: CategoryActionsUnion): CategoryState {
@@ -40,17 +38,12 @@ export function categoryReducer(state: CategoryState = initialState, action: Cat
         ...state,
         rootCategoryIds: [...state.rootCategoryIds, ...action.payload]
       };
-    case CategoryActionTypes.APPEND_LAYER_CATEGORY_IDS:
-      return {
-        ...state,
-        layerCategoryIds: [...state.layerCategoryIds, ...action.payload]
-      };
     case CategoryActionTypes.UPDATE_CATEGORY:
       return adapter.updateOne(action.payload, state);
     case CategoryActionTypes.REMOVE_CATEGORY_TREE:
       return removeCategoryTree(action.payload, state);
     case CategoryActionTypes.REMOVE_ALL_CATEGORIES:
-      return adapter.removeAll({ ...state, rootCategoryIds: [], layerCategoryIds: []});
+      return adapter.removeAll({ ...state, rootCategoryIds: [] });
     default:
       return state;
   }
@@ -63,27 +56,16 @@ function removeCategoryTree(id: Number, state: CategoryState) {
 
   let newState: CategoryState = null;
 
-  switch (currentCategory.type) {
-    case 'root':
-      const newRootCategoryIds = [...state.rootCategoryIds.filter(
-        rootId => rootId !== currentCategory.id
-      )];
-      newState = {
-        ...state,
-        rootCategoryIds: newRootCategoryIds
-      };
-      break;
-    case 'layer':
-      const newLayerCategoryIds = [...state.layerCategoryIds.filter(
-        layerId => layerId !== currentCategory.id
-      )];
-      newState = {
-        ...state,
-        layerCategoryIds: newLayerCategoryIds
-      };
-      break;
-    default:
-      newState = state;
+  if (currentCategory.type === 'root') {
+    const newRootCategoryIds = [...state.rootCategoryIds.filter(
+      rootId => rootId !== currentCategory.id
+    )];
+    newState = {
+      ...state,
+      rootCategoryIds: newRootCategoryIds
+    };
+  } else {
+    newState = state;
   }
 
   // Recursively remove the children of the current category

@@ -39,7 +39,7 @@ export class BehaviorEffects {
         withLatestFrom(this.store$),
         map(([action, store]) => {
             const layerStateCopy = [...store.map.layer.layers];
-            const layer = layerStateCopy.find(l => l.uniqueId === action.payload.layerUniqueId);
+            const layer = layerStateCopy.find(l => l.id === action.payload.layerId);
             let newLayer = layer;
             if (action.payload.currentDate) {
                 const tempDate = {...action.payload.currentDate};

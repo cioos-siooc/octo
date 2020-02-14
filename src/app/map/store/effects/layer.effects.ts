@@ -55,7 +55,6 @@ export class LayerEffects {
     .pipe(mergeMap((action: FetchLayer) => {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
-          layer.uniqueId = action.payload.uniqueId;
           layer.defaultPriority = action.payload.priority;
           layer.priority = -1;
 
@@ -66,7 +65,7 @@ export class LayerEffects {
           if (layer.urlBehaviors != null) {
             layer.urlBehaviors.forEach((behavior) => {
               behavior.uniqueId = uniqueId();
-              behavior.layerUniqueId = layer.uniqueId;
+              behavior.layerId = layer.id;
             });
           }
           return layer;
@@ -208,7 +207,7 @@ export class LayerEffects {
       .ofType<AddLayer>(LayerActionTypes.ADD_LAYER)
       .pipe(map((action: AddLayer) => {
         if (action.payload.priority === -1) {
-          return new InitLayerPosition({layerId: action.payload.uniqueId});
+          return new InitLayerPosition({layerId: action.payload.id});
         }
       }));
 
@@ -218,7 +217,7 @@ export class LayerEffects {
       .pipe(
         withLatestFrom(this.store$),
         map(([action, store]) => {
-          const layer = store.map.layer.layers.filter((l: Layer) => l.uniqueId === action.payload.layerId)[0];
+          const layer = store.map.layer.layers.filter((l: Layer) => l.id === action.payload.layerId)[0];
           return new SetLayerPosition({
             layerId: action.payload.layerId,
             newLayerPosition: layer.defaultPriority
