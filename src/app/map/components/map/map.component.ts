@@ -1,4 +1,3 @@
-
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,7 +11,9 @@ import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {Location} from '@angular/common';
 
-
+import { selectBehaviorMode } from './../../store/selectors/behavior.selectors';
+import { BehaviorState } from './../../store/reducers/behavior.reducers';
+import { UpdateMode } from './../../store/actions/behavior.actions';
 import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
 import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
 import * as fromLayer from '@app/map/store/reducers/layer.reducers';
@@ -24,9 +25,10 @@ import {UrlBehaviorService} from '@app/map/services';
 import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import { sortlayerPriorityDescending } from '@app/shared/utils';
-import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
+import {MapState, selectLayerState, selectMapClickState, selectBehaviorState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
+import { displayMode } from './map.types';
 
 @Component({
   selector: 'app-map',
@@ -39,6 +41,7 @@ export class MapComponent implements OnInit {
   currentBaseLayer: Layer;
   environment = environment;
   mapClickTitle: string;
+  displayMode: displayMode;
 
   constructor(private httpClient: HttpClient, private translateService: TranslateService,
               private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService,
@@ -47,6 +50,7 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.displayMode = displayMode.full;
     this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
     if (this.applicationUsesDefaultTopic()) {
@@ -87,6 +91,13 @@ export class MapComponent implements OnInit {
           queryParams: {'layers': null},
           queryParamsHandling: 'merge',
         });
+      }
+    });
+    this.store.select(selectBehaviorMode).subscribe((isSync: boolean) => {
+      if (isSync) {
+        this.displayMode = displayMode.timeslider;
+      } else {
+        this.displayMode = displayMode.full;
       }
     });
   }

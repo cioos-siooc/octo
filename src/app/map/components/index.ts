@@ -19,6 +19,7 @@ import {TextFieldComponent} from '@app/map/components/map-click/click-formatter/
 import {UrlFieldComponent} from '@app/map/components/map-click/click-formatter/field/url-field/url-field.component';
 import {OpenLayersComponent} from '@app/map/components/open-layers/open-layers.component';
 import {TopicPickerComponent} from '@app/map/components/topic-picker/topic-picker.component';
+import { TimeSliderComponent } from './time-slider/time-slider.component';
 
 export const components: any[] = [
   CatalogComponent,
@@ -36,6 +37,7 @@ export const components: any[] = [
   UrlFieldComponent,
   OpenLayersComponent,
   TopicPickerComponent,
+  TimeSliderComponent,
 ];
 
 export * from './catalog/catalog.component';
@@ -53,3 +55,4 @@ export * from './map-click/click-formatter/field/text-field/text-field.component
 export * from './map-click/click-formatter/field/url-field/url-field.component';
 export * from './open-layers/open-layers.component';
 export * from './topic-picker/topic-picker.component';
+export * from './time-slider/time-slider.component';

@@ -8,3 +8,4 @@ export * from './category.effects';
 export * from './topic.effects';
 export * from './layer.effects';
 export * from './layer-information.effects';
+export * from './time.effects';

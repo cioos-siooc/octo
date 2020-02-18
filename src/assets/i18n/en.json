@@ -30,5 +30,6 @@
   "legend-label": "Legend",
   "layer-information-label": "Information",
   "layer-description-label": "Layer's information",
-  "export-pdf": "Export to PDF"
+  "export-pdf": "Export to PDF",
+  "sync-button-label": "Synchronize time"
 }

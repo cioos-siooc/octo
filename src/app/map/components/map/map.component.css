@@ -4,15 +4,47 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-.map-container {
+ /* Container for everything in the viewport, currently:
+      the sidebar, map, and time slider */
+.viewport-container {
   display: flex;
+  flex-direction: row;
+
+  height:100%;
+  width: 100%;
+}
+
+.map-container {
+  position: relative;
+  flex-shrink: 1;
+  flex-grow: 1;
+
   height: 100%;
+  max-width: 100%;
+  width: 1px;
+}
+
+.map-timeslider {
+  height: 100%;
+  width: 100%;
+}
+
+app-time-slider {
+  position: absolute;
+
+  bottom: 8px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  width: 70%;
+  height: 3em;
 }
 
 .sidebar {
+  flex-shrink: 0;
+
   overflow: hidden;
-  position: absolute;
   z-index: 10;
-  top: 50px;
-  bottom: 0;
 }

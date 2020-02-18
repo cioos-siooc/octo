@@ -24,18 +24,33 @@ export const initialState: BehaviorState = {
 export function behaviorReducer(state = initialState, action: BehaviorActionsUnion): BehaviorState {
   switch (action.type) {
     case BehaviorActionTypes.ADD_BEHAVIOR:
-      const clonedState = cloneDeep(state);
+      const clonedState = {...state};
       clonedState.behaviors.push(cloneDeep(action.payload));
       return clonedState;
     case BehaviorActionTypes.UPDATE_BEHAVIOR:
-      const cloneState = cloneDeep(state);
+      const cloneState = {...state};
       const behaviorIndex = cloneState.behaviors.findIndex((b) => b.uniqueId === action.payload.uniqueId);
       if (behaviorIndex > -1) {
         cloneState.behaviors[behaviorIndex] = cloneDeep(action.payload);
       }
       return cloneState;
+    case BehaviorActionTypes.UPDATE_MODE:
+      const bIndex = state.behaviors.findIndex((b) => b.uniqueId === action.payload.uniqueId);
+      if (bIndex > -1) {
+        const newBehavior = {
+          ...state.behaviors[bIndex],
+          mode: action.payload.mode
+        };
+        const newBehaviors = [...state.behaviors];
+        newBehaviors[bIndex] = newBehavior;
+        return {
+          ...state,
+          behaviors: newBehaviors
+        };
+      }
+      return state;
     case BehaviorActionTypes.DELETE_BEHAVIOR:
-      const clownState = cloneDeep(state);
+      const clownState = {...state};
       clownState.behaviors = clownState.behaviors.filter((b) => b.uniqueId !== action.payload);
       return clownState;
     default:

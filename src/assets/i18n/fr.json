@@ -30,5 +30,6 @@
   "legend-label": "Légende",
   "layer-information-label": "Informations",
   "layer-description-label": "Informations sur la couche",
-  "export-pdf": "Exporter en PDF"
+  "export-pdf": "Exporter en PDF",
+  "sync-button-label": "Synchroniser le temps"
 }

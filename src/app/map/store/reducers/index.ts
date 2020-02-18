@@ -15,6 +15,7 @@ import * as fromMapClick from './map-click.reducers';
 import * as fromBehavior from './behavior.reducers';
 import * as fromTopic from './topic.reducers';
 import * as fromCategory from './category.reducers';
+import * as fromTime from './time.reducers';
 
 export interface MapState {
   layer: fromLayer.LayerState;
@@ -24,6 +25,7 @@ export interface MapState {
   behavior: fromBehavior.BehaviorState;
   topic: fromTopic.TopicState;
   category: fromCategory.CategoryState;
+  time: fromTime.TimeState;
 }
 
 export interface StoreState {
@@ -38,6 +40,7 @@ export const mapReducers: ActionReducerMap<MapState> = {
   behavior: fromBehavior.behaviorReducer,
   topic: fromTopic.topicReducer,
   category: fromCategory.categoryReducer,
+  time: fromTime.timeReducer,
 };
 
 export const metaReducers: MetaReducer<MapState>[] = !environment.production ? [storeFreeze] : [];

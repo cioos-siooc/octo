@@ -5,10 +5,12 @@
  */
 
 import {Action} from '@ngrx/store';
+import { Mode } from '@app/map/utils';
 
 export enum BehaviorActionTypes {
   ADD_BEHAVIOR = '[Behavior] Add',
   UPDATE_BEHAVIOR = '[Behavior] Update',
+  UPDATE_MODE = '[Behavior] Update mode for time',
   DELETE_BEHAVIOR = '[Behavior] Delete',
 }
 
@@ -53,6 +55,34 @@ export class UpdateBehavior implements Action {
 }
 
 /**
+ * Creates an instance of UpdateMode which can be dispatched to the store
+ * UpdateMode updates the mode (sync, now, custom) in layers that the time is supported
+ *
+ * @export
+ * @class UpdateMode
+ * @implements {Action}
+ */
+
+export class UpdateMode implements Action {
+  readonly type = BehaviorActionTypes.UPDATE_MODE;
+
+  /**
+   *Creates an instance of SetLayerPosition.
+   * @param {{
+  *  uniqueId: string, - The id of the behavior represented as a string
+  *  mode: Mode - The mode that the behavior has to update to (custom, sync or now)
+  * }} payload
+  * @memberof UpdateMode
+  */
+
+  constructor(public payload: {
+    uniqueId: string,
+    mode: Mode
+  }) {
+  }
+}
+
+/**
  * Creates an instance of DeleteBehavior which can be dispatched to the store
  *  DeleteBehavior removes a behavior from the store based on the given behavior uniqueId
  *
@@ -75,4 +105,5 @@ export class DeleteBehavior implements Action {
 export type BehaviorActionsUnion =
   AddBehavior |
   UpdateBehavior |
+  UpdateMode |
   DeleteBehavior;
