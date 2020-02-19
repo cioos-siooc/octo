@@ -27,6 +27,7 @@ import { OLLayerFactory } from './utils';
 import { MapService } from '@app/map/utils/open-layers';
 import { DynamicEnumBehaviorComponent } from './components/dynamic-enum-behavior/dynamic-enum-behavior.component';
 import { BehaviorHandlerFactory } from '@app/map/utils';
+import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 
 @NgModule({
   imports: [
@@ -47,6 +48,7 @@ import { BehaviorHandlerFactory } from '@app/map/utils';
     LayerGroupComponent,
     LayerConfigurationComponent,
     DynamicEnumBehaviorComponent,
+    LoadingIndicatorComponent,
   ],
   providers: [
     StylerService,

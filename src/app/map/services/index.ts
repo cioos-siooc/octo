@@ -6,3 +6,4 @@
 
 export * from './url-behavior.service';
 export * from './sidebar.service';
+export * from './loading.service';
