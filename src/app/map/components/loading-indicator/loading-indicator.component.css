@@ -1,0 +1,5 @@
+.loader-overlay {
+    width:100%;
+    opacity: 1;
+    z-index: 500000;
+}

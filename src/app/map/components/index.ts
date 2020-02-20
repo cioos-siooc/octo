@@ -9,6 +9,7 @@ import {CategoryComponent} from '@app/map/components/catalog/category/category.c
 import {EnumBehaviorComponent} from '@app/map/components/enum-behavior/enum-behavior.component';
 import {LayerInformationComponent} from '@app/map/components/layer-information/layer-information.component';
 import {LayerManagerComponent} from '@app/map/components/layer-manager/layer-manager.component';
+import { LoadingIndicatorComponent } from './loading-indicator/loading-indicator.component';
 import {TimeBehaviorComponent} from '@app/map/components/time-behavior/time-behavior.component';
 import {LayerPresentationComponent} from '@app/map/components/layer-presentation/layer-presentation.component';
 import {MapComponent} from '@app/map/components/map/map.component';
@@ -38,6 +39,7 @@ export const components: any[] = [
   OpenLayersComponent,
   TopicPickerComponent,
   TimeSliderComponent,
+  LoadingIndicatorComponent
 ];
 
 export * from './catalog/catalog.component';
@@ -45,6 +47,7 @@ export * from './catalog/category/category.component';
 export * from './enum-behavior/enum-behavior.component';
 export * from './layer-information/layer-information.component';
 export * from './layer-manager/layer-manager.component';
+export * from './loading-indicator/loading-indicator.component';
 export * from './time-behavior/time-behavior.component';
 export * from './layer-presentation/layer-presentation.component';
 export * from './map/map.component';

@@ -6,6 +6,7 @@
 <div class="viewport-container">
     <app-sidebar class="sidebar background-light-gray"></app-sidebar>
     <div class="map-container">
+        <app-loading-indicator></app-loading-indicator>
         <app-open-layers [ngClass]="{
             'full-sized': displayMode === 'full',
             'map-timeslider': displayMode === 'timeslider'}"></app-open-layers>

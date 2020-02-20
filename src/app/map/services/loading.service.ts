@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,8 +8,6 @@ export class LoadingService {
   // Possibility to create an interface if the service had much more attributes
   private loadingSubject = new Subject();
 
-  loadingState = this.loadingSubject.asObservable();
-
   constructor() { }
 
   show() {
@@ -18,5 +16,9 @@ export class LoadingService {
 
   hide() {
     this.loadingSubject.next(false);
+  }
+
+  getStatus(): Observable<any> {
+    return this.loadingSubject.asObservable();
   }
 }
