@@ -1,15 +1,16 @@
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import { SetLayerDescription, AddLayer } from './../actions/layer.actions';
+import { AddLayer, SetLayerPosition, InitLayerPosition } from './../actions/layer.actions';
 
 import {Actions, Effect} from '@ngrx/effects';
 
 
-import {catchError, map, mergeMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Layer} from '@app/shared/models';
@@ -21,6 +22,8 @@ import {ClickFormatterInfo} from '@app/shared/models';
 import {uniqueId} from 'lodash';
 import {of} from 'rxjs/internal/observable/of';
 import {cloneDeep} from 'lodash';
+import { StoreState } from './../reducers/index';
+import { Store } from '@ngrx/store';
 import {
   FetchClickFormatter,
   FetchClickStrategy,
@@ -29,21 +32,40 @@ import {
   FetchLayerDescription,
   LayerActionTypes
 } from '../actions/layer.actions';
+import { FetchLayerInformation } from '../actions';
 
+/**
+ * Side effects for the layer reducer
+ *
+ * @export
+ * @class LayerEffects
+ */
 @Injectable()
 export class LayerEffects {
 
+  /**
+   * Fetches a layer from OctoPi based on the layerId given in the payload
+   *  Calls FetchClickStrategy for the layer once it is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   layerFetch = this.actions$
     .ofType<FetchLayer>(LayerActionTypes.FETCH_LAYER)
     .pipe(mergeMap((action: FetchLayer) => {
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
-          layer.uniqueId = action.payload.uniqueId;
+          layer.defaultPriority = action.payload.priority;
+          layer.priority = -1;
+
+          // Do some layer group stuff
+          if (action.payload.layerGroupId) {
+            layer.layerGroupId = action.payload.layerGroupId;
+          }
           if (layer.urlBehaviors != null) {
             layer.urlBehaviors.forEach((behavior) => {
               behavior.uniqueId = uniqueId();
-              behavior.layerUniqueId = layer.uniqueId;
+              behavior.layerId = layer.id;
             });
           }
           return layer;
@@ -52,12 +74,19 @@ export class LayerEffects {
     }), mergeMap(
       (layer) => {
         return [
-          new FetchClickStrategy(layer)
+          new FetchClickStrategy(layer),
+          new FetchLayerInformation(layer.id)
         ];
       }
     ));
 
 
+  /**
+   * Fetches the ClickStrategy for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls FetchClickFormatter once the result is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   clickStrategyFetch = this.actions$
     .ofType<FetchClickStrategy>(LayerActionTypes.FETCH_CLICK_STRATEGY)
@@ -81,6 +110,13 @@ export class LayerEffects {
           };
         }
       ));
+
+  /**
+   * Fetches the ClickFormatter for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls FetchClientPresentations once the result is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   clickFormatterFetch = this.actions$
     .ofType<FetchClickFormatter>(LayerActionTypes.FETCH_CLICK_FORMATTER)
@@ -105,6 +141,12 @@ export class LayerEffects {
         }
       ));
 
+  /**
+   * Fetches the ClientPresentations for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls FetchLayerDescription once the result is received
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   clientPresentationsFetch = this.actions$
     .ofType<FetchClientPresentations>(LayerActionTypes.FETCH_CLIENT_PRESENTATIONS)
@@ -114,6 +156,15 @@ export class LayerEffects {
           (clientPresentations) => {
             // Add clientPresentations to the layer and set the default as the current one
             const newPayload = {...action.payload};
+
+            // default to slgo-mapbox if the styler is undefined
+            clientPresentations = clientPresentations.map((cp) => {
+              if (typeof(cp.styler) === 'undefined' ) {
+                cp.styler = 'slgo-mapbox'
+              }
+              return cp;
+            });
+
             newPayload.currentClientPresentation = clientPresentations.find((cp: ClientPresentation) => {
               return cp.isDefault;
             });
@@ -126,6 +177,12 @@ export class LayerEffects {
         (layer) => new FetchLayerDescription(layer)
       ));
 
+  /**
+   * Fetches the LayerDescription for a layer from OctoPi for the layer given in the payload
+   *  embeds the result in the layer and calls AddLayer to put the layer into the reducer
+   *
+   * @memberof LayerEffects
+   */
   @Effect()
   layerDescriptionFetch = this.actions$
       .ofType<FetchLayerDescription>(LayerActionTypes.FETCH_LAYER_DESCRIPTION)
@@ -145,7 +202,30 @@ export class LayerEffects {
         );
       }));
 
+  @Effect()
+  layerPosition = this.actions$
+      .ofType<AddLayer>(LayerActionTypes.ADD_LAYER)
+      .pipe(map((action: AddLayer) => {
+        if (action.payload.priority === -1) {
+          return new InitLayerPosition({layerId: action.payload.id});
+        }
+      }));
+
+  @Effect()
+  initLayerPosition = this.actions$
+      .ofType<InitLayerPosition>(LayerActionTypes.INIT_LAYER_POSITION)
+      .pipe(
+        withLatestFrom(this.store$),
+        map(([action, store]) => {
+          const layer = store.map.layer.layers.filter((l: Layer) => l.id === action.payload.layerId)[0];
+          return new SetLayerPosition({
+            layerId: action.payload.layerId,
+            newLayerPosition: layer.defaultPriority
+          });
+      }));
+
   constructor(private actions$: Actions,
-              private httpClient: HttpClient) {
+              private httpClient: HttpClient,
+              private store$: Store<StoreState>) {
   }
 }

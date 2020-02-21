@@ -6,7 +6,6 @@
 
 import {AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {Location} from '@angular/common';
 import {Router, ActivatedRoute} from '@angular/router';
 import {forkJoin} from 'rxjs';
 import View from 'ol/view';
@@ -23,8 +22,6 @@ import {clone, cloneDeep, isEqual} from 'lodash';
 import {Layer} from '@app/shared/models';
 import {WmsStrategy} from '@app/shared/models';
 import {HttpClient} from '@angular/common/http';
-import {MAP_CLICK_POPUP_ID} from '../map/map.component';
-import * as popupActions from '@app/map/store/actions/popup.actions';
 import * as mapClickActions from '@app/map/store/actions/map-click.actions';
 import {EmptyValidatorFactory} from '@app/shared/utils';
 import {MapClickInfo} from '@app/shared/models';
@@ -35,6 +32,7 @@ import {MapState} from '@app/map/store';
 import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
 import { take } from 'rxjs/operators';
+import { MapService } from '../../utils/open-layers/map.service';
 
 @Component({
   selector: 'app-open-layers',
@@ -47,8 +45,8 @@ export class OpenLayersComponent implements AfterViewInit {
   private layers: Layer[];
 
   constructor(private httpClient: HttpClient, private store: Store<MapState>,
-              private location: Location, private router: Router,
-              private route: ActivatedRoute) {
+              private router: Router, private olLayerFactory: OLLayerFactory,
+              private route: ActivatedRoute, private mapService: MapService) {
   }
 
   ngAfterViewInit(): void {
@@ -84,8 +82,10 @@ export class OpenLayersComponent implements AfterViewInit {
       view: mapview,
     });
 
+    this.mapService.setMap(this.map);
+
     // Register event listeners to update the URL with map location
-    this.map.on('moveend', (event) => {
+    this.map.on('moveend', () => {
       // Add the location to the url any time the user moves thes map
       const mapExtent = this.map.getView().getCenter().concat(this.map.getView().getZoom());
       this.router.navigate([], {
@@ -93,6 +93,10 @@ export class OpenLayersComponent implements AfterViewInit {
         queryParamsHandling: 'merge',
       });
     });
+  }
+
+  mapResized() {
+    this.map.updateSize();
   }
 
   private initBaseLayerSubscription() {
@@ -104,7 +108,7 @@ export class OpenLayersComponent implements AfterViewInit {
         if (this.baseOLLayer != null) {
           this.map.removeLayer(this.baseOLLayer);
         }
-        const newLayer = OLLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
+        const newLayer = this.olLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
         this.map.addLayer(newLayer);
         this.baseOLLayer = newLayer;
       }
@@ -120,21 +124,22 @@ export class OpenLayersComponent implements AfterViewInit {
   private initLayerSubscription() {
     this.store.select(selectLayerState)
       .subscribe((layerState: fromLayer.LayerState) => {
-        const clonedLayerState = cloneDeep(layerState);
+        const layerList = layerState.layers.filter(layer => layer.type !== 'layerGroup');
         const currentOLLayers: Array<ol.layer.Base> = clone(this.map.getLayers().getArray());
+        // Remove and then recreate existing layers(to handle updates)
         currentOLLayers.forEach((layer: OLLayer) => {
-          const updatedOgslLayer = clonedLayerState.layers.find((l) => {
-            return l.uniqueId === layer.get('uniqueId');
+          const updatedOgslLayer = layerList.find((l) => {
+            return l.id === layer.get('id');
           });
           if (updatedOgslLayer != null) {
             const oldOgslLayer = this.layers.find((l) => {
-              return l.uniqueId === layer.get('uniqueId');
+              return l.id === layer.get('id');
             });
             if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
               // Only update the old layer if the new one is different
-              const newOlLayer = OLLayerFactory.generateLayer(updatedOgslLayer);
+              const newOlLayer = this.olLayerFactory.generateLayer(updatedOgslLayer);
               const index = this.map.getLayers().getArray().findIndex((l) => {
-                return l.get('uniqueId') === layer.get('uniqueId');
+                return l.get('id') === layer.get('id');
               });
               this.map.getLayers().removeAt(index);
               this.map.getLayers().insertAt(index, newOlLayer);
@@ -144,13 +149,13 @@ export class OpenLayersComponent implements AfterViewInit {
             this.map.removeLayer(layer);
           }
         });
-        // Add remaining layers
-        clonedLayerState.layers.forEach((newLayer: Layer) => {
-          if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
-            this.map.addLayer(OLLayerFactory.generateLayer(newLayer));
+        // Add remaining layers(these ones should be new layers)
+        layerList.forEach((newLayer: Layer) => {
+          if (!currentOLLayers.some((cL) => (cL.get('id') === newLayer.id))) {
+            this.map.addLayer(this.olLayerFactory.generateLayer(newLayer));
           }
         });
-        this.layers = clonedLayerState.layers;
+        this.layers = layerList;
         this.checkLayerPriority();
       });
   }
@@ -162,19 +167,20 @@ export class OpenLayersComponent implements AfterViewInit {
         return 0;
       }
       const aLayerIndex = this.layers.findIndex((l) => {
-        return l.uniqueId === a.get('uniqueId');
+        return l.id === a.get('id');
       });
       const bLayerIndex = this.layers.findIndex((l) => {
-        return l.uniqueId === b.get('uniqueId');
+        return l.id === b.get('id');
       });
-      return aLayerIndex - bLayerIndex;
+      // return aLayerIndex - bLayerIndex;
+      return bLayerIndex - aLayerIndex;
     });
     this.map.render();
   }
 
   private isBackgroundLayer(layer) {
-    // Background layers do not have a uniqueId, since they cannot be duplicated
-    return layer.get('uniqueId') == null;
+    // Currently default background layers are of type bing. This may need to change
+    return layer.get('layerType') === 'bing';
   }
 
 // TODO: To refactor into proper setup with appropriate classes and not hardcoded
@@ -195,7 +201,7 @@ export class OpenLayersComponent implements AfterViewInit {
       if (l.clickStrategy != null) {
         if (l.clickStrategy.type === 'wms') {
           const olLayer: OLLayer = <OLLayer> this.map.getLayers().getArray().find((olL) => {
-            return olL.get('uniqueId') === l.uniqueId;
+            return olL.get('id') === l.id;
           });
           const source: TileWMS = <TileWMS> olLayer.getSource();
           const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), <any>{
@@ -210,7 +216,7 @@ export class OpenLayersComponent implements AfterViewInit {
             length = resultObservables.push(this.httpClient.get(getFeatureUrl,
               {responseType: 'text'}));
           }
-          layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
+          layerUniqueIdToObsIndex.set(l.id.toString(), length - 1);
         }
       }
     });
@@ -219,10 +225,13 @@ export class OpenLayersComponent implements AfterViewInit {
   private retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
     this.map.forEachFeatureAtPixel(evt.pixel,
       (feature: Feature, olLayer) => {
-        const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
+        const layer = this.layers.filter((l: Layer) => l.id === olLayer.get('id'))[0];
         if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
-          const length = resultObservables.push(of(feature.getProperties()));
-          layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
+          const length = resultObservables.push(of({
+            ...feature.getProperties(),
+            featureId: feature.getId()
+          }));
+          layerUniqueIdToObsIndex.set(layer.id.toString(), length - 1);
           return feature;
         }
       });
@@ -237,7 +246,7 @@ export class OpenLayersComponent implements AfterViewInit {
         const currentLayer = this.layers[i];
         if (currentLayer.clickStrategy != null) {
           let mapClickInfo;
-          const currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
+          const currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.id.toString())];
           const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
           if ((emptyValidator == null || !emptyValidator.isPayloadEmpty(currentResult)) && currentResult != null) {
             if (currentLayer.clickFormatterInfo != null) {

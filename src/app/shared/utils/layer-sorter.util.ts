@@ -4,10 +4,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {createSelector} from '@ngrx/store';
-import {selectMapState} from '../reducers';
-
-export const selectPopupState = createSelector(
-  selectMapState,
-  state => state.popup,
-);
+ export function sortlayerPriorityDescending(a, b) {
+    return b.priority - a.priority;
+}

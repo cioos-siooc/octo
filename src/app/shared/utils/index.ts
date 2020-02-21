@@ -11,3 +11,4 @@ export * from './property-locator.util';
 export * from './property-locator-factory.util';
 export * from './wms-html-empty.util';
 export * from './wms-text-empty.util';
+export * from './layer-sorter.util';

@@ -15,8 +15,19 @@ import {MapState} from '../reducers';
 import {TopicGroup} from '@app/shared/models';
 import {Topic} from '@app/shared/models';
 
+/**
+ * Side effects for the topic reducer
+ *
+ * @export
+ * @class TopicEffects
+ */
 @Injectable()
 export class TopicEffects {
+  /**
+   * Fetches a TopicGroup from OctoPi based on the topic group code and languageCode
+   *
+   * @memberof TopicEffects
+   */
   @Effect()
   fetchTopicGroup = this.actions$
     .ofType<FetchTopicGroup>(TopicActionTypes.FETCH_TOPIC_GROUP)
@@ -33,6 +44,11 @@ export class TopicEffects {
     ])
   );
 
+  /**
+   * Fetches a topic from OctoPi based on the ID of the topic
+   *
+   * @memberof TopicEffects
+   */
   @Effect()
   fetchTopic = this.actions$
     .ofType<FetchTopic>(TopicActionTypes.FETCH_TOPIC)

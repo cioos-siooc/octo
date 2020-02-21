@@ -8,13 +8,14 @@ import {BehaviorHandler} from '@app/map/utils';
 import {Store} from '@ngrx/store';
 import {MapState, selectLayerState} from '@app/map/store';
 import * as fromBehaviorActions from '@app/map/store/actions/behavior.actions';
+import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 import {take} from 'rxjs/operators';
 import {UrlParametersUtil} from '@app/map/utils/url-parameters.util';
 
 export class EnumHandler implements BehaviorHandler {
   type = 'enum';
 
-  constructor(private store: Store<MapState>) {
+  constructor(protected store: Store<MapState>) {
   }
 
   init(behavior: any) {
@@ -30,10 +31,47 @@ export class EnumHandler implements BehaviorHandler {
   updateParameter(behavior) {
     this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = {...layerState};
-      const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
-      layer.urlParameters = UrlParametersUtil.addUrlParameter(layer.urlParameters, behavior.parameterName,
-        behavior.currentValue);
+      const layer = layerStateCopy.layers.find(l => l.id === behavior.layerId);
+
+      const parameterName = this._getParameterName(behavior);
+
+      const currentValue = this._getParameterValue(behavior);
+
+      let urlParameters = layer.urlParameters;
+      if (typeof(behavior.currentValue) !== 'undefined') {
+        urlParameters = UrlParametersUtil.addUrlParameter(urlParameters, parameterName,
+          currentValue);
+      } else {
+        urlParameters = UrlParametersUtil.removeUrlParameter(urlParameters, parameterName);
+      }
+      const updatedLayer = {
+        ...layer,
+        urlParameters: urlParameters
+      };
+      this.store.dispatch(new fromLayerActions.UpdateLayer(updatedLayer));
       this.store.dispatch(new fromBehaviorActions.UpdateBehavior(behavior));
     });
+  }
+
+  _getParameterName(behavior: any) {
+    // Handles the case where a behavior has a different parameterName in the URL than it does in the data(ie CQL filters)
+    let parameterName = undefined;
+    if (!(typeof(behavior.urlParameterName) === 'undefined')) {
+      parameterName = behavior.urlParameterName;
+    } else {
+      parameterName = behavior.parameterName;
+    }
+    return parameterName;
+  }
+
+  _getParameterValue(behavior: any) {
+    // Handles the case where the value needs to be in quotes(ie CQL filters on string parameters)
+    let currentValue = behavior.currentValue;
+    if (typeof(currentValue) === 'undefined') {
+      return undefined;
+    } else if (behavior.valueInQuotes) {
+      currentValue = "'" + currentValue + "'";
+    }
+    return currentValue;
   }
 }

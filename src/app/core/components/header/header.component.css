@@ -12,3 +12,15 @@
 	margin-bottom: 0!important;
 	height: auto;
 }
+
+.space-between-buttons {
+	margin-right: 0.5em;
+}
+
+.size {
+	width: 11.5em;
+}
+
+.no-padding {
+	padding-right: 0;
+}

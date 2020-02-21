@@ -29,18 +29,16 @@ export class LayerComponent implements OnInit {
     this.descriptionExpanded = false;
   }
 
-  toggleExpandDescription(event) {
-      const toggleClassName = 'collapsed-description';
-
-      if (this.descriptionExpanded) {
-        this.descriptionExpanded = false;
-      } else {
-        this.descriptionExpanded = true;
-      }
+  toggleExpandDescription() {
+    if (this.descriptionExpanded) {
+      this.descriptionExpanded = false;
+    } else {
+      this.descriptionExpanded = true;
+    }
   }
 
   removeLayer(layerId: number) {
-      this.store.dispatch(new DeleteLayer(layerId.toString()));
+      this.store.dispatch(new DeleteLayer(layerId));
   }
 
   collapseInfo() {

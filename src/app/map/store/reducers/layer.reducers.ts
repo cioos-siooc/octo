@@ -8,6 +8,12 @@ import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {LayerActionsUnion, LayerActionTypes} from '../actions/layer.actions';
 
+/**
+ * Stores a list of layers
+ *
+ * @export
+ * @interface LayerState
+ */
 export interface LayerState {
   layers: Layer[];
 }
@@ -25,19 +31,19 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
     case LayerActionTypes.DELETE_LAYER:
       const cloneState = cloneDeep(state);
       cloneState.layers = cloneState.layers.filter((l: Layer) => {
-        return l.uniqueId !== action.payload;
+        return l.id !== action.payload;
       });
       return cloneState;
     case LayerActionTypes.UPDATE_LAYER:
       const clownState = cloneDeep(state);
-      const layerIndex = clownState.layers.findIndex((l) => l.uniqueId === (<any>action.payload).uniqueId);
+      const layerIndex = clownState.layers.findIndex((l) => l.id === (<any>action.payload).id);
       if (layerIndex > -1) {
         clownState.layers[layerIndex] = cloneDeep(action.payload);
       }
       return clownState;
     case LayerActionTypes.MOVE_UP_LAYER:
       const cState = cloneDeep(state);
-      const layerIdx = cState.layers.findIndex((l) => l.uniqueId === action.payload);
+      const layerIdx = cState.layers.findIndex((l) => l.id === action.payload);
       if (layerIdx !== cState.layers.length - 1) {
         const temp = cState.layers[layerIdx];
         cState.layers[layerIdx] = cState.layers[layerIdx + 1];
@@ -46,7 +52,7 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       return cState;
     case LayerActionTypes.MOVE_DOWN_LAYER:
       const clState = cloneDeep(state);
-      const layerId = clState.layers.findIndex((l) => l.uniqueId === action.payload);
+      const layerId = clState.layers.findIndex((l) => l.id === action.payload);
       if (layerId !== 0) {
         const temp = clState.layers[layerId];
         clState.layers[layerId] = clState.layers[layerId - 1];
@@ -66,18 +72,64 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       };
     case LayerActionTypes.SET_CLIENT_PRESENTATION:
       const newState = cloneDeep(state);
-      const layerInd = newState.layers.findIndex((l) => l.uniqueId === (<any>action.payload).uniqueId);
+      const layerInd = newState.layers.findIndex((l) => l.id === (<any>action.payload).id);
       if (layerInd > -1) {
         newState.layers[layerInd].currentClientPresentation = (cloneDeep(action.payload)).clientPresentation;
       }
       return newState;
+    case LayerActionTypes.INIT_LAYER_POSITION:
+      const originalIndx = state.layers.findIndex((l: Layer) => l.id === action.payload.layerId);
+      const newLayer = {...state.layers[originalIndx]};
+      if (state.layers.length < 2) {
+        newLayer.priority = 0;
+      } else {
+        const layerMaxPriority = state.layers.reduce(function(a, b) {
+          return (a.priority >= b.priority) ? a : b;
+        });
+        newLayer.priority = layerMaxPriority.priority + 1;
+      }
+      const newLayerList = [
+        ...state.layers
+      ];
+      newLayerList[originalIndx] = newLayer;
+      return {
+        ...state,
+        layers: newLayerList
+      };
     case LayerActionTypes.SET_LAYER_POSITION:
-      const originalIndex = state.layers.findIndex((l: Layer) => l.uniqueId === action.payload.layerId);
-      const layerToMove = state.layers[originalIndex];
+      if ( typeof(action.payload.newLayerPosition) === 'undefined' ) {
+        return state;
+      }
+      const originalIndex = state.layers.findIndex((l: Layer) => l.id === action.payload.layerId);
+      const layerPriority = state.layers[originalIndex].priority;
 
-      const newLayers = [...state.layers];
-      newLayers.splice(action.payload.newLayerPosition, 0, layerToMove);
-      newLayers.splice(originalIndex, 1);
+      const newLayers = state.layers.map((l) => {
+        // If the layer currently being inspected is the layer to be moved, set the ID and return
+        if (l.id === action.payload.layerId) {
+          return {
+            ...l,
+            priority: action.payload.newLayerPosition
+          };
+        }
+
+        // Otherwise we may have to move the layer
+        if (action.payload.newLayerPosition < layerPriority) {
+          if ((l.priority < layerPriority) && (l.priority >= action.payload.newLayerPosition)) {
+            return {
+              ...l,
+              priority: l.priority + 1 // maybe reversing symbols -> tbd
+            };
+          }
+        } else if (action.payload.newLayerPosition > layerPriority) {
+          if ((l.priority > layerPriority) && (l.priority <= action.payload.newLayerPosition)) {
+            return {
+              ...l,
+              priority: l.priority - 1 // maybe reversing symbols -> tbd
+            };
+          }
+        }
+        return l;
+      });
       return {
         ...state,
         layers: newLayers

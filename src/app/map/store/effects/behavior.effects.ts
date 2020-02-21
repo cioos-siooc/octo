@@ -14,8 +14,24 @@ import { UrlParametersUtil } from '@app/map/utils/url-parameters.util';
 import * as moment from 'moment';
 import * as fromLayerActions from '@app/map/store/actions/layer.actions';
 
+/**
+ * Side effects for the behavior reducer
+ * 
+ * @export
+ * @class BehaviorEffects
+ */
 @Injectable()
 export class BehaviorEffects {
+    /**
+     * Reducer side effect which synchronizes changes between the behavior reducer
+     *  and their corresponding urlParamters in the layer reducer
+     * 
+     *  ex: a layer has a time behavior which is controlled by a UI element.
+     *      This effect ensures that changes to the behavior are added to the corresponding
+     *      layer's urlParameters so that they are included in the URL
+     *
+     * @memberof BehaviorEffects
+     */
     @Effect()
     updateUrlParameters = this.actions$
     .ofType<UpdateBehavior>(BehaviorActionTypes.UPDATE_BEHAVIOR)
@@ -23,7 +39,7 @@ export class BehaviorEffects {
         withLatestFrom(this.store$),
         map(([action, store]) => {
             const layerStateCopy = [...store.map.layer.layers];
-            const layer = layerStateCopy.find(l => l.uniqueId === action.payload.layerUniqueId);
+            const layer = layerStateCopy.find(l => l.id === action.payload.layerId);
             let newLayer = layer;
             if (action.payload.currentDate) {
                 const tempDate = {...action.payload.currentDate};

@@ -14,10 +14,23 @@ import {Actions, Effect} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
 import { schema, normalize } from 'normalizr';
 import { FetchCategoriesForTopic, AppendCategories, AppendRootCategoryIds,
-    CategoryActionTypes, AppendLayerCategoryIds } from './../actions/category.actions';
+    CategoryActionTypes } from './../actions/category.actions';
 
+/**
+ * Side effects for the category reducer
+ *
+ * @export
+ * @class CategoryEffects
+ */
 @Injectable()
 export class CategoryEffects {
+    /**
+     * Side effect which fetches the category tree for a given topic.
+     *  Upon receiving the results the effect flattens them into an array which
+     *  can be easily passed to an EntityAdaptor reducer(saves on tree traversals and makes access way more efficient)
+     *
+     * @memberof CategoryEffects
+     */
     @Effect()
     fetchCategoriesForTopic = this.actions$
     .ofType<FetchCategoriesForTopic>(CategoryActionTypes.FETCH_CATEGORIES_FOR_TOPIC)
@@ -37,30 +50,21 @@ export class CategoryEffects {
             const categories: Category = topicHierarchy.root;
             // Use the normalizr schema to flatten the hierarchy
             const normalized = normalize(categories, categoryEntity);
-            const layerIds = [];
+
             // Convert the flattened hierarchy to an array for EntityAdapter
             const normalizedCategories: NormalizedCategory[] = Object.entries(normalized.entities.category).map(
                 c => {
-                    const category = <NormalizedCategory>c[1];
-                    if ( category.type === 'layer' ) {
-                        layerIds.push(category.id);
-                    }
-                    return category;
+                    return <NormalizedCategory>c[1];
                 }
             );
 
             return [
                 new AppendCategories(normalizedCategories),
-                new AppendRootCategoryIds([ normalized.result ]),
-                new AppendLayerCategoryIds(layerIds),
+                new AppendRootCategoryIds([ normalized.result ])
             ];
         })
     );
 
     constructor(private actions$: Actions, private store$: Store<MapState>, private httpClient: HttpClient) {
     }
-}
-
-function appendCategories(topicHierarchy) {
-
 }

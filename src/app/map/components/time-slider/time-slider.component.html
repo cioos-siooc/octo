@@ -1,0 +1,6 @@
+<div (resized)="resize()" id="slider">
+    <div #nib id="nib"
+        (mousedown)="activateNibDrag()"
+        [ngClass]="{'dragActive': dragActive === true}"
+        nibMoveDirective></div>
+</div>

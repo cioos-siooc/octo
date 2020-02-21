@@ -24,13 +24,11 @@
 <ul *ngIf="category.isExpanded" class="list-group">
   <li class="list-group-item background-white" *ngFor="let catId of category.categories; let i = index">
     <span *ngIf="(categories | async)[catId]; let cat">
-      <ng-container *ngIf="cat.type === 'layer'">
+      <ng-container *ngIf="cat.type === 'layer' || cat.type === 'layerGroup'">
           <span class="selectable pr-1" (click)="onClickLayer(cat)" *ngIf="!cat.isExpanded">
             <input type="checkbox" [checked]="layerIsAdded(cat)">
             <span class="pl-1">{{ cat.label }}</span>
           </span>
-        <!-- <a><i class="glyphicon fa fa-info-circle foreground-teal"
-              (click)="onShowLayerInfoClick(cat.layerId)"></i></a> --> 
       </ng-container>
 
       <ng-container *ngIf="cat.type === 'category'">

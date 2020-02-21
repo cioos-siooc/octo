@@ -10,6 +10,7 @@ import { MapState, selectBehaviorState } from '@app/map/store';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import * as fromLayerActions from '@app/map/store';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layer-configuration',
@@ -23,8 +24,8 @@ export class LayerConfigurationComponent implements OnInit {
   constructor(private store: Store<MapState>, public modal: NgbActiveModal) { }
 
   ngOnInit() {
-    this.store.select(selectBehaviorState).subscribe((behaviorState) => {
-      this.behaviors = behaviorState.behaviors.filter(b => b.layerUniqueId === this.layer.uniqueId);
+    this.store.select(selectBehaviorState).pipe(take(1)).subscribe((behaviorState) => {
+      this.behaviors = behaviorState.behaviors.filter(b => b.layerId === this.layer.id);
     });
   }
 

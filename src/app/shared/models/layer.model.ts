@@ -22,11 +22,13 @@ export abstract class Layer {
   public urlParameters: any;
   public code: string;
   public languageCode: string;
-  public uniqueId: string;
   public clientPresentations: ClientPresentation[];
   public currentClientPresentation: ClientPresentation;
   public clickStrategy: ClickStrategy;
   public clickFormatterInfo: ClickFormatterInfo;
   public urlBehaviors: any;
   public isCollapsed: boolean;
+  public priority: number;
+  public defaultPriority?: number;
+  public layerGroupId?: number;
 }

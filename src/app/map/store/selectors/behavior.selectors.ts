@@ -11,3 +11,13 @@ export const selectBehaviorState = createSelector(
   selectMapState,
   state => state.behavior,
 );
+
+export const selectBehaviorMode = createSelector(
+  selectBehaviorState,
+  (behaviorState) => {
+    const syncBehaviorList = behaviorState.behaviors.filter(function(behavior) {
+      return behavior.handler === 'time' && behavior.mode === 'sync';
+    });
+    return syncBehaviorList.length > 0;
+  }
+);

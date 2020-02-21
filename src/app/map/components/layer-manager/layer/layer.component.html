@@ -24,20 +24,21 @@
         </div> -->
         <div [ngClass]="{'info-closed': layer.isCollapsed}">
             <app-map-click [layer]="layer"></app-map-click>
-            <label class="layer-card-label">{{ 'legend-label' | translate}}</label>
-            <div class="legendLabel">
-                {{ layer.currentClientPresentation.legendLabel }}
-            </div>
-            <div class="legend">
-                <img src="{{ layer.currentClientPresentation.legendUrl }}">
-            </div>
-            <label class="layer-card-label">{{ 'layer-description-label' | translate }}</label>
+            <ng-container *ngIf="layer.currentClientPresentation !== undefined">
+                <div *ngIf="layer.currentClientPresentation.legendUrl !== undefined" class="legend">
+                    <img src="{{ layer.currentClientPresentation.legendUrl }}">
+                </div>
+                <div *ngIf="layer.currentClientPresentation.legendLabel !== undefined" class="legendLabel">
+                    {{ layer.currentClientPresentation.legendLabel }}
+                </div>
+            </ng-container>
             <div *ngIf="layer.description" class="description collapsed-description" 
                 [ngClass]="{'collapsed-description': !descriptionExpanded}"
                 [innerHTML]="layer.description.description">
             </div>
+            <app-layer-information [layerId]="layer.id"></app-layer-information>
             <div class="toggle-description"
-                    (click)="toggleExpandDescription($event)">
+                    (click)="toggleExpandDescription()">
                 <a *ngIf="!descriptionExpanded">
                     {{ 'expand-description-button' | translate}}
                 </a>

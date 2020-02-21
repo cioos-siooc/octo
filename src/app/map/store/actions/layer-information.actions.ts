@@ -5,26 +5,41 @@
  */
 
 import {Action} from '@ngrx/store';
+import { LayerInformation } from '@app/shared/models';
 
 export enum LayerInformationActionTypes {
+  FETCH_LAYER_INFORMATION = '[Layer information] Fetch layer information',
   SET_LAYER_INFORMATION = '[Layer information] Set layer information',
-  SET_SELECTED_LAYER_ID = '[Layer information] Set selected layer id',
 }
 
-export class SetLayerInformation implements Action {
-  readonly type = LayerInformationActionTypes.SET_LAYER_INFORMATION;
+export class FetchLayerInformation implements Action {
+  readonly type = LayerInformationActionTypes.FETCH_LAYER_INFORMATION;
 
-  constructor(public payload: string) {
+  // payload is layerId
+  constructor(public payload: Number) {
   }
 }
 
-export class SetSelectedLayerId implements Action {
-  readonly type = LayerInformationActionTypes.SET_SELECTED_LAYER_ID;
+/**
+ * Creates an instance of SetLayerInformation which can be dispatched to the store
+ *  SetLayerInformation sets the informationHtml property in the layer-information reducer
+ *
+ * @export
+ * @class SetLayerInformation
+ * @implements {Action}
+ */
+export class SetLayerInformation implements Action {
+  readonly type = LayerInformationActionTypes.SET_LAYER_INFORMATION;
 
-  constructor(public payload: number) {
+  /**
+   *Creates an instance of SetLayerInformation.
+   * @param {LayerInformation} payload - An object containing the layer information
+   * @memberof SetLayerInformation
+   */
+  constructor(public payload: LayerInformation) {
   }
 }
 
 export type LayerInformationActionsUnion =
   SetLayerInformation |
-  SetSelectedLayerId;
+  FetchLayerInformation;

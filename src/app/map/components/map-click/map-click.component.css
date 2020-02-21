@@ -6,18 +6,14 @@
 
 .clickInformationContainer {
     display: flex;
-    
     width: 100%;
 }
 
 .minimizeClickInformation {
     background-color: #00ACEE;
     color: white;
-
-    width: 1.5em;
-
+    width: 1em;
     text-align: center;
-
     cursor: pointer;
 }
 
@@ -25,6 +21,7 @@
     padding-top: 1em;
     padding-left: 1em;
     padding-right: 1em;
+    width: 100%
 }
 
 .clickInformationLabel {
@@ -34,9 +31,7 @@
 .minimizedClickInformationContainer {
     background-color: #00ACEE;
     color: white;
-
     width: 100%;
-
     cursor: pointer;
 }
 

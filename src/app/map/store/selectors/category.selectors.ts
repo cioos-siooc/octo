@@ -40,13 +40,6 @@ export const selectRootCategoryIds = createSelector(
   }
 );
 
-export const selectLayerCategoryIds = createSelector(
-  selectCategoryState,
-  (categoryState) => {
-    return categoryState.layerCategoryIds;
-  }
-);
-
 export const selectCategoryById = (id) => createSelector(
   selectCategoryEntities,
   (categories) => {
