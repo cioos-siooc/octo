@@ -4,7 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {AfterViewInit, Component} from '@angular/core';
+import {OnInit, AfterViewInit, Component} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Router, ActivatedRoute} from '@angular/router';
 import {forkJoin} from 'rxjs';
@@ -33,7 +33,7 @@ import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selector
 import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
 import { take } from 'rxjs/operators';
 import { MapService } from '../../utils/open-layers/map.service';
-
+import { LoadingService } from './../../services/loading.service';
 @Component({
   selector: 'app-open-layers',
   templateUrl: './open-layers.component.html',
@@ -46,7 +46,7 @@ export class OpenLayersComponent implements AfterViewInit {
 
   constructor(private httpClient: HttpClient, private store: Store<MapState>,
               private router: Router, private olLayerFactory: OLLayerFactory,
-              private route: ActivatedRoute, private mapService: MapService) {
+              private route: ActivatedRoute, private mapService: MapService, private loadingService: LoadingService) {
   }
 
   ngAfterViewInit(): void {

@@ -16,7 +16,7 @@ export class LoadingIndicatorComponent implements OnInit {
   ngOnInit() {
     this.subscription = this.service.getStatus().subscribe((state) => {
       // Changing the state type from "unknown" to boolean
-      this.show = state instanceof Boolean;
+      this.show = state as Boolean;
     });
   }
 
