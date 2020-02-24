@@ -1,3 +1,4 @@
+import { MapService } from '@app/map/utils/open-layers';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -17,6 +18,9 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      providers: [
+        MapService
+      ],
       declarations: [HeaderComponent],
       imports: [
         HttpClientModule,
