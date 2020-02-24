@@ -103,13 +103,14 @@ describe('LayerConfigurationComponent', () => {
       urlParameters: '',
       code: 'testLayer',
       languageCode: 'en',
-      uniqueId: '0',
       clientPresentations: [ clientPresentation ],
       currentClientPresentation: clientPresentation,
       clickStrategy: clickStrategy,
       clickFormatterInfo: clickFormatterInfo,
       urlBehaviors: '',
-      isCollapsed: false
+      isCollapsed: false,
+      priority: 1,
+      defaulPriority: 0
     };
     component.layer = layer;
     fixture.detectChanges();

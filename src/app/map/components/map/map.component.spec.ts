@@ -33,7 +33,6 @@ import { TextFieldComponent } from '../map-click/click-formatter/field/text-fiel
 import { UrlFieldComponent } from '../map-click/click-formatter/field/url-field/url-field.component';
 import { MapClickComponent } from '../map-click/map-click.component';
 import { OpenLayersComponent } from '../open-layers/open-layers.component';
-import { PopupComponent } from '../popup/popup.component';
 import { TopicPickerComponent } from '../topic-picker/topic-picker.component';
 import { MapComponent } from './map.component';
 import { NgDragDropModule } from 'ng-drag-drop';
@@ -50,7 +49,7 @@ describe('MapComponent', () => {
         UrlBehaviorService
       ],
       declarations: [
-        MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
+        MapComponent, OpenLayersComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
         TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent,
         EnumBehaviorComponent, SidebarComponent, LayerComponent, LayerPickerComponent

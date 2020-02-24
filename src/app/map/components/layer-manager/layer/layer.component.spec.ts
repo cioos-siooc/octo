@@ -114,14 +114,14 @@ describe('LayerComponent', () => {
         urlParameters: '',
         code: 'testLayer',
         languageCode: 'en',
-        uniqueId: '0',
         clientPresentations: [ clientPresentation ],
         currentClientPresentation: clientPresentation,
         clickStrategy: clickStrategy,
         clickFormatterInfo: clickFormatterInfo,
         urlBehaviors: '',
         isCollapsed: false,
-        priority: 1
+        priority: 1,
+        defaultPriority: 0
       };
     }
   }
