@@ -1,4 +1,3 @@
-import { DynamicEnumHandler } from './../../utils/behavior-handler/dynamic-enum-handler.util';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -16,7 +15,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpLoaderFactory} from '@app/shared/shared.module';
 import { BehaviorHandlerFactory } from '@app/map/utils';
 
-class DynamicEnumHandlerMock {constructor() {}}
+class BehaviorHandlerFactoryMock {}
 
 describe('EnumBehaviorComponent', () => {
   let component: EnumBehaviorComponent;
@@ -26,10 +25,9 @@ describe('EnumBehaviorComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ EnumBehaviorComponent ],
       providers: [
-        BehaviorHandlerFactory,
         {
-          provide: DynamicEnumHandler,
-          useClass: DynamicEnumHandlerMock
+          provide: BehaviorHandlerFactory,
+          useClass: BehaviorHandlerFactoryMock
         }
       ],
       imports: [
