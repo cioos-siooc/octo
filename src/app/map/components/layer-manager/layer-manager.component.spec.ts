@@ -1,3 +1,5 @@
+import { Layer } from '@app/shared/models';
+import { Input, Component } from '@angular/core';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -24,6 +26,13 @@ import { TimeBehaviorComponent } from '../time-behavior/time-behavior.component'
 import { NgDragDropModule } from 'ng-drag-drop';
 import { NgbDatepicker, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+@Component({
+  selector: 'app-layer-information',
+  template: ''
+})
+class LayerInformationStubComponent {
+  @Input() layerId: number;
+}
 
 describe('LayerManagerComponent', () => {
   let component: LayerManagerComponent;
@@ -41,7 +50,8 @@ describe('LayerManagerComponent', () => {
         TextFieldComponent,
         UrlFieldComponent,
         ImageFieldComponent,
-        DateFieldComponent
+        DateFieldComponent,
+        LayerInformationStubComponent
       ],
       imports: [
         FormsModule,
@@ -64,9 +74,14 @@ describe('LayerManagerComponent', () => {
       .compileComponents();
   }));
 
+
   beforeEach(() => {
     fixture = TestBed.createComponent(LayerManagerComponent);
     component = fixture.componentInstance;
+
+    const layerList = [];
+
+    component.layers = layerList;
     fixture.detectChanges();
   });
 

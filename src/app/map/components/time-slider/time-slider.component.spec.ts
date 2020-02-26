@@ -1,3 +1,5 @@
+import { StoreModule } from '@ngrx/store';
+import { mapReducers } from '@app/map/store';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeSliderComponent } from './time-slider.component';
@@ -8,7 +10,11 @@ describe('TimeSliderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeSliderComponent ]
+      declarations: [ TimeSliderComponent ],
+      imports: [
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
+      ]
     })
     .compileComponents();
   }));

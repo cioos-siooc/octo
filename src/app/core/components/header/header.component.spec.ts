@@ -1,4 +1,3 @@
-import { MapService } from '@app/map/utils/open-layers';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -11,6 +10,7 @@ import {HeaderComponent} from './header.component';
 import {HttpLoaderFactory} from '@app/shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { MapService } from '@app/map/utils/open-layers/map.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -18,10 +18,10 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [HeaderComponent],
       providers: [
         MapService
       ],
-      declarations: [HeaderComponent],
       imports: [
         HttpClientModule,
         TranslateModule.forRoot({

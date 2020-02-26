@@ -1,5 +1,8 @@
+import { MapService } from '@app/map/utils/open-layers';
+import { mapReducers } from '@app/map/store';
+import { StoreModule } from '@ngrx/store';
+import { FormsModule } from '@angular/forms';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DynamicEnumBehaviorComponent } from './dynamic-enum-behavior.component';
 
 describe('DynamicEnumBehaviorComponent', () => {
@@ -8,7 +11,13 @@ describe('DynamicEnumBehaviorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DynamicEnumBehaviorComponent ]
+      declarations: [ DynamicEnumBehaviorComponent ],
+      imports: [
+        FormsModule,
+        StoreModule.forRoot({}),
+        StoreModule.forFeature('map', mapReducers),
+      ],
+      providers: [MapService]
     })
     .compileComponents();
   }));

@@ -1,3 +1,6 @@
+import { OLLayerFactory } from './../../utils/open-layers/ol-layer-factory.util';
+import { MapService } from '@app/map/utils/open-layers/map.service';
+import { BehaviorHandlerFactory } from './../../utils/behavior-handler/behavior-handler-factory.service';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -36,6 +39,7 @@ import { OpenLayersComponent } from '../open-layers/open-layers.component';
 import { TopicPickerComponent } from '../topic-picker/topic-picker.component';
 import { MapComponent } from './map.component';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { StylerService } from '@app/map/utils/open-layers/styler.service';
 
 
 describe('MapComponent', () => {
@@ -46,7 +50,7 @@ describe('MapComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         // { provide: TranslateService, useClass: TranslateServiceStub },
-        UrlBehaviorService
+        UrlBehaviorService, BehaviorHandlerFactory, MapService, OLLayerFactory, StylerService
       ],
       declarations: [
         MapComponent, OpenLayersComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,

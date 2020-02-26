@@ -1,3 +1,5 @@
+import { OLLayerFactory, MapService } from '@app/map/utils';
+import { LayerInformationComponent } from '@app/map/components/layer-information/layer-information.component';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -30,6 +32,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { OpenLayersComponent } from './open-layers.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { FormsModule } from '@angular/forms';
+import { StylerService } from '@app/map/utils/open-layers/styler.service';
 
 
 describe('OpenLayersComponent', () => {
@@ -40,6 +43,7 @@ describe('OpenLayersComponent', () => {
     TestBed.configureTestingModule({
       providers: [
         // { provide: TranslateService, useClass: TranslateServiceStub }
+        OLLayerFactory, StylerService, MapService
       ],
       declarations: [
         OpenLayersComponent,
@@ -48,6 +52,7 @@ describe('OpenLayersComponent', () => {
         LayerManagerComponent,
         LayerPickerComponent,
         LayerComponent,
+        LayerInformationComponent,
         TopicPickerComponent,
         CatalogComponent,
         MapClickComponent,
