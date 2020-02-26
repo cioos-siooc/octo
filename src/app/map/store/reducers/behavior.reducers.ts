@@ -24,9 +24,13 @@ export const initialState: BehaviorState = {
 export function behaviorReducer(state = initialState, action: BehaviorActionsUnion): BehaviorState {
   switch (action.type) {
     case BehaviorActionTypes.ADD_BEHAVIOR:
-      const clonedState = {...state};
-      clonedState.behaviors.push(cloneDeep(action.payload));
-      return clonedState;
+      return {
+        ...state,
+        behaviors: [
+          ...state.behaviors,
+          {...action.payload}
+        ]
+      };
     case BehaviorActionTypes.UPDATE_BEHAVIOR:
       const cloneState = {...state};
       const behaviorIndex = cloneState.behaviors.findIndex((b) => b.uniqueId === action.payload.uniqueId);

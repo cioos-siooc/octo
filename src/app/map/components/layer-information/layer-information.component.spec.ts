@@ -50,7 +50,6 @@ describe('LayerInformationComponent', () => {
     };
 
     component.layerInformation = layerInformation;
-    console.log(component);
     fixture.detectChanges();
   });
 

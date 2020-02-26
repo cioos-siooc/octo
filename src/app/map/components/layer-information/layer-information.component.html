@@ -4,7 +4,7 @@
   ~ file, You can obtain one at http://mozilla.org/MPL/2.0/.
   -->
 
-<div *ngIf="layerInformation.urls.length !== 0" id="layer-information" class="hover-opacity">
+<div *ngIf="layerInformation && layerInformation.urls.length !== 0" id="layer-information" class="hover-opacity">
   <div class="layerInfo">
     <div class="layerInformationsContainer">
       <h5 class="layerInformationsTitle">{{'layer-information-label' | translate}}</h5>
