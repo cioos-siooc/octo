@@ -10,8 +10,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {BehaviorHandlerFactory, Mode} from '@app/map/utils';
 import {TimeHandler} from '@app/map/utils';
 import {MapState} from '@app/map/store';
-import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
-import { MapService } from '@app/map/utils/open-layers';
 
 @Component({
   selector: 'app-time-behavior',
@@ -24,7 +22,7 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
   currentDate: Date;
   Mode: any;
 
-  constructor(private store: Store<MapState>, private translateService: TranslateService,
+  constructor(private translateService: TranslateService,
               private behaviorHandlerFactory: BehaviorHandlerFactory) {
   }
 

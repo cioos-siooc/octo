@@ -14,7 +14,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class BehaviorHandlerFactory {
-  
+
   constructor(private store: Store<MapState>, private dynamicEnumHandler: DynamicEnumHandler) { }
 
   public getBehaviorHandler(type: string): BehaviorHandler {

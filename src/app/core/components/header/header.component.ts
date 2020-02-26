@@ -10,7 +10,7 @@ import {environment} from '@env/environment';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {MapService} from '@app/map/utils/open-layers/map.service';
 import {toJpeg} from 'html-to-image';
-import * as jsPDF  from 'jspdf';
+import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-header',
@@ -27,18 +27,18 @@ export class HeaderComponent implements OnInit {
 
   onPdfExportClick() {
 
-    var exportOptions = {
+    const exportOptions = {
       filter: function(element) {
         return element.className.indexOf('ol-control') === -1;
       }
     };
 
     const map = this.mapService.getMap();
-    toJpeg(<HTMLElement>map.getViewport(),exportOptions).then(
+    toJpeg(<HTMLElement>map.getViewport(), exportOptions).then(
         (result) => {
-          var pdf = new jsPDF("landscape",undefined,"A4");
-          var width = pdf.internal.pageSize.getWidth();
-          var height = pdf.internal.pageSize.getHeight() * 0.8;
+          const pdf = new jsPDF('landscape', undefined, 'A4');
+          const width = pdf.internal.pageSize.getWidth();
+          const height = pdf.internal.pageSize.getHeight() * 0.8;
           pdf.addImage(result, 'JPEG', 0, 20, width, height);
           pdf.save('carte.pdf')
       }

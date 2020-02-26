@@ -72,7 +72,7 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       };
     case LayerActionTypes.SET_CLIENT_PRESENTATION:
       const newState = cloneDeep(state);
-      const layerInd = newState.layers.findIndex((l) => l.id === (<any>action.payload).id);
+      const layerInd = newState.layers.findIndex((l) => l.id === (<any>action.payload).layerId);
       if (layerInd > -1) {
         newState.layers[layerInd].currentClientPresentation = (cloneDeep(action.payload)).clientPresentation;
       }
