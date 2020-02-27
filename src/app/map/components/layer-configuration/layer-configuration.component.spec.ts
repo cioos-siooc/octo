@@ -16,7 +16,7 @@ import { StoreModule } from '@ngrx/store';
 import { mapReducers } from '@app/map/store';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientPresentation, ClickStrategy, ClickFormatterInfo } from '@app/shared/models';
-import { DynamicEnumBehaviorComponent } from './../dynamic-enum-behavior/dynamic-enum-behavior.component';
+// import { DynamicEnumBehaviorComponent } from './../dynamic-enum-behavior/dynamic-enum-behavior.component';
 
 @Component({selector: 'app-time-behavior', template: ''})
 class TimeBehaviorComponent {
@@ -26,6 +26,11 @@ class TimeBehaviorComponent {
 @Component({selector: 'app-enum-behavior', template: ''})
 class EnumBehaviorComponent {
   @Input() behavior: any;
+}
+
+@Component({selector: 'app-dynamic-enum-behavior', template: ''})
+class DynamicEnumBehaviorComponent {
+  @Input() behaviorUniqueId: any;
 }
 
 describe('LayerConfigurationComponent', () => {
