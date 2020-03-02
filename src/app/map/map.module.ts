@@ -22,11 +22,11 @@ import { LayerGroupComponent } from './components/layer-manager/layer-group/laye
 import { AngularResizedEventModule } from 'angular-resize-event';
 import {LayerConfigurationComponent} from '@app/map/components/layer-configuration/layer-configuration.component';
 import { NgDragDropModule } from 'ng-drag-drop';
-import { StylerService } from './utils/open-layers/styler.service';
-import { OLLayerFactory } from './utils';
-import { MapService } from '@app/map/utils/open-layers';
+// import { StylerService } from './utils/open-layers/styler.service';
+// import { OLLayerFactory } from './utils';
+// import { MapService } from '@app/map/utils/open-layers';
 import { DynamicEnumBehaviorComponent } from './components/dynamic-enum-behavior/dynamic-enum-behavior.component';
-import { BehaviorHandlerFactory } from '@app/map/utils';
+// import { BehaviorHandlerFactory } from '@app/map/utils';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 
 @NgModule({
@@ -51,10 +51,10 @@ import { LoadingIndicatorComponent } from './components/loading-indicator/loadin
     LoadingIndicatorComponent,
   ],
   providers: [
-    StylerService,
-    OLLayerFactory,
-    BehaviorHandlerFactory,
-    MapService
+    // StylerService,
+    // OLLayerFactory,
+    // BehaviorHandlerFactory,
+    // MapService,
   ]
 })
 

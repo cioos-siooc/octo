@@ -33,6 +33,7 @@ import {
   LayerActionTypes
 } from '../actions/layer.actions';
 import { FetchLayerInformation } from '../actions';
+import { LoadingService } from '@app/map/services';
 
 /**
  * Side effects for the layer reducer
@@ -42,7 +43,6 @@ import { FetchLayerInformation } from '../actions';
  */
 @Injectable()
 export class LayerEffects {
-
   /**
    * Fetches a layer from OctoPi based on the layerId given in the payload
    *  Calls FetchClickStrategy for the layer once it is received
@@ -53,6 +53,7 @@ export class LayerEffects {
   layerFetch = this.actions$
     .ofType<FetchLayer>(LayerActionTypes.FETCH_LAYER)
     .pipe(mergeMap((action: FetchLayer) => {
+      // this.loadingService.show();
       return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
         (layer) => {
           layer.defaultPriority = action.payload.priority;
@@ -160,7 +161,7 @@ export class LayerEffects {
             // default to slgo-mapbox if the styler is undefined
             clientPresentations = clientPresentations.map((cp) => {
               if (typeof(cp.styler) === 'undefined' ) {
-                cp.styler = 'slgo-mapbox'
+                cp.styler = 'slgo-mapbox';
               }
               return cp;
             });
@@ -226,6 +227,8 @@ export class LayerEffects {
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
-              private store$: Store<StoreState>) {
+              private store$: Store<StoreState>,
+              private loadingService: LoadingService) {
+              // ) {
   }
 }

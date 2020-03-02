@@ -1,9 +1,13 @@
+import { ServicesModule } from './services.module';
 import { Subject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable(
+  {
+  // providedIn: 'root'
+  providedIn: ServicesModule
+}
+)
 export class LoadingService {
   // Possibility to create an interface if the service had much more attributes
   private loadingSubject = new Subject();
