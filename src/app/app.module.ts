@@ -15,7 +15,6 @@ import {environment} from '@env/environment.prod';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './core/components';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {UrlBehaviorService} from './map/services/url-behavior.service';
 import {CoreModule} from './core/core.module';
 import {SharedModule} from './shared/shared.module';
 import {MapModule} from './map/map.module';
@@ -38,7 +37,7 @@ import { LayerConfigurationComponent } from '@app/map/components/layer-configura
     }),
     AppRoutingModule
   ],
-  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}, UrlBehaviorService],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   bootstrap: [AppComponent],
   entryComponents: [LayerConfigurationComponent]
 })

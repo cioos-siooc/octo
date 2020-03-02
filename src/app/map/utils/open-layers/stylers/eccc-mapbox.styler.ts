@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { MapState, selectMapClickByLayerId } from '@app/map/store';
 import { StylesFromLiterals } from '../../styles-from-literals.util';
 import { MapClickInfo } from '../../../../shared/models/map-click-info.model';
-import { MapService } from '../map.service';
+import { MapService } from '../../../services/map.service';
 import LayerBase from 'ol/layer/base';
 import VectorLayer from 'ol/layer/vector';
 import Circle from 'ol/style/circle';

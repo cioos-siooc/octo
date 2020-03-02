@@ -6,7 +6,7 @@ import { ECCCMapboxStyler } from './stylers/eccc-mapbox.styler';
 
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class StylerService {
   stylers: {} = {};
 

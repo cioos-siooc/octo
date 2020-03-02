@@ -1,11 +1,8 @@
-import { ServicesModule } from './services.module';
 import { Subject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-@Injectable(
-  {
-  // providedIn: 'root'
-  providedIn: ServicesModule
+@Injectable({
+  providedIn: 'root'
 }
 )
 export class LoadingService {

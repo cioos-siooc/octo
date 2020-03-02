@@ -32,7 +32,7 @@ import {MapState} from '@app/map/store';
 import {selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import {selectLayerState} from '@app/map/store/selectors/layer.selectors';
 import { take } from 'rxjs/operators';
-import { MapService } from '../../utils/open-layers/map.service';
+import { MapService } from '../../services/map.service';
 import { LoadingService } from './../../services/loading.service';
 @Component({
   selector: 'app-open-layers',

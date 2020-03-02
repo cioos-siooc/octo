@@ -1,4 +1,3 @@
-
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,7 +7,6 @@
 import { AddLayer, SetLayerPosition, InitLayerPosition } from './../actions/layer.actions';
 
 import {Actions, Effect} from '@ngrx/effects';
-
 
 import {catchError, map, mergeMap, withLatestFrom} from 'rxjs/operators';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
@@ -33,7 +31,7 @@ import {
   LayerActionTypes
 } from '../actions/layer.actions';
 import { FetchLayerInformation } from '../actions';
-import { LoadingService } from '@app/map/services';
+import { LoadingService } from '@app/map/services/loading.service';
 
 /**
  * Side effects for the layer reducer

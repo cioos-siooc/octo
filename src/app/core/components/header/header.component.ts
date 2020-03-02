@@ -8,7 +8,7 @@ import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {environment} from '@env/environment';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
-import {MapService} from '@app/map/utils/open-layers/map.service';
+import {MapService} from '@app/map/services/map.service';
 import {toJpeg} from 'html-to-image';
 import * as jsPDF  from 'jspdf';
 
