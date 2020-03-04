@@ -17,10 +17,11 @@ import VectorSource from 'ol/source/vector';
 import {StylesFromLiterals} from '../styles-from-literals.util';
 import { stylers } from './stylers';
 import { StylerService } from './styler.service';
+import { LoadingService } from '@app/map/services';
 
 @Injectable()
 export class OLLayerFactory {
-  constructor(private stylerService: StylerService) {}
+  constructor(private stylerService: StylerService, private loadingService: LoadingService) {}
 
   public generateLayer(layer: Layer): OLLayer {
     let olLayer: OLLayer;
@@ -60,7 +61,12 @@ export class OLLayerFactory {
       styler = this.stylerService.getStyler('slgo-mapbox');
     }
     styler.setOLVectorLayerStyle(layer, olLayer);
-
+    const loadingService = this.loadingService;
+    const listenerKey = source.once('change', function() {
+      if (source.getState() === 'ready') {
+        loadingService.hide();
+      }
+    });
     return olLayer;
   }
 }

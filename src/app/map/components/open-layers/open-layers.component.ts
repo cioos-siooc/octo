@@ -153,6 +153,7 @@ export class OpenLayersComponent implements AfterViewInit {
         layerList.forEach((newLayer: Layer) => {
           if (!currentOLLayers.some((cL) => (cL.get('id') === newLayer.id))) {
             this.map.addLayer(this.olLayerFactory.generateLayer(newLayer));
+            this.loadingService.show();
           }
         });
         this.layers = layerList;
