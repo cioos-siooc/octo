@@ -38,6 +38,12 @@ export class OLLayerFactory {
     const source: Source = OLSourceFactory.generateSource(layer);
     const olLayer: OLLayer = new TileLayer({source: <TileSource>source});
     this.setOLLayerProperties(olLayer, layer);
+    const loadingService = this.loadingService;
+    const listenerKey = source.once('tileloadend', function() {
+      if (source.getState() === 'ready') {
+        loadingService.hide();
+      }
+    });
     return olLayer;
   }
 
