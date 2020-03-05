@@ -39,11 +39,14 @@ export class OLLayerFactory {
     const olLayer: OLLayer = new TileLayer({source: <TileSource>source});
     this.setOLLayerProperties(olLayer, layer);
     const loadingService = this.loadingService;
-    const listenerKey = source.once('tileloadend', function() {
+    // const listenerKey = source.once('tileloadend', function() {
+    function rasterListener(e) {
       if (source.getState() === 'ready') {
-        loadingService.hide();
+        loadingService.hide()
+        source.un('change', rasterListener);
       }
-    });
+    }
+    const listenerKey = source.on('change', rasterListener);
     return olLayer;
   }
 

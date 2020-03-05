@@ -108,6 +108,7 @@ export class OpenLayersComponent implements AfterViewInit {
         if (this.baseOLLayer != null) {
           this.map.removeLayer(this.baseOLLayer);
         }
+        this.loadingService.show();
         const newLayer = this.olLayerFactory.generateLayer(clonedBaseLayerState.currentBaseLayer);
         this.map.addLayer(newLayer);
         this.baseOLLayer = newLayer;
