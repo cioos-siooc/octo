@@ -24,10 +24,12 @@ import {LayerConfigurationComponent} from '@app/map/components/layer-configurati
 import { NgDragDropModule } from 'ng-drag-drop';
 import { StylerService } from './utils/open-layers/styler.service';
 import { OLLayerFactory } from './utils';
-import { MapService } from '@app/map/utils/open-layers';
+import { MapService } from '@app/map/services';
 import { DynamicEnumBehaviorComponent } from './components/dynamic-enum-behavior/dynamic-enum-behavior.component';
 import { BehaviorHandlerFactory } from '@app/map/utils';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { UrlBehaviorService } from './services/url-behavior.service';
+import { LoadingService } from '@app/map/services/loading.service';
 
 @NgModule({
   imports: [
@@ -54,7 +56,9 @@ import { LoadingIndicatorComponent } from './components/loading-indicator/loadin
     StylerService,
     OLLayerFactory,
     BehaviorHandlerFactory,
-    MapService
+    MapService,
+    UrlBehaviorService,
+    LoadingService
   ]
 })
 

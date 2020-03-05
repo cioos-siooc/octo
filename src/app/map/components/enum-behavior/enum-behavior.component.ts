@@ -5,11 +5,10 @@
  */
 
 import {Component, Input, OnInit} from '@angular/core';
-import {MapState, selectBehaviorState} from '@app/map/store';
+import {MapState} from '@app/map/store';
 import {Store} from '@ngrx/store';
 import {BehaviorHandlerFactory} from '@app/map/utils';
 import {EnumHandler} from '@app/map/utils/behavior-handler/enum-handler.util';
-import { MapService } from '@app/map/utils/open-layers';
 
 @Component({
   selector: 'app-enum-behavior',

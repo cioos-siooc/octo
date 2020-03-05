@@ -1,11 +1,9 @@
 import { Store } from '@ngrx/store';
 import { MapState, selectLayerState, selectBehaviorState } from '@app/map/store';
-import { BehaviorHandler } from '@app/map/utils';
 import { EnumHandler } from '@app/map/utils/behavior-handler/enum-handler.util';
-import { MapService } from '@app/map/utils/open-layers';
+import { MapService } from '@app/map/services/map.service';
 import OLLayer from 'ol/layer/layer';
 import VectorSource from 'ol/source/vector';
-import { UpdateBehavior } from '../../store/actions/behavior.actions';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { UrlParametersUtil } from '@app/map/utils/url-parameters.util';

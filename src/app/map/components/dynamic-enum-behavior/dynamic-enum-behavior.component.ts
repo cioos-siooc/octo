@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { DynamicEnumHandler } from '@app/map/utils';
 import { Store } from '@ngrx/store';
 import { MapState } from '@app/map/store';
-import { MapService } from '@app/map/utils/open-layers';
+import { MapService } from '@app/map/services';
 import { selectBehaviorState } from '@app/map/store/selectors/behavior.selectors';
 
 @Component({

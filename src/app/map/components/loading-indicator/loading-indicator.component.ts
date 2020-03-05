@@ -17,6 +17,7 @@ export class LoadingIndicatorComponent implements OnInit {
     this.subscription = this.service.getStatus().subscribe((state) => {
       // Changing the state type from "unknown" to boolean
       this.show = state as Boolean;
+      console.log(state);
     });
   }
 

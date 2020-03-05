@@ -13,7 +13,6 @@ import {filter, take} from 'rxjs/operators';
 import {cloneDeep} from 'lodash';
 import {MapState} from '@app/map/store';
 import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
-import { MapService } from '@app/map/utils/open-layers';
 
 @Injectable()
 export class UrlBehaviorService {

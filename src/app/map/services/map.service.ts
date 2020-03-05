@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import OLMap from 'ol/map';
 
+@Injectable({ providedIn: 'root' })
 export class MapService {
     map: OLMap;
 

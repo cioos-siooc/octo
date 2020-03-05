@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
-})
+}
+)
 export class LoadingService {
   // Possibility to create an interface if the service had much more attributes
   private loadingSubject = new Subject();

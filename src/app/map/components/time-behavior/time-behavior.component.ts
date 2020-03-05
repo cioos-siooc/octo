@@ -10,8 +10,6 @@ import {TranslateService} from '@ngx-translate/core';
 import {BehaviorHandlerFactory, Mode} from '@app/map/utils';
 import {TimeHandler} from '@app/map/utils';
 import {MapState} from '@app/map/store';
-import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
-import { MapService } from '@app/map/utils/open-layers';
 
 @Component({
   selector: 'app-time-behavior',
@@ -46,7 +44,6 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
 
   onSyncClick(e: any) {
     this.sync = e.target.checked;
-    // const bh = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
     const bh = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
     bh.toggleSync(this.behavior, this.sync);
   }
