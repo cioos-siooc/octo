@@ -17,7 +17,7 @@ import VectorSource from 'ol/source/vector';
 import {StylesFromLiterals} from '../styles-from-literals.util';
 import { stylers } from './stylers';
 import { StylerService } from './styler.service';
-import { LoadingService } from '@app/map/services';
+import { LoadingService } from '@app/map/services/loading.service';
 
 @Injectable()
 export class OLLayerFactory {
