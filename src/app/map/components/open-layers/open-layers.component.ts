@@ -147,14 +147,19 @@ export class OpenLayersComponent implements AfterViewInit {
             }
           } else if (!this.isBackgroundLayer(layer)) {
             // If old layer is not part of the new layers and isn't a background layer, remove it
+            const source = <any>layer.getSource();
+            if ( typeof source.clear === 'function' ) {
+              source.clear();
+            }
+            layer.setSource(undefined);
             this.map.removeLayer(layer);
           }
         });
         // Add remaining layers(these ones should be new layers)
         layerList.forEach((newLayer: Layer) => {
           if (!currentOLLayers.some((cL) => (cL.get('id') === newLayer.id))) {
-            this.map.addLayer(this.olLayerFactory.generateLayer(newLayer));
             this.loadingService.show();
+            this.map.addLayer(this.olLayerFactory.generateLayer(newLayer));
           }
         });
         this.layers = layerList;
