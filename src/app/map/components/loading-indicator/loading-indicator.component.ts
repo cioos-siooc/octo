@@ -15,10 +15,9 @@ export class LoadingIndicatorComponent implements OnInit, OnDestroy {
   constructor(private service: LoadingService, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.show = false; 
     this.subscription = this.service.getStatus().subscribe((state) => {
       this.show = state;
-      this.ref.markForCheck();
+      this.ref.detectChanges();
     });
   }
 
