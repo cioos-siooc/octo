@@ -1,4 +1,3 @@
-
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -33,6 +32,7 @@ import {
   LayerActionTypes
 } from '../actions/layer.actions';
 import { FetchLayerInformation } from '../actions';
+import { TranslateService } from '@ngx-translate/core';
 
 /**
  * Side effects for the layer reducer
@@ -53,11 +53,18 @@ export class LayerEffects {
   layerFetch = this.actions$
     .ofType<FetchLayer>(LayerActionTypes.FETCH_LAYER)
     .pipe(mergeMap((action: FetchLayer) => {
-      return this.httpClient.get<Layer>(`${environment.mapapiUrl}/layers/${action.payload.layerId}`).pipe(map(
+      let url = '';
+      if (typeof(action.payload.layerId) !== 'undefined') {
+        url = `${environment.mapapiUrl}/layers/${action.payload.layerId}`;
+      } else if ((action.payload.layerCode) !== '') {
+        url = `${environment.mapapiUrl}/layers/getLayerForCode?` +
+        `code=${action.payload.layerCode}&language-code=${this.translateService.currentLang}`;
+      }
+      return this.httpClient.get<Layer>(url).pipe(map(
         (layer) => {
           layer.defaultPriority = action.payload.priority;
           layer.priority = -1;
-
+          layer.isUnremovable = action.payload.isUnremovable;
           // Do some layer group stuff
           if (action.payload.layerGroupId) {
             layer.layerGroupId = action.payload.layerGroupId;
@@ -226,6 +233,7 @@ export class LayerEffects {
 
   constructor(private actions$: Actions,
               private httpClient: HttpClient,
-              private store$: Store<StoreState>) {
+              private store$: Store<StoreState>,
+              private translateService: TranslateService) {
   }
 }

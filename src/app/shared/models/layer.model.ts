@@ -31,4 +31,5 @@ export abstract class Layer {
   public priority: number;
   public defaultPriority?: number;
   public layerGroupId?: number;
+  public isUnremovable: boolean;
 }

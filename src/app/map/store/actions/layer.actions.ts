@@ -41,17 +41,19 @@ export class FetchLayer implements Action {
 /**
  *Creates an instance of FetchLayer.
 * @param {{
+    layerCode: string,
     layerId: number,
-    uniqueId: string,
     priority: number,
     layerGroupId: number}}
     payload - The id and uniqueId of the layer to be fetched. currently uniqueId is the string version of layerId
 * @memberof FetchLayer
 */
   constructor(public payload: {
-    layerId: number,
+    layerCode?: string,
+    layerId?: number,
     priority?: number,
     layerGroupId?: number,
+    isUnremovable?: boolean;
   }) { }
 }
 

@@ -17,6 +17,7 @@ export const environment = {
   titleKey: 'infosl-title',
   isTopicPickerActive: true,
   defaultTopic: 'ca.ogsl.infosl',
+  unremovableLayerCode: '',
   frenchLanguageIdentifier: 'ogsl',
   englishLanguageIdentifier: 'slgo'
 };

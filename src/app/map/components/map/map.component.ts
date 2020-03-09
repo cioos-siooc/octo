@@ -53,6 +53,9 @@ export class MapComponent implements OnInit {
     this.displayMode = displayMode.full;
     this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
+    if (environment.unremovableLayerCode !== '') {
+      this.initUnremovableLayer();
+    }
     if (this.applicationUsesDefaultTopic()) {
       // this.initializeTopic();
     }
@@ -74,7 +77,7 @@ export class MapComponent implements OnInit {
       const layers = state.layers.slice();
       const layerIds = layers.sort(sortlayerPriorityDescending).filter(
         // Filter layer list to make sure layerGroup members aren't added to the URL
-        layer => typeof(layer.layerGroupId) === 'undefined'
+        layer => typeof(layer.layerGroupId) === 'undefined' && !(layer.isUnremovable)
       ).map(
         // Extract a list of layerIds to add to URL
         // Makes shareable links
@@ -133,6 +136,14 @@ export class MapComponent implements OnInit {
           });
       });
     }
+  }
+
+  private initUnremovableLayer() {
+    // if there's an unremovable layer defined in environment.ts, we add it to the map
+    this.store.dispatch(new layerActions.FetchLayer({
+      layerCode: environment.unremovableLayerCode,
+      isUnremovable: true,
+    }));
   }
 
   private applicationUsesDefaultTopic() {
