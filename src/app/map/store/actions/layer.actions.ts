@@ -211,7 +211,7 @@ export class SetClientPresentation implements Action {
 export class InitLayerPosition implements Action {
   readonly type = LayerActionTypes.INIT_LAYER_POSITION;
 
-  constructor (public payload: {layerId: number}) {}
+  constructor (public payload: {layerId: number, alwaysOnTop: boolean}) {}
 }
 
 /**

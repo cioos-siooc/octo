@@ -80,14 +80,19 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
     case LayerActionTypes.INIT_LAYER_POSITION:
       const originalIndx = state.layers.findIndex((l: Layer) => l.id === action.payload.layerId);
       const newLayer = {...state.layers[originalIndx]};
-      if (state.layers.length < 2) {
-        newLayer.priority = 0;
+      newLayer.alwaysOnTop = action.payload.alwaysOnTop;
+      if (action.payload.alwaysOnTop) {
+        newLayer.priority = -1;
       } else {
-        const layerMaxPriority = state.layers.reduce(function(a, b) {
-          return (a.priority >= b.priority) ? a : b;
-        });
-        newLayer.priority = layerMaxPriority.priority + 1;
-      }
+        if (state.layers.length < 2) {
+          newLayer.priority = 0;
+        } else {
+          const layerMaxPriority = state.layers.reduce(function(a, b) {
+            return (a.priority >= b.priority) ? a : b;
+          });
+          newLayer.priority = layerMaxPriority.priority + 1;
+        }
+      }     
       const newLayerList = [
         ...state.layers
       ];
