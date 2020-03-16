@@ -32,5 +32,6 @@
   "layer-description-label": "Layer's information",
   "export-pdf": "Export to PDF",
   "sync-button-label": "Synchronize time",
-  "always-on-top-label": "Always on top"
+  "always-on-top-label": "Always on top",
+  "others-label": "Others"
 }

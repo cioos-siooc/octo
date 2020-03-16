@@ -32,5 +32,6 @@
   "layer-description-label": "Informations sur la couche",
   "export-pdf": "Exporter en PDF",
   "sync-button-label": "Synchroniser le temps",
-  "always-on-top-label": "Toujours sur le dessus"
+  "always-on-top-label": "Toujours sur le dessus",
+  "others-label": "Autres"
 }
