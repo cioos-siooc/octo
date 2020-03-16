@@ -82,17 +82,22 @@ export function layerReducer(state = initialState, action: LayerActionsUnion): L
       const newLayer = {...state.layers[originalIndx]};
       newLayer.alwaysOnTop = action.payload.alwaysOnTop;
       if (action.payload.alwaysOnTop) {
-        newLayer.priority = -1;
+        newLayer.priority = 9999;
       } else {
         if (state.layers.length < 2) {
           newLayer.priority = 0;
         } else {
-          const layerMaxPriority = state.layers.reduce(function(a, b) {
+          // return a list of layers which are not alwaysOnTop
+          const listLayerNotAlwaysOnTop = state.layers.filter((l: Layer) => {
+            return !l.alwaysOnTop;
+          });
+          // get the max priority in the not alwaysOnTop layers list
+          const layerMaxPriority = listLayerNotAlwaysOnTop.reduce(function(a, b) {
             return (a.priority >= b.priority) ? a : b;
           });
           newLayer.priority = layerMaxPriority.priority + 1;
         }
-      }     
+      }
       const newLayerList = [
         ...state.layers
       ];
