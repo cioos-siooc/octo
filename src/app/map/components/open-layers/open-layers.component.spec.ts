@@ -42,7 +42,6 @@ describe('OpenLayersComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        // { provide: TranslateService, useClass: TranslateServiceStub }
         OLLayerFactory, StylerService, MapService
       ],
       declarations: [
