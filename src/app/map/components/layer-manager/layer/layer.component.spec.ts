@@ -131,7 +131,8 @@ describe('LayerComponent', () => {
         isCollapsed: false,
         priority: 1,
         defaultPriority: 0,
-        isUnremovable: false
+        isUnremovable: false,
+        alwaysOnTop: false
       };
     }
   }

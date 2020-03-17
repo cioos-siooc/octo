@@ -117,7 +117,8 @@ describe('LayerConfigurationComponent', () => {
       isCollapsed: false,
       priority: 1,
       defaulPriority: 0,
-      isUnremovable: false
+      isUnremovable: false,
+      alwaysOnTop: false
     };
     component.layer = layer;
     fixture.detectChanges();

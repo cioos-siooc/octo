@@ -37,4 +37,16 @@ export class LayerConfigurationComponent implements OnInit {
       };
     this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
   }
+
+  putLayerOnTop(e: any) {
+    const value = e.target.checked;
+    const newLayer: Layer = {
+      ...this.layer,
+      alwaysOnTop: value
+      };
+    this.store.dispatch(new fromLayerActions.InitLayerPosition({
+      layerId: newLayer.id,
+      alwaysOnTop: newLayer.alwaysOnTop
+    }));
+  }
 }

@@ -21,6 +21,13 @@
       <input type="range" min="0" max="1" step="0.1" class="slider" [(ngModel)]="layer.opacity" (input)='sendOpacity($event)'>
     </div>
   </div>
+  <div class="modal-content">
+    <h5>{{'others-label' | translate}}</h5>
+    <label class="b-contain"> {{'always-on-top-label' | translate}}
+      <input type="checkbox" (input)="putLayerOnTop($event)" [(ngModel)]="layer.alwaysOnTop">
+      <div class="b-input"></div>
+    </label>
+  </div>
   <div class="modal-footer">
     <button class="btn btn-primary" (click)="modal.close()">{{ 'close-btn-label' | translate }}</button>    
   </div>

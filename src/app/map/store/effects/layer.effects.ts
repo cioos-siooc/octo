@@ -214,7 +214,7 @@ export class LayerEffects {
       .ofType<AddLayer>(LayerActionTypes.ADD_LAYER)
       .pipe(map((action: AddLayer) => {
         if (action.payload.priority === -1) {
-          return new InitLayerPosition({layerId: action.payload.id});
+          return new InitLayerPosition({layerId: action.payload.id, alwaysOnTop: action.payload.alwaysOnTop});
         }
       }));
 

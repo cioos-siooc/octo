@@ -32,4 +32,5 @@ export abstract class Layer {
   public defaultPriority?: number;
   public layerGroupId?: number;
   public isUnremovable: boolean;
+  public alwaysOnTop: boolean;
 }
