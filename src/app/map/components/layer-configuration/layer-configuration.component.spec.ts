@@ -116,7 +116,8 @@ describe('LayerConfigurationComponent', () => {
       urlBehaviors: '',
       isCollapsed: false,
       priority: 1,
-      defaulPriority: 0
+      defaulPriority: 0,
+      alwaysOnTop: false
     };
     component.layer = layer;
     fixture.detectChanges();

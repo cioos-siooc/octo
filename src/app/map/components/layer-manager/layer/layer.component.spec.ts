@@ -130,7 +130,8 @@ describe('LayerComponent', () => {
         urlBehaviors: '',
         isCollapsed: false,
         priority: 1,
-        defaultPriority: 0
+        defaultPriority: 0,
+        alwaysOnTop: false
       };
     }
   }
