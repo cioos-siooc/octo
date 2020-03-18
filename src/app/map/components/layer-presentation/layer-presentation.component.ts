@@ -6,12 +6,9 @@
 
 import {Component, OnInit, Input} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
 import {ClientPresentation} from '@app/shared/models';
 import * as layerActions from '@app/map/store/actions/layer.actions';
-import {cloneDeep} from 'lodash';
 import {MapState, selectLayerById} from '@app/map/store';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-layer-presentation',
@@ -23,8 +20,6 @@ export class LayerPresentationComponent implements OnInit {
 
   clientPresentations: ClientPresentation[];
   currentClientPresentation: ClientPresentation;
-
-  private currentUniqueId: string;
 
   constructor(private store: Store<MapState>) {
   }

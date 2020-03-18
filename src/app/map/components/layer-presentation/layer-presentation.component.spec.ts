@@ -41,6 +41,9 @@ describe('LayerPresentationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LayerPresentationComponent);
     component = fixture.componentInstance;
+
+    const layerId = 0;
+    component.layerId = layerId;
     fixture.detectChanges();
   });
 
