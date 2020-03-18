@@ -57,7 +57,7 @@ export class DynamicEnumHandler extends EnumHandler {
     
     updateParameter(behavior) {
         this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
-            const layer = layerState.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+            const layer = layerState.layers.find(l => l.id === behavior.layerId);
         
             let urlParameters = undefined;
             if (behavior.parameterType && behavior.parameterType === 'cql') {

@@ -5,12 +5,9 @@
  */
 
 import {Component, OnInit, Input} from '@angular/core';
-import {Observable} from 'rxjs';
 
-import * as fromLayerInformation from '@app/map/store/reducers/layer-information.reducers';
 import {Store} from '@ngrx/store';
 import {MapState, selectLayerInformationByLayerId} from '@app/map/store';
-import {selectLayerInformationState} from '@app/map/store';
 import { LayerInformation } from '@app/shared/models';
 
 @Component({
@@ -28,7 +25,7 @@ export class LayerInformationComponent implements OnInit {
   ngOnInit() {
     this.store.select(selectLayerInformationByLayerId(this.layerId)).subscribe((layerInformation) => {
       this.layerInformation = layerInformation;
-    })
+    });
   }
 
 }

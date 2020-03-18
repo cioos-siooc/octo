@@ -43,7 +43,7 @@ export class OLLayerFactory {
   private setOLLayerProperties(olLayer: OLLayer, layer: Layer) {
     olLayer.set('id', layer.id);
     olLayer.set('code', layer.code);
-    olLayer.set('uniqueId', layer.uniqueId);
+    olLayer.set('layerType', layer.type);
     olLayer.set('opacity', layer.opacity);
     olLayer.set('visible', layer.isVisible);
   }

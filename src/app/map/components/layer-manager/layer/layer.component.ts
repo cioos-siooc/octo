@@ -38,7 +38,7 @@ export class LayerComponent implements OnInit {
   }
 
   removeLayer(layerId: number) {
-      this.store.dispatch(new DeleteLayer(layerId.toString()));
+      this.store.dispatch(new DeleteLayer(layerId));
   }
 
   collapseInfo() {

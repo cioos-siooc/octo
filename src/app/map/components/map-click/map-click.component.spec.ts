@@ -24,7 +24,6 @@ describe('MapClickComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        // { provide: TranslateService, useClass: TranslateServiceStub }
       ],
       declarations: [
         MapClickComponent,

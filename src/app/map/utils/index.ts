@@ -7,5 +7,4 @@
 export * from './behavior-handler';
 export * from './click-formatter';
 export * from './open-layers';
-export * from './activate-layer.util';
 export * from './styles-from-literals.util';

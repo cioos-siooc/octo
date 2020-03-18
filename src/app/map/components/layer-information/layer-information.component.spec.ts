@@ -9,6 +9,9 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {LayerInformationComponent} from './layer-information.component';
 import {StoreModule} from '@ngrx/store';
 import {mapReducers} from '@app/map/store';
+import { HttpClient } from '@angular/common/http';
+import { HttpLoaderFactory } from '@app/shared/shared.module';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 describe('LayerInformationComponent', () => {
   let component: LayerInformationComponent;
@@ -20,6 +23,13 @@ describe('LayerInformationComponent', () => {
       imports: [
         StoreModule.forRoot({}),
         StoreModule.forFeature('map', mapReducers),
+        TranslateModule.forRoot({
+          loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+          }
+        }),
       ]
     })
       .compileComponents();
@@ -28,6 +38,18 @@ describe('LayerInformationComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LayerInformationComponent);
     component = fixture.componentInstance;
+
+    const layerInformation = {
+      layerId: 0,
+      urls: [{
+        id: 0,
+        label: '',
+        value: '',
+        url: ''
+      }]
+    };
+
+    component.layerInformation = layerInformation;
     fixture.detectChanges();
   });
 

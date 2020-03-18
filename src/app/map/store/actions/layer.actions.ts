@@ -41,18 +41,19 @@ export class FetchLayer implements Action {
 /**
  *Creates an instance of FetchLayer.
 * @param {{
+    layerCode: string,
     layerId: number,
-    uniqueId: string,
     priority: number,
     layerGroupId: number}}
     payload - The id and uniqueId of the layer to be fetched. currently uniqueId is the string version of layerId
 * @memberof FetchLayer
 */
   constructor(public payload: {
-    layerId: number,
-    uniqueId: string,
+    layerCode?: string,
+    layerId?: number,
     priority?: number,
     layerGroupId?: number,
+    isUnremovable?: boolean;
   }) { }
 }
 
@@ -133,10 +134,10 @@ export class DeleteLayer implements Action {
 
   /**
    *Creates an instance of DeleteLayer.
-   * @param {string} payload - The ID of the layer to be removed, represented as a string
+   * @param {number} payload - The ID of the layer to be removed, represented as a string
    * @memberof DeleteLayer
    */
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 
@@ -200,19 +201,19 @@ export class SetClientPresentation implements Action {
   /**
    *Creates an instance of SetClientPresentation.
    * @param {{
-   *  uniqueId: string, - The id of the layer whose currentClientPresentation will be updated
+   *  layerId: number, - The id of the layer whose currentClientPresentation will be updated
    *  clientPresentation: ClientPresentation - The new currentClientPresentation for the layer
    * }} payload
    * @memberof SetClientPresentation
    */
-  constructor(public payload: { uniqueId: string, clientPresentation: ClientPresentation }) {
+  constructor(public payload: {layerId: number, clientPresentation: ClientPresentation }) {
   }
 }
 
 export class InitLayerPosition implements Action {
   readonly type = LayerActionTypes.INIT_LAYER_POSITION;
 
-  constructor (public payload: {layerId: string}) {}
+  constructor (public payload: {layerId: number, alwaysOnTop: boolean}) {}
 }
 
 /**
@@ -229,12 +230,12 @@ export class SetLayerPosition implements Action {
   /**
    *Creates an instance of SetLayerPosition.
    * @param {{
-   *  layerId: string, - The id of the layer to be moved represented as a string
+   *  layerId: number, - The id of the layer to be moved represented as a string
    *  newLayerPosition: number - The index of the new position the layer will be moved to
    * }} payload
    * @memberof SetLayerPosition
    */
-  constructor (public payload: {layerId: string, newLayerPosition?: number}) {}
+  constructor (public payload: {layerId: number, newLayerPosition?: number}) {}
 }
 
 /**
@@ -271,10 +272,10 @@ export class MoveUpLayer implements Action {
 
   /**
    *Creates an instance of MoveUpLayer.
-   * @param {string} payload - The id of the layer to be moved represented as a string
+   * @param {number} payload - The id of the layer to be moved represented as a string
    * @memberof MoveUpLayer
    */
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 /**
@@ -290,10 +291,10 @@ export class MoveDownLayer implements Action {
 
   /**
    *Creates an instance of MoveDownLayer.
-   * @param {string} payload - The id of the layer to be moved represented as a string
+   * @param {number} payload - The id of the layer to be moved represented as a string
    * @memberof MoveDownLayer
    */
-  constructor(public payload: string) {
+  constructor(public payload: number) {
   }
 }
 /**

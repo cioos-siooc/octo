@@ -25,7 +25,7 @@ export class LayerConfigurationComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(selectBehaviorState).pipe(take(1)).subscribe((behaviorState) => {
-      this.behaviors = behaviorState.behaviors.filter(b => b.layerUniqueId === this.layer.uniqueId);
+      this.behaviors = behaviorState.behaviors.filter(b => b.layerId === this.layer.id);
     });
   }
 
@@ -36,5 +36,17 @@ export class LayerConfigurationComponent implements OnInit {
       opacity: sliderValue
       };
     this.store.dispatch(new fromLayerActions.UpdateLayer(newLayer));
+  }
+
+  putLayerOnTop(e: any) {
+    const value = e.target.checked;
+    const newLayer: Layer = {
+      ...this.layer,
+      alwaysOnTop: value
+      };
+    this.store.dispatch(new fromLayerActions.InitLayerPosition({
+      layerId: newLayer.id,
+      alwaysOnTop: newLayer.alwaysOnTop
+    }));
   }
 }

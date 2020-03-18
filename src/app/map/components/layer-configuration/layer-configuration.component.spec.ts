@@ -19,12 +19,17 @@ import { ClientPresentation, ClickStrategy, ClickFormatterInfo } from '@app/shar
 
 @Component({selector: 'app-time-behavior', template: ''})
 class TimeBehaviorComponent {
-  @Input() behaviorUniqueId: string;
+  @Input() behavior: any;
 }
 
 @Component({selector: 'app-enum-behavior', template: ''})
 class EnumBehaviorComponent {
-  @Input() behaviorUniqueId: string;
+  @Input() behavior: any;
+}
+
+@Component({selector: 'app-dynamic-enum-behavior', template: ''})
+class DynamicEnumBehaviorComponent {
+  @Input() behaviorUniqueId: any;
 }
 
 describe('LayerConfigurationComponent', () => {
@@ -37,6 +42,7 @@ describe('LayerConfigurationComponent', () => {
         LayerConfigurationComponent,
         TimeBehaviorComponent,
         EnumBehaviorComponent,
+        DynamicEnumBehaviorComponent
       ],
       imports: [
         StoreModule.forRoot({}),
@@ -103,13 +109,16 @@ describe('LayerConfigurationComponent', () => {
       urlParameters: '',
       code: 'testLayer',
       languageCode: 'en',
-      uniqueId: '0',
       clientPresentations: [ clientPresentation ],
       currentClientPresentation: clientPresentation,
       clickStrategy: clickStrategy,
       clickFormatterInfo: clickFormatterInfo,
       urlBehaviors: '',
-      isCollapsed: false
+      isCollapsed: false,
+      priority: 1,
+      defaulPriority: 0,
+      isUnremovable: false,
+      alwaysOnTop: false
     };
     component.layer = layer;
     fixture.detectChanges();

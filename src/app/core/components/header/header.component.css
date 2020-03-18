@@ -14,5 +14,13 @@
 }
 
 .space-between-buttons {
-	margin-right: 1em;
+	margin-right: 0.5em;
+}
+
+.size {
+	width: 12.8em;
+}
+
+.no-padding {
+	padding-right: 0;
 }

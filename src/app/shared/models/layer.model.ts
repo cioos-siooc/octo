@@ -22,7 +22,6 @@ export abstract class Layer {
   public urlParameters: any;
   public code: string;
   public languageCode: string;
-  public uniqueId: string;
   public clientPresentations: ClientPresentation[];
   public currentClientPresentation: ClientPresentation;
   public clickStrategy: ClickStrategy;
@@ -32,4 +31,6 @@ export abstract class Layer {
   public priority: number;
   public defaultPriority?: number;
   public layerGroupId?: number;
+  public isUnremovable: boolean;
+  public alwaysOnTop: boolean;
 }

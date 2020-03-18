@@ -1,3 +1,4 @@
+import { Input } from '@angular/core';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -13,7 +14,7 @@ import { TextFieldComponent } from '@app/map/components/map-click/click-formatte
 import { UrlFieldComponent } from '@app/map/components/map-click/click-formatter/field/url-field/url-field.component';
 import { MapClickComponent } from '@app/map/components/map-click/map-click.component';
 import { mapReducers } from '@app/map/store';
-import { ClickFormatterInfo, ClickStrategy, ClientPresentation } from '@app/shared/models';
+import { ClickFormatterInfo, ClickStrategy, ClientPresentation, LayerInformation } from '@app/shared/models';
 import { Layer } from '@app/shared/models/layer.model';
 import { KeepHtmlPipe } from '@app/shared/pipes';
 import { HttpLoaderFactory } from '@app/shared/shared.module';
@@ -22,6 +23,13 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { LayerComponent } from './layer.component';
 import { FormsModule } from '@angular/forms';
 
+@Component({
+  selector: 'app-layer-information',
+  template: ''
+})
+class LayerInformationStubComponent {
+  @Input() layerId: number;
+}
 
 describe('LayerComponent', () => {
   let component: TestHostComponent;
@@ -37,7 +45,8 @@ describe('LayerComponent', () => {
         TextFieldComponent,
         UrlFieldComponent,
         ImageFieldComponent,
-        DateFieldComponent
+        DateFieldComponent,
+        LayerInformationStubComponent
       ],
       imports: [
         StoreModule.forRoot({}),
@@ -114,14 +123,16 @@ describe('LayerComponent', () => {
         urlParameters: '',
         code: 'testLayer',
         languageCode: 'en',
-        uniqueId: '0',
         clientPresentations: [ clientPresentation ],
         currentClientPresentation: clientPresentation,
         clickStrategy: clickStrategy,
         clickFormatterInfo: clickFormatterInfo,
         urlBehaviors: '',
         isCollapsed: false,
-        priority: 1
+        priority: 1,
+        defaultPriority: 0,
+        isUnremovable: false,
+        alwaysOnTop: false
       };
     }
   }

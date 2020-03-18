@@ -51,7 +51,7 @@
             </div>
         </div>
     </div>
-    <div class="remove background-lighter-gray foreground-red"
+    <div *ngIf="!layer.isUnremovable" class="remove background-lighter-gray foreground-red"
          (click)="removeLayer(layer.id)">
         {{'Remove-layer-label' | translate}}
     </div>

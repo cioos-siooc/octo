@@ -13,6 +13,9 @@ import {mapReducers} from '@app/map/store';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpLoaderFactory} from '@app/shared/shared.module';
+import { BehaviorHandlerFactory } from '@app/map/utils';
+
+class BehaviorHandlerFactoryMock {}
 
 describe('EnumBehaviorComponent', () => {
   let component: EnumBehaviorComponent;
@@ -21,6 +24,12 @@ describe('EnumBehaviorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ EnumBehaviorComponent ],
+      providers: [
+        {
+          provide: BehaviorHandlerFactory,
+          useClass: BehaviorHandlerFactoryMock
+        }
+      ],
       imports: [
         FormsModule,
         StoreModule.forRoot({}),
@@ -41,6 +50,25 @@ describe('EnumBehaviorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(EnumBehaviorComponent);
     component = fixture.componentInstance;
+
+    const currentPossibility = {
+      label: '',
+      value: '',
+      isDefault: true
+    };
+
+    const behavior = {
+      handler: 'enum',
+      parameterName: '',
+      label: '',
+      possibilities: [],
+      uniqueId: '1',
+      layerId: '1',
+      currentValue: currentPossibility,
+    };
+
+    component.behavior = behavior;
+    component.currentPossibility = currentPossibility;
     fixture.detectChanges();
   });
 

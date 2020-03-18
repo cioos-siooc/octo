@@ -31,7 +31,7 @@ export class EnumHandler implements BehaviorHandler {
   updateParameter(behavior) {
     this.store.select(selectLayerState).pipe(take(1)).subscribe((layerState) => {
       const layerStateCopy = {...layerState};
-      const layer = layerStateCopy.layers.find(l => l.uniqueId === behavior.layerUniqueId);
+      const layer = layerStateCopy.layers.find(l => l.id === behavior.layerId);
 
       const parameterName = this._getParameterName(behavior);
 

@@ -1,3 +1,4 @@
+import { Component, Input } from '@angular/core';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -27,6 +28,15 @@ import { SidebarComponent } from './sidebar.component';
 import { NgDragDropModule } from 'ng-drag-drop';
 import { FormsModule } from '@angular/forms';
 
+@Component({
+  selector: 'app-layer-information',
+  template: ''
+})
+class LayerInformationStubComponent {
+  @Input() layerId: number;
+}
+
+
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
@@ -46,7 +56,8 @@ describe('SidebarComponent', () => {
         UrlFieldComponent,
         DateFieldComponent,
         ImageFieldComponent,
-        KeepHtmlPipe
+        KeepHtmlPipe,
+        LayerInformationStubComponent
       ],
       imports: [
         StoreModule.forRoot({}),

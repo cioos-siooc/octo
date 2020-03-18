@@ -1,3 +1,4 @@
+import { BehaviorHandlerFactory, MapService } from '@app/map/utils';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -22,6 +23,7 @@ describe('TimeBehaviorComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TimeBehaviorComponent],
+      providers: [BehaviorHandlerFactory, MapService],
       imports: [
         FormsModule,
         StoreModule.forRoot({}),
@@ -44,6 +46,21 @@ describe('TimeBehaviorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TimeBehaviorComponent);
     component = fixture.componentInstance;
+
+    const behavior = {
+      handler: 'time',
+      parameterName: 'TIME',
+      options: {},
+      calendarShowTime: true,
+      calendarHourFormat: '24',
+      calendarDateFormat: 'yy-mm-dd',
+      uniqueId: '1',
+      layerId: '1',
+      mode: '',
+      interval: 0
+    };
+
+    component.behavior = behavior;
     fixture.detectChanges();
   });
 

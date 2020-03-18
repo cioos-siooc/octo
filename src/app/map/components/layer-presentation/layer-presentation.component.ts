@@ -38,7 +38,7 @@ export class LayerPresentationComponent implements OnInit {
 
   onSelectClientPresentation() {
     this.store.dispatch(new layerActions.SetClientPresentation({
-      uniqueId: this.layerId.toString(),
+      layerId: this.layerId,
       clientPresentation: this.currentClientPresentation
     }));
   }

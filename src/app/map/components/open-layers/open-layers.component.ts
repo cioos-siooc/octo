@@ -95,6 +95,10 @@ export class OpenLayersComponent implements AfterViewInit {
     });
   }
 
+  mapResized() {
+    this.map.updateSize();
+  }
+
   private initBaseLayerSubscription() {
     this.store.select(selectBaseLayerState)
       .pipe(filter(baseLayerState => baseLayerState.currentBaseLayer != null)
@@ -125,17 +129,17 @@ export class OpenLayersComponent implements AfterViewInit {
         // Remove and then recreate existing layers(to handle updates)
         currentOLLayers.forEach((layer: OLLayer) => {
           const updatedOgslLayer = layerList.find((l) => {
-            return l.uniqueId === layer.get('uniqueId');
+            return l.id === layer.get('id');
           });
           if (updatedOgslLayer != null) {
             const oldOgslLayer = this.layers.find((l) => {
-              return l.uniqueId === layer.get('uniqueId');
+              return l.id === layer.get('id');
             });
             if (!isEqual(updatedOgslLayer, oldOgslLayer)) {
               // Only update the old layer if the new one is different
               const newOlLayer = this.olLayerFactory.generateLayer(updatedOgslLayer);
               const index = this.map.getLayers().getArray().findIndex((l) => {
-                return l.get('uniqueId') === layer.get('uniqueId');
+                return l.get('id') === layer.get('id');
               });
               this.map.getLayers().removeAt(index);
               this.map.getLayers().insertAt(index, newOlLayer);
@@ -147,7 +151,7 @@ export class OpenLayersComponent implements AfterViewInit {
         });
         // Add remaining layers(these ones should be new layers)
         layerList.forEach((newLayer: Layer) => {
-          if (!currentOLLayers.some((cL) => (cL.get('uniqueId') === newLayer.uniqueId))) {
+          if (!currentOLLayers.some((cL) => (cL.get('id') === newLayer.id))) {
             this.map.addLayer(this.olLayerFactory.generateLayer(newLayer));
           }
         });
@@ -163,10 +167,10 @@ export class OpenLayersComponent implements AfterViewInit {
         return 0;
       }
       const aLayerIndex = this.layers.findIndex((l) => {
-        return l.uniqueId === a.get('uniqueId');
+        return l.id === a.get('id');
       });
       const bLayerIndex = this.layers.findIndex((l) => {
-        return l.uniqueId === b.get('uniqueId');
+        return l.id === b.get('id');
       });
       // return aLayerIndex - bLayerIndex;
       return bLayerIndex - aLayerIndex;
@@ -175,8 +179,8 @@ export class OpenLayersComponent implements AfterViewInit {
   }
 
   private isBackgroundLayer(layer) {
-    // Background layers do not have a uniqueId, since they cannot be duplicated
-    return layer.get('uniqueId') == null;
+    // Currently default background layers are of type bing. This may need to change
+    return layer.get('layerType') === 'bing';
   }
 
 // TODO: To refactor into proper setup with appropriate classes and not hardcoded
@@ -197,7 +201,7 @@ export class OpenLayersComponent implements AfterViewInit {
       if (l.clickStrategy != null) {
         if (l.clickStrategy.type === 'wms') {
           const olLayer: OLLayer = <OLLayer> this.map.getLayers().getArray().find((olL) => {
-            return olL.get('uniqueId') === l.uniqueId;
+            return olL.get('id') === l.id;
           });
           const source: TileWMS = <TileWMS> olLayer.getSource();
           const getFeatureUrl = source.getGetFeatureInfoUrl(evt.coordinate, view.getResolution(), view.getProjection(), <any>{
@@ -212,7 +216,7 @@ export class OpenLayersComponent implements AfterViewInit {
             length = resultObservables.push(this.httpClient.get(getFeatureUrl,
               {responseType: 'text'}));
           }
-          layerUniqueIdToObsIndex.set(l.uniqueId, length - 1);
+          layerUniqueIdToObsIndex.set(l.id.toString(), length - 1);
         }
       }
     });
@@ -221,13 +225,13 @@ export class OpenLayersComponent implements AfterViewInit {
   private retrieveFeatureInfos(evt: ol.MapBrowserEvent, resultObservables: any[], layerUniqueIdToObsIndex: Map<string, number>) {
     this.map.forEachFeatureAtPixel(evt.pixel,
       (feature: Feature, olLayer) => {
-        const layer = this.layers.filter((l: Layer) => l.uniqueId === olLayer.get('uniqueId'))[0];
+        const layer = this.layers.filter((l: Layer) => l.id === olLayer.get('id'))[0];
         if (layer.clickStrategy != null && layer.clickStrategy.type === 'json-included') {
           const length = resultObservables.push(of({
             ...feature.getProperties(),
             featureId: feature.getId()
           }));
-          layerUniqueIdToObsIndex.set(layer.uniqueId, length - 1);
+          layerUniqueIdToObsIndex.set(layer.id.toString(), length - 1);
           return feature;
         }
       });
@@ -242,7 +246,7 @@ export class OpenLayersComponent implements AfterViewInit {
         const currentLayer = this.layers[i];
         if (currentLayer.clickStrategy != null) {
           let mapClickInfo;
-          const currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.uniqueId)];
+          const currentResult = result[layerUniqueIdToObsIndex.get(currentLayer.id.toString())];
           const emptyValidator = EmptyValidatorFactory.getEmptyValidator((currentLayer.clickStrategy.emptyValidatorCode));
           if ((emptyValidator == null || !emptyValidator.isPayloadEmpty(currentResult)) && currentResult != null) {
             if (currentLayer.clickFormatterInfo != null) {

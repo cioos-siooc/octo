@@ -7,11 +7,9 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {TranslateService} from '@ngx-translate/core';
-import {BehaviorHandlerFactory} from '@app/map/utils';
+import {BehaviorHandlerFactory, Mode} from '@app/map/utils';
 import {TimeHandler} from '@app/map/utils';
 import {MapState} from '@app/map/store';
-import {selectBehaviorState} from '@app/map/store/selectors/behavior.selectors';
-import { MapService } from '@app/map/utils/open-layers';
 
 @Component({
   selector: 'app-time-behavior',
@@ -19,27 +17,13 @@ import { MapService } from '@app/map/utils/open-layers';
   styleUrls: ['./time-behavior.component.css']
 })
 export class TimeBehaviorComponent implements OnInit, OnDestroy {
-  behavior: any;
+  @Input() behavior: any;
+  sync: boolean;
   currentDate: Date;
+  Mode: any;
 
-  constructor(private store: Store<MapState>, private translateService: TranslateService, private behaviorHandlerFactory: BehaviorHandlerFactory) {
-  }
-
-  private _behaviorUniqueId: string;
-
-  get behaviorUniqueId(): string {
-    return this._behaviorUniqueId;
-  }
-
-  @Input()
-  set behaviorUniqueId(id: string) {
-    this._behaviorUniqueId = id;
-    this.store.select(selectBehaviorState).subscribe((behaviorState) => {
-      this.behavior = behaviorState.behaviors.find(b => b.uniqueId === id);
-      if (this.behavior != null) {
-        this.currentDate = this.behavior.currentDate;
-      }
-    });
+  constructor(private translateService: TranslateService,
+              private behaviorHandlerFactory: BehaviorHandlerFactory) {
   }
 
   onNowClick() {
@@ -51,13 +35,22 @@ export class TimeBehaviorComponent implements OnInit, OnDestroy {
     const bH = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
     const updatedBehavior = {
       ...this.behavior,
-      currentDate: this.currentDate
+      currentDate: this.currentDate,
+      mode: Mode.custom
     };
     bH.setNowOff(updatedBehavior);
     bH.updateBehaviorDateTime(updatedBehavior);
   }
 
+  onSyncClick(e: any) {
+    this.sync = e.target.checked;
+    // const bh = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler, this.store);
+    const bh = <TimeHandler>this.behaviorHandlerFactory.getBehaviorHandler(this.behavior.handler);
+    bh.toggleSync(this.behavior, this.sync);
+  }
+
   ngOnInit() {
+    this.Mode = Mode;
   }
 
   ngOnDestroy() {

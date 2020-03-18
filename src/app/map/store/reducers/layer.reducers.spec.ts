@@ -40,11 +40,10 @@ describe('LayerReducer', () => {
   it('should delete layer from state.layers', () => {
     const layer = new WmsLayer();
     layer.id = 1;
-    layer.uniqueId = '1';
     const initialState = {
       layers: [layer]
     };
-    const action = new DeleteLayer('1');
+    const action = new DeleteLayer(1);
     const finalState = layerReducer(initialState, action);
     const expectedState = {
       layers: []
@@ -55,14 +54,12 @@ describe('LayerReducer', () => {
   it('should update layer to given layer', () => {
     const layer = new WmsLayer();
     layer.id = 1;
-    layer.uniqueId = '1';
     layer.code = 'initial-code';
     const initialState = {
       layers: [layer]
     };
     const updatedLayer = new WmsLayer();
     updatedLayer.id = 1;
-    updatedLayer.uniqueId = '1';
     updatedLayer.code = 'final-code';
     const action = new UpdateLayer(updatedLayer);
     const finalState = layerReducer(initialState, action);
@@ -71,33 +68,33 @@ describe('LayerReducer', () => {
 
   it('should move layer up', () => {
     const firstLayer = new WmsLayer();
-    firstLayer.uniqueId = '1';
+    firstLayer.id = 1;
     const secondLayer = new WmsLayer();
-    secondLayer.uniqueId = '2';
+    secondLayer.id = 2;
     const initialState = {
       layers: [firstLayer, secondLayer]
     };
-    const action = new MoveUpLayer('1');
+    const action = new MoveUpLayer(1);
     const finalState = layerReducer(initialState, action);
-    expect(finalState.layers[0].uniqueId).toEqual('2');
+    expect(finalState.layers[0].id).toEqual(2);
   });
 
   it('should move layer down', () => {
     const firstLayer = new WmsLayer();
-    firstLayer.uniqueId = '1';
+    firstLayer.id = 1;
     const secondLayer = new WmsLayer();
-    secondLayer.uniqueId = '2';
+    secondLayer.id = 2;
     const initialState = {
       layers: [firstLayer, secondLayer]
     };
-    const action = new MoveDownLayer('2');
+    const action = new MoveDownLayer(2);
     const finalState = layerReducer(initialState, action);
-    expect(finalState.layers[0].uniqueId).toEqual('2');
+    expect(finalState.layers[0].id).toEqual(2);
   });
 
   it('should set current client presentation for specified layer', () => {
     const layer = new WmsLayer();
-    layer.uniqueId = '1';
+    layer.id = 1;
     const clientPresentation = new ClientPresentation();
     clientPresentation.id = 1;
     clientPresentation.isDefault = true;
@@ -105,7 +102,7 @@ describe('LayerReducer', () => {
       layers: [layer]
     };
     const action = new SetClientPresentation({
-      uniqueId: layer.uniqueId,
+      layerId: layer.id,
       clientPresentation: clientPresentation
     });
     const finalState = layerReducer(initialState, action);

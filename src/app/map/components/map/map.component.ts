@@ -1,4 +1,3 @@
-
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -12,29 +11,24 @@ import {Layer} from '@app/shared/models';
 import {cloneDeep} from 'lodash';
 import {Location} from '@angular/common';
 
-
+import { selectBehaviorMode } from './../../store/selectors/behavior.selectors';
+import { BehaviorState } from './../../store/reducers/behavior.reducers';
+import { UpdateMode } from './../../store/actions/behavior.actions';
 import * as fromBaseLayer from '@app/map/store/reducers/base-layer.reducers';
 import * as fromMapClick from '@app/map/store/reducers/map-click.reducers';
 import * as fromLayer from '@app/map/store/reducers/layer.reducers';
 import * as layerActions from '@app/map/store/actions/layer.actions';
 import * as baseLayerActions from '@app/map/store/actions/base-layer.actions';
-import * as popupActions from '@app/map/store/actions/popup.actions';
 import {environment} from '@env/environment';
 import {TranslateService} from '@ngx-translate/core';
 import {UrlBehaviorService} from '@app/map/services';
 import {first, take} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import { sortlayerPriorityDescending } from '@app/shared/utils';
-import {MapState, selectLayerState, selectMapClickState} from '@app/map/store';
+import {MapState, selectLayerState, selectMapClickState, selectBehaviorState} from '@app/map/store';
 import {selectAllBaseLayers, selectBaseLayerState} from '@app/map/store/selectors/base-layer.selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-
-export const CATALOG_POPUP_ID = 'CATALOG';
-export const LAYER_MANAGER_POPUP_ID = 'LAYER_MANAGER';
-export const LAYER_INFORMATION_POPUP_ID = 'LAYER_INFORMATION';
-export const TOPIC_PICKER_POPUP_ID = 'TOPIC_PICKER';
-export const LAYER_PRESENTATION_POPUP_ID = 'LEGEND';
-export const MAP_CLICK_POPUP_ID = 'MAP_CLICK';
+import { displayMode } from './map.types';
 
 @Component({
   selector: 'app-map',
@@ -45,14 +39,9 @@ export class MapComponent implements OnInit {
   @HostBinding('class') class = 'full-sized';
   baseLayers: Observable<Layer[]>;
   currentBaseLayer: Layer;
-  CATALOG_POPUP_ID = CATALOG_POPUP_ID;
-  LAYER_MANAGER_POPUP_ID = LAYER_MANAGER_POPUP_ID;
-  LAYER_INFORMATION_POPUP_ID = LAYER_INFORMATION_POPUP_ID;
-  TOPIC_PICKER_POPUP_ID = TOPIC_PICKER_POPUP_ID;
-  LAYER_PRESENTATION_POPUP_ID = LAYER_PRESENTATION_POPUP_ID;
-  MAP_CLICK_POPUP_ID = MAP_CLICK_POPUP_ID;
   environment = environment;
   mapClickTitle: string;
+  displayMode: displayMode;
 
   constructor(private httpClient: HttpClient, private translateService: TranslateService,
               private store: Store<MapState>, private urlBehaviorService: UrlBehaviorService,
@@ -61,8 +50,12 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.displayMode = displayMode.full;
     this.initBaseLayers();
     this.baseLayers = this.store.pipe(select(selectAllBaseLayers));
+    if (environment.unremovableLayerCode !== '') {
+      this.initUnremovableLayer();
+    }
     if (this.applicationUsesDefaultTopic()) {
       // this.initializeTopic();
     }
@@ -74,7 +67,6 @@ export class MapComponent implements OnInit {
           const layer = layers[i];
           this.store.dispatch(new layerActions.FetchLayer({
             layerId: layer,
-            uniqueId: layer.toString(),
             priority: layers.length - i
           }));
         }
@@ -85,7 +77,7 @@ export class MapComponent implements OnInit {
       const layers = state.layers.slice();
       const layerIds = layers.sort(sortlayerPriorityDescending).filter(
         // Filter layer list to make sure layerGroup members aren't added to the URL
-        layer => typeof(layer.layerGroupId) === 'undefined'
+        layer => typeof(layer.layerGroupId) === 'undefined' && !(layer.isUnremovable)
       ).map(
         // Extract a list of layerIds to add to URL
         // Makes shareable links
@@ -104,6 +96,13 @@ export class MapComponent implements OnInit {
         });
       }
     });
+    this.store.select(selectBehaviorMode).subscribe((isSync: boolean) => {
+      if (isSync) {
+        this.displayMode = displayMode.timeslider;
+      } else {
+        this.displayMode = displayMode.full;
+      }
+    });
   }
 
   compareBaseLayers(baseLayer1: Layer, baseLayer2: Layer) {
@@ -112,18 +111,6 @@ export class MapComponent implements OnInit {
 
   onSelectBaseLayer() {
     this.store.dispatch(new baseLayerActions.SetCurrentBaseLayer(this.currentBaseLayer));
-  }
-
-  toggleCatalog() {
-    this.store.dispatch(new popupActions.TogglePopup(this.CATALOG_POPUP_ID));
-  }
-
-  toggleTopicPicker() {
-    this.store.dispatch(new popupActions.TogglePopup(this.TOPIC_PICKER_POPUP_ID));
-  }
-
-  toggleLayerManager() {
-    this.store.dispatch(new popupActions.TogglePopup(this.LAYER_MANAGER_POPUP_ID));
   }
 
   private initBaseLayers() {
@@ -149,6 +136,14 @@ export class MapComponent implements OnInit {
           });
       });
     }
+  }
+
+  private initUnremovableLayer() {
+    // if there's an unremovable layer defined in environment.ts, we add it to the map
+    this.store.dispatch(new layerActions.FetchLayer({
+      layerCode: environment.unremovableLayerCode,
+      isUnremovable: true,
+    }));
   }
 
   private applicationUsesDefaultTopic() {

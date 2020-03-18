@@ -50,7 +50,8 @@ export class LayerManagerComponent implements OnInit {
         }
         this.isBeingDragged = false;
         this.store.dispatch(new SetLayerPosition({
-            layerId: JSON.stringify(e.dragData['id']),
-            newLayerPosition: newPriority}));
+            layerId: e.dragData['id'],
+            newLayerPosition: newPriority
+        }));
     }
 }

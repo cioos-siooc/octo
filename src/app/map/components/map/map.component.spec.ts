@@ -1,3 +1,6 @@
+import { OLLayerFactory } from './../../utils/open-layers/ol-layer-factory.util';
+import { MapService } from '@app/map/utils/open-layers/map.service';
+import { BehaviorHandlerFactory } from './../../utils/behavior-handler/behavior-handler-factory.service';
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -33,10 +36,10 @@ import { TextFieldComponent } from '../map-click/click-formatter/field/text-fiel
 import { UrlFieldComponent } from '../map-click/click-formatter/field/url-field/url-field.component';
 import { MapClickComponent } from '../map-click/map-click.component';
 import { OpenLayersComponent } from '../open-layers/open-layers.component';
-import { PopupComponent } from '../popup/popup.component';
 import { TopicPickerComponent } from '../topic-picker/topic-picker.component';
 import { MapComponent } from './map.component';
 import { NgDragDropModule } from 'ng-drag-drop';
+import { StylerService } from '@app/map/utils/open-layers/styler.service';
 
 
 describe('MapComponent', () => {
@@ -46,11 +49,10 @@ describe('MapComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       providers: [
-        // { provide: TranslateService, useClass: TranslateServiceStub },
-        UrlBehaviorService
+        UrlBehaviorService, BehaviorHandlerFactory, MapService, OLLayerFactory, StylerService
       ],
       declarations: [
-        MapComponent, OpenLayersComponent, PopupComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
+        MapComponent, OpenLayersComponent, CatalogComponent, TopicPickerComponent, LayerManagerComponent,
         CategoryComponent, LayerInformationComponent, LayerPresentationComponent, MapClickComponent, KeepHtmlPipe,
         TextFieldComponent, UrlFieldComponent, DateFieldComponent, ImageFieldComponent, TimeBehaviorComponent,
         EnumBehaviorComponent, SidebarComponent, LayerComponent, LayerPickerComponent

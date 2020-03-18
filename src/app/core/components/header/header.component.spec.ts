@@ -10,6 +10,7 @@ import {HeaderComponent} from './header.component';
 import {HttpLoaderFactory} from '@app/shared/shared.module';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { MapService } from '@app/map/utils/open-layers/map.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -18,6 +19,9 @@ describe('HeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
+      providers: [
+        MapService
+      ],
       imports: [
         HttpClientModule,
         TranslateModule.forRoot({

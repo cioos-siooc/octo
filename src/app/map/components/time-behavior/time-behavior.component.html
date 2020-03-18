@@ -10,14 +10,23 @@
     <div class="input-group-append" (onClose)="onCloseDatetimePicker()">
       <button class="btn btn-outline-secondary border-dark-blue" (click)="d.toggle()" type="button"><i class="far fa-calendar-alt"></i></button>
     </div>
-    <span class="btn input-group-text background-gray smaller-font font-weight-bold btn-margin-left"
-        *ngIf="behavior.options.isNowSupported"
-        [ngClass]="{
-        'foreground-yellow': behavior.isNowEnabled,
-        'foreground-white': !behavior.isNowEnabled
-        }"
-        (click)="onNowClick()">
-          {{'now' | translate }}
-    </span>
+    <div>
+      <span class="btn input-group-text background-gray smaller-font font-weight-bold btn-margin-left"
+          *ngIf="behavior.options.isNowSupported"
+          [ngClass]="{
+          'foreground-yellow': behavior.isNowEnabled,
+          'foreground-white': !behavior.isNowEnabled
+          }"
+          (click)="onNowClick()">
+            {{'now' | translate }}
+      </span>
+    </div>
   </div>
+  <!-- <div>
+    <input class="btn background-gray smaller-font font-weight-bold"
+    type="checkbox"
+    [checked]="behavior.mode === Mode.sync"
+    (click)="onSyncClick($event)">
+    {{ 'sync-button-label' | translate}}
+  </div> -->
 </div>
