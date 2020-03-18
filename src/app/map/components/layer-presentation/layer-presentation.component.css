@@ -9,6 +9,8 @@
 } */
 #current-legend {
   padding-top: 5px;
+  max-width: 100%;
+  overflow-x: scroll;
 }
 
 .form-group {
