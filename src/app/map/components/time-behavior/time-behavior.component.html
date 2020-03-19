@@ -5,13 +5,13 @@
   -->
 <div *ngIf="behavior">
   <h5 for="date">{{ 'date-label' | translate }}</h5>
-  <div class="input-group">
-    <input class="border-dark-blue" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="currentDate" (dateSelect)='onCloseDatetimePicker()'>
-    <div class="input-group-append" (onClose)="onCloseDatetimePicker()">
+  <div id="date-picker-input-group" class="input-group">
+    <input id="date-picker" class="border-dark-blue" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" [(ngModel)]="currentDate" (dateSelect)='onCloseDatetimePicker()'>
+    <div class="input-group-append flex-noshrink" (onClose)="onCloseDatetimePicker()">
       <button class="btn btn-outline-secondary border-dark-blue" (click)="d.toggle()" type="button"><i class="far fa-calendar-alt"></i></button>
     </div>
     <div>
-      <span class="btn input-group-text background-gray smaller-font font-weight-bold btn-margin-left"
+      <span id="now-button" class="btn input-group-text background-gray smaller-font font-weight-bold btn-margin-left flex-noshrink"
           *ngIf="behavior.options.isNowSupported"
           [ngClass]="{
           'foreground-yellow': behavior.isNowEnabled,
@@ -22,11 +22,4 @@
       </span>
     </div>
   </div>
-  <!-- <div>
-    <input class="btn background-gray smaller-font font-weight-bold"
-    type="checkbox"
-    [checked]="behavior.mode === Mode.sync"
-    (click)="onSyncClick($event)">
-    {{ 'sync-button-label' | translate}}
-  </div> -->
 </div>

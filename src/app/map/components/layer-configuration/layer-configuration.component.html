@@ -26,7 +26,7 @@
   </div>
   <div class="modal-content">
     <h5>{{'others-label' | translate}}</h5>
-    <label class="b-contain"> {{'always-on-top-label' | translate}}
+    <label id="always-on-top-control" class="b-contain"> {{'always-on-top-label' | translate}}
       <input type="checkbox" (input)="putLayerOnTop($event)" [(ngModel)]="layer.alwaysOnTop">
       <div class="b-input"></div>
     </label>

@@ -3,6 +3,18 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-.btn-margin-left {
-     margin-left: 1em;
- }
+#date-picker-input-group {
+    padding: 0 0.5em;
+}
+
+#now-button {
+    height: 100%;
+}
+
+#date-picker {
+    flex: 1 1 auto;
+}
+
+.flex-noshrink {
+    flex: 0 0 auto;
+}

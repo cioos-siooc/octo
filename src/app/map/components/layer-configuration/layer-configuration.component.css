@@ -231,3 +231,7 @@
 .b-contain:first-child .b-input::before {
 	visibility: hidden;
 }
+
+#always-on-top-control {
+    margin: 0 0.5em;
+}
