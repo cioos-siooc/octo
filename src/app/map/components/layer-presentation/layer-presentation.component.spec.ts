@@ -47,6 +47,10 @@ describe('LayerPresentationComponent', () => {
     fixture.detectChanges();
   });
 
+  afterAll(() => {
+    fixture.destroy();
+  });
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

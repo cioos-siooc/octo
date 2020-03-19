@@ -4,19 +4,21 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {ClientPresentation} from '@app/shared/models';
+import { ClientPresentation, Layer } from '@app/shared/models';
 import * as layerActions from '@app/map/store/actions/layer.actions';
 import {MapState, selectLayerById} from '@app/map/store';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-layer-presentation',
   templateUrl: './layer-presentation.component.html',
   styleUrls: ['./layer-presentation.component.css']
 })
-export class LayerPresentationComponent implements OnInit {
+export class LayerPresentationComponent implements OnInit, OnDestroy {
   @Input() layerId: number;
+  layerSubscription: Subscription;
 
   clientPresentations: ClientPresentation[];
   currentClientPresentation: ClientPresentation;
@@ -25,10 +27,14 @@ export class LayerPresentationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select(selectLayerById(this.layerId)).subscribe(layer => {
+    this.layerSubscription = this.store.select(selectLayerById(this.layerId)).subscribe(layer => {
       this.currentClientPresentation = layer.currentClientPresentation;
       this.clientPresentations = layer.clientPresentations;
     });
+  }
+
+  ngOnDestroy() {
+    this.layerSubscription.unsubscribe();
   }
 
   onSelectClientPresentation() {
