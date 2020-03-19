@@ -31,6 +31,10 @@ class EnumBehaviorComponent {
 class DynamicEnumBehaviorComponent {
   @Input() behaviorUniqueId: any;
 }
+@Component({selector: 'app-layer-presentation', template: ''})
+class LayerPresentationStubComponent {
+  @Input() layerId: number;
+}
 
 describe('LayerConfigurationComponent', () => {
   let component: LayerConfigurationComponent;
@@ -42,7 +46,8 @@ describe('LayerConfigurationComponent', () => {
         LayerConfigurationComponent,
         TimeBehaviorComponent,
         EnumBehaviorComponent,
-        DynamicEnumBehaviorComponent
+        DynamicEnumBehaviorComponent,
+        LayerPresentationStubComponent
       ],
       imports: [
         StoreModule.forRoot({}),
